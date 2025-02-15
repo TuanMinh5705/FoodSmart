@@ -6,38 +6,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quên mật khẩu</title>
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 </head>
 <body>
 <div class="container my-5">
     <div class="row justify-content-center">
         <div class="col-md-8 col-lg-5">
-            <!-- Card chứa form Quên mật khẩu -->
+
             <div class="card shadow">
                 <div class="card-header bg-danger text-white">
                     <h3 class="mb-0 text-center">Quên mật khẩu</h3>
                 </div>
                 <div class="card-body">
                     <form action="/authenticate?action=resetPassword" method="post">
+
                         <div class="form-group">
                             <label for="username">Tên đăng nhập</label>
-                            <input type="text" class="form-control" id="username" name="username"
-                                   pattern="[A-Za-z0-9]{3,}"
-                                   placeholder="Nhập tên đăng nhập..."
-                                   title="Tên đăng nhập phải có ít nhất 3 ký tự, chỉ chứa chữ cái và số"
-                                   autofocus required>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="fas fa-user"></i>
+                  </span>
+                                </div>
+                                <input type="text" class="form-control" id="username" name="username"
+                                       pattern="[A-Za-z0-9]{3,}"
+                                       placeholder="Nhập tên đăng nhập..."
+                                       title="Tên đăng nhập phải có ít nhất 3 ký tự, chỉ chứa chữ cái và số"
+                                       autofocus required>
+                            </div>
                         </div>
+
                         <div class="form-group">
                             <label for="newPassword">Mật khẩu mới</label>
-                            <input type="password" class="form-control" id="newPassword" name="newPassword"
-                                   placeholder="Nhập mật khẩu mới" required>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="fas fa-lock"></i>
+                  </span>
+                                </div>
+                                <input type="password" class="form-control" id="newPassword" name="newPassword"
+                                       placeholder="Nhập mật khẩu mới" required>
+                            </div>
                         </div>
+
                         <div class="form-group">
                             <label for="captchaInput">Nhập mã xác minh</label>
-                            <input type="text" class="form-control" id="captchaInput" name="captchaInput"
-                                   placeholder="Nhập mã xác minh" required>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="fas fa-shield-alt"></i>
+                  </span>
+                                </div>
+                                <input type="text" class="form-control" id="captchaInput" name="captchaInput"
+                                       placeholder="Nhập mã xác minh" required>
+                            </div>
                         </div>
+
                         <div class="form-group">
                             <p class="mb-0">Mã xác minh: <strong>${captchaText}</strong></p>
                         </div>
@@ -54,6 +79,7 @@
         </div>
     </div>
 </div>
+
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>

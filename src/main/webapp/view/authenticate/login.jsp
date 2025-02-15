@@ -6,42 +6,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng nhập</title>
-
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Font Awesome cho icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <style>
+        .input-group-text {
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-<div class="container login-container">
+<div class="container login-container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6 col-lg-5">
-            <c:if test="${not empty success}">
-                <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="successModalLabel">Thông báo</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Đóng">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                    ${success}
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <script type="text/javascript">
-                    $(document).ready(function () {
-                        $("#successModal").modal('show');
-                    });
-                </script>
-            </c:if>
-
-
             <div class="card shadow">
                 <div class="card-body">
                     <h3 class="card-title text-center mb-4">Đăng nhập</h3>
@@ -49,17 +27,36 @@
                         <input type="hidden" name="action" value="login">
                         <div class="form-group">
                             <label for="username">Tên đăng nhập</label>
-                            <input id="username" name="username" type="text" class="form-control"
-                                   pattern="[A-Za-z0-9]{3,}" placeholder="Nhập tên đăng nhập..."
-                                   title="Tên đăng nhập phải có ít nhất 3 ký tự, chỉ chứa chữ cái và số"
-                                   required autofocus>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-user"></i>
+                                    </span>
+                                </div>
+                                <input id="username" name="username" type="text" class="form-control"
+                                       pattern="[A-Za-z0-9]{3,}" placeholder="Nhập tên đăng nhập..."
+                                       title="Tên đăng nhập phải có ít nhất 3 ký tự, chỉ chứa chữ cái và số"
+                                       required autofocus>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="password">Mật khẩu</label>
-                            <input id="password" type="password" name="password" class="form-control"
-                                   pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$" placeholder="Nhập mật khẩu..."
-                                   title="Mật khẩu phải có 6-12 ký tự, chứa ít nhất một chữ cái và một số"
-                                   required>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-lock"></i>
+                                    </span>
+                                </div>
+                                <input id="password" type="password" name="password" class="form-control"
+                                       pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$" placeholder="Nhập mật khẩu..."
+                                       title="Mật khẩu phải có 6-12 ký tự, chứa ít nhất một chữ cái và một số"
+                                       required>
+                                <div class="input-group-append">
+                                    <span class="input-group-text toggle-password">
+                                        <i class="fas fa-eye"></i>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <a href="/authenticate?action=forgetPasswordForm">Quên mật khẩu?</a>
@@ -79,5 +76,20 @@
         </div>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    $(document).on('click', '.toggle-password', function() {
+        var input = $('#password');
+        if (input.attr('type') === 'password') {
+            input.attr('type', 'text');
+            $(this).find('i').removeClass('fa-eye').addClass('fa-eye-slash');
+        } else {
+            input.attr('type', 'password');
+            $(this).find('i').removeClass('fa-eye-slash').addClass('fa-eye');
+        }
+    });
+</script>
 </body>
 </html>
