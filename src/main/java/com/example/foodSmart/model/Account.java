@@ -1,5 +1,7 @@
 package com.example.foodSmart.model;
 
+import java.util.List;
+
 public class Account {
     private int accountID;
     private String username;
@@ -7,17 +9,33 @@ public class Account {
     private String avtPath;
     private String role;
     private boolean active;
+    private List<AccountDetails> accountDetails;
 
     public Account() {
     }
 
-    public Account(int accountID, String username, String password, String avtPath, String role, boolean active) {
+    public Account(int accountID, String username, String password, String avtPath, String role, boolean active, List<AccountDetails> accountDetails) {
         this.accountID = accountID;
         this.username = username;
         this.password = password;
         this.avtPath = avtPath;
         this.role = role;
         this.active = active;
+        this.accountDetails = accountDetails;
+    }
+
+    public Account(String username, String password, String avtPath) {
+        this.username = username;
+        this.password = password;
+        this.avtPath = avtPath;
+    }
+
+    public List<AccountDetails> getAccountDetails() {
+        return accountDetails;
+    }
+
+    public void setAccountDetails(List<AccountDetails> accountDetails) {
+        this.accountDetails = accountDetails;
     }
 
     public int getAccountID() {
@@ -70,8 +88,9 @@ public class Account {
 
     @Override
     public String toString() {
-        return "IAccountService{" +
-                "accountID=" + accountID +
+        return "Account{" +
+                "accountDetails=" + accountDetails +
+                ", accountID=" + accountID +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", avtPath='" + avtPath + '\'' +
