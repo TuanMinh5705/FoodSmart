@@ -12,7 +12,7 @@ create table `Account`
     account_id  int primary key auto_increment,
     username    varchar(255) unique not null,
     `password`  varchar(255)        not null,
-    `status`    boolean default true,
+    `active`    boolean default true,
     phonenumber varchar(255),
     avt_path    text    default ('https://drive.google.com/drive/folders/17CK_H9K-S16UIc3EbkjNHCcurMEDI2fO'),
     role_id     int,
@@ -239,25 +239,5 @@ create table Invoices
     foreign key (order_id) references Orders (order_id)
 );
 
--- Trigger khi cập nhật trạng thái cửa hàng
-DELIMITER
-//
 
-CREATE TRIGGER trg_after_update_store
-    AFTER UPDATE
-    ON Stores
-    FOR EACH ROW
-BEGIN
-    -- Nếu chuyển từ đối tác sang không đối tác
-    IF OLD.store_type = TRUE AND NEW.store_type = FALSE THEN
-    DELETE FROM Vouchers_Stores WHERE store_id = NEW.store_id;
-    -- Nếu chuyển từ không đối tác sang đối tác
-    ELSEIF OLD.store_type = FALSE AND NEW.store_type = TRUE THEN
-        INSERT INTO Vouchers_Stores (voucher_id, store_id)
-    SELECT voucher_id, NEW.store_id FROM Vouchers;
-END IF;
-END;
-//
-
-DELIMITER ;
 
