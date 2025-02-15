@@ -12,16 +12,15 @@ create table `Account`
     account_id  int primary key auto_increment,
     username    varchar(255) unique not null,
     `password`  varchar(255)        not null,
-    `status`    boolean default true,
-    phonenumber varchar(255),
+    `active`    boolean default true,
     avt_path    text    default ('https://drive.google.com/drive/folders/17CK_H9K-S16UIc3EbkjNHCcurMEDI2fO'),
     role_id     int,
     foreign key (role_id) references Roles (role_id)
 );
--- Bảng địa chỉ người dùng
-create table User_Address
+-- Bảng địa chỉ, số điện thoại người dùng
+create table Account_Details
 (
-    address_id  int primary key auto_increment,
+    account_details_id  int primary key auto_increment,
     user_id     int,
     address     text,
     phonenumber varchar(255),
@@ -238,26 +237,49 @@ create table Invoices
     total_amount bigint,
     foreign key (order_id) references Orders (order_id)
 );
+use foodsmart;
+DELIMITER //
 
--- Trigger khi cập nhật trạng thái cửa hàng
-DELIMITER
-//
-
-CREATE TRIGGER trg_after_update_store
-    AFTER UPDATE
-    ON Stores
-    FOR EACH ROW
+CREATE PROCEDURE register_account(
+    IN p_username    VARCHAR(255),
+    IN p_password    VARCHAR(255),
+    IN p_address     TEXT,
+    IN p_phonenumber VARCHAR(255),
+    IN p_avtPath TEXT
+)
 BEGIN
-    -- Nếu chuyển từ đối tác sang không đối tác
-    IF OLD.store_type = TRUE AND NEW.store_type = FALSE THEN
-    DELETE FROM Vouchers_Stores WHERE store_id = NEW.store_id;
-    -- Nếu chuyển từ không đối tác sang đối tác
-    ELSEIF OLD.store_type = FALSE AND NEW.store_type = TRUE THEN
-        INSERT INTO Vouchers_Stores (voucher_id, store_id)
-    SELECT voucher_id, NEW.store_id FROM Vouchers;
-END IF;
-END;
-//
+    DECLARE v_role_id    INT;
+    DECLARE v_account_id INT;
+
+    -- Bắt đầu transaction để đảm bảo tính toàn vẹn dữ liệu
+    START TRANSACTION;
+
+    -- Lấy role_id của role 'user'
+    SELECT role_id 
+      INTO v_role_id
+      FROM Roles 
+     WHERE role_name = 'User'
+     LIMIT 1;
+
+    IF v_role_id IS NULL THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Role "user" không tồn tại!';
+    END IF;
+
+    -- Chèn thông tin tài khoản vào bảng Account
+    INSERT INTO Account (username, `password`,avt_path, role_id)
+    VALUES (p_username, p_password,p_avtPath, v_role_id);
+
+    -- Lấy account_id vừa được tạo
+    SET v_account_id = LAST_INSERT_ID();
+
+    -- Chèn thông tin chi tiết tài khoản vào bảng Account_Details
+    INSERT INTO Account_Details (user_id, address, phonenumber, is_deafault)
+    VALUES (v_account_id, p_address, p_phonenumber, true);
+
+    COMMIT;
+END //
 
 DELIMITER ;
+
 

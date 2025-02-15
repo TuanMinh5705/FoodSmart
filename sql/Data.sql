@@ -2,13 +2,13 @@ insert into Roles(role_name) values
 ('Admin'),
 ('User'),
 ('Merchant');
-insert into `Account`(username, `password`, phonenumber, role_id)
-values ('NgocThom', 'Vy12092001', '0123456789', 1),
-       ('TuanMinh', 'Minh123', '0123456789', 1),
-       ('DucKhanh', 'Khanh123', '0123456789', 1),
-       ('VanDam', 'Dam123', '0123456789', 1),
-       ('a', 'a', '0123456789', 2),
-       ('b', 'b', '0123456789', 3);
+insert into `Account`(username, `password`, role_id)
+values ('NgocThom', 'Vy12092001', 1),
+       ('TuanMinh', 'Minh123', 1),
+       ('DucKhanh', 'Khanh123', 1),
+       ('VanDam', 'Dam123', 1),
+       ('abc', 'abc123', 2),
+       ('bac', 'abc123', 3);
 insert into Stores(merchant_id, store_name, store_address, contact_number)
 values (5, 'Cơm rang và phở bò Minh Khánh', '102 Tu Hoàng , Minh Khai , Bắc Từ Liêm , Hà Nội', '0123456789');
 insert into Categorys(category_name,description_path) values

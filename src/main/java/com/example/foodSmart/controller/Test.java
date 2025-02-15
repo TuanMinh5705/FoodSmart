@@ -1,6 +1,6 @@
 package com.example.foodSmart.controller;
 
-import com.example.foodSmart.dao.ConnectDB;
+import com.example.foodSmart.util.ConnectDB;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
