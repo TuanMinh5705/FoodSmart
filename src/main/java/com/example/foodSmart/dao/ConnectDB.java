@@ -5,11 +5,23 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectDB {
-    private static final String url = "jdbc:oracle:thin:@localhost:1521:orcl";
-    private static final String user = "root";
-    private static final String pass = "1209";
+    private static final String URL = "jdbc:mysql://localhost:3306/foodsmart";
+    private static final String USER = System.getenv("DB_USERNAME") ;
+    private static final String PASSWORD = System.getenv("DB_PASSWORD");
 
-    public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(url,user,pass);
+    // Debug
+//    private static final String USER = "root";
+//    private static final String PASSWORD = "1209";
+
+    public static Connection getConnection() {
+        try {
+            Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+            System.out.println("Kết nối thành công!");
+            return conn;
+        } catch (SQLException e) {
+            System.err.println("Lỗi kết nối database: " + e.getMessage());
+            return null;
+        }
     }
 }
+
