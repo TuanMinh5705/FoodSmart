@@ -59,7 +59,7 @@ public class Authenticate extends HttpServlet {
             case "loginForm":
                 resp.sendRedirect("view/authenticate/login.jsp");
                 break;
-            case "loggout" :
+            case "logout" :
                 HttpSession session = req.getSession(false);
                 if (session != null) {
                     session.removeAttribute("loggedInAccount");
