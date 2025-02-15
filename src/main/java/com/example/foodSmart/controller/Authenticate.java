@@ -47,7 +47,7 @@ public class Authenticate extends HttpServlet {
             action = "";
         }
         switch (action) {
-            case "forgetPassword":
+            case "forgetPasswordForm":
                 String captcha = generateCaptcha();
                 req.getSession().setAttribute("captcha", captcha);
                 req.setAttribute("captchaText", captcha);
@@ -57,6 +57,13 @@ public class Authenticate extends HttpServlet {
                     resp.sendRedirect("view/authenticate/register.jsp");
                     break;
             case "loginForm":
+                resp.sendRedirect("view/authenticate/login.jsp");
+                break;
+            case "loggout" :
+                HttpSession session = req.getSession(false);
+                if (session != null) {
+                    session.removeAttribute("loggedInAccount");
+                }
                 resp.sendRedirect("view/authenticate/login.jsp");
                 break;
         }
