@@ -26,8 +26,8 @@
     </style>
 </head>
 <body>
-<jsp:include page="menubar.jsp" />
-<jsp:include page="sidebar.jsp" />
+<jsp:include page="system/menubar.jsp" />
+<jsp:include page="system/sidebar.jsp" />
 
 
 <div class="content">
@@ -41,16 +41,16 @@
 
         <%--        quản lý người dùng--%>
         <c:when test="${param.page == 'manageUsers'}">
-            <jsp:include page="manageUsers.jsp"/>
+            <jsp:include page="manageUsers/manageUsers.jsp"/>
         </c:when>
         <c:when test="${param.page == 'manageUsers_updateInfo'}">
-            <jsp:include page="editUsers.jsp"/>
+            <jsp:include page="manageUsers/editAccount.jsp"/>
         </c:when>
         <c:when test="${param.page == 'manageUsers_showInfo'}">
-            <jsp:include page="infoAccount.jsp"/>
+            <jsp:include page="manageUsers/infoAccount.jsp"/>
         </c:when>
         <c:when test="${param.page == 'manageUsers_addAccount'}">
-            <jsp:include page="addAccount.jsp"/>
+            <jsp:include page="manageUsers/addAccount.jsp"/>
         </c:when>
 
 
@@ -60,9 +60,32 @@
         <c:when test="${param.page == 'manageOrders'}">
             <jsp:include page="manageOrders.jsp"/>
         </c:when>
+
+        <%--        quản lý người dùng--%>
         <c:when test="${param.page == 'manageCarriers'}">
-            <jsp:include page="manageCarriers.jsp"/>
+            <jsp:include page="manageCarriers/manageCarriers.jsp"/>
         </c:when>
+        <c:when test="${param.page == 'editCarriers'}">
+            <jsp:include page="manageCarriers/editCarrier.jsp"/>
+        </c:when>
+        <c:when test="${param.page == 'infoCarriers'}">
+            <jsp:include page="manageCarriers/infoCarrier.jsp"/>
+        </c:when>
+        <c:when test="${param.page == 'addCarriers'}">
+            <jsp:include page="manageCarriers/addCarrier.jsp"/>
+        </c:when>
+
+        <c:when test="${param.page == 'editShippers'}">
+            <jsp:include page="manageCarriers/editShipper.jsp"/>
+        </c:when>
+        <c:when test="${param.page == 'infoShippers'}">
+            <jsp:include page="manageCarriers/infoShipper.jsp"/>
+        </c:when>
+        <c:when test="${param.page == 'addShippers'}">
+            <jsp:include page="manageCarriers/addShipper.jsp"/>
+        </c:when>
+
+
         <c:when test="${param.page == 'revenueStatistics'}">
             <jsp:include page="revenueStatistics.jsp"/>
         </c:when>
