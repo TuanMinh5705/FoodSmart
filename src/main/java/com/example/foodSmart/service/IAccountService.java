@@ -39,6 +39,6 @@ public interface IAccountService {
     // Xóa thông tin chi tiết của tài khoản
     boolean deleteAccountDetails(int accountDetailID);
 
-    // Lọc bởi vai trò
-    List<Account> getListAccountByRole(int roleID);
+    // Tìm kiếm theo tên đăng nhập
+    List<Account> getListAccountByUsername(String keyword);
 }

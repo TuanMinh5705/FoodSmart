@@ -56,12 +56,14 @@
 
         <div class="col-md-6">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Nhập từ khóa tìm kiếm">
-                <div class="input-group-append">
-                    <button class="btn btn-primary" type="submit">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
+                <form action="/manageUsers?action=searchWithName" id="searchForm" method="post">
+                    <input type="text" class="form-control" placeholder="Nhập từ khóa tìm kiếm" id="searchInput" name="keyword" oninput="startTimer()">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit" id="searchBtn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
 
@@ -147,19 +149,28 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 <script>
     document.getElementById("roleFilter").addEventListener("change", function () {
-        let selectedRole = this.value; // Lấy vai trò đã chọn
-        let rows = document.querySelectorAll("tbody tr"); // Lấy tất cả hàng trong bảng
+        let selectedRole = this.value;
+        let rows = document.querySelectorAll("tbody tr");
 
         rows.forEach(row => {
-            let role = row.getAttribute("data-role"); // Lấy role của từng dòng
+            let role = row.getAttribute("data-role");
             if (selectedRole === "all" || role === selectedRole) {
-                row.style.display = ""; // Hiện dòng nếu khớp
+                row.style.display = "";
             } else {
-                row.style.display = "none"; // Ẩn dòng nếu không khớp
+                row.style.display = "none";
             }
         });
     });
 
+    let timer;
+
+    function startTimer() {
+        clearTimeout(timer);
+
+        timer = setTimeout(function() {
+            document.getElementById("searchForm").submit();
+        }, 4500);
+    }
 </script>
 </body>
 </html>

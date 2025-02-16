@@ -21,7 +21,7 @@ public class AccountService implements IAccountService {
     private static final String UPDATE_ACCOUNT_DETAILS_QUERY = "UPDATE Account_Details SET address = ?, phonenumber = ?, is_default = ? WHERE account_details_id = ?";
     private static final String ADD_ACCOUNT_DETAILS_QUERY = "INSERT INTO Account_Details(user_id,address,phonenumber,is_default) VALUES(?, ?, ?, ?)";
     private static final String DELETE_ACCOUNT_DETAILS_QUERY = "DELETE FROM Account_Details WHERE account_details_id = ?";
-    private static final String LIST_ACCOUNT_BY_ROLE_QUERY = "SELECT a.*, r.role_name FROM Account a JOIN Roles r ON a.role_id = r.role_id WHERE r.role_id = ?";
+    private static final String LIST_ACCOUNT_BY_USERNAME_QUERY = "SELECT a.*, r.role_name FROM Account a JOIN Roles r ON a.role_id = r.role_id WHERE a.username LIKE ?";
 
     @Override
     public List<AccountDetails> getAccountDetails(int accountID) {
@@ -218,11 +218,11 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    public List<Account> getListAccountByRole(int roleID) {
+    public List<Account> getListAccountByUsername(String keyword) {
         List<Account> accounts = new ArrayList<>();
         try (Connection conn = ConnectDB.getConnection();
-             PreparedStatement prep = conn.prepareStatement(LIST_ACCOUNT_BY_ROLE_QUERY)) {
-            prep.setInt(1, roleID);
+             PreparedStatement prep = conn.prepareStatement(LIST_ACCOUNT_BY_USERNAME_QUERY)) {
+            prep.setString(1, "%"+keyword+"%");
             ResultSet rs = prep.executeQuery();
             while (rs.next()) {
                 int accountID = rs.getInt("account_id");

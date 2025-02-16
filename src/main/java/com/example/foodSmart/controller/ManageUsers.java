@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.List;
 
 @WebServlet("/manageUsers")
@@ -49,6 +48,13 @@ public class ManageUsers extends HttpServlet {
 
     }
 
+    private void getAccountWithName(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String keyword = req.getParameter("keyword");
+        List<Account> accountList = accountService.getListAccountByUsername(keyword);
+        req.setAttribute("accountList", accountList);
+        req.getRequestDispatcher("view/admin/homeAdmin.jsp?page=manageUsers").forward(req, resp);
+    }
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
@@ -67,6 +73,9 @@ public class ManageUsers extends HttpServlet {
                 break;
             case "addUser" :
                 addUser(req,resp);
+                break;
+            case "searchWithName":
+                getAccountWithName(req, resp);
                 break;
         }
     }
