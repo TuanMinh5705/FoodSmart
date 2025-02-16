@@ -60,11 +60,13 @@
 <!-- Sidebar -->
 <div class="sidebar" id="sidebar">
     <div class="text-center mb-3">
-        <img src="../../../images/icon_default/system/tiktok.png" alt="Logo" style="height: 40px;">
+        <a href="/view/admin/homeAdmin.jsp">
+            <img src="../../../images/icon_default/system/tiktok.png" alt="Logo" style="height: 40px;">
+        </a>
     </div>
     <ul class="nav flex-column">
         <li class="nav-item">
-            <a class="nav-link text-white" href="/view/admin/homeAdmin.jsp?page=home"><i class="fas fa-home"></i> Trang chủ</a>
+            <a class="nav-link text-white" href="/view/admin/homeAdmin.jsp"><i class="fas fa-home"></i> Trang chủ</a>
         </li>
         <li class="nav-item">
             <a class="nav-link text-white" href="/view/admin/homeAdmin.jsp?page=manageMerchants"><i class="fas fa-store"></i> Quản lý cửa hàng</a>
