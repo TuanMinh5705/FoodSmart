@@ -60,7 +60,7 @@
 <!-- Sidebar -->
 <div class="sidebar" id="sidebar">
     <div class="text-center mb-3">
-        <img src="../../images/icon_default/system/tiktok.png" alt="Logo" style="height: 40px;">
+        <img src="../../../images/icon_default/system/tiktok.png" alt="Logo" style="height: 40px;">
     </div>
     <ul class="nav flex-column">
         <li class="nav-item">
@@ -79,7 +79,7 @@
             <a class="nav-link text-white" href="/view/admin/homeAdmin.jsp?page=manageOrders"><i class="fas fa-shopping-cart"></i> Quản lý đơn hàng</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-white" href="/view/admin/homeAdmin.jsp?page=manageCarriers"><i class="fas fa-shipping-fast"></i> Đối tác vận chuyển</a>
+            <a class="nav-link text-white" href="/manageCarriers"><i class="fas fa-shipping-fast"></i> Đối tác vận chuyển</a>
         </li>
         <li class="nav-item">
             <a class="nav-link text-white" href="/view/admin/homeAdmin.jsp?page=revenueStatistics"><i class="fas fa-chart-line"></i> Thống kê doanh thu</a>

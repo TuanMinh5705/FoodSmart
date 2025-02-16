@@ -149,7 +149,7 @@
     </form>
 </div>
 <!-- Modal xóa -->
-<jsp:include page="modalConfirmDelete.jsp" />
+<jsp:include page="../system/modalConfirmDelete.jsp" />
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
