@@ -20,4 +20,25 @@ public interface IAccountService {
 
     // Cập nhật mật khẩu
     void resetPassword(String newPassword, String username);
+
+    // Danh sách tài khoản
+    List<Account> getListOfAccounts();
+
+    // Lấy thông tin cơ bản của tài khoản
+    Account getAccount(int accountID);
+
+    // Cập nhật thông tin cơ bản
+    void editAccount(Account account);
+
+    // Cập nhật thông tin chi tiết
+    void editAccountDetails(AccountDetails accountDetails);
+
+    // Thêm thông tin chi tiết cho tài khoản
+    void addAccountDetails(AccountDetails accountDetails);
+
+    // Xóa thông tin chi tiết của tài khoản
+    boolean deleteAccountDetails(int accountDetailID);
+
+    // Lọc bởi vai trò
+    List<Account> getListAccountByRole(int roleID);
 }

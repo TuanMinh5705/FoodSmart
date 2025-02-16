@@ -6,16 +6,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sidebar</title>
-</head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        /* Sidebar mặc định */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100%;
+            background-color: #343a40;
+            color: white;
+            padding-top: 20px;
+            transition: transform 0.3s ease-in-out;
+            z-index: 1040;
+        }
 
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+        /* Khi màn hình >900px thì sidebar tự động ẩn */
+        @media (max-width: 901px) {
+            .sidebar {
+                transform: translateX(-250px);
+            }
+        }
+
+        /* Khi sidebar mở */
+        .sidebar.active {
+            transform: translateX(0);
+        }
+
+        /* Nút menu khi thu nhỏ */
+        .menu-btn {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            background-color: #343a40;
+            color: white;
+            border: none;
+            font-size: 24px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1050;
+        }
+    </style>
+</head>
 <body>
-<div class="bg-dark text-white"
-     style="position: fixed; top: 56px; left: 0; width: 250px; height: 100%; padding-top: 20px;">
+
+<!-- Nút mở sidebar -->
+<button class="menu-btn" onclick="toggleSidebar()">☰</button>
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
     <div class="text-center mb-3">
-        <!-- Logo (nếu có) -->
         <img src="../../images/icon_default/system/tiktok.png" alt="Logo" style="height: 40px;">
     </div>
     <ul class="nav flex-column">
@@ -26,7 +70,7 @@
             <a class="nav-link text-white" href="/view/admin/homeAdmin.jsp?page=manageMerchants"><i class="fas fa-store"></i> Quản lý cửa hàng</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-white" href="/view/admin/homeAdmin.jsp?page=manageUsers"><i class="fas fa-user-cog"></i> Quản lý người dùng</a>
+            <a class="nav-link text-white" href="/manageUsers"><i class="fas fa-user-cog"></i> Quản lý người dùng</a>
         </li>
         <li class="nav-item">
             <a class="nav-link text-white" href="/view/admin/homeAdmin.jsp?page=manageVouchers"><i class="fas fa-tags"></i> Mã giảm giá</a>
@@ -45,6 +89,12 @@
         </li>
     </ul>
 </div>
+
+<script>
+    function toggleSidebar() {
+        document.getElementById("sidebar").classList.toggle("active");
+    }
+</script>
 
 </body>
 </html>

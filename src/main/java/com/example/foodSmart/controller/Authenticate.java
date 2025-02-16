@@ -117,7 +117,7 @@ public class Authenticate extends HttpServlet {
         String address = req.getParameter("address");
         if (!accountService.checkUsername(username)) {
             AccountDetails accountDetails = new AccountDetails(address, phonenumber);
-            Account account = new Account(username, password, avatarPath);
+            Account account = new Account(username, password, avatarPath,"User");
             accountService.authenticateRegister(account, accountDetails);
             req.setAttribute("success", "Đăng kí thành công . Vui lòng đăng nhập lại");
             req.getRequestDispatcher("view/authenticate/login.jsp").forward(req, resp);

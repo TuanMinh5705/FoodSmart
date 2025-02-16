@@ -24,10 +24,20 @@ public class Account {
         this.accountDetails = accountDetails;
     }
 
-    public Account(String username, String password, String avtPath) {
+    public Account(String username, String password, String avtPath,String role) {
         this.username = username;
         this.password = password;
         this.avtPath = avtPath;
+        this.role = role;
+    }
+
+    public Account(int accountID, String username, String password, String avtPath, String role, boolean active) {
+        this.accountID = accountID;
+        this.username = username;
+        this.password = password;
+        this.avtPath = avtPath;
+        this.role = role;
+        this.active = active;
     }
 
     public List<AccountDetails> getAccountDetails() {

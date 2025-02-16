@@ -1,20 +1,20 @@
 package com.example.foodSmart.model;
 
 public class AccountDetails {
-    private int accountDetailsID;
+    private int accountDetailID;
     private String phonenumber;
     private String address;
-    private boolean deafault;
-    private int acccountID;
+    private boolean isDefault;
+    private int accountID;
 
     public AccountDetails() {}
 
-    public AccountDetails(int accountDetailsID, String phonenumber, String address, boolean deafault, int acccountID) {
-        this.accountDetailsID = accountDetailsID;
+    public AccountDetails(int accountDetailID, String phonenumber, String address, boolean isDefault, int accountID) {
+        this.accountDetailID = accountDetailID;
         this.phonenumber = phonenumber;
         this.address = address;
-        this.deafault = deafault;
-        this.acccountID = acccountID;
+        this.isDefault = isDefault;
+        this.accountID = accountID;
     }
 
     public AccountDetails(String address, String phonenumber) {
@@ -22,20 +22,28 @@ public class AccountDetails {
         this.phonenumber = phonenumber;
     }
 
-    public int getAcccountID() {
-        return acccountID;
+    public AccountDetails(int accountID, String address, String phonenumber, Boolean isDefault) {
+        this.phonenumber = phonenumber;
+        this.address = address;
+        this.isDefault = isDefault;
+        this.accountID = accountID;
     }
 
-    public void setAcccountID(int acccountID) {
-        this.acccountID = acccountID;
+
+    public int getAccountID() {
+        return accountID;
     }
 
-    public int getAccountDetailsID() {
-        return accountDetailsID;
+    public void setAccountID(int accountID) {
+        this.accountID = accountID;
     }
 
-    public void setAccountDetailsID(int accountDetailsID) {
-        this.accountDetailsID = accountDetailsID;
+    public int getAccountDetailID() {
+        return accountDetailID;
+    }
+
+    public void setAccountDetailID(int accountDetailsID) {
+        this.accountDetailID = accountDetailsID;
     }
 
     public String getAddress() {
@@ -46,12 +54,16 @@ public class AccountDetails {
         this.address = address;
     }
 
-    public boolean isDeafault() {
-        return deafault;
+    public boolean isDefault() {
+        return isDefault;
     }
 
-    public void setDeafault(boolean deafault) {
-        this.deafault = deafault;
+    public void setDefault(boolean aDefault) {
+        isDefault = aDefault;
+    }
+
+    public boolean getIsDefault() {
+        return isDefault;
     }
 
     public String getPhonenumber() {
@@ -65,11 +77,11 @@ public class AccountDetails {
     @Override
     public String toString() {
         return "AccountDetails{" +
-                "acccountID=" + acccountID +
-                ", accountDetailsID=" + accountDetailsID +
+                "accountID=" + accountID +
+                ", accountDetailsID=" + accountDetailID +
                 ", phonenumber='" + phonenumber + '\'' +
                 ", address='" + address + '\'' +
-                ", deafault=" + deafault +
+                ", isDeafault=" + isDefault +
                 '}';
     }
 }
