@@ -12,9 +12,9 @@
     <style>
         /* Định nghĩa style cho phần nội dung chính */
         .content {
-            margin-top: 56px;
+            margin-top: 10px;
             margin-left: 250px;
-            padding: 20px;
+            padding: 10px;
             transition: margin-left 0.3s ease;
         }
         /* Trên màn hình nhỏ (<902px) bỏ margin-left */
@@ -98,6 +98,10 @@
         <c:when test="${param.page == 'notification'}">
             <jsp:include page="notification.jsp"/>
         </c:when>
+
+        <c:otherwise>
+            <jsp:include page="content.jsp"/>
+        </c:otherwise>
     </c:choose>
 </div>
 
