@@ -9,22 +9,22 @@ create table Roles
 -- Bảng tài khoản 
 create table `Account`
 (
-    account_id  int primary key auto_increment,
-    username    varchar(255) unique not null,
-    `password`  varchar(255)        not null,
-    `active`    boolean default true,
-    avt_path    text    default ('https://drive.google.com/drive/folders/17CK_H9K-S16UIc3EbkjNHCcurMEDI2fO'),
-    role_id     int,
+    account_id int primary key auto_increment,
+    username   varchar(255) unique not null,
+    `password` varchar(255)        not null,
+    `active`   boolean default true,
+    avt_path   text    default ('https://drive.google.com/drive/folders/17CK_H9K-S16UIc3EbkjNHCcurMEDI2fO'),
+    role_id    int,
     foreign key (role_id) references Roles (role_id)
 );
 -- Bảng địa chỉ, số điện thoại người dùng
 create table Account_Details
 (
-    account_details_id  int primary key auto_increment,
-    user_id     int,
-    address     text,
-    phonenumber varchar(255),
-    is_deafault boolean default false,
+    account_details_id int primary key auto_increment,
+    user_id            int,
+    address            text,
+    phonenumber        varchar(255),
+    is_default         boolean default false,
     foreign key (user_id) references `Account` (account_id)
 );
 -- Bảng ví điện tử người dùng
@@ -237,49 +237,3 @@ create table Invoices
     total_amount bigint,
     foreign key (order_id) references Orders (order_id)
 );
-use foodsmart;
-DELIMITER //
-
-CREATE PROCEDURE register_account(
-    IN p_username    VARCHAR(255),
-    IN p_password    VARCHAR(255),
-    IN p_address     TEXT,
-    IN p_phonenumber VARCHAR(255),
-    IN p_avtPath TEXT
-)
-BEGIN
-    DECLARE v_role_id    INT;
-    DECLARE v_account_id INT;
-
-    -- Bắt đầu transaction để đảm bảo tính toàn vẹn dữ liệu
-    START TRANSACTION;
-
-    -- Lấy role_id của role 'user'
-    SELECT role_id 
-      INTO v_role_id
-      FROM Roles 
-     WHERE role_name = 'User'
-     LIMIT 1;
-
-    IF v_role_id IS NULL THEN
-        SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'Role "user" không tồn tại!';
-    END IF;
-
-    -- Chèn thông tin tài khoản vào bảng Account
-    INSERT INTO Account (username, `password`,avt_path, role_id)
-    VALUES (p_username, p_password,p_avtPath, v_role_id);
-
-    -- Lấy account_id vừa được tạo
-    SET v_account_id = LAST_INSERT_ID();
-
-    -- Chèn thông tin chi tiết tài khoản vào bảng Account_Details
-    INSERT INTO Account_Details (user_id, address, phonenumber, is_deafault)
-    VALUES (v_account_id, p_address, p_phonenumber, true);
-
-    COMMIT;
-END //
-
-DELIMITER ;
-
-

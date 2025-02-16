@@ -9,13 +9,28 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <style>
+        /* Định nghĩa style cho phần nội dung chính */
+        .content {
+            margin-top: 56px;
+            margin-left: 250px;
+            padding: 20px;
+            transition: margin-left 0.3s ease;
+        }
+        /* Trên màn hình nhỏ (<902px) bỏ margin-left */
+        @media (max-width: 901px) {
+            .content {
+                margin-left: 5px;
+            }
+        }
+    </style>
 </head>
 <body>
 <jsp:include page="menubar.jsp" />
 <jsp:include page="sidebar.jsp" />
 
 
-<div style="margin-top:56px; margin-left:250px; padding:20px;">
+<div class="content">
     <c:choose>
         <c:when test="${param.page == 'home'}">
             <jsp:include page="content.jsp"/>
@@ -23,9 +38,22 @@
         <c:when test="${param.page == 'manageMerchant'}">
             <jsp:include page="manageMerchants.jsp"/>
         </c:when>
+
+        <%--        quản lý người dùng--%>
         <c:when test="${param.page == 'manageUsers'}">
             <jsp:include page="manageUsers.jsp"/>
         </c:when>
+        <c:when test="${param.page == 'manageUsers_updateInfo'}">
+            <jsp:include page="editUsers.jsp"/>
+        </c:when>
+        <c:when test="${param.page == 'manageUsers_showInfo'}">
+            <jsp:include page="infoAccount.jsp"/>
+        </c:when>
+        <c:when test="${param.page == 'manageUsers_addAccount'}">
+            <jsp:include page="addAccount.jsp"/>
+        </c:when>
+
+
         <c:when test="${param.page == 'manageVouchers'}">
             <jsp:include page="manageVouchers.jsp"/>
         </c:when>
