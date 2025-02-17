@@ -9,12 +9,13 @@ create table Roles
 -- Bảng tài khoản 
 create table `Account`
 (
-    account_id  int primary key auto_increment,
-    username    varchar(255) unique not null,
-    `password`  varchar(255)        not null,
-    `active`    boolean default true,
-    avt_path    text    default ('https://drive.google.com/drive/folders/17CK_H9K-S16UIc3EbkjNHCcurMEDI2fO'),
-    role_id     int,
+
+    account_id int primary key auto_increment,
+    username   varchar(255) unique not null,
+    `password` varchar(255)        not null,
+    `active`   boolean default true,
+    avt_path   text    default ('images/avatars/avt_default.jpg'),
+    role_id    int,
     foreign key (role_id) references Roles (role_id)
 );
 -- Bảng địa chỉ, số điện thoại người dùng
@@ -103,49 +104,45 @@ create table Stores
     store_name     varchar(255),
     store_address  text,
     contact_number varchar(255),
-    banner_path    text    default ('https://drive.google.com/drive/folders/17CK_H9K-S16UIc3EbkjNHCcurMEDI2fO'),
-    avt_path       text    default ('https://drive.google.com/drive/folders/17CK_H9K-S16UIc3EbkjNHCcurMEDI2fO'),
-    store_type     boolean default false,
+    banner_path    text    default ('images/avatars/banner-default.jpg'),
+    avt_path       text    default ('images/avatars/avt_store_default.jpg'),
+    store_type     boolean default true,
     foreign key (merchant_id) references `Account` (account_id)
 );
 -- Bảng mã giảm giá của cửa hàng 
-create table Store_Coupons
-(
-    coupon_id      int primary key auto_increment,
-    store_id       int,
-    coupon_code    varchar(255) unique,
-    discount_value int,
-    expiry_date    timestamp,
-    quantity       int,
-    `description`  text,
-    foreign key (store_id) references Stores (store_id)
-);
--- Bảng mã giảm giá của sàn 
-create table Vouchers
-(
-    voucher_id     int primary key auto_increment,
-    voucher_code   varchar(255) unique,
-    discount_value int,
-    expiry_date    timestamp,
-    quantity       int,
-    `description`  text
-);
--- Bảng trung gian Mã giảm giá của sàn và cửa hàng đối tác
-create table Vouchers_Stores
-(
-    voucher_id int,
-    store_id   int,
-    foreign key (store_id) references Stores (store_id),
-    foreign key (voucher_id) references Vouchers (voucher_id)
+CREATE TABLE Store_Coupons (
+    coupon_id      INT PRIMARY KEY AUTO_INCREMENT,
+    store_id       INT,
+    coupon_code    VARCHAR(255) UNIQUE NOT NULL,
+    discount_value INT NOT NULL,
+    start_date     TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    end_date       TIMESTAMP NOT NULL,  
+    start_time     TIME DEFAULT NULL,   
+    end_time       TIME DEFAULT NULL,   
+    quantity       INT DEFAULT 0,
+    description    TEXT,
+    FOREIGN KEY (store_id) REFERENCES Stores (store_id) ON DELETE CASCADE
 );
 
+-- Bảng mã giảm giá của sàn 
+CREATE TABLE Vouchers (
+    voucher_id     INT PRIMARY KEY AUTO_INCREMENT,
+    voucher_code   VARCHAR(255) UNIQUE,
+    discount_value INT,
+    start_date     TIMESTAMP default CURRENT_TIMESTAMP,
+    end_date       TIMESTAMP NOT NULL,
+    start_time     TIME DEFAULT NULL,  
+    end_time       TIME DEFAULT NULL, 
+    quantity       INT,
+    `description`    TEXT
+);
 
 -- Bảng danh mục sản phẩm 
 create table Categorys
 (
     category_id      int primary key auto_increment,
     category_name    varchar(255),
-    description_path text default ('https://drive.google.com/drive/folders/11mfrLNCJ2rhFq6S6inqisIM9VBEVHNQV')
+    description_path text default ('images/product/product_default.png')
 );
 -- Bảng sản phẩm
 create table Products

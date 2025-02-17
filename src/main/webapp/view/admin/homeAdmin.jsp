@@ -28,17 +28,20 @@
 <body>
 <jsp:include page="system/menubar.jsp" />
 <jsp:include page="system/sidebar.jsp" />
-
+  
 
 <div class="content">
     <c:choose>
         <c:when test="${param.page == 'home'}">
             <jsp:include page="content.jsp"/>
         </c:when>
-
-
-        <c:when test="${param.page == 'manageMerchant'}">
-            <jsp:include page="manageMerchants.jsp"/>
+      
+        <%--        quản lý người dùng--%>
+        <c:when test="${param.page == 'manageMerchants'}">
+            <jsp:include page="manageMerchants/manageMerchants.jsp"/>
+        </c:when>
+        <c:when test="${param.page == 'addMerchants'}">
+            <jsp:include page="manageMerchants/addMerchants.jsp"/>
         </c:when>
 
         <%--        quản lý người dùng--%>
@@ -55,10 +58,21 @@
             <jsp:include page="manageUsers/addAccount.jsp"/>
         </c:when>
 
-
+        <%--        quản lý mã giảm giá của sàn --%>
         <c:when test="${param.page == 'manageVouchers'}">
-            <jsp:include page="manageVouchers.jsp"/>
+            <jsp:include page="manageVouchers/manageVouchers.jsp"/>
         </c:when>
+        <c:when test="${param.page == 'addVouchers'}">
+            <jsp:include page="manageVouchers/addVoucher.jsp"/>
+        </c:when>
+        <c:when test="${param.page == 'editVouchers'}">
+            <jsp:include page="manageVouchers/editVoucher.jsp"/>
+        </c:when>
+        <c:when test="${param.page == 'infoVouchers'}">
+            <jsp:include page="manageVouchers/infoVoucher.jsp"/>
+        </c:when>
+
+
         <c:when test="${param.page == 'manageOrders'}">
             <jsp:include page="manageOrders.jsp"/>
         </c:when>
