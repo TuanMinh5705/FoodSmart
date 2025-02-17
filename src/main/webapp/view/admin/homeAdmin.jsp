@@ -29,7 +29,6 @@
 <jsp:include page="system/menubar.jsp" />
 <jsp:include page="system/sidebar.jsp" />
 
-
 <div class="content">
     <c:choose>
         <c:when test="${param.page == 'home'}">

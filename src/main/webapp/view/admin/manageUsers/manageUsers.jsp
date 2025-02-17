@@ -55,16 +55,16 @@
         </div>
 
         <div class="col-md-6">
-            <div class="input-group">
-                <form action="/manageUsers?action=searchWithName" id="searchForm" method="post">
-                    <input type="text" class="form-control" placeholder="Nhập từ khóa tìm kiếm" id="searchInput" name="keyword" oninput="startTimer()">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="submit" id="searchBtn">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
-                </form>
-            </div>
+            <form action="/manageUsers?action=searchWithName" id="searchForm" method="post">
+                <div class="input-group" style="display: flex; align-items: center;">
+                    <input type="text" class="form-control" placeholder="Nhập từ khóa tìm kiếm" id="searchInput" name="keyword" oninput="startTimer()"
+                           style="height: 40px; border-top-right-radius: 0; border-bottom-right-radius: 0;">
+                    <button class="btn btn-primary" type="submit" id="searchBtn"
+                            style="height: 40px; border-top-left-radius: 0; border-bottom-left-radius: 0;">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </form>
         </div>
 
         <div class="col-md-3">
