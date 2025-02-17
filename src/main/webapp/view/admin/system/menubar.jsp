@@ -32,7 +32,6 @@
                     <i class="fas fa-comments"></i> Trò chuyện
                 </a>
             </li>
-
             <!-- Dropdown Admin -->
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="/view/admin/homeAdmin.jsp?page=account"
