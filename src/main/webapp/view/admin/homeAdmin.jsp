@@ -35,8 +35,14 @@
         <c:when test="${param.page == 'home'}">
             <jsp:include page="content.jsp"/>
         </c:when>
-        <c:when test="${param.page == 'manageMerchant'}">
-            <jsp:include page="manageMerchants.jsp"/>
+
+        <%--        quản lý người dùng--%>
+        <c:when test="${param.page == 'manageMerchants'}">
+            <jsp:include page="manageMerchants/manageMerchants.jsp"/>
+        </c:when>
+
+        <c:when test="${param.page == 'addMerchants'}">
+            <jsp:include page="manageMerchants/addMerchants.jsp"/>
         </c:when>
 
         <%--        quản lý người dùng--%>
