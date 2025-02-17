@@ -35,6 +35,8 @@
         <c:when test="${param.page == 'home'}">
             <jsp:include page="content.jsp"/>
         </c:when>
+
+
         <c:when test="${param.page == 'manageMerchant'}">
             <jsp:include page="manageMerchants.jsp"/>
         </c:when>

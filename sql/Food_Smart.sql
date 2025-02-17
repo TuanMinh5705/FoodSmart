@@ -9,22 +9,22 @@ create table Roles
 -- Bảng tài khoản 
 create table `Account`
 (
-    account_id int primary key auto_increment,
-    username   varchar(255) unique not null,
-    `password` varchar(255)        not null,
-    `active`   boolean default true,
-    avt_path   text    default ('https://drive.google.com/drive/folders/17CK_H9K-S16UIc3EbkjNHCcurMEDI2fO'),
-    role_id    int,
+    account_id  int primary key auto_increment,
+    username    varchar(255) unique not null,
+    `password`  varchar(255)        not null,
+    `active`    boolean default true,
+    avt_path    text    default ('https://drive.google.com/drive/folders/17CK_H9K-S16UIc3EbkjNHCcurMEDI2fO'),
+    role_id     int,
     foreign key (role_id) references Roles (role_id)
 );
 -- Bảng địa chỉ, số điện thoại người dùng
 create table Account_Details
 (
-    account_details_id int primary key auto_increment,
-    user_id            int,
-    address            text,
-    phonenumber        varchar(255),
-    is_default         boolean default false,
+    account_details_id  int primary key auto_increment,
+    user_id     int,
+    address     text,
+    phonenumber varchar(255),
+    is_default boolean default false,
     foreign key (user_id) references `Account` (account_id)
 );
 -- Bảng ví điện tử người dùng
