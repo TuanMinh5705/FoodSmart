@@ -9,6 +9,7 @@ create table Roles
 -- Bảng tài khoản 
 create table `Account`
 (
+
     account_id int primary key auto_increment,
     username   varchar(255) unique not null,
     `password` varchar(255)        not null,
@@ -20,11 +21,11 @@ create table `Account`
 -- Bảng địa chỉ, số điện thoại người dùng
 create table Account_Details
 (
-    account_details_id int primary key auto_increment,
-    user_id            int,
-    address            text,
-    phonenumber        varchar(255),
-    is_default         boolean default false,
+    account_details_id  int primary key auto_increment,
+    user_id     int,
+    address     text,
+    phonenumber varchar(255),
+    is_default boolean default false,
     foreign key (user_id) references `Account` (account_id)
 );
 -- Bảng ví điện tử người dùng

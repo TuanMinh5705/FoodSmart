@@ -28,14 +28,14 @@
 <body>
 <jsp:include page="system/menubar.jsp" />
 <jsp:include page="system/sidebar.jsp" />
-
+  
 
 <div class="content">
     <c:choose>
         <c:when test="${param.page == 'home'}">
             <jsp:include page="content.jsp"/>
         </c:when>
-
+      
         <%--        quản lý người dùng--%>
         <c:when test="${param.page == 'manageMerchants'}">
             <jsp:include page="manageMerchants/manageMerchants.jsp"/>
