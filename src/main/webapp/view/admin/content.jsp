@@ -61,7 +61,7 @@
                     <i class="bi bi-shop card-icon"></i>
                     <div class="card-title">Cửa hàng</div>
                 </div>
-                <a href="#" class="text-white detail-btn">Chi tiết</a>
+                <a href="/manageMerchants" class="text-white detail-btn">Chi tiết</a>
             </div>
         </div>
         <div class="col-md-4">
@@ -70,7 +70,7 @@
                     <i class="bi bi-tag card-icon"></i>
                     <div class="card-title"> Mã giảm giá</div>
                 </div>
-                <a href="#" class="text-white detail-btn">Chi tiết</a>
+                <a href="/manageVouchers" class="text-white detail-btn">Chi tiết</a>
             </div>
         </div>
         <div class="col-md-4">
