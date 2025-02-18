@@ -64,7 +64,7 @@
             <a class="nav-link text-white" href="/view/merchant/homeMerchant.jsp"><i class="fas fa-home"></i> Trang chủ</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-white" href="#"><i class="fas fa-utensils"></i> Quản lý món ăn</a>
+            <a class="nav-link text-white" href="/manageFoods"><i class="fas fa-utensils"></i> Quản lý món ăn</a>
         </li>
         <li class="nav-item">
             <a class="nav-link text-white" href="#"><i class="fas fa-shopping-cart"></i> Quản lý đơn hàng</a>
