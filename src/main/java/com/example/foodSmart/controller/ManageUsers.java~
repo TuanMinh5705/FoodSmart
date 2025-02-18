@@ -84,6 +84,7 @@ public class ManageUsers extends HttpServlet {
     private void addUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Part filePart = req.getPart("avatar");
         String avatarPath = filePart.getSubmittedFileName();
+
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         String address = req.getParameter("address");

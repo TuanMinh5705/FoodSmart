@@ -11,7 +11,7 @@ public class ConnectDB {
 
     // Debug
     private static final String USER = "root";
-    private static final String PASSWORD = "linhnhi234";
+    private static final String PASSWORD = "1209";
 
     public static Connection getConnection() {
         try {
