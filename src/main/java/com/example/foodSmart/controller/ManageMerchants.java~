@@ -91,7 +91,7 @@ public class ManageMerchants extends HttpServlet {
         String avt_path = (fileAvatarPart != null && fileAvatarPart.getSize() > 0) ? fileAvatarPart.getSubmittedFileName() : req.getParameter("current_avt_path");;
 
         String storeTypeParam = req.getParameter("store_type");
-        boolean store_type = Boolean.parseBoolean(storeTypeParam);
+        boolean storeType = Boolean.parseBoolean(storeTypeParam);
 
         Merchant merchant = new Merchant(store_id ,store_name, store_address, contact_number, banner_path, avt_path, store_type);
         merchantService.updateMerchant(merchant);

@@ -6,27 +6,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Quản lý cửa hàng</title>
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
-
 <div class="container mt-4">
     <h2 class="text-center mb-4">Quản lý cửa hàng</h2>
 
-    <!-- Các nút thao tác -->
     <div class="d-flex justify-content-between mb-3">
         <div>
             <button class="btn btn-primary">Danh sách đăng ký</button>
             <button class="btn btn-primary">Danh sách đăng ký</button>
             <button class="btn btn-primary">Danh sách đăng ký</button>
         </div>
-        <button class="btn btn-danger" onclick="window.location.href='/manageMerchants?action=addMerchantForm'">
-            Thêm cửa hàng
-        </button>
+        <a href="/manageMerchants?action=addMerchantForm" class="btn btn-danger">Thêm cửa hàng</a>
     </div>
 
-    <!-- Bảng danh sách cửa hàng -->
     <div class="card shadow">
         <div class="card-body">
             <table class="table table-bordered table-striped">
@@ -47,8 +41,9 @@
                         <td>${merchant.store_address}</td>
                         <td>${merchant.contact_number}</td>
                         <td>
-                            <a href="/manageMerchants?action=updateMerchantForm&store_id=${merchant.store_id}" class="btn btn-warning btn-sm">Sửa</a>
-                            <a href="#" class="btn btn-info btn-sm">Chi tiết</a>
+                            <a href="/manageMerchants?action=updateMerchantForm&store_id=${merchant.store_id}"
+                               class="btn btn-warning btn-sm">Sửa</a>
+                            <a href="/manageMerchants?action=detail&store_id=${merchant.store_id}" class="btn btn-info btn-sm">Chi tiết</a>
                         </td>
                     </tr>
                 </c:forEach>
@@ -57,9 +52,6 @@
         </div>
     </div>
 </div>
-
-<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>
