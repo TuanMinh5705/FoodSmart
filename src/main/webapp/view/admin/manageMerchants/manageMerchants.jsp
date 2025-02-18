@@ -29,7 +29,7 @@
             <td>
             <a href="/manageMerchants?action=addMerchantForm" class="btn btn-danger btn-sm">Add</a>
             <a href="/manageMerchants?action=updateMerchantForm&store_id=${merchant.store_id}" class="btn btn-danger btn-sm">Sửa</a>
-            <a href="#" class="btn btn-danger btn-sm">Chi tiết</a>
+            <a href="/manageMerchants?action=detail&store_id=${merchant.store_id}" class="btn btn-danger btn-sm">Chi tiết</a>
             </td>
 
             </tr>

@@ -37,7 +37,7 @@ public class ManageMerchants extends HttpServlet {
                 req.setAttribute("merchant", merchantService.getMerchantById(store_id));
                 req.getRequestDispatcher("view/admin/homeAdmin.jsp?page=updateMerchants").forward(req, resp);
                 break;
-            case "Detail":
+            case "detail":
                 showMerchantDetails(req, resp);
                 break;
             default:

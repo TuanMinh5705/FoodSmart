@@ -49,6 +49,10 @@
             <jsp:include page="manageMerchants/updateMerchants.jsp"/>
         </c:when>
 
+        <c:when test="${param.page == 'merchantDetails'}">
+            <jsp:include page="manageMerchants/merchantDetails.jsp"/>
+        </c:when>
+
         <%--        quản lý người dùng--%>
         <c:when test="${param.page == 'manageUsers'}">
             <jsp:include page="manageUsers/manageUsers.jsp"/>
