@@ -12,7 +12,7 @@ import java.util.List;
 
 public class MerchantService implements IMerchantService {
     private static final String LIST_MERCHANTS_QUERY = "select * from stores order by store_id  desc ";
-    private static final String LIST_MERCHANTS_ID_QUERY = "select * from stores where store_id = ?";
+    private static final String MERCHANTS_ID_QUERY = "select * from stores where store_id = ?";
     private static final String ADD_MERCHANTS_QUERY = "INSERT INTO stores(store_name,store_address,contact_number,banner_path,avt_path,store_type) VALUES (?,?,?,?,?,?)";
     private static final String UPDATE_MERCHANTS_QUERY = "UPDATE stores SET store_name = ?,store_address = ?,contact_number = ?,banner_path = ?,avt_path = ?,store_type = ? WHERE store_id = ?";
 
@@ -45,7 +45,7 @@ public class MerchantService implements IMerchantService {
     public Merchant getMerchantById(int id) {
         Merchant merchant = new Merchant();
         try (Connection conn = ConnectDB.getConnection();
-             PreparedStatement pstm = conn.prepareStatement(LIST_MERCHANTS_ID_QUERY)) {
+             PreparedStatement pstm = conn.prepareStatement(MERCHANTS_ID_QUERY)) {
             pstm.setInt(1, id);
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
