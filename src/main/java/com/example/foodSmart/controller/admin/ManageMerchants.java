@@ -1,8 +1,8 @@
-package com.example.foodSmart.controller;
+package com.example.foodSmart.controller.admin;
 
-import com.example.foodSmart.model.Merchant;
-import com.example.foodSmart.service.IMerchantService;
-import com.example.foodSmart.service.MerchantService;
+import com.example.foodSmart.model.admin.Merchant;
+import com.example.foodSmart.service.admin.IMerchantService;
+import com.example.foodSmart.service.admin.MerchantService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

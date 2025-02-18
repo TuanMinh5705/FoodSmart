@@ -23,7 +23,17 @@
         <c:forEach var="merchant" items="${merchantsList}" varStatus="status">
             <tr>
             <td>${status.index+1}</td>
-            <td>${merchant.store_name}</td>
+            <td>
+                ${merchant.store_name}
+                    <c:choose>
+                        <c:when test="${merchant.merchant_type}">
+                            <i class="fas fa-check-circle" style="color: green;" title="Đang hoạt động"></i>
+                        </c:when>
+                        <c:otherwise>
+                            <i class="fas fa-times-circle" style="color: red;" title="Đã bị khóa"></i>
+                        </c:otherwise>
+                    </c:choose>
+            </td>
             <td>${merchant.store_address}</td>
             <td>${merchant.contact_number}</td>
             <td>

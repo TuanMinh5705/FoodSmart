@@ -1,4 +1,4 @@
-package com.example.foodSmart.model;
+package com.example.foodSmart.model.admin;
 import java.sql.Time;
 import java.sql.Timestamp;
 
