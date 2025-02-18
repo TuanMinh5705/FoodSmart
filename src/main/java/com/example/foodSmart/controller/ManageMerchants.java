@@ -74,7 +74,17 @@ public class ManageMerchants extends HttpServlet {
             case "updateMerchant":
                 updateMerchant(req, resp);
                 break;
+            case "searchWithNameMerchant":
+                searchMerchant(req, resp);
         }
+    }
+
+    private void searchMerchant(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String keyword = req.getParameter("keyword");
+        List<Merchant> merchants = merchantService.searchMerchant(keyword);
+        req.setAttribute("merchantsList", merchants);
+        req.setAttribute("searchKeyword", keyword);
+        req.getRequestDispatcher("view/admin/homeAdmin.jsp?page=manageMerchants").forward(req, resp);
     }
 
     private void updateMerchant(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -85,15 +95,17 @@ public class ManageMerchants extends HttpServlet {
 
 
         Part fileBannerPart = req.getPart("banner_path");
-        String banner_path = (fileBannerPart != null && fileBannerPart.getSize() > 0) ? fileBannerPart.getSubmittedFileName() : req.getParameter("current_banner_path");;
+        String banner_path = (fileBannerPart != null && fileBannerPart.getSize() > 0) ? fileBannerPart.getSubmittedFileName() : req.getParameter("current_banner_path");
+        ;
 
         Part fileAvatarPart = req.getPart("avt_path");
-        String avt_path = (fileAvatarPart != null && fileAvatarPart.getSize() > 0) ? fileAvatarPart.getSubmittedFileName() : req.getParameter("current_avt_path");;
+        String avt_path = (fileAvatarPart != null && fileAvatarPart.getSize() > 0) ? fileAvatarPart.getSubmittedFileName() : req.getParameter("current_avt_path");
+        ;
 
         String storeTypeParam = req.getParameter("store_type");
         boolean store_type = Boolean.parseBoolean(storeTypeParam);
 
-        Merchant merchant = new Merchant(store_id ,store_name, store_address, contact_number, banner_path, avt_path, store_type);
+        Merchant merchant = new Merchant(store_id, store_name, store_address, contact_number, banner_path, avt_path, store_type);
         merchantService.updateMerchant(merchant);
         listMerchant(req, resp);
     }

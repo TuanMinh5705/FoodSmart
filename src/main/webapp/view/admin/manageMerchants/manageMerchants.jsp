@@ -9,7 +9,13 @@
 <div>
     <button>danh sach dang ki</button>
     <button>danh sach dang ki</button>
-    <button>danh sach dang ki</button>
+
+    <form method="post" action="/manageMerchants?action=searchWithNameMerchant" id="searchForm">
+        <input name="keyword" type="text" placeholder="Search" value="${searchKeyword}" oninput="startTimer()">
+        <button type="submit">Search</button>
+    </form>
+
+
 </div>
 <div>
     <table border="1">
@@ -22,21 +28,34 @@
         </tr>
         <c:forEach var="merchant" items="${merchantsList}" varStatus="status">
             <tr>
-            <td>${status.index+1}</td>
-            <td>${merchant.store_name}</td>
-            <td>${merchant.store_address}</td>
-            <td>${merchant.contact_number}</td>
-            <td>
-            <a href="/manageMerchants?action=addMerchantForm" class="btn btn-danger btn-sm">Add</a>
-            <a href="/manageMerchants?action=updateMerchantForm&store_id=${merchant.store_id}" class="btn btn-danger btn-sm">Sửa</a>
-            <a href="/manageMerchants?action=detail&store_id=${merchant.store_id}" class="btn btn-danger btn-sm">Chi tiết</a>
-            </td>
+                <td>${status.index+1}</td>
+                <td>${merchant.store_name}</td>
+                <td>${merchant.store_address}</td>
+                <td>${merchant.contact_number}</td>
+                <td>
+                    <a href="/manageMerchants?action=addMerchantForm" class="btn btn-danger btn-sm">Add</a>
+                    <a href="/manageMerchants?action=updateMerchantForm&store_id=${merchant.store_id}"
+                       class="btn btn-danger btn-sm">Sửa</a>
+                    <a href="/manageMerchants?action=detail&store_id=${merchant.store_id}"
+                       class="btn btn-danger btn-sm">Chi tiết</a>
+                </td>
 
             </tr>
         </c:forEach>
 
     </table>
 </div>
+<script>
+    let searchTimeout;
+
+    function startTimer() {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(function () {
+            document.getElementById("searchForm").submit();
+        }, 2000);
+    }
+</script>
+
 
 </body>
 </html>
