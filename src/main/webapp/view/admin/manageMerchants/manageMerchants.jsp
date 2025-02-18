@@ -1,42 +1,65 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!DOCTYPE html>
+<html lang="vi">
 <head>
-    <title>Title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quản lý cửa hàng</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-<div>
-    <button>danh sach dang ki</button>
-    <button>danh sach dang ki</button>
-    <button>danh sach dang ki</button>
-</div>
-<div>
-    <table border="1">
-        <tr>
-            <td>#</td>
-            <td>Tên cửa hàng</td>
-            <td>Địa chỉ</td>
-            <td>Số điện thoại</td>
-            <td>Hành động</td>
-        </tr>
-        <c:forEach var="merchant" items="${merchantsList}" varStatus="status">
-            <tr>
-            <td>${status.index+1}</td>
-            <td>${merchant.store_name}</td>
-            <td>${merchant.store_address}</td>
-            <td>${merchant.contact_number}</td>
-            <td>
-            <a href="/manageMerchants?action=addMerchantForm" class="btn btn-danger btn-sm">Add</a>
-            <a href="/manageMerchants?action=updateMerchantForm&store_id=${merchant.store_id}" class="btn btn-danger btn-sm">Sửa</a>
-            <a href="#" class="btn btn-danger btn-sm">Chi tiết</a>
-            </td>
+<body class="bg-light">
 
-            </tr>
-        </c:forEach>
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Quản lý cửa hàng</h2>
 
-    </table>
+    <!-- Các nút thao tác -->
+    <div class="d-flex justify-content-between mb-3">
+        <div>
+            <button class="btn btn-primary">Danh sách đăng ký</button>
+            <button class="btn btn-primary">Danh sách đăng ký</button>
+            <button class="btn btn-primary">Danh sách đăng ký</button>
+        </div>
+        <button class="btn btn-danger" onclick="window.location.href='/manageMerchants?action=addMerchantForm'">
+            Thêm cửa hàng
+        </button>
+    </div>
+
+    <!-- Bảng danh sách cửa hàng -->
+    <div class="card shadow">
+        <div class="card-body">
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Tên cửa hàng</th>
+                    <th>Địa chỉ</th>
+                    <th>Số điện thoại</th>
+                    <th>Hành động</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach var="merchant" items="${merchantsList}" varStatus="status">
+                    <tr>
+                        <td>${status.index + 1}</td>
+                        <td>${merchant.store_name}</td>
+                        <td>${merchant.store_address}</td>
+                        <td>${merchant.contact_number}</td>
+                        <td>
+                            <a href="/manageMerchants?action=updateMerchantForm&store_id=${merchant.store_id}" class="btn btn-warning btn-sm">Sửa</a>
+                            <a href="#" class="btn btn-info btn-sm">Chi tiết</a>
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
