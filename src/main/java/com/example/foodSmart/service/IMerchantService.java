@@ -9,4 +9,5 @@ public interface IMerchantService {
     Merchant getMerchantById(int id);
     void updateMerchant( Merchant merchant);
     void addMerchant(Merchant merchant);
+    List<Merchant> searchMerchant(String keyword);
 }

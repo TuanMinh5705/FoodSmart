@@ -7,6 +7,7 @@ import java.util.List;
 public interface IMerchantService {
     List<Merchant> getListMerchants();
     Merchant getMerchantById(int id);
-    void updateMerchant(int id, Merchant merchant);
+    void updateMerchant( Merchant merchant);
     void addMerchant(Merchant merchant);
+    List<Merchant> searchMerchant(String keyword);>
 }

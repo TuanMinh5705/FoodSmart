@@ -20,33 +20,45 @@
         <div class="card-body">
             <table class="table table-bordered">
                 <tr>
-                    <th class="bg-light">Tên cửa hàng</th>
+                    <td class="bg-light" style="width: 200px;">
+                        <i class="fas fa-store-alt"></i> Tên cửa hàng
+                    </td>
                     <td>${merchant.store_name}</td>
                 </tr>
                 <tr>
-                    <th class="bg-light">Địa chỉ</th>
+                    <td class="bg-light">
+                        <i class="fas fa-map-marker-alt"></i> Địa chỉ
+                    </td>
                     <td>${merchant.store_address}</td>
                 </tr>
                 <tr>
-                    <th class="bg-light">Số điện thoại</th>
+                    <td class="bg-light">
+                        <i class="fas fa-phone-alt"></i> Số điện thoại
+                    </td>
                     <td>${merchant.contact_number}</td>
                 </tr>
                 <tr>
-                    <th class="bg-light">Banner</th>
+                    <td class="bg-light">
+                        <i class="fas fa-image"></i> Banner
+                    </td>
                     <td class="text-center">
                         <img src="/images/avatars/${merchant.banner_path}" alt="banner"
                              class="img-fluid rounded" style="max-width: 300px;">
                     </td>
                 </tr>
                 <tr>
-                    <th class="bg-light">Avatar</th>
+                    <td class="bg-light">
+                        <i class="fas fa-user-circle"></i> Avatar
+                    </td>
                     <td class="text-center">
                         <img src="/images/avatars/${merchant.avt_path}" alt="avatar"
                              class="img-fluid rounded-circle" style="max-width: 120px;">
                     </td>
                 </tr>
                 <tr>
-                    <th class="bg-light">Trạng thái</th>
+                    <td class="bg-light">
+                        <label class="form-label"><i class="fas fa-cogs"></i> Trạng thái</label>
+                    </td>
                     <td>
                         <c:choose>
                             <c:when test="${merchant.store_type == true}">
@@ -68,7 +80,7 @@
     </div>
 </div>
 
-<!-- Bootstrap JS aaa-->
+<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
