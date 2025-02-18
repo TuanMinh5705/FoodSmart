@@ -24,6 +24,7 @@ public class ManageMerchants extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
         resp.setContentType("text/html;charset=UTF-8");
+
         String action = req.getParameter("action");
         if (action == null) {
             action = "";
@@ -53,8 +54,19 @@ public class ManageMerchants extends HttpServlet {
     }
 
     private void listMerchant(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Merchant> merchants = merchantService.getListMerchants();
+        String status = req.getParameter("status");
+        List<Merchant> merchants;
+
+        if ("active".equals(status)) {
+            merchants = merchantService.getMerchantsByType(true);
+        } else if ("locked".equals(status)) {
+            merchants = merchantService.getMerchantsByType(false);
+        } else {
+            merchants = merchantService.getListMerchants();
+        }
+
         req.setAttribute("merchantsList", merchants);
+        req.setAttribute("status", status);
         req.getRequestDispatcher("view/admin/homeAdmin.jsp?page=manageMerchants").forward(req, resp);
     }
 
@@ -63,6 +75,7 @@ public class ManageMerchants extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
         resp.setContentType("text/html;charset=UTF-8");
+
         String action = req.getParameter("action");
         if (action == null) {
             action = "";
@@ -76,6 +89,7 @@ public class ManageMerchants extends HttpServlet {
                 break;
             case "searchWithNameMerchant":
                 searchMerchant(req, resp);
+                break;
         }
     }
 
@@ -93,14 +107,11 @@ public class ManageMerchants extends HttpServlet {
         String store_address = req.getParameter("store_address");
         String contact_number = req.getParameter("contact_number");
 
-
         Part fileBannerPart = req.getPart("banner_path");
         String banner_path = (fileBannerPart != null && fileBannerPart.getSize() > 0) ? fileBannerPart.getSubmittedFileName() : req.getParameter("current_banner_path");
-        ;
 
         Part fileAvatarPart = req.getPart("avt_path");
         String avt_path = (fileAvatarPart != null && fileAvatarPart.getSize() > 0) ? fileAvatarPart.getSubmittedFileName() : req.getParameter("current_avt_path");
-        ;
 
         String storeTypeParam = req.getParameter("store_type");
         boolean store_type = Boolean.parseBoolean(storeTypeParam);
@@ -117,9 +128,9 @@ public class ManageMerchants extends HttpServlet {
         String banner_path = req.getParameter("banner_path");
         String avt_path = req.getParameter("avt_path");
         boolean store_type = Boolean.parseBoolean(req.getParameter("store_type"));
+
         Merchant merchant = new Merchant(store_name, store_address, contact_number, banner_path, avt_path, store_type);
         merchantService.addMerchant(merchant);
         listMerchant(req, resp);
-
     }
 }
