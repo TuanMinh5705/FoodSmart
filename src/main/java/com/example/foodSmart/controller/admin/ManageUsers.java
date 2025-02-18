@@ -1,4 +1,4 @@
-package com.example.foodSmart.controller;
+package com.example.foodSmart.controller.admin;
 
 import com.example.foodSmart.model.Account;
 import com.example.foodSmart.model.AccountDetails;
@@ -32,7 +32,8 @@ public class ManageUsers extends HttpServlet {
         switch (action) {
             case "editForm":
                 getInfoAccount(req, resp);
-                req.getRequestDispatcher("view/admin/homeAdmin.jsp?page=manageUsers_updateInfo").forward(req, resp);
+                req.getRequestDispatcher("view/admin/homeAdmin.jsp?p" +
+                        "age=manageUsers_updateInfo").forward(req, resp);
                 break;
             case "showInfoForm" :
                 getInfoAccount(req,resp);
@@ -83,7 +84,6 @@ public class ManageUsers extends HttpServlet {
     private void addUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Part filePart = req.getPart("avatar");
         String avatarPath = filePart.getSubmittedFileName();
-
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         String address = req.getParameter("address");

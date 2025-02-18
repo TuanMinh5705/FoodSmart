@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="com.example.foodSmart.model.Carrier" %>
+<%@ page import="com.example.foodSmart.model.admin.Carrier" %>
 
 <html>
 <head>

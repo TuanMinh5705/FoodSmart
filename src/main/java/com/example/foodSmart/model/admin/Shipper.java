@@ -1,4 +1,4 @@
-package com.example.foodSmart.model;
+package com.example.foodSmart.model.admin;
 
 public class Shipper {
 private int shipper_id;
