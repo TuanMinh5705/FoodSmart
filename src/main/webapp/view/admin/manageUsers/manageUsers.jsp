@@ -45,7 +45,6 @@
 <div class="container my-4">
     <h2 class="text-center mb-4">Quản lý người dùng</h2>
 
-    <!-- Thanh công cụ: Nút Thêm, Tìm kiếm và Bộ lọc -->
 
     <div class="row mb-3 align-items-center">
         <div class="col-md-3">

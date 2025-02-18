@@ -1,7 +1,8 @@
 package com.example.foodSmart.service;
 
-import com.example.foodSmart.model.Carrier;
-import com.example.foodSmart.model.Shipper;
+import com.example.foodSmart.model.admin.Carrier;
+import com.example.foodSmart.model.admin.Shipper;
+import com.example.foodSmart.service.admin.ICarrierService;
 import com.example.foodSmart.util.ConnectDB;
 
 import java.sql.Connection;

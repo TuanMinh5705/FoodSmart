@@ -1,8 +1,8 @@
-package com.example.foodSmart.controller;
+package com.example.foodSmart.controller.admin;
 
-import com.example.foodSmart.model.Voucher;
-import com.example.foodSmart.service.IVoucherService;
-import com.example.foodSmart.service.VoucherService;
+import com.example.foodSmart.model.admin.Voucher;
+import com.example.foodSmart.service.admin.IVoucherService;
+import com.example.foodSmart.service.admin.VoucherService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -37,11 +37,11 @@ public class ManageVouchers extends HttpServlet {
                 break;
                 case "editVoucherForm":
                     req.setAttribute("voucherList", voucherList);
-                    getVoucher(req, resp);
+                    getVoucher(req);
                     req.getRequestDispatcher("view/admin/homeAdmin.jsp?page=editVouchers").forward(req, resp);
                     break;
             case "infoVoucherForm" :
-                getVoucher(req, resp);
+                getVoucher(req);
                 req.getRequestDispatcher("view/admin/homeAdmin.jsp?page=infoVouchers").forward(req, resp);
                 break;
             default:
@@ -80,25 +80,31 @@ public class ManageVouchers extends HttpServlet {
         req.getRequestDispatcher("view/admin/homeAdmin.jsp?page=manageVouchers").forward(req,resp);
     }
     private void editVouchers(HttpServletRequest req, HttpServletResponse resp) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
         try{
             int voucher_id = Integer.parseInt(req.getParameter("voucher_id"));
-            String voucher_code = req.getParameter("voucher_code");
-            int discount_value = Integer.parseInt(req.getParameter("discount_value"));
-            int quantity = Integer.parseInt(req.getParameter("quantity"));
-            String description = req.getParameter("description");
-            Timestamp start_date = new Timestamp(dateFormat.parse(req.getParameter("start_date")).getTime());
-            Timestamp end_date = new Timestamp(dateFormat.parse(req.getParameter("end_date")).getTime());
-            Time start_time = new Time(timeFormat.parse(req.getParameter("start_time")).getTime());
-            Time end_time = new Time(timeFormat.parse(req.getParameter("end_time")).getTime());
-            Voucher voucher = new Voucher(voucher_id,voucher_code,start_date,end_date,start_time,end_time,discount_value,quantity,description);
-            voucherService.updateVoucher(voucher);
-            listVouchers(req,resp);
+            info(req, resp,voucher_id);
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
     }
+
+    private void info(HttpServletRequest req, HttpServletResponse resp,int voucher_id) throws ParseException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+
+        String voucher_code = req.getParameter("voucher_code");
+        int discount_value = Integer.parseInt(req.getParameter("discount_value"));
+        int quantity = Integer.parseInt(req.getParameter("quantity"));
+        String description = req.getParameter("description");
+        Timestamp start_date = new Timestamp(dateFormat.parse(req.getParameter("start_date")).getTime());
+        Timestamp end_date = new Timestamp(dateFormat.parse(req.getParameter("end_date")).getTime());
+        Time start_time = new Time(timeFormat.parse(req.getParameter("start_time")).getTime());
+        Time end_time = new Time(timeFormat.parse(req.getParameter("end_time")).getTime());
+        Voucher voucher = new Voucher(voucher_id,voucher_code,start_date,end_date,start_time,end_time,discount_value,quantity,description);
+        voucherService.updateVoucher(voucher);
+        listVouchers(req, resp);
+    }
+
     private void addVouchers(HttpServletRequest req, HttpServletResponse resp) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
@@ -128,7 +134,7 @@ public class ManageVouchers extends HttpServlet {
             throw new RuntimeException(e);
         }
     }
-    private void getVoucher(HttpServletRequest req, HttpServletResponse resp) {
+    private void getVoucher(HttpServletRequest req) {
         int voucher_id = Integer.parseInt(req.getParameter("voucherID"));
         Voucher voucher = voucherService.getVoucherById(voucher_id);
         req.setAttribute("voucher", voucher);

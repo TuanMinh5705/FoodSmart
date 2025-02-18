@@ -1,4 +1,4 @@
-package com.example.foodSmart.model;
+package com.example.foodSmart.model.admin;
 
 public class Carrier {
     private int carrier_id;
