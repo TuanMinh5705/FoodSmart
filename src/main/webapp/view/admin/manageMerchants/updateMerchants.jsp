@@ -33,6 +33,14 @@
             <td>Số điện thoại</td>
             <td><input type="text"  value="${merchant.contact_number}" name="contact_number"></td>
         </tr>
+        <tr>
+            <td>Trạng thái</td>
+            <td>
+                <input type="radio" name="store_type" value="true" ${merchant.store_type ? 'checked' : ''}> Hoạt động
+                <input type="radio" name="store_type" value="false" ${!merchant.store_type ? 'checked' : ''}> Khóa tài khoản
+            </td>
+        </tr>
+
 
     </table>
     <input type="hidden" name="store_id" value="${merchant.store_id}">
