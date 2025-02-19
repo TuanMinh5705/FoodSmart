@@ -11,16 +11,13 @@
 </head>
 <body class="bg-light">
 <div class="container mt-4">
-    <!-- Page Title -->
     <h2 class="text-center mb-4 text-primary">Quản lý cửa hàng</h2>
 
-    <!-- Actions Bar -->
     <div class="d-flex justify-content-between align-items-center mb-3">
         <div class="btn-group">
             <button class="btn btn-outline-primary">Danh sách đăng ký cửa hàng</button>
         </div>
 
-        <!-- Search Form -->
         <form method="post" action="/manageMerchants?action=searchWithNameMerchant" id="searchForm" class="d-flex">
             <input name="keyword" type="text" class="form-control me-2" placeholder="Tìm kiếm..."
                    value="${searchKeyword}" oninput="startTimer()">
@@ -29,13 +26,11 @@
             </button>
         </form>
 
-        <!-- Add Merchant Button -->
         <a href="/manageMerchants?action=addMerchantForm" class="btn btn-success">
             <i class="bi bi-plus-circle"></i> Thêm cửa hàng
         </a>
     </div>
 
-    <!-- Filter Form with Icon -->
     <form method="get" action="/manageMerchants" id="filterForm" class="mb-4">
         <div class="row align-items-center">
             <div class="col-md-4 d-flex align-items-center">
@@ -53,7 +48,6 @@
         </div>
     </form>
 
-    <!-- Merchant Table -->
     <div class="card shadow rounded">
         <div class="card-body">
             <table class="table table-hover table-bordered text-center">
@@ -91,7 +85,6 @@
     </div>
 </div>
 
-<!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     let searchTimeout;
