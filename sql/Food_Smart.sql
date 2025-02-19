@@ -110,31 +110,33 @@ create table Stores
     foreign key (merchant_id) references `Account` (account_id)
 );
 -- Bảng mã giảm giá của cửa hàng 
-CREATE TABLE Store_Coupons (
+CREATE TABLE Store_Coupons
+(
     coupon_id      INT PRIMARY KEY AUTO_INCREMENT,
     store_id       INT,
     coupon_code    VARCHAR(255) UNIQUE NOT NULL,
-    discount_value INT NOT NULL,
+    discount_value INT                 NOT NULL,
     start_date     TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    end_date       TIMESTAMP NOT NULL,  
-    start_time     TIME DEFAULT NULL,   
-    end_time       TIME DEFAULT NULL,   
-    quantity       INT DEFAULT 0,
+    end_date       TIMESTAMP           NOT NULL,
+    start_time     TIME      DEFAULT NULL,
+    end_time       TIME      DEFAULT NULL,
+    quantity       INT       DEFAULT 0,
     description    TEXT,
     FOREIGN KEY (store_id) REFERENCES Stores (store_id) ON DELETE CASCADE
 );
 
 -- Bảng mã giảm giá của sàn 
-CREATE TABLE Vouchers (
+CREATE TABLE Vouchers
+(
     voucher_id     INT PRIMARY KEY AUTO_INCREMENT,
     voucher_code   VARCHAR(255) UNIQUE,
     discount_value INT,
     start_date     TIMESTAMP default CURRENT_TIMESTAMP,
     end_date       TIMESTAMP NOT NULL,
-    start_time     TIME DEFAULT NULL,  
-    end_time       TIME DEFAULT NULL, 
+    start_time     TIME      DEFAULT NULL,
+    end_time       TIME      DEFAULT NULL,
     quantity       INT,
-    `description`    TEXT
+    `description`  TEXT
 );
 
 -- Bảng danh mục sản phẩm 

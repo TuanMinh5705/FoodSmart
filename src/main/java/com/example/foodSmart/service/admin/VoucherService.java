@@ -1,6 +1,6 @@
-package com.example.foodSmart.service;
+package com.example.foodSmart.service.admin;
 
-import com.example.foodSmart.model.Voucher;
+import com.example.foodSmart.model.admin.Voucher;
 import com.example.foodSmart.util.ConnectDB;
 
 import java.sql.*;

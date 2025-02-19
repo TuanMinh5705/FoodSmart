@@ -1,4 +1,4 @@
-package com.example.foodSmart.controller;
+package com.example.foodSmart.controller.admin;
 
 import com.example.foodSmart.model.Account;
 import com.example.foodSmart.model.AccountDetails;

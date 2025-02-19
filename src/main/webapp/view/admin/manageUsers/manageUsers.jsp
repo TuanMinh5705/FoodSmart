@@ -40,7 +40,6 @@
 <body>
 <div class="container my-4">
     <h2 class="text-center mb-4">Quản lý người dùng</h2>
-
     <div class="row mb-3 align-items-center">
         <div class="col-md-3">
             <a href="/manageUsers?action=showAddAccountForm" class="btn btn-success w-100">
