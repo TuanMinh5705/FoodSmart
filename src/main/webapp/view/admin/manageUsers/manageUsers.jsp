@@ -9,8 +9,6 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <style>
-
-        /* Tùy chỉnh tiêu đề bảng */
         .table thead th {
             background-color: #343a40;
             color: #fff;
@@ -18,24 +16,22 @@
             vertical-align: middle;
         }
 
-        /* Căn giữa nội dung cột */
         .table td,
         .table th {
             text-align: center;
             vertical-align: middle;
         }
 
-        /* Giữ ảnh ở kích thước cố định, cắt nếu cần */
         .table img.rounded-circle {
             width: 80px;
             height: 80px;
             object-fit: cover;
         }
 
-        /* Khoảng cách giữa các nút hành động */
         .action-buttons .btn {
             margin-right: 0.5rem;
         }
+
         .action-buttons .btn:last-child {
             margin-right: 0;
         }
@@ -44,8 +40,6 @@
 <body>
 <div class="container my-4">
     <h2 class="text-center mb-4">Quản lý người dùng</h2>
-
-
     <div class="row mb-3 align-items-center">
         <div class="col-md-3">
             <a href="/manageUsers?action=showAddAccountForm" class="btn btn-success w-100">
@@ -56,7 +50,8 @@
         <div class="col-md-6">
             <form action="/manageUsers?action=searchWithName" id="searchForm" method="post">
                 <div class="input-group" style="display: flex; align-items: center;">
-                    <input type="text" class="form-control" placeholder="Nhập từ khóa tìm kiếm" id="searchInput" name="keyword" oninput="startTimer()"
+                    <input type="text" class="form-control" placeholder="Nhập từ khóa tìm kiếm" id="searchInput"
+                           name="keyword" oninput="startTimer()"
                            style="height: 40px; border-top-right-radius: 0; border-bottom-right-radius: 0;">
                     <button class="btn btn-primary" type="submit" id="searchBtn"
                             style="height: 40px; border-top-left-radius: 0; border-bottom-left-radius: 0;">
@@ -77,10 +72,8 @@
                 </select>
             </div>
         </div>
-
     </div>
 
-    <!-- Bảng danh sách người dùng -->
     <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover">
             <thead>
@@ -126,22 +119,22 @@
 
                     <td>
                         <div class="action-buttons d-inline-flex">
-                            <a href="/manageUsers?action=showInfoForm&accountID=${account.accountID}" class="btn btn-secondary btn-sm" title="Chi tiết">
-                                <i class="c"></i>
-                            </a>
                             <a href="/manageUsers?action=editForm&accountID=${account.accountID}"
                                class="btn btn-primary btn-sm" title="Chỉnh sửa">
                                 <i class="fas fa-pencil-alt"></i>
+                            </a>
+
+                            <a href="/manageUsers?action=showInfoForm&accountID=${account.accountID}"
+                               class="btn btn-secondary btn-sm" title="Chi tiết">
+                                <i class="fas fa-eye"></i>
                             </a>
                         </div>
                     </td>
                 </tr>
             </c:forEach>
             </tbody>
-
         </table>
     </div>
-
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -166,7 +159,7 @@
     function startTimer() {
         clearTimeout(timer);
 
-        timer = setTimeout(function() {
+        timer = setTimeout(function () {
             document.getElementById("searchForm").submit();
         }, 4500);
     }

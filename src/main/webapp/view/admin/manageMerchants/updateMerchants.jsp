@@ -5,9 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cập nhật cửa hàng</title>
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome for Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
@@ -19,7 +17,6 @@
         <div class="card-body">
             <form action="/manageMerchants?action=updateMerchant" method="post" enctype="multipart/form-data">
 
-                <!-- Tên cửa hàng -->
                 <div class="mb-3">
                     <label class="form-label"><i class="fas fa-store-alt"></i> Tên cửa hàng</label>
                     <input type="text" class="form-control" value="${merchant.store_name}" name="store_name" required
@@ -28,9 +25,8 @@
 
                 </div>
 
-                <!-- Banner -->
+                <label class="form-label"><i class="fas fa-image"></i> Banner</label>
                 <div class="mb-3 text-center">
-                    <label class="form-label"><i class="fas fa-image"></i> Banner</label>
                     <div class="mb-2">
                         <img src="/images/avatars/${merchant.banner_path}" alt="banner" class="img-fluid rounded shadow"
                              style="max-width: 250px;">
@@ -40,9 +36,8 @@
                            style="max-width: 400px;">
                 </div>
 
-                <!-- Avatar -->
+                <label class="form-label"><i class="fas fa-user-circle"></i> Avatar</label>
                 <div class="mb-3 text-center">
-                    <label class="form-label"><i class="fas fa-user-circle"></i> Avatar</label>
                     <div class="mb-2">
                         <img src="/images/avatars/${merchant.avt_path}" alt="avatar"
                              class="img-fluid rounded-circle shadow" style="max-width: 120px;">
@@ -51,7 +46,6 @@
                     <input type="file" class="form-control mx-auto d-block" name="avt_path" style="max-width: 400px;">
                 </div>
 
-                <!-- Địa chỉ -->
                 <div class="mb-3">
                     <label class="form-label"><i class="fas fa-map-marker-alt"></i> Địa chỉ</label>
                     <input type="text" class="form-control" value="${merchant.store_address}" name="store_address"
@@ -60,7 +54,6 @@
                            title="Địa chỉ không được để trống" minlength="2">
                 </div>
 
-                <!-- Số điện thoại -->
                 <div class="mb-3">
                     <label class="form-label"><i class="fas fa-phone-alt"></i> Số điện thoại</label>
                     <input type="text" class="form-control" value="${merchant.contact_number}" name="contact_number"
@@ -68,7 +61,6 @@
                            title="Số điện thoại phải có 10 số và bắt đầu bằng 0">
                 </div>
 
-                <!-- Trạng thái -->
                 <div class="mb-3">
                     <label class="form-label"><i class="fas fa-cogs"></i> Trạng thái</label>
                     <div class="form-check">
@@ -89,7 +81,6 @@
 
                 <input type="hidden" name="store_id" value="${merchant.store_id}">
 
-                <!-- Nút cập nhật và hủy -->
                 <div class="text-center mt-4">
                     <button type="submit" class="btn btn-success px-4">
                         <i class="fas fa-save"></i> Cập nhật
@@ -98,13 +89,11 @@
                         <i class="fas fa-times-circle"></i> Hủy
                     </a>
                 </div>
-
             </form>
         </div>
     </div>
 </div>
 
-<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
