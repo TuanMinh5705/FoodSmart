@@ -22,7 +22,10 @@
                 <!-- Tên cửa hàng -->
                 <div class="mb-3">
                     <label class="form-label"><i class="fas fa-store-alt"></i> Tên cửa hàng</label>
-                    <input type="text" class="form-control" value="${merchant.store_name}" name="store_name" required>
+                    <input type="text" class="form-control" value="${merchant.store_name}" name="store_name" required
+                           pattern=".*\S.*"
+                           title="Tên cửa hàng không được để trống" minlength="2">
+
                 </div>
 
                 <!-- Banner -->
@@ -52,14 +55,17 @@
                 <div class="mb-3">
                     <label class="form-label"><i class="fas fa-map-marker-alt"></i> Địa chỉ</label>
                     <input type="text" class="form-control" value="${merchant.store_address}" name="store_address"
-                           required>
+                           required
+                           pattern=".*\S.*"
+                           title="Địa chỉ không được để trống" minlength="2">
                 </div>
 
                 <!-- Số điện thoại -->
                 <div class="mb-3">
                     <label class="form-label"><i class="fas fa-phone-alt"></i> Số điện thoại</label>
                     <input type="text" class="form-control" value="${merchant.contact_number}" name="contact_number"
-                           required>
+                           required placeholder="Nhập số điện thoại" pattern="^0\d{9}$"
+                           title="Số điện thoại phải có 10 số và bắt đầu bằng 0">
                 </div>
 
                 <!-- Trạng thái -->

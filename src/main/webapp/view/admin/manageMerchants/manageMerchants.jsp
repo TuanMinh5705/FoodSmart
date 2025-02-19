@@ -9,49 +9,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 </head>
-<<<<<<< HEAD
-<body>
-<div>
-    <button>danh sach dang ki</button>
-    <button>danh sach dang ki</button>
-    <button>danh sach dang ki</button>
-</div>
-<div>
-    <table border="1">
-        <tr>
-            <td>#</td>
-            <td>Tên cửa hàng</td>
-            <td>Địa chỉ</td>
-            <td>Số điện thoại</td>
-            <td>Hành động</td>
-        </tr>
-        <c:forEach var="merchant" items="${merchantsList}" varStatus="status">
-            <tr>
-            <td>${status.index+1}</td>
-            <td>
-                ${merchant.store_name}
-                    <c:choose>
-                        <c:when test="${merchant.merchant_type}">
-                            <i class="fas fa-check-circle" style="color: green;" title="Đang hoạt động"></i>
-                        </c:when>
-                        <c:otherwise>
-                            <i class="fas fa-times-circle" style="color: red;" title="Đã bị khóa"></i>
-                        </c:otherwise>
-                    </c:choose>
-            </td>
-            <td>${merchant.store_address}</td>
-            <td>${merchant.contact_number}</td>
-            <td>
-            <a href="/manageMerchants?action=addMerchantForm" class="btn btn-danger btn-sm">Add</a>
-            <a href="/manageMerchants?action=editMerchantForm" class="btn btn-danger btn-sm">Sửa</a>
-            <a href="#" class="btn btn-danger btn-sm">Chi tiết</a>
-            </td>
-=======
 <body class="bg-light">
 <div class="container mt-4">
     <!-- Page Title -->
     <h2 class="text-center mb-4 text-primary">Quản lý cửa hàng</h2>
->>>>>>> 37c573891ebe07e3f965c309e58fd5d8ff81a792
+
 
     <!-- Actions Bar -->
     <div class="d-flex justify-content-between align-items-center mb-3">

@@ -137,7 +137,7 @@ public class MerchantService implements IMerchantService {
 
         try (Connection conn = ConnectDB.getConnection();
              PreparedStatement stmt = conn.prepareStatement(Filter_MERCHANTS_QUERY)) {
-            stmt.setBoolean(1 , store_type);
+            stmt.setBoolean(1, store_type);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -157,6 +157,7 @@ public class MerchantService implements IMerchantService {
 
         return merchants;
     }
+
 
 
 }
