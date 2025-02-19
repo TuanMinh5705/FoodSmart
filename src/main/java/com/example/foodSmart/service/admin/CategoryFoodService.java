@@ -12,11 +12,11 @@ import java.util.List;
 
 public class CategoryFoodService implements ICategoryFoodService {
 
-    private static final String LIST_CATEGORYS_FOOD_QUERY = "select * from categorys ORDER BY category_id DESC";
-    private static final String ADD_CATEGORY_FOOD_QUERY = "INSERT INTO categorys (category_name, description, avt_path) VALUES (?, ?, ?)";
-    private static final String UPDATE_CATEGORY_FOOD_QUERY = "UPDATE categorys SET category_name = ?, description = ?, avt_path = ? WHERE category_id = ?";
-    private static final String GET_CATEGORY_FOOD_BY_ID_QUERY = "SELECT * FROM categorys WHERE category_id = ?";
-    private static final String SEARCH_CATEGORY_FOOD_QUERY = "SELECT * FROM categorys WHERE category_name LIKE ?";
+    private static final String LIST_CATEGORYS_FOOD_QUERY = "select * from categories ORDER BY category_id DESC";
+    private static final String ADD_CATEGORY_FOOD_QUERY = "INSERT INTO categories (category_name, description, avt_path) VALUES (?, ?, ?)";
+    private static final String UPDATE_CATEGORY_FOOD_QUERY = "UPDATE categories SET category_name = ?, description = ?, avt_path = ? WHERE category_id = ?";
+    private static final String GET_CATEGORY_FOOD_BY_ID_QUERY = "SELECT * FROM categories WHERE category_id = ?";
+    private static final String SEARCH_CATEGORY_FOOD_QUERY = "SELECT * FROM categories WHERE category_name LIKE ?";
 
 
     @Override

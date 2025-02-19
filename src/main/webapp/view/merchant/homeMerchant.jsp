@@ -32,15 +32,23 @@
     <c:when test="${param.page == 'manageFoods'}">
         <jsp:include page="manageFoods/manageFood.jsp"/>
     </c:when>
-    <c:when test="${param.page == 'maddFood'}">
-        <jsp:include page="manageFoods/addFood.jsp"/>
+    <c:when test="${param.page == 'addCategory'}">
+        <jsp:include page="manageFoods/addCategory.jsp"/>
     </c:when>
-    <c:when test="${param.page == 'editFood'}">
-        <jsp:include page="manageFoods/editFood.jsp"/>
+    <c:when test="${param.page == 'infoCategory'}">
+        <jsp:include page="manageFoods/infoCategory.jsp"/>
+    </c:when>
+
+    <c:when test="${param.page == 'addFood'}">
+        <jsp:include page="manageFoods/addFood.jsp"/>
     </c:when>
     <c:when test="${param.page == 'infoFood'}">
         <jsp:include page="manageFoods/infoFood.jsp"/>
     </c:when>
+    <c:when test="${param.page == 'editFood'}">
+        <jsp:include page="manageFoods/editFood.jsp.jsp"/>
+    </c:when>
+
 
 
     <c:otherwise>
