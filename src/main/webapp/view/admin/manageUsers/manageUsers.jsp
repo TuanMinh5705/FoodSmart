@@ -127,7 +127,7 @@
                     <td>
                         <div class="action-buttons d-inline-flex">
                             <a href="/manageUsers?action=showInfoForm&accountID=${account.accountID}" class="btn btn-secondary btn-sm" title="Chi tiết">
-                                <i class="fas fa-eye"></i>
+                                <i class="c"></i>
                             </a>
                             <a href="/manageUsers?action=editForm&accountID=${account.accountID}"
                                class="btn btn-primary btn-sm" title="Chỉnh sửa">

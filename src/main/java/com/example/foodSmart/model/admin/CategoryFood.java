@@ -15,6 +15,11 @@ public class CategoryFood {
         this.description = description;
         this.avt_path = avt_path;
     }
+    public CategoryFood( String category_name, String description, String avt_path) {
+        this.category_name = category_name;
+        this.description = description;
+        this.avt_path = avt_path;
+    }
 
     public String getAvt_path() {
         return avt_path;
