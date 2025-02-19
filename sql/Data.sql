@@ -11,13 +11,13 @@ values ('NgocThom', 'Vy12092001', 1),
        ('bac', 'abc123', 3);
 insert into Stores(merchant_id, store_name, store_address, contact_number)
 values (5, 'Cơm rang và phở bò Minh Khánh', '102 Tu Hoàng , Minh Khai , Bắc Từ Liêm , Hà Nội', '0123456789');
-insert into Categorys(category_name,description_path) values
-("Đồ ăn nhanh","https://drive.google.com/drive/folders/11mfrLNCJ2rhFq6S6inqisIM9VBEVHNQV"),
-('Bánh mì','https://drive.google.com/drive/folders/11mfrLNCJ2rhFq6S6inqisIM9VBEVHNQV'),
-('Cơm,Cơm rang','https://drive.google.com/drive/folders/11mfrLNCJ2rhFq6S6inqisIM9VBEVHNQV'),
-('Mì , bún , phở',"https://drive.google.com/drive/folders/11mfrLNCJ2rhFq6S6inqisIM9VBEVHNQV"),
-('Đồ tráng miệng , đồ ngọt','https://drive.google.com/drive/folders/11mfrLNCJ2rhFq6S6inqisIM9VBEVHNQV'),
-("Đồ uống",'https://drive.google.com/drive/folders/11mfrLNCJ2rhFq6S6inqisIM9VBEVHNQV');
+insert into Categorys(category_name,`description`) values
+("Đồ ăn nhanh","Đồ ăn nhánh"),
+('Bánh mì','Bánh mì'),
+('Cơm,Cơm rang','Cơm,Cơm rang'),
+('Mì , bún , phở',"Mì , bún , phở"),
+('Đồ tráng miệng , đồ ngọt','Đồ tráng miệng , đồ ngọt'),
+("Đồ uống",'Đồ uống');
 insert into Products(store_id,product_name,price,stock_quantity) values
 (1,'Cơm rang dưa bò',35000,20),
 (1,'Phở bò',40000,20);
