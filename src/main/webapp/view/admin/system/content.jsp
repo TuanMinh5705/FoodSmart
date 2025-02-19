@@ -113,7 +113,7 @@
         </div>
 
         <!-- Hàng thứ ba -->
-        <div class="col-md-4 offset-md-4">
+        <div class="col-md-4">
             <div class="card bg-green">
                 <div class="card-body text-center">
                     <i class="bi bi-box-seam card-icon"></i>
@@ -122,6 +122,17 @@
                 <a href="#" class="text-white detail-btn">Chi tiết</a>
             </div>
         </div>
+
+        <div class="col-md-4">
+            <div class="card bg-green">
+                <div class="card-body text-center">
+                    <i class="bi bi-grid card-icon"></i>
+                    <div class="card-title">Danh mục sản phẩm</div>
+                </div>
+                <a href="/manageCategoryFood" class="text-white detail-btn">Chi tiết</a>
+            </div>
+        </div>
+
     </div>
 </div>
 

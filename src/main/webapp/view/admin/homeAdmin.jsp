@@ -33,21 +33,34 @@
             <jsp:include page="system/content.jsp"/>
         </c:when>
       
-        <%--        quản lý người dùng--%>
+        <%--        quản lý cua hang--%>
         <c:when test="${param.page == 'manageMerchants'}">
             <jsp:include page="manageMerchants/manageMerchants.jsp"/>
         </c:when>
         <c:when test="${param.page == 'addMerchants'}">
             <jsp:include page="manageMerchants/addMerchants.jsp"/>
         </c:when>
-
         <c:when test="${param.page == 'updateMerchants'}">
             <jsp:include page="manageMerchants/updateMerchants.jsp"/>
         </c:when>
-
         <c:when test="${param.page == 'merchantDetails'}">
             <jsp:include page="manageMerchants/merchantDetails.jsp"/>
         </c:when>
+
+        <%--        quản lý danh muc san pham--%>
+        <c:when test="${param.page == 'manageCategoriesFood'}">
+            <jsp:include page="manageCategoriesFood/manageCategoriesFood.jsp"/>
+        </c:when>
+        <c:when test="${param.page == 'addCategoriesFood'}">
+            <jsp:include page="manageCategoriesFood/addCategoriesFood.jsp"/>
+        </c:when>
+        <c:when test="${param.page == 'updateCategoriesFood'}">
+            <jsp:include page="manageCategoriesFood/updateCategoriesFood.jsp"/>
+        </c:when>
+        <c:when test="${param.page == 'infoCategoriesFood'}">
+            <jsp:include page="manageCategoriesFood/infoCategoriesFood.jsp"/>
+        </c:when>
+
 
         <%--        quản lý người dùng--%>
         <c:when test="${param.page == 'manageUsers'}">
