@@ -58,7 +58,6 @@
                            required
                            pattern=".*\S.*"
                            title="Địa chỉ không được để trống" minlength="2">
-                    >
                 </div>
 
                 <!-- Số điện thoại -->
