@@ -13,7 +13,7 @@ create table `Account`
     username   varchar(255) unique not null,
     `password` varchar(255)        not null,
     `active`   boolean default true,
-    avt_path   text    default ('images/avatars/avt_default.jpg'),
+    avt_path   text    default ('avt_default.jpg'),
     role_id    int,
     foreign key (role_id) references Roles (role_id)
 );
@@ -103,8 +103,8 @@ create table Stores
     store_name     varchar(255),
     store_address  text,
     contact_number varchar(255),
-    banner_path    text    default ('images/avatars/banner-default.jpg'),
-    avt_path       text    default ('images/avatars/avt_store_default.jpg'),
+    banner_path    text    default ('banner-default.jpg'),
+    avt_path       text    default ('avt_store_default.jpg'),
     store_type     boolean default true,
     foreign key (merchant_id) references `Account` (account_id)
 );
@@ -139,20 +139,21 @@ CREATE TABLE Vouchers
 );
 
 -- Bảng danh mục sản phẩm 
-create table Categorys
+create table Categories
 (
     category_id      int primary key auto_increment,
     category_name    varchar(255),
     `description` text,
-    avt_path text default ('images/product/product_default.png')
+    avt_path text default ('product_default.png')
 );
 -- Bảng danh mục sản phẩm của cửa hàng 
-create table Catagorys_Stores(
-store_id int,
-category_id int ,
-foreign key (category_id) references Categorys (category_id),
-foreign key (store_id) references Stores (store_id)
+CREATE TABLE Categories_Stores (
+    store_id INT,
+    category_id INT,
+    FOREIGN KEY (category_id) REFERENCES Categories (category_id),
+    FOREIGN KEY (store_id) REFERENCES Stores (store_id)
 );
+
 -- Bảng sản phẩm
 create table Products
 (
@@ -165,11 +166,11 @@ create table Products
     foreign key (store_id) references Stores (store_id)
 );
 -- Bảng trung gian giữa sản phẩm và danh mục 
-create table Products_Categorys
+create table Products_Categories
 (
     product_id  int,
     category_id int,
-    foreign key (category_id) references Categorys (category_id),
+    foreign key (category_id) references Categories (category_id),
     foreign key (product_id) references Products (product_id)
 );
 -- Bảng ảnh sản phẩm
@@ -177,7 +178,7 @@ create table Product_Images
 (
     image_id   int primary key auto_increment,
     product_id int,
-    image_path text    default ('https://drive.google.com/drive/folders/11mfrLNCJ2rhFq6S6inqisIM9VBEVHNQV'),
+    image_path text    default ('product_default.png'),
     is_primary boolean default true,
     foreign key (product_id) references Products (product_id)
 );
