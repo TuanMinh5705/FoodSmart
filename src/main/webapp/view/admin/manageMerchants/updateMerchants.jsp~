@@ -24,7 +24,7 @@
                     <label class="form-label"><i class="fas fa-store-alt"></i> Tên cửa hàng</label>
                     <input type="text" class="form-control" value="${merchant.store_name}" name="store_name" required
                            pattern=".*\S.*"
-                           title="Tên cửa hàng không được để trống" minlength="2">
+                           title="Tên cửa hàng không được để trống" minlength="6">
 
                 </div>
 
@@ -57,7 +57,7 @@
                     <input type="text" class="form-control" value="${merchant.store_address}" name="store_address"
                            required
                            pattern=".*\S.*"
-                           title="Địa chỉ không được để trống" minlength="2">
+                           title="Địa chỉ không được để trống" minlength="6">
                     >
                 </div>
 
