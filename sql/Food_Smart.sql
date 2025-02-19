@@ -138,20 +138,20 @@ CREATE TABLE Vouchers
     `description`  TEXT
 );
 
+-- Bảng danh mục sản phẩm 
+create table Categorys
+(
+    category_id      int primary key auto_increment,
+    category_name    varchar(255),
+    `description` text,
+    avt_path text default ('images/product/product_default.png')
+);
 -- Bảng danh mục sản phẩm của cửa hàng 
 create table Catagorys_Stores(
 store_id int,
 category_id int ,
 foreign key (category_id) references Categorys (category_id),
 foreign key (store_id) references Stores (store_id)
-);
-
--- Bảng danh mục sản phẩm 
-create table Categorys
-(
-    category_id      int primary key auto_increment,
-    category_name    varchar(255),
-    description_path text default ('images/product/product_default.png')
 );
 -- Bảng sản phẩm
 create table Products
