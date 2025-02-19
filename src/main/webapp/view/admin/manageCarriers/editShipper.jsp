@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="com.example.foodSmart.model.Shipper" %>
+<%@ page import="com.example.foodSmart.model.admin.Shipper" %>
 <%
     Shipper shipper = (Shipper) request.getAttribute("shipper");
     if (shipper == null) {

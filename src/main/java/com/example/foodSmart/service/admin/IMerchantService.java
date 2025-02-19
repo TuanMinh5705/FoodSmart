@@ -1,6 +1,6 @@
-package com.example.foodSmart.service;
+package com.example.foodSmart.service.admin;
 
-import com.example.foodSmart.model.Merchant;
+import com.example.foodSmart.model.admin.Merchant;
 
 import java.util.List;
 

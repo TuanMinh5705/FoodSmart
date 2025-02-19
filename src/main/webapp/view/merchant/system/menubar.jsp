@@ -7,10 +7,9 @@
     <title>Menubar</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-
     <style>
         .navbar {
-            width: 100%;
+            width: 93%;
             z-index: 1030;
             position: absolute;
             left: 80px;
@@ -28,21 +27,24 @@
 
     <div class="collapse navbar-collapse" id="navbarMain">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item mr-2">
-                <a class="nav-link" href="#">
+            <li class="nav-item">
+                <a class="nav-link icon-btn" href="#">
                     <i class="fas fa-comments"></i> Trò chuyện
                 </a>
             </li>
-
+            <li class="nav-item">
+                <a class="nav-link icon-btn" href="#">
+                    <i class="fas fa-bell"></i> Thông báo
+                </a>
+            </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="/view/admin/homeAdmin.jsp?page=account"
-                   id="userDropdown" role="button" data-toggle="dropdown"
+                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-user"></i>
-                    <c:out value="${loggedInAccount.username}" default="Admin" />
+                    <c:out value="${loggedInAccount.username}" default="Merchant" />
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="/view/admin/notification.jsp">Thông báo</a>
+                    <a class="dropdown-item" href="#">Thông tin tài khoản</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="/authenticate?action=logout">Đăng xuất</a>
                 </div>
@@ -51,7 +53,7 @@
     </div>
 </nav>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

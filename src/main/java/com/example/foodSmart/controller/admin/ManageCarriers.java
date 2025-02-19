@@ -1,9 +1,9 @@
-package com.example.foodSmart.controller;
+package com.example.foodSmart.controller.admin;
 
-import com.example.foodSmart.model.Carrier;
-import com.example.foodSmart.model.Shipper;
+import com.example.foodSmart.model.admin.Carrier;
+import com.example.foodSmart.model.admin.Shipper;
 import com.example.foodSmart.service.CarrierService;
-import com.example.foodSmart.service.ICarrierService;
+import com.example.foodSmart.service.admin.ICarrierService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
