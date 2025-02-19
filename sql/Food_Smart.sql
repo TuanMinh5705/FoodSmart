@@ -9,7 +9,6 @@ create table Roles
 -- Bảng tài khoản 
 create table `Account`
 (
-
     account_id int primary key auto_increment,
     username   varchar(255) unique not null,
     `password` varchar(255)        not null,
@@ -137,6 +136,14 @@ CREATE TABLE Vouchers
     end_time       TIME      DEFAULT NULL,
     quantity       INT,
     `description`  TEXT
+);
+
+-- Bảng danh mục sản phẩm của cửa hàng 
+create table Catagorys_Stores(
+store_id int,
+category_id int ,
+foreign key (category_id) references Categorys (category_id),
+foreign key (store_id) references Stores (store_id)
 );
 
 -- Bảng danh mục sản phẩm 
