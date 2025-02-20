@@ -65,7 +65,10 @@ public class ManageCoupons extends HttpServlet {
 
     }
 
-    private void addCoupon(HttpServletRequest req, HttpServletResponse resp) throws ParseException {
+    private void addCoupon(HttpServletRequest req, HttpServletResponse resp) throws ParseException, ServletException, IOException {
+        ManageFoods manageFoods = new ManageFoods();
+        Integer store_id = manageFoods.storeIDByLoggedInUser(req, resp);
+
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
         String coupon_code = req.getParameter("coupon_code");
@@ -76,10 +79,9 @@ public class ManageCoupons extends HttpServlet {
         Time end_time = new Time(timeFormat.parse(req.getParameter("end_time")).getTime());
         int quantity = Integer.parseInt(req.getParameter("quantity"));
         String description = req.getParameter("description");
-        Coupon coupon = new Coupon(  coupon_code ,discount_value ,start_date ,end_date ,start_time ,end_time ,quantity , description );
+        Coupon coupon = new Coupon(store_id,coupon_code,discount_value,start_date,end_date,start_time,end_time,quantity,description);
         couponService.addCoupon(coupon);
         listCoupons(req, resp);
-
     }
 
 

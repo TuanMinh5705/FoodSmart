@@ -30,9 +30,8 @@ public class Coupon {
         this.quantity = quantity;
         this.description = description;
     }
-
-    public Coupon(int coupon_id, String coupon_code, int discount_value, Timestamp start_date, Timestamp end_date, Time start_time, Time end_time, int quantity, String description) {
-        this.coupon_id = coupon_id;
+    public Coupon(int store_id, String coupon_code, int discount_value, Timestamp start_date, Timestamp end_date, Time start_time, Time end_time, int quantity, String description) {
+        this.store_id = store_id;
         this.coupon_code = coupon_code;
         this.discount_value = discount_value;
         this.start_date = start_date;
@@ -43,16 +42,6 @@ public class Coupon {
         this.description = description;
     }
 
-    public Coupon(String coupon_code, int discount_value, Timestamp start_date, Timestamp end_date, Time start_time, Time end_time, int quantity, String description) {
-        this.coupon_code = coupon_code;
-        this.discount_value = discount_value;
-        this.start_date = start_date;
-        this.end_date = end_date;
-        this.start_time = start_time;
-        this.end_time = end_time;
-        this.quantity = quantity;
-        this.description = description;
-    }
 
     public int getCoupon_id() {
         return coupon_id;

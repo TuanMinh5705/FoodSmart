@@ -119,7 +119,7 @@ public class ManageFoods extends HttpServlet {
        throw new RuntimeException(e);
    }
     }
-    private int storeIDByLoggedInUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    int storeIDByLoggedInUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Account loggedInUser = (Account) req.getSession().getAttribute("loggedInAccount");
         int loggedUserId = 0;
         if (loggedInUser != null) {
