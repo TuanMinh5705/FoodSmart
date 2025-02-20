@@ -76,6 +76,9 @@
         <c:when test="${param.page == 'infoStore'}">
             <jsp:include page="merchantStore.jsp"/>
         </c:when>
+        <c:when test="${param.page == 'infoMerchantStore'}">
+            <jsp:include page="infoMerchantStore.jsp"/>
+        </c:when>
 
 
 

@@ -144,8 +144,15 @@
                        title="Số điện thoại phải có 10 hoặc 11 chữ số" placeholder="Nhập số điện thoại ...">
             </div>
         </div>
+        <div class="d-flex justify-content-center gap-2">
+            <a href="/manageUsers" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Quay lại
+            </a>
+            <button type="submit" class="btn btn-primary">
+                Cập nhật thông tin
+            </button>
+        </div>
 
-        <button type="submit" class="btn btn-primary w-100">Cập nhật thông tin</button>
     </form>
 </div>
 <!-- Modal xóa -->
@@ -168,7 +175,5 @@
         }
     });
 </script>
-
-
 </body>
 </html>

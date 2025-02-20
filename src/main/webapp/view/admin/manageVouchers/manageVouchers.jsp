@@ -72,10 +72,10 @@
                     <td>
                         <div class="action-buttons d-inline-flex">
                             <a href="/manageVouchers?action=editVoucherForm&voucherID=${voucher.voucher_id}" class="btn btn-primary btn-sm" title="Chỉnh sửa">
-                                <i class="fas fa-pencil-alt"></i>
+                                <i class="fas fa-edit"></i>
                             </a>
                             <a href="/manageVouchers?action=infoVoucherForm&voucherID=${voucher.voucher_id}" class="btn btn-secondary btn-sm" title="Chi tiết">
-                                <i class="fas fa-eye"></i>
+                                <i class="fas fa-info-circle"></i>
                             </a>
                         </div>
                     </td>

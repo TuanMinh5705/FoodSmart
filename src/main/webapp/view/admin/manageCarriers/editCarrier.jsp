@@ -48,10 +48,11 @@
                            title="Chi phí phải là số nguyên dương, tối thiểu 1.000 VNĐ">
                 </div>
 
-                <div class="d-flex justify-content-between">
+                <div class="d-flex justify-content-center gap-2">
                     <a href="manageCarriers" class="btn btn-secondary">Quay lại</a>
                     <button type="submit" class="btn btn-success">Lưu thay đổi</button>
                 </div>
+
             </form>
         </div>
     </div>
