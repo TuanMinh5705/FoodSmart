@@ -151,7 +151,7 @@
                     </div>
                     <div>
                         <div class="divider"></div>
-                        <a href="#" class="detail-link">Chi tiết</a>
+                        <a href="/manageStore?action=showInfoStore" class="detail-link">Chi tiết</a>
                     </div>
                 </div>
             </div>

@@ -73,7 +73,7 @@
         </c:when>
 
 <%--        Thông tin khách hàng--%>
-        <c:when test="${param.page == 'infoStore'}">
+        <c:when test="${param.page == 'mangeStore'}">
             <jsp:include page="merchantStore.jsp"/>
         </c:when>
 
