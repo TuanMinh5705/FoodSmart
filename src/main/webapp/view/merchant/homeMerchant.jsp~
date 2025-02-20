@@ -49,7 +49,7 @@
         </c:when>
 
 
-        <c:when test="${param.page == 'addCoupons'}">
+        <c:when test="${param.page == 'addCoupon'}">
             <jsp:include page="manageCoupons/addCoupon.jsp"/>
         </c:when>
 

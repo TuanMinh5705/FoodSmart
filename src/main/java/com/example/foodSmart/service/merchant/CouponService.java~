@@ -43,15 +43,6 @@ public class CouponService implements ICouponSerice {
         try (Connection conn = ConnectDB.getConnection();
              PreparedStatement pstm = conn.prepareStatement(ADD_COUPON_QUERY)) {
             pstm.setInt(1,coupon.getStore_id());
-            pstm.setString(2,coupon.getCoupon_code());
-            pstm.setInt(3,coupon.getDiscount_value());
-            pstm.setTimestamp(4,coupon.getStart_date());
-            pstm.setTimestamp(5,coupon.getEnd_date());
-            pstm.setTime(6,coupon.getStart_time());
-            pstm.setTime(7,coupon.getEnd_time());
-            pstm.setInt(8,coupon.getQuantity());
-            pstm.setString(9,coupon.getDescription());
-            pstm.execute();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
