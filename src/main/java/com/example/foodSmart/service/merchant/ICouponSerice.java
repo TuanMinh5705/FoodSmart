@@ -9,7 +9,10 @@ public interface ICouponSerice {
     List<Coupon> getListCoupons();
 
     void addCoupon( Coupon coupon);
+    void updateCoupon(Coupon coupon);
 
+
+    Coupon getCouponById(int couponId);
 
 
 }

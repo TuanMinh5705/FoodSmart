@@ -61,6 +61,9 @@
         <c:when test="${param.page == 'addCoupons'}">
             <jsp:include page="manageCoupons/addCoupon.jsp"/>
         </c:when>
+        <c:when test="${param.page == 'editCoupons'}">
+            <jsp:include page="manageCoupons/editCoupon.jsp"/>
+        </c:when>
 
 
 

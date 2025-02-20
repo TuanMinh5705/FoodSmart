@@ -51,7 +51,7 @@
                     <td>${coupon.quantity}</td>
                     <td>
                         <div class="action-buttons d-inline-flex">
-                            <a href="/manageCoupons?action=editCouponForm&coupon_id=${coupon.coupon_id}" class="btn btn-primary btn-sm" title="Chỉnh sửa">
+                            <a href="/manageCoupons?action=editCoupon&coupon_id=${coupon.coupon_id}" class="btn btn-primary btn-sm" title="Chỉnh sửa">
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
                             <a href="/manageCoupons?action=addCouponForm" class="btn btn-secondary btn-sm" title="Chi tiết">
