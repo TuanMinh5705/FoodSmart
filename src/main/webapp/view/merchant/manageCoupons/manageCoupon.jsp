@@ -8,7 +8,6 @@
 <body>
 <div class="container my-4">
     <h2 class="text-center mb-4">Quản lý mã giảm giá</h2>
-
     <div class="row mb-3">
         <div class="col-md-3">
             <a href="/manageCoupons?action=addCouponForm" class="btn btn-success w-100">
@@ -18,7 +17,8 @@
         <div class="col-md-6">
             <form action="/manageVouchers?action=searchVouchers" method="post" id="searchForm">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Tìm kiếm mã giảm giá" name="keyword" onkeyup="startTimer()">
+                    <input type="text" class="form-control" placeholder="Tìm kiếm mã giảm giá" name="keyword"
+                           onkeyup="startTimer()">
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="submit">
                             <i class="fas fa-search"></i>
@@ -28,8 +28,6 @@
             </form>
         </div>
     </div>
-
-
 
     <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover" id="voucherTable">
@@ -54,7 +52,8 @@
                             <a href="#" class="btn btn-primary btn-sm" title="Chỉnh sửa">
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
-                            <a href="/manageCoupons?action=addCouponForm" class="btn btn-secondary btn-sm" title="Chi tiết">
+                            <a href="/manageCoupons?action=addCouponForm" class="btn btn-secondary btn-sm"
+                               title="Chi tiết">
                                 <i class="fas fa-eye"></i>
                             </a>
                         </div>
@@ -65,7 +64,5 @@
         </table>
     </div>
 </div>
-
-
 </body>
 </html>
