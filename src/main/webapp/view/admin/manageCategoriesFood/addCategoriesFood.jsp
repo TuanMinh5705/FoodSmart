@@ -61,7 +61,6 @@
                             </c:if>
                         </div>
 
-
                         <!-- Mô tả -->
                         <div class="mb-3">
                             <label for="description" class="form-label">
@@ -73,7 +72,10 @@
                                       placeholder="Nhập mô tả danh mục" required></textarea>
                         </div>
                         <!-- Nút submit -->
-                        <div class="d-grid">
+                        <div class="d-flex justify-content-center gap-2">
+                            <a href="/manageCategoryFood" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i> Quay lại
+                            </a>
                             <button type="submit" class="btn btn-primary">
                                 <i class="fas fa-save"></i> Lưu danh mục
                             </button>

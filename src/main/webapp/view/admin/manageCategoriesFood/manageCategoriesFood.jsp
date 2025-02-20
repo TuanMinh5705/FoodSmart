@@ -45,17 +45,23 @@
                 <tr>
                     <td>${status.index + 1}</td>
                     <td>
-                        <img src="/images/product/${category.avt_path}" alt="Ảnh danh mục" class="img-thumbnail" width="80">
+                        <img src="/images/product/${category.avt_path}" alt="Ảnh danh mục" class="img-thumbnail"
+                             width="80">
                     </td>
                     <td>${category.category_name}</td>
                     <td>${category.description}</td>
                     <td>
                         <div class="btn-group">
-                            <a href="/manageCategoryFood?action=editForm&categoryID=${category.category_id}" class="btn btn-primary btn-sm">
-                                <i class="fas fa-pencil-alt"></i> Sửa
+                            <a href="/manageCategoryFood?action=editForm&categoryID=${category.category_id}"
+                               class="btn btn-primary custom-btn">
+                                <i class="fas fa-edit"></i>
                             </a>
-                            <a href="/manageCategoryFood?action=infoForm&categoryID=${category.category_id}" class="btn btn-danger btn-sm">
-                                <i class="manageCategoriesFood"></i> Chi tiết
+                        </div>
+
+                        <div class="btn-group">
+                            <a href="/manageCategoryFood?action=infoForm&categoryID=${category.category_id}"
+                               class="btn btn-danger custom-btn">
+                                <i class="fas fa-info-circle"></i>
                             </a>
                         </div>
                     </td>
@@ -74,7 +80,7 @@
     function startTimer() {
         clearTimeout(timer);
 
-        timer = setTimeout(function() {
+        timer = setTimeout(function () {
             document.getElementById("searchForm").submit();
         }, 4500);
     }
