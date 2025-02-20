@@ -72,6 +72,9 @@
             <a class="nav-link text-white" href="/manageMerchants"><i class="fas fa-store"></i> Quản lý cửa hàng</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link text-white" href="/manageCategoryFood"><i class="bi bi-list"></i> Danh mục sản phẩm</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link text-white" href="/manageUsers"><i class="fas fa-user-cog"></i> Quản lý người dùng</a>
         </li>
         <li class="nav-item">

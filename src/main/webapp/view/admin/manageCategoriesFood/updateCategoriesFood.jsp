@@ -31,7 +31,7 @@
             </h2>
             <div class="card shadow">
                 <div class="card-body">
-                    <form action="/manageFoods?action=edit" method="post" enctype="multipart/form-data">
+                    <form action="/manageCategoryFood?action=edit" method="post" enctype="multipart/form-data">
 
                         <input type="hidden" name="category_id" value="${category.category_id}">
                         <div class="mb-3 text-center">
@@ -50,9 +50,9 @@
                             <label for="category_name" class="form-label">
                                 <i class="fas fa-tags"></i> Tên danh mục
                             </label>
-                            <select class="form-control" id="category_name" name="newCategoryStore" required>
+                            <select class="form-control" id="category_name" name="category_name" required>
                                 <c:forEach var="cat" items="${categoryFoodList}">
-                                    <option value="${cat.category_id}"
+                                    <option value="${cat.category_name}"
                                             <c:if test="${cat.category_id eq category.category_id}">selected</c:if>>
                                             ${cat.category_name}
                                     </option>
@@ -75,7 +75,7 @@
                                 <i class="fas fa-save"></i> Cập nhật danh mục
                             </button>
                             <div class="d-grid">
-                                <a href="/manageFoods" class="btn btn-secondary">
+                                <a href="/manageCategoryFood" class="btn btn-secondary">
                                     <button type="button"  class="btn btn-primary">
                                         <i class="fas fa-arrow-left"></i> Quay lại
                                     </button>

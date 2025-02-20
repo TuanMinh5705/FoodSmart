@@ -9,24 +9,47 @@ values ('NgocThom', 'Vy12092001', 1),
        ('VanDam', 'Dam123', 1),
        ('abc', 'abc123', 3),
        ('bac', 'abc123', 3);
-insert into Stores(merchant_id, store_name, store_address, contact_number)
-values (5, 'Cơm rang và phở bò Minh Khánh', '102 Tu Hoàng , Minh Khai , Bắc Từ Liêm , Hà Nội', '0123456789');
-insert into Categorys(category_name,description_path) values
-("Đồ ăn nhanh","https://drive.google.com/drive/folders/11mfrLNCJ2rhFq6S6inqisIM9VBEVHNQV"),
-('Bánh mì','https://drive.google.com/drive/folders/11mfrLNCJ2rhFq6S6inqisIM9VBEVHNQV'),
-('Cơm,Cơm rang','https://drive.google.com/drive/folders/11mfrLNCJ2rhFq6S6inqisIM9VBEVHNQV'),
-('Mì , bún , phở',"https://drive.google.com/drive/folders/11mfrLNCJ2rhFq6S6inqisIM9VBEVHNQV"),
-('Đồ tráng miệng , đồ ngọt','https://drive.google.com/drive/folders/11mfrLNCJ2rhFq6S6inqisIM9VBEVHNQV'),
-("Đồ uống",'https://drive.google.com/drive/folders/11mfrLNCJ2rhFq6S6inqisIM9VBEVHNQV');
+insert into Stores(merchant_id, store_name, store_address, contact_number) values 
+(5, 'Cơm rang và phở bò Minh Khánh', '102 Tu Hoàng , Minh Khai , Bắc Từ Liêm , Hà Nội', '0123456789'),
+(5, 'Pizza Hut', '202 Đường Phan Xích Long, Quận Phú Nhuận, TP.HCM', '0945123456'),
+(6, 'Lẩu Bò Ba Toa', '303 Đường Hai Bà Trưng, Đà Lạt', '0956123456');
+insert into Categories(category_name,`description`) values
+("Đồ ăn nhanh","Đồ ăn nhánh"),
+('Bánh mì','Bánh mì'),
+('Cơm,Cơm rang','Cơm,Cơm rang'),
+('Mì , bún , phở',"Mì , bún , phở"),
+('Đồ tráng miệng , đồ ngọt','Đồ tráng miệng , đồ ngọt'),
+("Đồ uống",'Đồ uống');
 insert into Products(store_id,product_name,price,stock_quantity) values
 (1,'Cơm rang dưa bò',35000,20),
 (1,'Phở bò',40000,20);
-insert into Products_Categorys(product_id,category_id) values
+insert into Products_Categories(product_id,category_id) values
 (1,3),
 (2,4);
-insert into Product_Images(product_id,image_path) values 
-(1,'https://drive.google.com/drive/folders/1ow5kehB1lhNkHlIYffRvy9cec-wVgNdw'),
-(2,'https://drive.google.com/drive/folders/16qRMJhofBX3An0Gr3UbYSO9cR06lTnda');
+insert into categories_stores(store_id,category_id) values
+(1,3),
+(1,4),
+(1,1),
+(2,1),
+(2,2),
+(3,1),(3,2),(3,3);
+INSERT INTO Products (store_id, product_name, price, stock_quantity, discount)
+VALUES 
+(3, 'Pizza Hải Sản', 200000, 50, 10),
+(3, 'Bánh Mì Gà', 35000, 100, 5),
+(3, 'Trà Sữa Trân Châu', 45000, 80, 0),
+(3, 'Cơm Tấm Sườn', 50000, 60, 15),
+(3, 'Bún Bò Huế', 60000, 40, 10);
+INSERT INTO Product_Images (product_id, image_path, is_primary)  
+VALUES  
+(1, 'product_default.png', TRUE), 
+(2, 'product_default.png', TRUE),  
+(3, 'product_default.png', TRUE),  
+(4, 'product_default.png', TRUE),  
+(5, 'product_default.png', TRUE),
+(5, 'noodles2.png',false),
+(5,'noodles.png',false);  
+
 insert into Carriers(carrier_name, contact_phone, shipping_cost)
 values ("Be", '0867536601', 25000),
        ("Grap", "0342707049", 25000);
@@ -40,10 +63,6 @@ INSERT INTO Vouchers (voucher_code, discount_value, start_date, end_date, start_
 ('A0003', 15, '2026-02-01 00:00:00', '2026-02-10 00:00:00', '12:00:00', '15:00:00', 100, "Mã giảm giá 15% từ 12:00 đến 15:00"),
 ('A0004', 20, '2026-03-01 00:00:00', '2026-03-15 00:00:00', '18:00:00', '22:00:00', 50, "Mã giảm giá 20% từ 18:00 đến 22:00"),
 ('A0005', 25, '2026-03-05 00:00:00', '2026-03-20 00:00:00', '00:00:00', '23:59:59', 200, "Mã giảm giá 25% áp dụng cả ngày");
-
-INSERT INTO Stores (merchant_id, store_name, store_address, contact_number) VALUES
-(5, 'Pizza Hut', '202 Đường Phan Xích Long, Quận Phú Nhuận, TP.HCM', '0945123456'),
-(6, 'Lẩu Bò Ba Toa', '303 Đường Hai Bà Trưng, Đà Lạt', '0956123456');
 
 -- Thêm dữ liệu vào bảng Store_Coupons (Mã giảm giá của cửa hàng)
 INSERT INTO Store_Coupons (store_id, coupon_code, discount_value, start_date, end_date, start_time, end_time, quantity, description) VALUES

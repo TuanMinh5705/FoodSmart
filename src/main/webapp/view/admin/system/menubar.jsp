@@ -10,7 +10,7 @@
 
     <style>
         .navbar {
-            width: 100%;
+            width: 93%;
             z-index: 1030;
             position: absolute;
             left: 80px;
