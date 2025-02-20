@@ -65,6 +65,13 @@
             <jsp:include page="manageCoupons/editCoupon.jsp"/>
         </c:when>
 
+        <c:when test="${param.page == 'infoCoupons'}">
+            <jsp:include page="manageCoupons/infoCoupon.jsp"/>
+        </c:when>
+        <c:when test="${param.page == 'manageCoupons'}">
+            <jsp:include page="manageCoupons/manageCoupon.jsp"/>
+        </c:when>
+
 
 
 

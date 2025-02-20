@@ -1,6 +1,5 @@
 package com.example.foodSmart.service.merchant;
 
-import com.example.foodSmart.model.admin.Voucher;
 import com.example.foodSmart.model.merchant.Coupon;
 import com.example.foodSmart.util.ConnectDB;
 
@@ -13,6 +12,7 @@ public class CouponService implements ICouponSerice {
     private static final String ADD_COUPON_QUERY = "INSERT INTO store_coupons (store_id, coupon_code, discount_value, start_date, end_date, start_time, end_time, quantity, description) VALUES (?,?,?,?,?,?,?,?,?)";
     private static final String EDIT_COUPON_QUERY = "UPDATE store_coupons SET store_id = ?, coupon_code = ?, discount_value = ?, start_date = ?, end_date = ?, start_time = ?, end_time = ?, quantity = ?, description = ? WHERE coupon_id = ?";
     private static final String COUPON_BY_ID_QUERY = "SELECT * FROM store_coupons where coupon_id = ?";
+    private static final String COUPON_BY_NAME_QUERY = "SELECT * FROM store_coupons where coupon_code LIKE ?";
 
     @Override
     public List<Coupon> getListCoupons() {
@@ -108,6 +108,32 @@ public class CouponService implements ICouponSerice {
             throw new RuntimeException(e);
         }
         return null;
+    }
+
+    @Override
+    public List<Coupon> getListCouponsByName(String keyword) {
+        List<Coupon> coupons = new ArrayList<>();
+        try (Connection conn = ConnectDB.getConnection();
+             PreparedStatement pstm = conn.prepareStatement(COUPON_BY_NAME_QUERY)) {
+            pstm.setString(1,"%"+keyword+"%");
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                int store_id = rs.getInt(2);
+                String coupon_code = rs.getString(3);
+                int discount_value = rs.getInt(4);
+                Timestamp start_date = rs.getTimestamp(5);
+                Timestamp end_date = rs.getTimestamp(6);
+                Time start_time = rs.getTime(7);
+                Time end_time = rs.getTime(8);
+                int quantity = rs.getInt(9);
+                String description = rs.getString(10);
+                Coupon coupon = new Coupon(store_id, coupon_code, discount_value, start_date, end_date, start_time, end_time, quantity, description);
+                coupons.add(coupon);
+            }
+            return coupons;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
