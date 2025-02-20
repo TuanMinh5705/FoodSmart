@@ -112,7 +112,7 @@
 
                         <!-- Nút submit -->
                         <div class="d-flex justify-content-center gap-2">
-                            <a href="/manageCategoryFood" class="btn btn-secondary">
+                            <a href="/manageUsers" class="btn btn-secondary">
                                 <i class="fas fa-arrow-left"></i> Quay lại
                             </a>
                             <button type="submit" class="btn btn-primary">

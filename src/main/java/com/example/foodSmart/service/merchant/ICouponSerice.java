@@ -7,9 +7,10 @@ import java.util.List;
 
 public interface ICouponSerice {
     List<Coupon> getListCoupons();
+    void addCoupon(Coupon coupon);
+    void updateCoupon(Coupon coupon);
+    Coupon getCouponById(int couponId);
 
-    void addCoupon( Coupon coupon);
 
-
-
+    List<Coupon> getListCouponsByName(String keyword);
 }
