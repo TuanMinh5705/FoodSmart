@@ -21,7 +21,7 @@
             <input name="keyword" type="text" class="form-control me-2" placeholder="Tìm kiếm..."
                    value="${searchKeyword}" oninput="startTimer()">
             <button type="submit" class="btn btn-primary">
-                <i class="fas fa-search"></i> <!-- Search Icon -->
+                <i class="fas fa-search"></i>
             </button>
         </form>
 

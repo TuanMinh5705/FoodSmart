@@ -4,7 +4,7 @@
 <%
     Shipper shipper = (Shipper) request.getAttribute("shipper");
     if (shipper == null) {
-        response.sendRedirect("manageShippers"); // Chuyển hướng nếu không có dữ liệu
+        response.sendRedirect("manageShippers");
         return;
     }
 %>

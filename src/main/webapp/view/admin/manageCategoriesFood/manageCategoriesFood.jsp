@@ -13,7 +13,6 @@
 <div class="container my-4">
     <h2 class="text-center mb-4">Quản lý danh mục sản phẩm</h2>
 
-    <!-- Thanh công cụ -->
     <div class="d-flex justify-content-between mb-3">
         <a href="/manageCategoryFood?action=addForm" class="btn btn-success">
             <i class="fas fa-plus"></i> Thêm danh mục
@@ -28,7 +27,6 @@
         </form>
     </div>
 
-    <!-- Bảng danh sách danh mục -->
     <div class="table-responsive">
         <table class="table table-bordered table-hover text-center">
             <thead class="thead-dark">

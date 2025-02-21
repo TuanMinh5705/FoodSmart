@@ -3,6 +3,7 @@ package com.example.foodSmart.controller.merchant;
 import com.example.foodSmart.model.Account;
 import com.example.foodSmart.model.admin.CategoryFood;
 import com.example.foodSmart.model.merchant.Food;
+import com.example.foodSmart.model.merchant.FoodImages;
 import com.example.foodSmart.service.admin.CategoryFoodService;
 import com.example.foodSmart.service.admin.ICategoryFoodService;
 import com.example.foodSmart.service.admin.IMerchantService;
@@ -17,8 +18,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @WebServlet("/manageFoods")
@@ -39,6 +43,11 @@ public class ManageFoods extends HttpServlet {
         }
         int store_id = storeIDByLoggedInUser(req,resp);
         switch (action){
+            case "addFoodForm":
+                List<CategoryFood> categoryStoreList = foodService.listCategoriesFoodStore(store_id);
+                req.setAttribute("categoryStoreList", categoryStoreList);
+                req.getRequestDispatcher("view/merchant/homeMerchant.jsp?page=addFood").forward(req, resp);
+                break;
             case "infoCategoryForm":
                 getCategoryFoodAction(req,resp);
                 req.getRequestDispatcher("view/merchant/homeMerchant.jsp?page=infoCategory").forward(req, resp);
@@ -77,6 +86,57 @@ public class ManageFoods extends HttpServlet {
             case "search":
                 searchCategoryFoodByName(req,resp);
                 break;
+            case "addFood":
+                addFood(resp, req);
+                break;
+        }
+    }
+
+    private void addFood(HttpServletResponse resp, HttpServletRequest req) throws ServletException, IOException {
+        try {
+            String productName = req.getParameter("product_name");
+            int price = Integer.parseInt(req.getParameter("price"));
+            int stockQuantity = Integer.parseInt(req.getParameter("stock_quantity"));
+            int discount = Integer.parseInt(req.getParameter("discount"));
+            int store_id = storeIDByLoggedInUser(req, resp);
+
+
+            String uploadPath = getServletContext().getRealPath("") + File.separator + "images\\product";
+            File uploadDir = new File(uploadPath);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdirs();
+            }
+
+            List<FoodImages> foodImagesList = new ArrayList<>();
+            Collection<Part> fileParts = req.getParts();
+            for (Part part : fileParts) {
+                if (part.getName().equals("product_images") && part.getSize() > 0) {
+                    String fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
+                    part.write(uploadPath + File.separator + fileName);
+                    boolean isPrimary = foodImagesList.isEmpty();
+                    foodImagesList.add(new FoodImages(0, 0, fileName, isPrimary));
+                }
+            }
+
+            Food food = new Food(0, store_id, productName, price, stockQuantity, discount, foodImagesList);
+
+            boolean success;
+            int productID = foodService.addFood(store_id, food);
+            if (productID > 0) {
+                success = foodService.addFoodImages(productID, foodImagesList);
+            } else {
+                success = false;
+            }
+            if (success) {
+                listFoodAndCategory(req, resp, store_id);
+            } else {
+                req.setAttribute("errorMessage", "Lỗi khi thêm sản phẩm.");
+                req.getRequestDispatcher("view/merchant/homeMerchant.jsp?page=addFood").forward(req, resp);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            req.setAttribute("errorMessage", "Lỗi khi thêm sản phẩm.");
+            req.getRequestDispatcher("view/merchant/homeMerchant.jsp?page=addFood").forward(req, resp);
         }
     }
 
