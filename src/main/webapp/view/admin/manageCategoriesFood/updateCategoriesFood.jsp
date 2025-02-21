@@ -66,16 +66,15 @@
                                       oninput="this.setCustomValidity(this.value.length < 5 || this.value.length > 255 ? 'Mô tả phải có từ 5 đến 255 ký tự' : '')">${category.description}</textarea>
                         </div>
                         <div class="d-grid">
+                        <div class="d-flex justify-content-center gap-2">
+                            <a href="/manageCategoryFood" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i> Quay lại
+                            </a>
+
                             <button type="submit" class="btn btn-primary">
                                 <i class="fas fa-save"></i> Cập nhật danh mục
                             </button>
-                            <div class="d-grid">
-                                <a href="/manageCategoryFood" class="btn btn-secondary">
-                                    <button type="button"  class="btn btn-primary">
-                                        <i class="fas fa-arrow-left"></i> Quay lại
-                                    </button>
-                                </a>
-                            </div>
+                        </div>
                         </div>
                     </form>
                 </div>
@@ -96,7 +95,6 @@
             reader.readAsDataURL(file);
         }
     });
-
 </script>
 </body>
 </html>

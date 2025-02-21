@@ -6,6 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản lý danh mục sản phẩm</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 </head>
@@ -43,17 +45,23 @@
                 <tr>
                     <td>${status.index + 1}</td>
                     <td>
-                        <img src="/images/product/${category.avt_path}" alt="Ảnh danh mục" class="img-thumbnail" width="80">
+                        <img src="/images/product/${category.avt_path}" alt="Ảnh danh mục" class="img-thumbnail"
+                             width="80">
                     </td>
                     <td>${category.category_name}</td>
                     <td>${category.description}</td>
                     <td>
                         <div class="btn-group">
-                            <a href="/manageCategoryFood?action=editForm&categoryID=${category.category_id}" class="btn btn-primary btn-sm">
-                                <i class="fas fa-pencil-alt"></i> Sửa
+                            <a href="/manageCategoryFood?action=editForm&categoryID=${category.category_id}"
+                               class="btn btn-primary custom-btn">
+                                <i class="fas fa-edit"></i>
                             </a>
-                            <a href="/manageCategoryFood?action=infoForm&categoryID=${category.category_id}" class="btn btn-danger btn-sm">
-                                <i class="manageCategoriesFood"></i> Chi tiết
+                        </div>
+
+                        <div class="btn-group">
+                            <a href="/manageCategoryFood?action=infoForm&categoryID=${category.category_id}"
+                               class="btn btn-danger custom-btn">
+                                <i class="fas fa-info-circle"></i>
                             </a>
                         </div>
                     </td>
@@ -72,7 +80,7 @@
     function startTimer() {
         clearTimeout(timer);
 
-        timer = setTimeout(function() {
+        timer = setTimeout(function () {
             document.getElementById("searchForm").submit();
         }, 4500);
     }

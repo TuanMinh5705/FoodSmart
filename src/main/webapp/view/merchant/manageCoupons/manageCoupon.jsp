@@ -15,7 +15,7 @@
             </a>
         </div>
         <div class="col-md-6">
-            <form action="/manageVouchers?action=searchVouchers" method="post" id="searchForm">
+            <form action="/manageCoupons?action=searchCoupon" method="post" id="searchForm">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Tìm kiếm mã giảm giá" name="keyword"
                            onkeyup="startTimer()">
@@ -33,7 +33,7 @@
         <table class="table table-bordered table-striped table-hover" id="voucherTable">
             <thead>
             <tr>
-                <th>#1</th>
+                <th>#</th>
                 <th>Mã giảm giá</th>
                 <th>Giá trị (%)</th>
                 <th>Số lượng</th>
@@ -52,7 +52,7 @@
                             <a href="/manageCoupons?action=editCouponForm&coupon_id=${coupon.coupon_id}" class="btn btn-primary btn-sm" title="Chỉnh sửa">
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
-                            <a href="/manageCoupons?action=addCouponForm" class="btn btn-secondary btn-sm"
+                            <a href="/manageCoupons?action=infoCouponForm&coupon_id=${coupon.coupon_id}" class="btn btn-secondary btn-sm"
                                title="Chi tiết">
                                 <i class="fas fa-eye"></i>
                             </a>

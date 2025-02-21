@@ -40,6 +40,10 @@ public class ManageCoupons extends HttpServlet {
                 getCoupon(req);
                 req.getRequestDispatcher("view/merchant/homeMerchant.jsp?page=editCoupons").forward(req, resp);
                 break;
+            case "infoCouponForm":
+                getCoupon(req);
+                req.getRequestDispatcher("view/merchant/homeMerchant.jsp?page=infoCoupons").forward(req, resp);
+                break;
             default:
                 listCoupons(req, resp);
                 break;
@@ -69,16 +73,26 @@ public class ManageCoupons extends HttpServlet {
                     throw new RuntimeException(e);
                 }
                 break;
-                case "editCoupon":
-                    try {
-                        editCoupon(req, resp);
-                    } catch (ParseException e) {
-                        throw new RuntimeException(e);
-                    }
+            case "editCoupon":
+                try {
+                    editCoupon(req, resp);
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
+                case "searchCoupon":
+                    searchCoupon(req, resp);
                     break;
 
         }
 
+    }
+
+    private void searchCoupon(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String keyword = req.getParameter("keyword");
+        List<Coupon> couponList = couponService.getListCouponsByName(keyword);
+        req.setAttribute("couponList", couponList);
+            req.getRequestDispatcher("view/merchant/homeMerchant.jsp?page=manageCoupons").forward(req, resp);
     }
 
     private void editCoupon(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, ParseException {
@@ -95,7 +109,7 @@ public class ManageCoupons extends HttpServlet {
         Time end_time = new Time(timeFormat.parse(req.getParameter("end_time")).getTime());
         int quantity = Integer.parseInt(req.getParameter("quantity"));
         String description = req.getParameter("description");
-        Coupon coupon = new Coupon(coupon_id,store_id, coupon_code, discount_value, start_date, end_date, start_time, end_time, quantity, description);
+        Coupon coupon = new Coupon(coupon_id, store_id, coupon_code, discount_value, start_date, end_date, start_time, end_time, quantity, description);
         couponService.updateCoupon(coupon);
         listCoupons(req, resp);
     }

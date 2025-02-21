@@ -59,7 +59,11 @@
                             </c:if>
                         </div>
 
+<<<<<<< HEAD
 
+=======
+                        <!-- Mô tả -->
+>>>>>>> bf4113bec7ab5d25a2bded56e1a1c1ffac027a28
                         <div class="mb-3">
                             <label for="description" class="form-label">
                                 <i class="fas fa-info-circle"></i> Mô tả
@@ -70,9 +74,15 @@
                                       placeholder="Nhập mô tả danh mục" required></textarea>
                         </div>
                         <div class="d-grid">
+                        <div class="d-flex justify-content-center gap-2">
+                            <a href="/manageCategoryFood" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i> Quay lại
+                            </a>
+
                             <button type="submit" class="btn btn-primary">
                                 <i class="fas fa-save"></i> Lưu danh mục
                             </button>
+                        </div>
                         </div>
                     </form>
                 </div>

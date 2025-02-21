@@ -53,13 +53,14 @@ public class AccountService implements IAccountService {
             pstmt.setString(1, username);
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
+                    String username1 = rs.getString("username");
                     Boolean active = rs.getBoolean("active");
                     String role = rs.getString("role_name");
                     String password = rs.getString("password");
                     int accountID = rs.getInt("account_id");
                     String avtPath = rs.getString("avt_path");
                     List<AccountDetails> accountDetails = getAccountDetails(accountID);
-                    account = new Account(accountID, username, password, avtPath, role, active, accountDetails);
+                    account = new Account(accountID, username1, password, avtPath, role, active, accountDetails);
                 }
             }
         } catch (SQLException e) {

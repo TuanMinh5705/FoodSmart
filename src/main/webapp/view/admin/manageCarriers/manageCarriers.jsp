@@ -75,7 +75,7 @@
                             <i class="fa fa-edit"></i> Sửa
                         </a>
                         <a href="/manageCarriers?action=infoCarrierForm&id=${carrier.carrier_id}" class="btn btn-info btn-sm">
-                            <i class="fa fa-eye"></i> Chi tiết
+                            <i class="fas fa-info-circle"></i> Chi tiết
                         </a>
                     </div>
                 </td>

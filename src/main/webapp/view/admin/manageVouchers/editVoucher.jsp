@@ -109,9 +109,16 @@
             <textarea class="form-control" id="description" name="description" rows="4" placeholder="Nhập mô tả voucher">${voucher.description}</textarea>
         </div>
 
-        <div class="form-group text-center">
-            <button type="submit" class="btn btn-primary">Cập nhật Voucher <i class="fas fa-save"></i></button>
+
+        <div class="form-group text-center d-flex justify-content-center">
+            <a href="/manageVouchers" class="btn btn-secondary mr-3">
+                <i class="fas fa-arrow-left"></i> Quay lại
+            </a>
+            <button type="submit" class="btn" style="background-color: #FF9800; border-color: #FF9800; color: white;">
+                <i class="fas fa-save"></i> Cập nhật Voucher
+            </button>
         </div>
+
     </form>
 </div>
 
@@ -142,6 +149,5 @@
         }
     });
 </script>
-
 </body>
 </html>
