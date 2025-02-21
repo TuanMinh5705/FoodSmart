@@ -17,7 +17,6 @@
             <form action="manageCarriers?action=editCarrier" method="post">
                 <input type="hidden" name="carrierId" value="${carrier.carrier_id}">
 
-                <!-- Ô nhập Tên đối tác -->
                 <div class="mb-3">
                     <label for="name" class="form-label">Tên đối tác</label>
                     <input type="text" class="form-control" id="name" name="name"
@@ -27,7 +26,6 @@
                            title="Tên chỉ được chứa chữ cái và khoảng trắng">
                 </div>
 
-                <!-- Ô nhập Số điện thoại -->
                 <div class="mb-3">
                     <label for="phone" class="form-label">Số điện thoại</label>
                     <input type="text" class="form-control" id="phone" name="phone"
@@ -37,7 +35,6 @@
                            title="Số điện thoại phải bắt đầu bằng 0 và có từ 10 đến 11 số">
                 </div>
 
-                <!-- Ô nhập Chi phí vận chuyển -->
                 <div class="mb-3">
                     <label for="cost" class="form-label">Chi phí vận chuyển (VNĐ)</label>
                     <input type="number" class="form-control" id="cost" name="cost"
@@ -58,7 +55,6 @@
     </div>
 </div>
 
-<!-- Thêm Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

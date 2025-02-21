@@ -65,7 +65,6 @@
 <div class="container mt-5">
     <h2 class="text-center">Chi Tiết Voucher <i class="fas fa-gift"></i></h2>
 
-    <!-- Form xem chi tiết voucher -->
     <form action="/manageVouchers" method="post">
         <div class="form-group">
             <label for="voucher_code"><i class="fas fa-barcode"></i> Mã Voucher:</label>
@@ -107,14 +106,12 @@
             <textarea class="form-control" id="description" name="description" rows="4" readonly>${voucher.description}</textarea>
         </div>
 
-        <!-- Nút quay lại -->
         <div class="form-group text-center">
             <a href="/manageVouchers" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Quay lại</a>
         </div>
     </form>
 </div>
 
-<!-- Thêm Bootstrap JS và jQuery -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

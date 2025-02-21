@@ -6,6 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản lý danh mục sản phẩm</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 </head>
@@ -13,7 +15,6 @@
 <div class="container my-4">
     <h2 class="text-center mb-4">Quản lý danh mục sản phẩm</h2>
 
-    <!-- Thanh công cụ -->
     <div class="d-flex justify-content-between mb-3">
         <a href="/manageCategoryFood?action=addForm" class="btn btn-success">
             <i class="fas fa-plus"></i> Thêm danh mục
@@ -28,7 +29,6 @@
         </form>
     </div>
 
-    <!-- Bảng danh sách danh mục -->
     <div class="table-responsive">
         <table class="table table-bordered table-hover text-center">
             <thead class="thead-dark">
