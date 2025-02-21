@@ -5,14 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trang chủ Merchant</title>
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
-    <!-- Bootstrap Bundle JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <style>
-        /* Các card */
         .dashboard-card {
             border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
@@ -33,7 +29,6 @@
             justify-content: space-between;
             height: 100%;
         }
-        /* Phần chứa icon và tiêu đề */
         .card-content {
             flex-grow: 1;
             display: flex;
@@ -66,18 +61,17 @@
             margin-bottom: 30px;
         }
         /* Màu nền pastel cho các card */
-        .bg-blue   { background-color: #B3E5FC; }   /* Light Blue */
-        .bg-green  { background-color: #C8E6C9; }   /* Light Green */
-        .bg-purple { background-color: #E1BEE7; }   /* Light Purple */
-        .bg-pink   { background-color: #F8BBD0; }   /* Light Pink */
-        .bg-orange { background-color: #FFCCBC; }   /* Light Orange */
-        .bg-yellow { background-color: #FFF9C4; }   /* Light Yellow */
+        .bg-blue   { background-color: #B3E5FC; }
+        .bg-green  { background-color: #C8E6C9; }
+        .bg-purple { background-color: #E1BEE7; }
+        .bg-pink   { background-color: #F8BBD0; }
+        .bg-orange { background-color: #FFCCBC; }
+        .bg-yellow { background-color: #FFF9C4; }
     </style>
 </head>
 <body>
 <div class="container mt-4">
     <div class="row g-4">
-        <!-- Card 1 -->
         <div class="col-md-6">
             <div class="dashboard-card bg-purple">
                 <div class="card-body text-center">
@@ -93,7 +87,6 @@
             </div>
         </div>
 
-        <!-- Card 2 -->
         <div class="col-md-6">
             <div class="dashboard-card bg-pink">
                 <div class="card-body text-center">
@@ -109,7 +102,6 @@
             </div>
         </div>
 
-        <!-- Card 3 -->
         <div class="col-md-6">
             <div class="dashboard-card bg-blue">
                 <div class="card-body text-center">
@@ -125,7 +117,6 @@
             </div>
         </div>
 
-        <!-- Card 4 -->
         <div class="col-md-6">
             <div class="dashboard-card bg-orange">
                 <div class="card-body text-center">
@@ -135,13 +126,12 @@
                     </div>
                     <div>
                         <div class="divider"></div>
-                        <a href="#" class="detail-link">Chi tiết</a>
+                        <a href="/manageCoupons" class="detail-link">Chi tiết</a>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Card 5 -->
         <div class="col-md-6">
             <div class="dashboard-card bg-green">
                 <div class="card-body text-center">
@@ -157,7 +147,6 @@
             </div>
         </div>
 
-        <!-- Card 6 -->
         <div class="col-md-6">
             <div class="dashboard-card bg-yellow">
                 <div class="card-body text-center">

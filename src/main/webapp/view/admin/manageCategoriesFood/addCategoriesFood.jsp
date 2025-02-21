@@ -32,7 +32,6 @@
             <div class="card shadow">
                 <div class="card-body">
                     <form action="/manageCategoryFood?action=add" method="post" enctype="multipart/form-data">
-                        <!-- Ảnh danh mục -->
                         <div class="mb-3 text-center">
                             <img id="avatarPreview" class="avatar-preview" src="https://via.placeholder.com/150" alt="Ảnh danh mục">
                             <label for="avatar" class="form-label d-block">
@@ -40,7 +39,6 @@
                             </label>
                             <input type="file" class="form-control" id="avatar" name="avatar" accept="image/*">
                         </div>
-                        <!-- Tên danh mục -->
                         <div class="mb-3">
                             <label for="category_name" class="form-label">
                                 <i class="fas fa-tags"></i> Tên danh mục
@@ -61,8 +59,11 @@
                             </c:if>
                         </div>
 
+<<<<<<< HEAD
 
+=======
                         <!-- Mô tả -->
+>>>>>>> bf4113bec7ab5d25a2bded56e1a1c1ffac027a28
                         <div class="mb-3">
                             <label for="description" class="form-label">
                                 <i class="fas fa-info-circle"></i> Mô tả
@@ -72,18 +73,23 @@
                                       title="Mô tả phải có từ 5 đến 255 ký tự"
                                       placeholder="Nhập mô tả danh mục" required></textarea>
                         </div>
-                        <!-- Nút submit -->
                         <div class="d-grid">
+                        <div class="d-flex justify-content-center gap-2">
+                            <a href="/manageCategoryFood" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i> Quay lại
+                            </a>
+
                             <button type="submit" class="btn btn-primary">
                                 <i class="fas fa-save"></i> Lưu danh mục
                             </button>
                         </div>
+                        </div>
                     </form>
-                </div><!-- End card-body -->
-            </div><!-- End card -->
-        </div><!-- End col-md-8 -->
-    </div><!-- End row -->
-</div><!-- End container -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>

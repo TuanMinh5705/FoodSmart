@@ -16,6 +16,7 @@
         padding: 10px;
         transition: margin-left 0.3s ease;
     }
+
     @media (max-width: 901px) {
         .content {
             margin-left: 5px;
@@ -26,7 +27,9 @@
 <jsp:include page="system/menubar.jsp"/>
 <jsp:include page="system/sidebar.jsp"/>
 <div class="content">
-<c:choose>
+    <c:choose>
+
+
 
     <%--        quản lý món ăn--%>
     <c:when test="${param.page == 'manageFoods'}">
@@ -46,15 +49,36 @@
         <jsp:include page="manageFoods/infoFood.jsp"/>
     </c:when>
     <c:when test="${param.page == 'editFood'}">
-        <jsp:include page="manageFoods/editFood.jsp.jsp"/>
+        <jsp:include page="manageFoods/editFood.jsp"/>
     </c:when>
 
 
+        <%--    quan ly ma giam gia--%>
+        <c:when test="${param.page == 'manageCoupons'}">
+            <jsp:include page="manageCoupons/manageCoupon.jsp"/>
+        </c:when>
 
-    <c:otherwise>
-        <jsp:include page="system/content.jsp"/>
-    </c:otherwise>
-</c:choose>
+        <c:when test="${param.page == 'addCoupons'}">
+            <jsp:include page="manageCoupons/addCoupon.jsp"/>
+        </c:when>
+        <c:when test="${param.page == 'editCoupons'}">
+            <jsp:include page="manageCoupons/editCoupon.jsp"/>
+        </c:when>
+
+        <c:when test="${param.page == 'infoCoupons'}">
+            <jsp:include page="manageCoupons/infoCoupon.jsp"/>
+        </c:when>
+        <c:when test="${param.page == 'manageCoupons'}">
+            <jsp:include page="manageCoupons/manageCoupon.jsp"/>
+        </c:when>
+
+
+
+
+        <c:otherwise>
+            <jsp:include page="system/content.jsp"/>
+        </c:otherwise>
+    </c:choose>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>

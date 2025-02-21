@@ -35,17 +35,17 @@ public class ManageVouchers extends HttpServlet {
                 req.setAttribute("voucherList", voucherList);
                 req.getRequestDispatcher("view/admin/homeAdmin.jsp?page=addVouchers").forward(req, resp);
                 break;
-                case "editVoucherForm":
-                    req.setAttribute("voucherList", voucherList);
-                    getVoucher(req);
-                    req.getRequestDispatcher("view/admin/homeAdmin.jsp?page=editVouchers").forward(req, resp);
-                    break;
-            case "infoVoucherForm" :
+            case "editVoucherForm":
+                req.setAttribute("voucherList", voucherList);
+                getVoucher(req);
+                req.getRequestDispatcher("view/admin/homeAdmin.jsp?page=editVouchers").forward(req, resp);
+                break;
+            case "infoVoucherForm":
                 getVoucher(req);
                 req.getRequestDispatcher("view/admin/homeAdmin.jsp?page=infoVouchers").forward(req, resp);
                 break;
             default:
-                listVouchers(req,resp);
+                listVouchers(req, resp);
                 break;
         }
     }
@@ -63,32 +63,33 @@ public class ManageVouchers extends HttpServlet {
             case "addVoucher":
                 addVouchers(req, resp);
                 break;
-                case "editVoucher":
-                    editVouchers(req,resp);
-                    break;
-                    case "searchVouchers":
-                        searchVouchersByCode(req,resp);
-                        break;
+            case "editVoucher":
+                editVouchers(req, resp);
+                break;
+            case "searchVouchers":
+                searchVouchersByCode(req, resp);
+                break;
         }
 
     }
 
     private void searchVouchersByCode(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String keyword = req.getParameter("keyword");
-        List<Voucher> voucherList =voucherService.getListVoucherByName(keyword);
+        List<Voucher> voucherList = voucherService.getListVoucherByName(keyword);
         req.setAttribute("voucherList", voucherList);
-        req.getRequestDispatcher("view/admin/homeAdmin.jsp?page=manageVouchers").forward(req,resp);
+        req.getRequestDispatcher("view/admin/homeAdmin.jsp?page=manageVouchers").forward(req, resp);
     }
+
     private void editVouchers(HttpServletRequest req, HttpServletResponse resp) {
-        try{
+        try {
             int voucher_id = Integer.parseInt(req.getParameter("voucher_id"));
-            info(req, resp,voucher_id);
+            info(req, resp, voucher_id);
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private void info(HttpServletRequest req, HttpServletResponse resp,int voucher_id) throws ParseException {
+    private void info(HttpServletRequest req, HttpServletResponse resp, int voucher_id) throws ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 
@@ -100,7 +101,7 @@ public class ManageVouchers extends HttpServlet {
         Timestamp end_date = new Timestamp(dateFormat.parse(req.getParameter("end_date")).getTime());
         Time start_time = new Time(timeFormat.parse(req.getParameter("start_time")).getTime());
         Time end_time = new Time(timeFormat.parse(req.getParameter("end_time")).getTime());
-        Voucher voucher = new Voucher(voucher_id,voucher_code,start_date,end_date,start_time,end_time,discount_value,quantity,description);
+        Voucher voucher = new Voucher(voucher_id, voucher_code, start_date, end_date, start_time, end_time, discount_value, quantity, description);
         voucherService.updateVoucher(voucher);
         listVouchers(req, resp);
     }
@@ -125,15 +126,17 @@ public class ManageVouchers extends HttpServlet {
             e.printStackTrace();
         }
     }
+
     private void listVouchers(HttpServletRequest req, HttpServletResponse resp) {
-        try{
+        try {
             List<Voucher> voucherList = voucherService.getListVouchers();
             req.setAttribute("voucherList", voucherList);
-            req.getRequestDispatcher("view/admin/homeAdmin.jsp?page=manageVouchers").forward(req,resp);
+            req.getRequestDispatcher("view/admin/homeAdmin.jsp?page=manageVouchers").forward(req, resp);
         } catch (ServletException | IOException e) {
             throw new RuntimeException(e);
         }
     }
+
     private void getVoucher(HttpServletRequest req) {
         int voucher_id = Integer.parseInt(req.getParameter("voucherID"));
         Voucher voucher = voucherService.getVoucherById(voucher_id);

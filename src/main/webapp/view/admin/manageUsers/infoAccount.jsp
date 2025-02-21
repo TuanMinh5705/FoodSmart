@@ -5,15 +5,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Chi tiết tài khoản</title>
-    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- FontAwesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
     <style>
-        /* Nếu bạn có sidebar, có thể thêm margin-left hoặc padding phù hợp tại đây */
         .main-content {
-            /* margin-left: 250px; // Ví dụ nếu sidebar rộng 250px */
             padding: 20px;
         }
         .avatar {
@@ -23,7 +19,7 @@
             border-radius: 50%;
         }
         .info-label {
-            color: #6c757d; /* Màu chữ nhạt */
+            color: #6c757d;
             font-weight: 500;
         }
         .info-field {
@@ -42,23 +38,19 @@
             <div class="col-md-8 col-lg-6">
                 <div class="card">
                     <div class="card-body p-4 text-center">
-                        <!-- Tiêu đề -->
                         <h4 class="mb-4">Chi tiết tài khoản</h4>
 
-                        <!-- Ảnh đại diện -->
                         <div class="mb-3">
                             <c:if test="${not empty account.avtPath}">
                                 <img src="/images/avatars/${account.avtPath}" alt="Ảnh đại diện" class="avatar mb-2">
                             </c:if>
                         </div>
 
-                        <!-- Tên đăng nhập -->
                         <div class="mb-3">
                             <p class="info-label mb-1">Tên đăng nhập</p>
                             <p class="info-field">${account.username}</p>
                         </div>
 
-                        <!-- Mật khẩu (toggle icon) -->
                         <div class="mb-3">
                             <p class="info-label mb-1">Mật khẩu</p>
                             <div class="d-flex justify-content-center">
@@ -72,9 +64,7 @@
                             </div>
                         </div>
 
-                        <!-- Trạng thái và Vai trò chung 1 dòng -->
                         <div class="row mb-3">
-                            <!-- Trạng thái -->
                             <div class="col-sm-6">
                                 <p class="info-label mb-1">Trạng thái</p>
                                 <p class="info-field">
@@ -89,7 +79,6 @@
                                 </p>
                             </div>
 
-                            <!-- Vai trò (hiển thị tiếng Việt + icon) -->
                             <div class="col-sm-6">
                                 <p class="info-label mb-1">Vai trò</p>
                                 <p class="info-field">
@@ -111,7 +100,6 @@
                             </div>
                         </div>
 
-                        <!-- Các địa chỉ đã lưu -->
                         <div class="mb-3">
                             <p class="info-label mb-1">Địa chỉ đã lưu</p>
                             <c:if test="${not empty accountDetails}">
@@ -133,26 +121,23 @@
                                     </c:forEach>
                                 </div>
                             </c:if>
-                            <!-- Nếu không có địa chỉ thì hiển thị "Chưa có thông tin" -->
                             <c:if test="${empty accountDetails}">
                                 <p class="text-muted">Chưa có thông tin</p>
                             </c:if>
                         </div>
 
-                        <!-- Nút quay về -->
                         <div class="mt-3">
                             <a href="/manageUsers" class="btn btn-secondary">
                                 <i class="fas fa-arrow-left"></i> Quay về danh sách
                             </a>
                         </div>
-                    </div> <!-- card-body -->
-                </div> <!-- card -->
-            </div> <!-- col-md-8 col-lg-6 -->
-        </div> <!-- row -->
-    </div> <!-- container -->
-</div> <!-- main-content -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<!-- Bootstrap 5 JS Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     const toggleBtn = document.getElementById("togglePassword");

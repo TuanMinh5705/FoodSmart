@@ -43,6 +43,7 @@ public class VoucherService implements IVoucherService {
 
     @Override
     public void addVoucher(Voucher voucher) {
+
         try(Connection conn = ConnectDB.getConnection();
             PreparedStatement ps = conn.prepareStatement(ADD_VOUCHERS_QUERY)) {
             ps.setString(1,voucher.getVoucher_code());

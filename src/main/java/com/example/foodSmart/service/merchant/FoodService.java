@@ -5,10 +5,7 @@ import com.example.foodSmart.model.merchant.Food;
 import com.example.foodSmart.model.merchant.FoodImages;
 import com.example.foodSmart.util.ConnectDB;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -109,5 +106,53 @@ public class FoodService implements IFoodService {
         }
         return foodList;
     }
+
+    @Override
+    public int addFood(int storeID, Food food) {
+        String sql = "INSERT INTO Products (store_id, product_name, price, stock_quantity, discount) VALUES (?, ?, ?, ?, ?)";
+        try (Connection conn = ConnectDB.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            ps.setInt(1, storeID);
+            ps.setString(2, food.getProduct_name());
+            ps.setInt(3, food.getPrice());
+            ps.setInt(4, food.getStock_quantity());
+            ps.setInt(5, food.getDiscount());
+
+            int affectedRows = ps.executeUpdate();
+            if (affectedRows > 0) {
+                ResultSet rs = ps.getGeneratedKeys();
+                if (rs.next()) {
+                    return rs.getInt(1); // Trả về product_id vừa tạo
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1; // Lỗi
+    }
+
+    @Override
+    public boolean addFoodImages(int productID, List<FoodImages> foodImages) {
+        String sql = "INSERT INTO Product_Images (product_id, image_path, is_primary) VALUES (?, ?, ?)";
+        try (Connection conn = ConnectDB.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            for (int i = 0; i < foodImages.size(); i++) {
+                FoodImages img = foodImages.get(i);
+                ps.setInt(1, productID);
+                ps.setString(2, img.getImage_path());
+                ps.setBoolean(3, i == 0);
+                ps.addBatch();
+            }
+            ps.executeBatch();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
 }
+
+
 

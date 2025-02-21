@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sửa Thông Tin Voucher</title>
+    <title>Sửa Thông Tin Coupon</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
@@ -53,10 +53,6 @@
             margin-right: 10px;
         }
 
-        .form-group .form-control {
-            padding-left: 30px;
-        }
-
         .alert {
             display: none;
         }
@@ -65,69 +61,64 @@
 <body>
 
 <div class="container mt-5">
-    <h2 class="text-center">Sửa Thông Tin Voucher <i class="fas fa-gift"></i></h2>
-    <form action="/manageVouchers?action=editVoucher" method="post" id="voucherForm">
-        <input type="hidden" name="voucher_id" value="${voucher.voucher_id}">
+    <h2 class="text-center">Sửa Thông Tin Coupon <i class="fas fa-gift"></i></h2>
+    <form action="/manageCoupons?action=editCoupon" method="post" id="couponForm">
+        <input type="hidden" name="coupon_id" value="${coupon.coupon_id}">
 
         <div class="form-group">
-            <label for="voucher_code"><i class="fas fa-barcode"></i> Mã Voucher:</label>
-            <input type="text" class="form-control" id="voucher_code" name="voucher_code" value="${voucher.voucher_code}" placeholder="Nhập mã voucher (Ví dụ: A0001)" pattern="^[A-Za-z][0-9]{4,10}$" title="Mã voucher phải bắt đầu bằng một chữ cái và theo sau là từ 4 đến 10 chữ số." required >
+            <label for="coupon_code"><i class="fas fa-barcode"></i> Mã Coupon:</label>
+            <input type="text" class="form-control" id="coupon_code" name="coupon_code" value="${coupon.coupon_code}"
+                   placeholder="Nhập mã coupon" pattern="^[A-Za-z][0-9]{4,10}$" required>
         </div>
 
         <div class="form-group">
             <label for="discount_value"><i class="fas fa-percent"></i> Giá trị giảm giá (%):</label>
-            <input type="number" class="form-control" id="discount_value" name="discount_value" value="${voucher.discount_value}" min="1" max="100" placeholder="Nhập giá trị giảm giá" required>
+            <input type="number" class="form-control" id="discount_value" name="discount_value"
+                   value="${coupon.discount_value}" min="1" max="100" required>
         </div>
 
         <div class="form-group">
             <label for="start_date"><i class="fas fa-calendar-alt"></i> Ngày bắt đầu:</label>
-            <input type="datetime-local" class="form-control" id="start_date" name="start_date" value="${voucher.start_date}" required>
+            <input type="datetime-local" class="form-control" id="start_date" name="start_date"
+                   value="${coupon.start_date}" required>
         </div>
 
         <div class="form-group">
             <label for="end_date"><i class="fas fa-calendar-check"></i> Ngày kết thúc:</label>
-            <input type="datetime-local" class="form-control" id="end_date" name="end_date" value="${voucher.end_date}" required>
+            <input type="datetime-local" class="form-control" id="end_date" name="end_date" value="${coupon.end_date}"
+                   required>
         </div>
 
         <div class="form-group">
             <label for="start_time"><i class="fas fa-clock"></i> Thời gian bắt đầu:</label>
-            <input type="time" class="form-control" id="start_time" name="start_time" value="${voucher.start_time}" required>
+            <input type="time" class="form-control" id="start_time" name="start_time" value="${coupon.start_time}"
+                   required>
         </div>
 
         <div class="form-group">
             <label for="end_time"><i class="fas fa-clock"></i> Thời gian kết thúc:</label>
-            <input type="time" class="form-control" id="end_time" name="end_time" value="${voucher.end_time}" required>
+            <input type="time" class="form-control" id="end_time" name="end_time" value="${coupon.end_time}" required>
         </div>
 
         <div class="form-group">
             <label for="quantity"><i class="fas fa-cogs"></i> Số lượng:</label>
-            <input type="number" class="form-control" id="quantity" name="quantity" value="${voucher.quantity}" min="1" placeholder="Nhập số lượng voucher" required>
+            <input type="number" class="form-control" id="quantity" name="quantity" value="${coupon.quantity}" min="1"
+                   required>
         </div>
 
         <div class="form-group">
             <label for="description"><i class="fas fa-align-left"></i> Mô tả:</label>
-            <textarea class="form-control" id="description" name="description" rows="4" placeholder="Nhập mô tả voucher">${voucher.description}</textarea>
+            <textarea class="form-control" id="description" name="description" rows="4">${coupon.description}</textarea>
         </div>
 
-
-        <div class="form-group text-center d-flex justify-content-center">
-            <a href="/manageVouchers" class="btn btn-secondary mr-3">
-                <i class="fas fa-arrow-left"></i> Quay lại
-            </a>
-            <button type="submit" class="btn" style="background-color: #FF9800; border-color: #FF9800; color: white;">
-                <i class="fas fa-save"></i> Cập nhật Voucher
-            </button>
+        <div class="form-group text-center">
+            <button type="submit" class="btn btn-primary">Cập nhật Coupon <i class="fas fa-save"></i></button>
         </div>
-
     </form>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 <script>
-    document.getElementById('voucherForm').addEventListener('submit', function(event) {
+    document.getElementById('couponForm').addEventListener('submit', function (event) {
         const start_date = new Date(document.getElementById('start_date').value);
         const end_date = new Date(document.getElementById('end_date').value);
         const start_time = document.getElementById('start_time').value.split(':');
@@ -149,5 +140,6 @@
         }
     });
 </script>
+
 </body>
 </html>
