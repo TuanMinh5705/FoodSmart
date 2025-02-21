@@ -19,7 +19,7 @@
         <tr>
             <td>${store.store_name}</td>
             <td>${store.store_address}</td>
-            <td>${store.contact_phone}</td>
+            <td>${store.contact_number}</td>
             <td>${store.banner_path}</td>
             <td>${store.avt_path}</td>
             <td>${store.store_type}</td>

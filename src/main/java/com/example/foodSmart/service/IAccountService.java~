@@ -42,4 +42,5 @@ public interface IAccountService {
     // Tìm kiếm theo tên đăng nhập
     List<Account> getListAccountByUsername(String keyword);
 
+    void updateAccount(Account updatedAccount);
 }

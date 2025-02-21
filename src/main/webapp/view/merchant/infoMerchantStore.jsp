@@ -8,7 +8,6 @@
 <p>Mật khẩu : *******</p>
 <p>Avt : ${merchant.avtPath}</p>
 <p>Trạng thái : ${merchant.active}</p>
-
-
+<a href="/manageStore?action=editMerchantStoreForm">sửa</a>
 </body>
 </html>
