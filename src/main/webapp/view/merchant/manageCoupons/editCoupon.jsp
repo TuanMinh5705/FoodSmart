@@ -111,8 +111,13 @@
             <textarea class="form-control" id="description" name="description" rows="4">${coupon.description}</textarea>
         </div>
 
-        <div class="form-group text-center">
-            <button type="submit" class="btn btn-primary">Cập nhật Coupon <i class="fas fa-save"></i></button>
+        <div class="d-flex justify-content-center gap-2">
+            <a href="/manageCoupons" class="btn btn-secondary" style="margin-right: 10px;"> <!-- Thêm margin -->
+                <i class="fas fa-arrow-left"></i> Quay lại
+            </a>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save"></i> Cập nhật Coupon
+            </button>
         </div>
     </form>
 </div>

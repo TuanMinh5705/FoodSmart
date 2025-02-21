@@ -48,14 +48,6 @@ public class ManageUsers extends HttpServlet {
         }
 
     }
-
-    private void getAccountWithName(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String keyword = req.getParameter("keyword");
-        List<Account> accountList = accountService.getListAccountByUsername(keyword);
-        req.setAttribute("accountList", accountList);
-        req.getRequestDispatcher("view/admin/homeAdmin.jsp?page=manageUsers").forward(req, resp);
-    }
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
@@ -94,7 +86,6 @@ public class ManageUsers extends HttpServlet {
         accountService.authenticateRegister(account,accountDetails);
         showListUser(req, resp);
     }
-
     private void deleteDetails(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         int id = Integer.parseInt(req.getParameter("id"));
         boolean delete = accountService.deleteAccountDetails(id);
@@ -104,7 +95,6 @@ public class ManageUsers extends HttpServlet {
             resp.getWriter().write("fail");
         }
     }
-
     private void updateInfoUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int accountID = Integer.parseInt(req.getParameter("accountID"));
 
@@ -155,7 +145,6 @@ public class ManageUsers extends HttpServlet {
 
         showListUser(req, resp);
     }
-
     private void getInfoAccount(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int accountID = Integer.parseInt(req.getParameter("accountID"));
         Account account = accountService.getAccount(accountID);
@@ -163,9 +152,14 @@ public class ManageUsers extends HttpServlet {
         req.setAttribute("accountDetails", accountDetails);
         req.setAttribute("account", account);
     }
-
     private void showListUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Account> accountList = accountService.getListOfAccounts();
+        req.setAttribute("accountList", accountList);
+        req.getRequestDispatcher("view/admin/homeAdmin.jsp?page=manageUsers").forward(req, resp);
+    }
+    private void getAccountWithName(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String keyword = req.getParameter("keyword");
+        List<Account> accountList = accountService.getListAccountByUsername(keyword);
         req.setAttribute("accountList", accountList);
         req.getRequestDispatcher("view/admin/homeAdmin.jsp?page=manageUsers").forward(req, resp);
     }

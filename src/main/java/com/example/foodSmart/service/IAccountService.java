@@ -10,7 +10,7 @@ public interface IAccountService {
     List<AccountDetails> getAccountDetails(int accountID);
 
     // Lấy tài khoản đăng nhập vào hệ thống
-    Account authenticateLogin(String username, String password);
+    Account authenticateLogin(String username);
 
     // Kiểm tra tài khoản tồn tại chưa
     boolean checkUsername(String username);

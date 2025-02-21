@@ -14,7 +14,6 @@
 <div class="container my-4">
     <h2 class="text-center mb-4">Quản lý danh mục và sản phẩm</h2>
 
-    <!-- Thanh công cụ -->
     <div class="d-flex justify-content-between mb-3">
         <div>
             <a href="/manageFoods?action=addCategoryForm" class="btn btn-success">
@@ -32,7 +31,6 @@
         </form>
     </div>
 
-    <!-- Bảng danh sách danh mục -->
     <h4 class="mt-4">Danh mục sản phẩm</h4>
     <div class="table-responsive">
         <table class="table table-bordered table-hover text-center">
@@ -66,7 +64,6 @@
         </table>
     </div>
 
-    <!-- Bảng danh sách món ăn -->
     <h4 class="mt-4">Danh sách món ăn</h4>
     <div class="table-responsive">
         <table class="table table-bordered table-hover text-center">
@@ -111,7 +108,6 @@
     </div>
 
 </div>
-<!-- Modal xóa -->
 <jsp:include page="../../admin/system/modalConfirmDelete.jsp" />
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

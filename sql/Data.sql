@@ -40,15 +40,15 @@ VALUES
 (3, 'Trà Sữa Trân Châu', 45000, 80, 0),
 (3, 'Cơm Tấm Sườn', 50000, 60, 15),
 (3, 'Bún Bò Huế', 60000, 40, 10);
-INSERT INTO Product_Images (product_id, image_path, is_primary)  
+INSERT INTO Product_Images (product_id, is_primary)  
 VALUES  
-(1, 'product_default.png', TRUE), 
-(2, 'product_default.png', TRUE),  
-(3, 'product_default.png', TRUE),  
-(4, 'product_default.png', TRUE),  
-(5, 'product_default.png', TRUE),
-(5, 'noodles2.png',false),
-(5,'noodles.png',false);  
+(1, TRUE), 
+(2,  TRUE),  
+(3, TRUE),  
+(4, TRUE),  
+(5, TRUE),
+(5,false),
+(5,false);  
 
 insert into Carriers(carrier_name, contact_phone, shipping_cost)
 values ("Be", '0867536601', 25000),
