@@ -44,7 +44,7 @@
                     <c:out value="${loggedInAccount.username}" default="Merchant" />
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="#">Thông tin tài khoản</a>
+                    <a class="dropdown-item" href="/manageStore?action=showMerchantStore">Thông tin tài khoản</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="/authenticate?action=logout">Đăng xuất</a>
                 </div>

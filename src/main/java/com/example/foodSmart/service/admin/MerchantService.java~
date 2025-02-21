@@ -84,6 +84,7 @@ public class MerchantService implements IMerchantService {
                 String avt_path = rs.getString(7);
                 boolean store_type = rs.getBoolean(8);
                 merchant = new Merchant(store_id, merchant_id, store_name, store_address, contact_number, banner_path, avt_path, store_type);
+
             }
 
             return merchant;
@@ -91,6 +92,7 @@ public class MerchantService implements IMerchantService {
             throw new RuntimeException(e);
         }
     }
+
     @Override
     public void updateMerchant(Merchant merchant) {
         try (Connection conn = ConnectDB.getConnection();
@@ -107,7 +109,10 @@ public class MerchantService implements IMerchantService {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+
     }
+
     @Override
     public void addMerchant(Merchant merchant) {
         try (Connection conn = ConnectDB.getConnection();
@@ -149,6 +154,7 @@ public class MerchantService implements IMerchantService {
         }
         return merchants;
     }
+
     @Override
     public List<Merchant> getMerchantsByType(boolean store_type) {
         List<Merchant> merchants = new ArrayList<>();
@@ -172,6 +178,10 @@ public class MerchantService implements IMerchantService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return merchants;
     }
+
+
+
 }
