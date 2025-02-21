@@ -48,12 +48,13 @@
                     <td>${coupon.discount_value}%</td>
                     <td>${coupon.quantity}</td>
                     <td>
-                        <div class="action-buttons d-inline-flex">
-                            <a href="/manageCoupons?action=editCouponForm&coupon_id=${coupon.coupon_id}" class="btn btn-primary btn-sm" title="Chỉnh sửa">
+                        <div class="action-buttons d-flex justify-content-center">
+                            <a href="/manageCoupons?action=editCouponForm&coupon_id=${coupon.coupon_id}"
+                               class="btn btn-primary btn-sm mr-2" title="Chỉnh sửa"> <!-- Sử dụng lớp mr-2 -->
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
-                            <a href="/manageCoupons?action=infoCouponForm&coupon_id=${coupon.coupon_id}" class="btn btn-secondary btn-sm"
-                               title="Chi tiết">
+                            <a href="/manageCoupons?action=infoCouponForm&coupon_id=${coupon.coupon_id}"
+                               class="btn btn-secondary btn-sm" title="Chi tiết">
                                 <i class="fas fa-eye"></i>
                             </a>
                         </div>

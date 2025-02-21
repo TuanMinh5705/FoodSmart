@@ -93,11 +93,15 @@
                                       placeholder="Nhập mô tả voucher"></textarea>
                         </div>
 
-                        <div class="d-grid">
+                        <div class="d-flex justify-content-center gap-5">
+                            <a href="/manageCoupons" class="btn btn-secondary" style="margin-right: 20px;">
+                                <i class="fas fa-arrow-left"></i> Quay lại
+                            </a>
                             <button type="submit" class="btn btn-primary">
                                 <i class="fas fa-plus"></i> Thêm Voucher
                             </button>
                         </div>
+
                     </form>
                 </div>
             </div>
