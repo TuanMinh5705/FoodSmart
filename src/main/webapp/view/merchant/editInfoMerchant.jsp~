@@ -16,11 +16,11 @@
 <h2>Sửa Thống Tin Merchant</h2>
 
 <form action="/manageStore?action=editInfoStore" method="post">
-    <input type="hidden" name="merchantId" value="${loggedInMerchant.store_id}">
+    <input type="hidden" name="merchantId" value="${loggedInMerchant.merchantId}">
     <label>Tên cửa hàng:</label>
-    <input type="text" name="storeName" value="${loggedInMerchant.store_name}"/><br>
+    <input type="text" name="storeName" value="${loggedInMerchant.storeName}"/><br>
     <label>Địa chỉ cửa hàng:</label>
-    <input type="text" name="storeAddress" value="${loggedInMerchant.store_address}"/><br>
+    <input type="text" name="storeAddress" value="${loggedInMerchant.storeAddress}"/><br>
     <label>Số điện thoại:</label>
     <input type="text" name="contact_number" value="${loggedInMerchant.contact_number}"/><br>
     <label>Banner Path:</label>

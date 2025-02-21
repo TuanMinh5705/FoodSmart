@@ -93,15 +93,16 @@ public class ManageStore extends HttpServlet {
 
     private void editInfoStore(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         MerchantService merchantService = new MerchantService();
+        Merchant loggedInMerchant = (Merchant) req.getSession().getAttribute("loggedInMerchant");
 
-        int merchantId = Integer.parseInt(req.getParameter("merchantId"));
-        String storeName = req.getParameter("storeName");
-        String storeAddress = req.getParameter("storeAddress");
+        int store_id = loggedInMerchant.getMerchant_id();
+        String storeName = req.getParameter("store_name");
+        String storeAddress = req.getParameter("store_address");
         String contactNumber = req.getParameter("contact_number");
         String bannerPath = req.getParameter("banner_path");
         String avtPath = req.getParameter("avt_path");
         boolean storeType = Boolean.parseBoolean(req.getParameter("store_type"));
-        Merchant updatedMerchant = new Merchant(merchantId, storeName, storeAddress, contactNumber, bannerPath, avtPath, storeType);
+        Merchant updatedMerchant = new Merchant(store_id, storeName, storeAddress, contactNumber, bannerPath, avtPath, storeType);
         merchantService.updateMerchant(updatedMerchant);
         resp.sendRedirect("/manageStore?action=showMerchantStore");
     }
