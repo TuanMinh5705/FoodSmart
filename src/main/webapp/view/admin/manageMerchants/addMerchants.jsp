@@ -56,7 +56,6 @@
                 <img id="avatarPreview" src="#" class="img-fluid mt-2 d-none" style="max-height: 100px; border-radius: 50%;">
             </div>
 
-            <!-- Nút Thêm & Hủy (Căn giữa) -->
             <div class="d-flex justify-content-center gap-3 mt-4">
                 <button type="submit" class="btn btn-success px-4">
                     <i class="bi bi-plus-circle"></i> Thêm cửa hàng

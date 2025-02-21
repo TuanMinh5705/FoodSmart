@@ -4,13 +4,11 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sidebar</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
     <style>
-        /* Sidebar mặc định */
         .sidebar {
             position: fixed;
             top: 0;
@@ -24,19 +22,16 @@
             z-index: 1040;
         }
 
-        /* Khi màn hình >900px thì sidebar tự động ẩn */
         @media (max-width: 901px) {
             .sidebar {
                 transform: translateX(-250px);
             }
         }
 
-        /* Khi sidebar mở */
         .sidebar.active {
             transform: translateX(0);
         }
 
-        /* Nút menu khi thu nhỏ */
         .menu-btn {
             position: fixed;
             top: 15px;
@@ -54,10 +49,8 @@
 </head>
 <body>
 
-<!-- Nút mở sidebar -->
 <button class="menu-btn" onclick="toggleSidebar()">☰</button>
 
-<!-- Sidebar -->
 <div class="sidebar" id="sidebar">
     <div class="text-center mb-3">
         <a href="/view/admin/homeAdmin.jsp">

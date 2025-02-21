@@ -74,34 +74,36 @@ public class Authenticate extends HttpServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
 
-        Account account = accountService.authenticateLogin(username, password);
+        Account account = accountService.authenticateLogin(username);
 
-        if (account != null) {
-            HttpSession session = req.getSession();
-            session.setAttribute("loggedInAccount", account);
+        if(account.getPassword().equals(password)){
+            if (account != null) {
+                HttpSession session = req.getSession();
+                session.setAttribute("loggedInAccount", account);
 
-            if (!account.isActive()) {
-                req.setAttribute("error", "Tài khoản đã bị khóa");
-                req.getRequestDispatcher("view/authenticate/login.jsp").forward(req, resp);
-                return;
-            }
-            String role = account.getRole();
-            switch (role) {
-                case "Admin":
-                    req.getRequestDispatcher("view/admin/homeAdmin.jsp").forward(req, resp);
-                    break;
-                case "User":
-                    req.getRequestDispatcher("view/user/homeUser.jsp").forward(req, resp);
-                    break;
-                case "Merchant":
-                    req.getRequestDispatcher("view/merchant/homeMerchant.jsp").forward(req, resp);
-                    break;
-                default:
-                    req.setAttribute("error", "Vai trò không xác định");
+                if (!account.isActive()) {
+                    req.setAttribute("error", "Tài khoản đã bị khóa");
                     req.getRequestDispatcher("view/authenticate/login.jsp").forward(req, resp);
-                    break;
+                    return;
+                }
+                String role = account.getRole();
+                switch (role) {
+                    case "Admin":
+                        req.getRequestDispatcher("view/admin/homeAdmin.jsp").forward(req, resp);
+                        break;
+                    case "User":
+                        req.getRequestDispatcher("view/user/homeUser.jsp").forward(req, resp);
+                        break;
+                    case "Merchant":
+                        req.getRequestDispatcher("view/merchant/homeMerchant.jsp").forward(req, resp);
+                        break;
+                    default:
+                        req.setAttribute("error", "Vai trò không xác định");
+                        req.getRequestDispatcher("view/authenticate/login.jsp").forward(req, resp);
+                        break;
+                }
             }
-        } else {
+        }else {
             req.setAttribute("error", "Username hoặc password không đúng");
             req.getRequestDispatcher("view/authenticate/login.jsp").forward(req, resp);
         }

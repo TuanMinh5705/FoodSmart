@@ -21,5 +21,10 @@ public interface IFoodService {
 
     // Danh sách món ăn của cửa hàng
     List<Food> listFoodStore(int store_id);
+// Thêm món ăn
+    int addFood(int storeID, Food food);
+    // Thêm ảnh món ăn
+    boolean addFoodImages(int productID, List<FoodImages> foodImages);
+
 
 }

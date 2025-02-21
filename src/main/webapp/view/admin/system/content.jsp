@@ -54,7 +54,6 @@
 
 <div class="container mt-4">
     <div class="row g-4">
-        <!-- Hàng đầu tiên -->
         <div class="col-md-4">
             <div class="card bg-red">
                 <div class="card-body text-center">
@@ -83,7 +82,6 @@
             </div>
         </div>
 
-        <!-- Hàng thứ hai -->
         <div class="col-md-4">
             <div class="card bg-blue">
                 <div class="card-body text-center">
@@ -112,7 +110,6 @@
             </div>
         </div>
 
-        <!-- Hàng thứ ba -->
         <div class="col-md-4">
             <div class="card bg-green">
                 <div class="card-body text-center">
