@@ -92,7 +92,7 @@ public class MerchantService implements IMerchantService {
         }
     }
     @Override
-    public void updateMerchant(Merchant merchant) {
+    public boolean updateMerchant(Merchant merchant) {
         try (Connection conn = ConnectDB.getConnection();
              PreparedStatement pstm = conn.prepareStatement(UPDATE_MERCHANTS_QUERY)) {
 
@@ -104,12 +104,13 @@ public class MerchantService implements IMerchantService {
             pstm.setBoolean(6, merchant.isStore_type());
             pstm.setInt(7, merchant.getStore_id());
             pstm.executeUpdate();
+            return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
     @Override
-    public void addMerchant(Merchant merchant) {
+    public boolean addMerchant(Merchant merchant) {
         try (Connection conn = ConnectDB.getConnection();
              PreparedStatement pstm = conn.prepareStatement(ADD_MERCHANTS_QUERY)) {
 
@@ -120,6 +121,7 @@ public class MerchantService implements IMerchantService {
             pstm.setString(5, merchant.getAvt_path());
             pstm.setBoolean(6, merchant.isStore_type());
             pstm.execute();
+            return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

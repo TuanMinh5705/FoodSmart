@@ -70,7 +70,7 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    document.getElementById("avatarPreview").src = "images/product/" + data.imageUrl;
+                    document.getElementById("avatarPreview").src = "${pageContext.request.contextPath}/foodSmartImages/product " + data.imageUrl;
                     document.getElementById("description").value = data.description;
                 } else {
                     document.getElementById("avatarPreview").src = "https://via.placeholder.com/150";

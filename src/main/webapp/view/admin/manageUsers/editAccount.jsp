@@ -14,7 +14,6 @@
         .img-thumbnail {
             max-width: 100px;
         }
-
         .address-block {
             margin-bottom: 1rem;
         }
@@ -32,12 +31,14 @@
             <div class="d-flex align-items-center">
                 <div class="me-3">
                     <c:if test="${not empty account.avtPath}">
-                        <img src="/images/avatars/${account.avtPath}" alt="Ảnh đại diện" class="img-thumbnail" style="width: 120px;height: 120px;border-radius: 50%">
+                        <img src="${pageContext.request.contextPath}/foodSmartImages/avatars/${account.avtPath}"
+                             alt="Ảnh đại diện" class="img-thumbnail" id="avatarPreview"
+                             style="width: 120px; height: 120px; border-radius: 50%;">
                     </c:if>
                 </div>
                 <div>
                     <input type="hidden" name="currentAvtPath" value="${account.avtPath}">
-                    <input type="file" class="form-control" name="avtPath">
+                    <input type="file" class="form-control" name="avtPath" id="avt_path">
                 </div>
             </div>
         </div>
@@ -127,9 +128,8 @@
             </div>
         </div>
 
-        <!-- Thêm địa chỉ mới -->
         <div class="border border-primary rounded p-3 mb-3">
-            <h5 class="text-primary">Thêm địa chỉ mới</h5>
+            <label class="form-label">Thêm địa chỉ mới</label>
             <div class="form-check">
                 <input type="radio" class="form-check-input" name="isDefault" value="true">
                 <label class="form-check-label">Mặc định</label>
@@ -141,8 +141,9 @@
             <div class="mb-3">
                 <label class="form-label">Số điện thoại</label>
                 <input type="tel" class="form-control" name="newPhonenumber" pattern="[0-9]{10,11}"
-                       title="Số điện thoại phải có 10 hoặc 11 chữ số" placeholder="Nhập số điện thoại ...">
+                       title="Số điện thoại phải có 10 hoặc 11 chữ số" placeholder="Nhập số điện thoại...">
             </div>
+            <button type="button" id="addAddressBtn" class="btn btn-primary">Thêm địa chỉ</button>
         </div>
         <div class="d-flex justify-content-center gap-2">
             <a href="/manageUsers" class="btn btn-secondary">
@@ -161,6 +162,18 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
+    document.getElementById("avt_path").addEventListener("change", function (event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById("avatarPreview").src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // Toggle hiển thị mật khẩu (phần script hiện có)
     document.getElementById("togglePassword").addEventListener("click", function () {
         var passwordInput = document.getElementById("passwordInput");
         var icon = this.querySelector("i");
@@ -174,6 +187,75 @@
             icon.classList.add("fa-eye");
         }
     });
+
+    function addNewAddress() {
+        const newAddress = document.querySelector('textarea[name="newAddress"]').value;
+        const newPhonenumber = document.querySelector('input[name="newPhonenumber"]').value;
+        const isDefault = document.querySelector('input[name="isDefault"][value="true"]').checked;
+
+        if (!newAddress || !newPhonenumber) {
+            Swal.fire({
+                title: "Cảnh báo!",
+                text: "Vui lòng nhập đầy đủ thông tin địa chỉ và số điện thoại.",
+                icon: "warning",
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 2000
+            });
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append("newAddress", newAddress);
+        formData.append("newPhonenumber", newPhonenumber);
+        formData.append("isDefault", isDefault);
+        formData.append("accountID", "${account.accountID}");
+
+        fetch("/manageUsers?action=addAddress", {
+            method: "POST",
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    Swal.fire({
+                        title: "Thành công!",
+                        text: "Địa chỉ mới đã được thêm.",
+                        icon: "success",
+                        position: "top-end",
+                        showConfirmButton: false,
+                        timer: 2000
+                    }).then(() => {
+                        location.reload();
+                    });
+                } else {
+                    Swal.fire({
+                        title: "Lỗi!",
+                        text: data.message || "Có lỗi xảy ra.",
+                        icon: "error",
+                        position: "top-end",
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                }
+            })
+            .catch(error => {
+                Swal.fire({
+                    title: "Lỗi!",
+                    text: "Có lỗi xảy ra: " + error,
+                    icon: "error",
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+            });
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const addAddressButton = document.getElementById("addAddressBtn");
+        addAddressButton.addEventListener("click", addNewAddress);
+    });
 </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

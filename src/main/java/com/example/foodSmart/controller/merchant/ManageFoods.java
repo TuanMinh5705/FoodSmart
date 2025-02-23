@@ -24,7 +24,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
 @WebServlet("/manageFoods")
 @MultipartConfig
 public class ManageFoods extends HttpServlet {
@@ -101,7 +100,7 @@ public class ManageFoods extends HttpServlet {
             int store_id = storeIDByLoggedInUser(req, resp);
 
 
-            String uploadPath = getServletContext().getRealPath("") + File.separator + "images\\product";
+            String uploadPath = "C:\\foodSmartImages\\product";
             File uploadDir = new File(uploadPath);
             if (!uploadDir.exists()) {
                 uploadDir.mkdirs();
@@ -117,7 +116,6 @@ public class ManageFoods extends HttpServlet {
                     foodImagesList.add(new FoodImages(0, 0, fileName, isPrimary));
                 }
             }
-
             Food food = new Food(0, store_id, productName, price, stockQuantity, discount, foodImagesList);
 
             boolean success;
@@ -187,7 +185,6 @@ public class ManageFoods extends HttpServlet {
         } else {
             req.setAttribute("error", "Bạn chưa đăng nhập. Vui lòng đăng nhập !!!");
             req.getRequestDispatcher("view/authenticate/login.jsp").forward(req,resp);
-            System.out.println("Chưa đăng nhập!");
         }
 
         int store_id = merchantService.getMerchantByMerchantId(loggedUserId).getStore_id();

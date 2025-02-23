@@ -42,7 +42,7 @@ public class VoucherService implements IVoucherService {
     }
 
     @Override
-    public void addVoucher(Voucher voucher) {
+    public boolean addVoucher(Voucher voucher) {
 
         try(Connection conn = ConnectDB.getConnection();
             PreparedStatement ps = conn.prepareStatement(ADD_VOUCHERS_QUERY)) {
@@ -55,6 +55,7 @@ public class VoucherService implements IVoucherService {
             ps.setInt(7,voucher.getQuantity());
             ps.setString(8,voucher.getDescription());
             ps.executeUpdate();
+            return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -85,7 +86,7 @@ public class VoucherService implements IVoucherService {
     }
 
     @Override
-    public void updateVoucher(Voucher voucher) {
+    public boolean updateVoucher(Voucher voucher) {
         try(Connection conn = ConnectDB.getConnection();
             PreparedStatement ps = conn.prepareStatement(UPDATE_VOUCHER_QUERY)) {
             ps.setString(1,voucher.getVoucher_code());
@@ -98,6 +99,7 @@ public class VoucherService implements IVoucherService {
             ps.setString(8,voucher.getDescription());
             ps.setInt(9,voucher.getVoucher_id());
             ps.execute();
+            return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
