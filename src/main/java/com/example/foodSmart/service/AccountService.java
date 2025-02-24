@@ -10,7 +10,7 @@ import java.util.List;
 
 public class AccountService implements IAccountService {
 
-    private static final String AUTHENTICATE_LOGIN_QUERY = "SELECT a.*, r.role_name FROM Account a JOIN Roles r ON a.role_id = r.role_id WHERE LOWER(a.username) = LOWER(?) AND a.password = ?";
+    private static final String AUTHENTICATE_LOGIN_QUERY = "SELECT a.*, r.role_name FROM Account a JOIN Roles r ON a.role_id = r.role_id WHERE LOWER(a.username) = LOWER(?)";
     private static final String ACCOUNT_BY_ID_QUERY = "SELECT a.*, r.role_name FROM Account a JOIN Roles r ON a.role_id = r.role_id WHERE a.account_id = ?";
     private static final String ACCOUNT_DETAILS_QUERY = "SELECT * FROM Account_Details WHERE user_id = ?";
     private static final String ACCOUNT_BY_USERNAME_QUERY = "SELECT * FROM Account WHERE username = ?";
@@ -46,20 +46,21 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    public Account authenticateLogin(String username, String password) {
+    public Account authenticateLogin(String username) {
         Account account = null;
         try (Connection conn = ConnectDB.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(AUTHENTICATE_LOGIN_QUERY)) {
             pstmt.setString(1, username);
-            pstmt.setString(2, password);
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
+                    String username1 = rs.getString("username");
                     Boolean active = rs.getBoolean("active");
                     String role = rs.getString("role_name");
+                    String password = rs.getString("password");
                     int accountID = rs.getInt("account_id");
                     String avtPath = rs.getString("avt_path");
                     List<AccountDetails> accountDetails = getAccountDetails(accountID);
-                    account = new Account(accountID, username, password, avtPath, role, active, accountDetails);
+                    account = new Account(accountID, username1, password, avtPath, role, active, accountDetails);
                 }
             }
         } catch (SQLException e) {
@@ -85,7 +86,7 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    public void authenticateRegister(Account account, AccountDetails accountDetails) {
+    public boolean authenticateRegister(Account account, AccountDetails accountDetails) {
         try (Connection conn = ConnectDB.getConnection();
              CallableStatement callableStatement = conn.prepareCall(AUTHENTICATE_REGISTER_QUERY);
         ) {
@@ -96,7 +97,7 @@ public class AccountService implements IAccountService {
             callableStatement.setString(5, account.getAvtPath());
             callableStatement.setString(6, account.getRole());
             callableStatement.execute();
-            System.out.println("Đăng kí thành công");
+            return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -160,7 +161,7 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    public void editAccount(Account account) {
+    public boolean editAccount(Account account) {
         try (Connection conn = ConnectDB.getConnection();
              CallableStatement cs = conn.prepareCall(UPDATE_ACCOUNT_QUERY);
         ) {
@@ -171,14 +172,14 @@ public class AccountService implements IAccountService {
             cs.setString(5, account.getAvtPath());
             cs.setString(6, account.getRole());
             cs.execute();
-            System.out.println("Cập nhật thông tin tài khoản thành công");
+            return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    public void editAccountDetails(AccountDetails accountDetails) {
+    public boolean editAccountDetails(AccountDetails accountDetails) {
         try (Connection conn = ConnectDB.getConnection();
              PreparedStatement prep = conn.prepareStatement(UPDATE_ACCOUNT_DETAILS_QUERY)) {
             prep.setString(1, accountDetails.getAddress());
@@ -186,13 +187,14 @@ public class AccountService implements IAccountService {
             prep.setBoolean(3, accountDetails.isDefault());
             prep.setInt(4, accountDetails.getAccountDetailID());
             prep.execute();
+            return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    public void addAccountDetails(AccountDetails accountDetails) {
+    public boolean addAccountDetails(AccountDetails accountDetails) {
         try (Connection conn = ConnectDB.getConnection();
              PreparedStatement prep = conn.prepareStatement(ADD_ACCOUNT_DETAILS_QUERY)) {
             prep.setInt(1, accountDetails.getAccountID());
@@ -200,6 +202,7 @@ public class AccountService implements IAccountService {
             prep.setString(3, accountDetails.getPhonenumber());
             prep.setBoolean(4, accountDetails.isDefault());
             prep.execute();
+            return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -22,35 +22,44 @@
                     <input type="text" class="form-control" value="${merchant.store_name}" name="store_name" required
                            pattern=".*\S.*"
                            title="Tên cửa hàng không được để trống" minlength="2">
-
                 </div>
 
+                <!-- Banner -->
                 <label class="form-label"><i class="fas fa-image"></i> Banner</label>
                 <div class="mb-3 text-center">
                     <div class="mb-2">
-                        <img src="/images/avatars/${merchant.banner_path}" alt="banner" class="img-fluid rounded shadow"
+                        <!-- Thêm id="bannerPreview" để update ảnh -->
+                        <img id="bannerPreview" src="${pageContext.request.contextPath}/foodSmartImages/avatars/${merchant.banner_path}" alt="banner" class="img-fluid rounded shadow"
                              style="max-width: 250px;">
                     </div>
                     <input type="hidden" value="${merchant.banner_path}" name="current_banner_path">
-                    <input type="file" class="form-control mx-auto d-block" name="banner_path"
-                           style="max-width: 400px;">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="banner_path" name="banner_path"
+                               style="max-width: 400px;">
+                        <label class="custom-file-label" for="banner_path">${merchant.banner_path}</label>
+                    </div>
                 </div>
 
+                <!-- Avatar -->
                 <label class="form-label"><i class="fas fa-user-circle"></i> Avatar</label>
                 <div class="mb-3 text-center">
                     <div class="mb-2">
-                        <img src="/images/avatars/${merchant.avt_path}" alt="avatar"
+                        <!-- Thêm id="avtPreview" để update ảnh -->
+                        <img id="avtPreview" src="${pageContext.request.contextPath}/foodSmartImages/avatars/${merchant.avt_path}" alt="avatar"
                              class="img-fluid rounded-circle shadow" style="max-width: 120px;">
                     </div>
                     <input type="hidden" value="${merchant.avt_path}" name="current_avt_path">
-                    <input type="file" class="form-control mx-auto d-block" name="avt_path" style="max-width: 400px;">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="avt_path" name="avt_path"
+                               style="max-width: 400px;">
+                        <label class="custom-file-label" for="avt_path">${merchant.avt_path}</label>
+                    </div>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label"><i class="fas fa-map-marker-alt"></i> Địa chỉ</label>
                     <input type="text" class="form-control" value="${merchant.store_address}" name="store_address"
-                           required
-                           pattern=".*\S.*"
+                           required pattern=".*\S.*"
                            title="Địa chỉ không được để trống" minlength="2">
                 </div>
 
@@ -95,6 +104,30 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        function updateFilePreview(input, previewId) {
+            const label = input.nextElementSibling;
+            if (input.files.length > 0) {
+                const file = input.files[0];
+                label.textContent = file.name;
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById(previewId).src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        document.getElementById("banner_path").addEventListener("change", function () {
+            updateFilePreview(this, 'bannerPreview');
+        });
+
+        document.getElementById("avt_path").addEventListener("change", function () {
+            updateFilePreview(this, 'avtPreview');
+        });
+    });
+</script>
 
 </body>
 </html>

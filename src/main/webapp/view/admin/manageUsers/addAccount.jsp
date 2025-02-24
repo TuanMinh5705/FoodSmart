@@ -111,7 +111,10 @@
                         </div>
 
                         <!-- Nút submit -->
-                        <div class="d-grid">
+                        <div class="d-flex justify-content-center gap-2">
+                            <a href="/manageUsers" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i> Quay lại
+                            </a>
                             <button type="submit" class="btn btn-primary">
                                 <i class="fas fa-plus"></i> Thêm người dùng
                             </button>

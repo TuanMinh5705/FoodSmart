@@ -6,7 +6,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Chi tiết cửa hàng</title>
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
@@ -42,16 +41,15 @@
                         <i class="fas fa-image"></i> Banner
                     </td>
                     <td class="text-center">
-                        <img src="/images/avatars/${merchant.banner_path}" alt="banner"
-                             class="img-fluid rounded" style="max-width: 300px;">
-                    </td>
+                        <img src="${pageContext.request.contextPath}/foodSmartImages/avatars/${merchant.banner_path}" alt="banner"
+                             class="img-fluid rounded" style="max-width: 300px;"></td>
                 </tr>
                 <tr>
                     <td class="bg-light">
                         <i class="fas fa-user-circle"></i> Avatar
                     </td>
                     <td class="text-center">
-                        <img src="/images/avatars/${merchant.avt_path}" alt="avatar"
+                        <img src="${pageContext.request.contextPath}/foodSmartImages/avatars/${merchant.avt_path}" alt="avatar"
                              class="img-fluid rounded-circle" style="max-width: 120px;">
                     </td>
                 </tr>
@@ -80,7 +78,6 @@
     </div>
 </div>
 
-<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>

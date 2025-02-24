@@ -6,8 +6,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản lý người dùng</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <!-- Thêm SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         .table thead th {
             background-color: #343a40;
@@ -39,6 +43,34 @@
 </head>
 <body>
 <div class="container my-4">
+    <!-- SweetAlert thông báo thành công hoặc lỗi -->
+    <c:if test="${not empty success}">
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: '${success}',
+                showConfirmButton: false,
+                timer: 2000,
+                width: '300px'
+            });
+        </script>
+        <% session.removeAttribute("success"); %>
+    </c:if>
+    <c:if test="${not empty error}">
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: '${error}',
+                showConfirmButton: false,
+                timer: 2000,
+                width: '300px'
+            });
+        </script>
+        <% session.removeAttribute("error"); %>
+    </c:if>
+
     <h2 class="text-center mb-4">Quản lý người dùng</h2>
     <div class="row mb-3 align-items-center">
         <div class="col-md-3">
@@ -81,8 +113,8 @@
                 <th>#</th>
                 <th>Ảnh đại diện</th>
                 <th>Tên đăng nhập</th>
-                <th>Mật khẩu</th>
                 <th>Vai trò</th>
+                <th>Trạng thái</th>
                 <th>Hành động</th>
             </tr>
             </thead>
@@ -91,12 +123,22 @@
                 <tr data-role="${account.role}">
                     <td>${status.index + 1}</td>
                     <td>
-                        <img src="/images/avatars/${account.avtPath}"
+                        <img src="${pageContext.request.contextPath}/foodSmartImages/avatars/${account.avtPath}"
                              alt="Avatar"
                              class="rounded-circle">
                     </td>
                     <td>
                             ${account.username}
+                    </td>
+                    <td>
+                        <c:choose>
+                            <c:when test="${account.role eq 'Admin'}">Quản trị viên</c:when>
+                            <c:when test="${account.role eq 'Merchant'}">Chủ cửa hàng</c:when>
+                            <c:when test="${account.role eq 'User'}">Người dùng</c:when>
+                            <c:otherwise>Chưa xác định</c:otherwise>
+                        </c:choose>
+                    </td>
+                    <td>
                         <c:choose>
                             <c:when test="${account.active}">
                                 <i class="fas fa-check-circle" style="color: green;" title="Đang hoạt động"></i>
@@ -106,27 +148,15 @@
                             </c:otherwise>
                         </c:choose>
                     </td>
-
-                    <td>*******</td>
-                    <td>
-                        <c:choose>
-                            <c:when test="${account.role eq 'Admin'}">Quản trị viên</c:when>
-                            <c:when test="${account.role eq 'Merchant'}">Chủ cửa hàng</c:when>
-                            <c:when test="${account.role eq 'User'}">Người dùng</c:when>
-                            <c:otherwise>Chưa xác định</c:otherwise>
-                        </c:choose>
-                    </td>
-
                     <td>
                         <div class="action-buttons d-inline-flex">
                             <a href="/manageUsers?action=editForm&accountID=${account.accountID}"
                                class="btn btn-primary btn-sm" title="Chỉnh sửa">
-                                <i class="fas fa-pencil-alt"></i>
+                                <i class="fas fa-edit"></i>
                             </a>
-
                             <a href="/manageUsers?action=showInfoForm&accountID=${account.accountID}"
                                class="btn btn-secondary btn-sm" title="Chi tiết">
-                                <i class="fas fa-eye"></i>
+                                <i class="fas fa-info-circle"></i>
                             </a>
                         </div>
                     </td>
@@ -143,7 +173,6 @@
     document.getElementById("roleFilter").addEventListener("change", function () {
         let selectedRole = this.value;
         let rows = document.querySelectorAll("tbody tr");
-
         rows.forEach(row => {
             let role = row.getAttribute("data-role");
             if (selectedRole === "all" || role === selectedRole) {
@@ -155,10 +184,8 @@
     });
 
     let timer;
-
     function startTimer() {
         clearTimeout(timer);
-
         timer = setTimeout(function () {
             document.getElementById("searchForm").submit();
         }, 4500);

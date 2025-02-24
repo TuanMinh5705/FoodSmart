@@ -9,12 +9,12 @@ public interface IVoucherService {
     List<Voucher> getListVouchers();
 
     // Thêm mã giảm giá
-    void addVoucher(Voucher voucher);
+    boolean addVoucher(Voucher voucher);
 
     // Lấy thông tin mã giảm giá theo id
     Voucher getVoucherById(int id);
     // Cập nhật thông tin mã giảm giá
-    void updateVoucher(Voucher voucher);
+    boolean updateVoucher(Voucher voucher);
     // Tìm kiếm theo mã
     List<Voucher> getListVoucherByName(String keyword);
 }

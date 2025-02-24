@@ -85,8 +85,12 @@
                                       placeholder="Nhập mô tả voucher"></textarea>
                         </div>
 
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-primary">
+                        <!-- Nút Thêm Voucher và Quay lại -->
+                        <div class="d-flex justify-content-center gap-3 mt-3">
+                            <a href="/manageVouchers" class="btn btn-secondary btn-sm">
+                                <i class="fas fa-arrow-left"></i> Quay lại
+                            </a>
+                            <button type="submit" class="btn btn-primary btn-sm">
                                 <i class="fas fa-plus"></i> Thêm Voucher
                             </button>
                         </div>
@@ -97,7 +101,6 @@
     </div>
 </div>
 
-<!-- Bootstrap 5 JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 

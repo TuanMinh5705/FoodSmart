@@ -73,10 +73,10 @@
             <a class="nav-link text-white" href="#"><i class="fas fa-chart-bar"></i> Thống kê doanh số</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-white" href="#"><i class="fas fa-tags"></i> Mã giảm giá</a>
+            <a class="nav-link text-white" href="/manageCoupons"><i class="fas fa-tags"></i> Mã giảm giá</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-white" href="#"><i class="fas fa-store"></i> Thông tin cửa hàng</a>
+            <a class="nav-link text-white" href="/manageStore?action=showInfoStore"><i class="fas fa-store"></i> Thông tin cửa hàng</a>
         </li>
         <li class="nav-item">
             <a class="nav-link text-white" href="#"><i class="fas fa-exclamation-circle"></i> Xử lý khiếu nại</a>
