@@ -119,8 +119,17 @@ public class ManageMerchants extends HttpServlet {
         if (!uploadDir.exists()) {
             uploadDir.mkdirs();
         }
-        fileBannerPart.write(uploadPath + File.separator + banner_path);
-        fileAvatarPart.write(uploadPath + File.separator + avt_path);
+
+        File banner = new File(uploadDir, banner_path);
+        File avt = new File(uploadDir, avt_path);
+
+        if (!avt.exists()) {
+            fileAvatarPart.write(uploadPath + File.separator + avt_path);
+        }
+
+        if (!banner.exists()) {
+            fileBannerPart.write(uploadPath + File.separator + banner_path);
+        }
 
 
         String storeTypeParam = req.getParameter("store_type");

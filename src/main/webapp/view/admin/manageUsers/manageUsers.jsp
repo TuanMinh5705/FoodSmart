@@ -43,12 +43,11 @@
 </head>
 <body>
 <div class="container my-4">
-    <!-- SweetAlert thông báo thành công hoặc lỗi -->
     <c:if test="${not empty success}">
         <script>
             Swal.fire({
                 position: 'top-end',
-                icon: 'success',
+                icon: ${success == 'success' ? 'success' : },
                 title: '${success}',
                 showConfirmButton: false,
                 timer: 2000,
