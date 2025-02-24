@@ -58,7 +58,7 @@
 
             <div class="d-flex justify-content-center gap-3 mt-4">
                 <button type="submit" class="btn btn-success px-4">
-                    <i class="bi bi-plus-circle"></i> Thêm cửa hàng
+                    <i class="bi bi-check-circle"></i> Thêm cửa hàng
                 </button>
                 <a href="/manageMerchants" class="btn btn-danger px-4">
                     <i class="bi bi-x-circle"></i> Hủy
