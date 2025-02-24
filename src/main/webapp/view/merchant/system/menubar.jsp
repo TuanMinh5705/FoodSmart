@@ -172,7 +172,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<!-- Nếu chưa đăng nhập -->
 <c:if test="${empty sessionScope.loggedInAccount}">
     <script>
         document.addEventListener("DOMContentLoaded", function() {
