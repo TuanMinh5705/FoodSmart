@@ -16,19 +16,19 @@
 <h2>Sửa Thống Tin Merchant</h2>
 
 <form action="/manageStore?action=editInfoStore" method="post">
-    <input type="hidden" name="merchantId" value="${loggedInMerchant.store_id}">
+    <input type="hidden" name="merchantId" value="${loggedInAccount.store_id}">
     <label>Tên cửa hàng:</label>
-    <input type="text" name="storeName" value="${loggedInMerchant.store_name}"/><br>
+    <input type="text" name="storeName" value="${loggedInAccount.store_name}"/><br>
     <label>Địa chỉ cửa hàng:</label>
-    <input type="text" name="storeAddress" value="${loggedInMerchant.store_address}"/><br>
+    <input type="text" name="storeAddress" value="${loggedInAccount.store_address}"/><br>
     <label>Số điện thoại:</label>
-    <input type="text" name="contact_number" value="${loggedInMerchant.contact_number}"/><br>
+    <input type="text" name="contact_number" value="${loggedInAccount.contact_number}"/><br>
     <label>Banner Path:</label>
-    <input type="text" name="banner_path" value="${loggedInMerchant.banner_path}"/><br>
+    <input type="text" name="banner_path" value="${loggedInAccount.banner_path}"/><br>
     <label>Avatar Path:</label>
-    <input type="text" name="avt_path" value="${loggedInMerchant.avt_path}"/><br>
+    <input type="text" name="avt_path" value="${loggedInAccount.avt_path}"/><br>
     <label>Trạng thái:</label>
-    <input type="checkbox" name="store_type" value="true" <c:if test="${loggedInMerchant.store_type}">checked</c:if> /><br>
+    <input type="checkbox" name="store_type" value="true" <c:if test="${loggedInAccount.store_type}">checked</c:if> /><br>
     <input type="submit" value="Cập nhật">
 </form>
 </body>
