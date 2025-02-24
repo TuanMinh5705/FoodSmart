@@ -85,7 +85,7 @@
                     <td>
                         <c:forEach var="image" items="${product.list_food_images}">
                             <c:if test="${image.is_primary}">
-                                <img src="/images/product/${image.image_path}" alt="Ảnh món ăn" class="img-thumbnail" width="80">
+                                <img src="${pageContext.request.contextPath}/foodSmartImages/product/${image.image_path}" alt="Ảnh món ăn" class="img-thumbnail" width="80">
                             </c:if>
                         </c:forEach>
                     </td>
@@ -96,6 +96,9 @@
                     <td>
                         <a href="/manageFoods?action=infoProductForm&productID=${product.product_id}" class="btn btn-info btn-sm">
                             <i class="fas fa-info-circle"></i> Chi tiết
+                        </a>
+                        <a href="/manageFoods?action=editProductForm&productID=${product.product_id}" class="btn btn-info btn-sm">
+                            <i class="fas fa-info-circle"></i> Sửa
                         </a>
                         <button type="button" class="btn btn-danger btn-sm" onclick="showDeleteModal(${product.product_id})">
                             <i class="fa fa-trash"></i> Xóa

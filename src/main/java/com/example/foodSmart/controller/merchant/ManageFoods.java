@@ -10,6 +10,7 @@ import com.example.foodSmart.service.admin.IMerchantService;
 import com.example.foodSmart.service.admin.MerchantService;
 import com.example.foodSmart.service.merchant.FoodService;
 import com.example.foodSmart.service.merchant.IFoodService;
+import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -47,6 +48,9 @@ public class ManageFoods extends HttpServlet {
                 req.setAttribute("categoryStoreList", categoryStoreList);
                 req.getRequestDispatcher("view/merchant/homeMerchant.jsp?page=addFood").forward(req, resp);
                 break;
+            case "editProductForm" :
+                showEditFoodForm(req,resp);
+                break;
             case "infoCategoryForm":
                 getCategoryFoodAction(req,resp);
                 req.getRequestDispatcher("view/merchant/homeMerchant.jsp?page=infoCategory").forward(req, resp);
@@ -59,10 +63,25 @@ public class ManageFoods extends HttpServlet {
             case "getCategory":
                 getCategory(req,resp);
                 break;
+            case "deleteImage" :
+                System.out.println(111111);
+                int imageId = Integer.parseInt(req.getParameter("id"));
+                boolean deleted = foodService.deleteFoodImage(imageId);
+                resp.getWriter().write(deleted ? "success" : "fail");
+                break;
             default:
                 listFoodAndCategory(req,resp,store_id);
                 break;
         }
+    }
+
+    private void showEditFoodForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int productID = Integer.parseInt(req.getParameter("productID"));
+        Food food = foodService.getFoodByID(productID);
+        List<CategoryFood> categoryFoodList = categoryFoodService.listCategoryFood();
+        req.setAttribute("categoryFoodList", categoryFoodList);
+        req.setAttribute("food", food);
+        req.getRequestDispatcher("view/merchant/homeMerchant.jsp?page=editFood").forward(req,resp);
     }
 
     @Override
@@ -88,7 +107,24 @@ public class ManageFoods extends HttpServlet {
             case "addFood":
                 addFood(resp, req);
                 break;
+            case "updateFood":
+                updateFoodAction(req,resp);
+                break;
         }
+    }
+
+
+    private void updateFoodAction(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int product_id = Integer.parseInt(req.getParameter("product_id"));
+        int store_id = storeIDByLoggedInUser(req,resp);
+        String product_name = req.getParameter("product_name");
+        int price = Integer.parseInt(req.getParameter("price"));
+        int stock_quantity = Integer.parseInt(req.getParameter("stock_quantity"));
+        int discount = Integer.parseInt(req.getParameter("discount"));
+        int category_id = Integer.parseInt(req.getParameter("category_id"));
+        List<FoodImages> foodImagesList = new ArrayList<>();
+
+        Food food = new Food(product_id,store_id,product_name,price,stock_quantity,discount,category_id,foodImagesList);
     }
 
     private void addFood(HttpServletResponse resp, HttpServletRequest req) throws ServletException, IOException {

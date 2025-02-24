@@ -25,6 +25,12 @@ public interface IFoodService {
     int addFood(int storeID, Food food);
     // Thêm ảnh món ăn
     boolean addFoodImages(int productID, List<FoodImages> foodImages);
+    // Xoá ảnh món ăn
+    boolean deleteFoodImage(int id);
+    // Thông tin món ăn
+    Food getFoodByID(int id);
+    // Cập nhật thông tin món ăn
+    void updateFood(Food food, int category_id, List<FoodImages> foodImages);
 
 
 }

@@ -26,6 +26,7 @@ dependencies {
 
     implementation 'jstl:jstl:1.2'
     implementation 'mysql:mysql-connector-java:8.0.28'
+    implementation 'com.google.code.gson:gson:2.10.1'
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")

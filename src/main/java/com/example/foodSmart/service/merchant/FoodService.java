@@ -17,6 +17,9 @@ public class FoodService implements IFoodService {
 
     private static final String LIST_FOODS_IMAGE_QUERY = "select * from product_images where product_id = ?";
     private static final String LIST_FOODS_STORE_QUERY = "select * from products WHERE store_id = ?";
+    private static final String GET_FOODS_QUERY = "SELECT p.product_id,p.product_name,p.price,p.stock_quantity,p.discount,p.store_id,pc.category_id\n" +
+            "FROM Products p LEFT JOIN Products_Categories pc ON p.product_id = pc.product_id WHERE p.product_id = ?;";
+    private static final  String DELETE_FOOD_IMAGE_QUERY = "DELETE FROM Product_Images WHERE image_id = ?";
 
     @Override
     public List<CategoryFood> listCategoriesFoodStore(int store_id) {
@@ -148,6 +151,54 @@ public class FoodService implements IFoodService {
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        }
+    }
+
+    @Override
+    public boolean deleteFoodImage(int id) {
+            try (Connection conn = ConnectDB.getConnection();
+                 PreparedStatement ps = conn.prepareStatement(DELETE_FOOD_IMAGE_QUERY)) {
+                ps.setInt(1, id);
+                return ps.executeUpdate()>0;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return false;
+        }
+
+
+    @Override
+    public Food getFoodByID(int id) {
+        Food food = new Food();
+        try(Connection conn = ConnectDB.getConnection();
+        PreparedStatement ps = conn.prepareStatement(GET_FOODS_QUERY)){
+            ps.setInt(1,id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                int product_id = rs.getInt("product_id");
+                String product_name = rs.getString("product_name");
+                int price = rs.getInt("price");
+                int stock_quantity = rs.getInt("stock_quantity");
+                int discount = rs.getInt("discount");
+                List<FoodImages> foodImagesList = listFoodImageStore(product_id);
+                int store_id = rs.getInt("store_id");
+                int category_id = rs.getInt("category_id");
+                food = new Food(product_id,store_id,product_name,price,stock_quantity,discount,category_id,foodImagesList);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return food;
+    }
+
+    @Override
+    public void updateFood(Food food, int category_id, List<FoodImages> foodImages) {
+        try(Connection conn = ConnectDB.getConnection();
+        PreparedStatement ps = conn.prepareStatement(DELETE_FOOD_IMAGE_QUERY)){
+            ps.setString(1,food.getProduct_name());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
