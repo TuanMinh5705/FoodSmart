@@ -21,7 +21,6 @@
     </style>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
-
 <body class="bg-light">
 <div class="container mt-4">
     <h2 class="text-center mb-4 text-primary">Quản lý cửa hàng</h2>
