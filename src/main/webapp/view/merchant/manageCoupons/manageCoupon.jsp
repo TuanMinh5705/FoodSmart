@@ -58,8 +58,6 @@
                                 <i class="fas fa-eye"></i>
                             </a>
                         </div>
-
-
                     </td>
                 </tr>
             </c:forEach>

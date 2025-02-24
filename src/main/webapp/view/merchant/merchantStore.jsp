@@ -27,6 +27,5 @@
 
 </table>
 <a href="/manageStore?action=editInfoStoreForm">sửa</a>
-
 </body>
 </html>
