@@ -82,9 +82,6 @@
         <c:when test="${param.page == 'editMerchantStore'}">
             <jsp:include page="editMerchant.jsp"/>
         </c:when>
-        <c:when test="${param.page == 'editInfoStore'}">
-            <jsp:include page="editInfoMerchant.jsp"/>
-        </c:when>
 
 
 
