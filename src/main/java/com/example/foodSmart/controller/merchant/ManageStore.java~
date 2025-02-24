@@ -65,8 +65,8 @@ public class ManageStore extends HttpServlet {
     }
 
     private void showInfoStore(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Merchant loggedInMerchant = (Merchant) req.getSession().getAttribute("loggedInMerchant");
-        int store_id = loggedInMerchant.getMerchant_id();
+        Merchant logged = (Merchant) req.getSession().getAttribute("logged");
+        int store_id = logged.getMerchant_id();
         Merchant store = merchantService.getMerchantById(store_id);
         req.setAttribute("store", store);
         req.getRequestDispatcher("view/merchant/homeMerchant.jsp?page=infoStore").forward(req, resp);
