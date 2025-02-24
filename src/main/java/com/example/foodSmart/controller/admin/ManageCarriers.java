@@ -89,6 +89,7 @@ public class ManageCarriers extends HttpServlet {
         int carrierId = parseInt(req.getParameter("carrierId"));
         Shipper shipper = new Shipper(phoneNumber,shipperName);
         carrierService.addShipper(shipper,carrierId);
+        req.getSession().setAttribute("success", "Thêm nhân viên vận chuyển thành công!");
         resp.sendRedirect("manageCarriers");
     }
 
@@ -100,6 +101,7 @@ public class ManageCarriers extends HttpServlet {
         Carrier carrier = carrierService.getCarrier(carrierId);
         Shipper shipper = new Shipper(shipperId,shipperName,phoneNumber,carrier.getCarrier_name());
         carrierService.updateShipper(shipper,carrierId);
+        req.getSession().setAttribute("success", "Cập nhật thông tin nhân viên vận chuyển thành công!");
         resp.sendRedirect("manageCarriers");
     }
 
@@ -109,6 +111,7 @@ public class ManageCarriers extends HttpServlet {
         int cost = parseInt(req.getParameter("cost"));
         Carrier carrier = new Carrier(name, phone, cost);
         carrierService.addCarrier(carrier);
+        req.getSession().setAttribute("success", "Thêm đối tác vận chuyển thành công!");
         resp.sendRedirect("/manageCarriers");
     }
     private void editCarrier(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -118,6 +121,7 @@ public class ManageCarriers extends HttpServlet {
         int carrier_id = parseInt(req.getParameter("carrierId"));
         Carrier carrier = new Carrier(carrier_id, carrierName, contact_phone, shipping_cost);
         carrierService.updateCarrier(carrier);
+            req.getSession().setAttribute("success", "Cập nhật thông tin đối tác vận chuyển thành công!");
         resp.sendRedirect("/manageCarriers");
     }
     private void listCarriers(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

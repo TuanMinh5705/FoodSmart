@@ -29,6 +29,33 @@
     </style>
 </head>
 <body>
+<c:if test="${not empty success}">
+    <script>
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: '${success}',
+            showConfirmButton: false,
+            timer: 2000,
+            width: '300px'
+        });
+    </script>
+    <% session.removeAttribute("success"); %>
+</c:if>
+<c:if test="${not empty error}">
+    <script>
+        Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: '${error}',
+            showConfirmButton: false,
+            timer: 2000,
+            width: '300px'
+        });
+    </script>
+    <% session.removeAttribute("error"); %>
+</c:if>
+
 <div class="container my-4">
     <h2 class="text-center mb-4">Quản lý mã giảm giá</h2>
 

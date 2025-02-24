@@ -41,16 +41,15 @@
                         <i class="fas fa-image"></i> Banner
                     </td>
                     <td class="text-center">
-                        <img src="/images/avatars/${merchant.banner_path}" alt="banner"
-                             class="img-fluid rounded" style="max-width: 300px;">
-                    </td>
+                        <img src="${pageContext.request.contextPath}/foodSmartImages/avatars/${merchant.banner_path}" alt="banner"
+                             class="img-fluid rounded" style="max-width: 300px;"></td>
                 </tr>
                 <tr>
                     <td class="bg-light">
                         <i class="fas fa-user-circle"></i> Avatar
                     </td>
                     <td class="text-center">
-                        <img src="/images/avatars/${merchant.avt_path}" alt="avatar"
+                        <img src="${pageContext.request.contextPath}/foodSmartImages/avatars/${merchant.avt_path}" alt="avatar"
                              class="img-fluid rounded-circle" style="max-width: 120px;">
                     </td>
                 </tr>

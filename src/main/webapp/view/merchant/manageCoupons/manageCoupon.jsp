@@ -50,7 +50,7 @@
                     <td>
                         <div class="action-buttons d-flex justify-content-center">
                             <a href="/manageCoupons?action=editCouponForm&coupon_id=${coupon.coupon_id}"
-                               class="btn btn-primary btn-sm mr-2" title="Chỉnh sửa"> <!-- Sử dụng lớp mr-2 -->
+                               class="btn btn-primary btn-sm mr-2" title="Chỉnh sửa">
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
                             <a href="/manageCoupons?action=infoCouponForm&coupon_id=${coupon.coupon_id}"

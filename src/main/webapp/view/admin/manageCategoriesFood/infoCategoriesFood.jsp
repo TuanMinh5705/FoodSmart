@@ -28,7 +28,7 @@
     <div class="card mx-auto" style="max-width: 600px;">
         <div class="card-body">
             <div class="text-center mb-4">
-                <img src="${pageContext.request.contextPath}/images/product/${category.avt_path}" alt="Ảnh danh mục" class="avatar">
+                <img src="${pageContext.request.contextPath}/foodSmartImages/product/${category.avt_path}" alt="Ảnh danh mục" class="avatar">
             </div>
             <h4 class="card-title text-center">
                 <i class="fas fa-tags"></i> ${category.category_name}

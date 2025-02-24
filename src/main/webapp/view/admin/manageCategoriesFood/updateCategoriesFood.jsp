@@ -34,7 +34,7 @@
                         <input type="hidden" name="category_id" value="${category.category_id}">
                         <div class="mb-3 text-center">
                             <img id="avatarPreview" class="avatar-preview"
-                                 src="${pageContext.request.contextPath}/images/product/${category.avt_path}"
+                                 src="${pageContext.request.contextPath}/foodSmartImages/product/${category.avt_path}"
                                  alt="Ảnh danh mục">
                             <label for="avatar" class="form-label d-block">
                                 <i class="fas fa-image"></i> Chọn ảnh danh mục (nếu muốn thay đổi)

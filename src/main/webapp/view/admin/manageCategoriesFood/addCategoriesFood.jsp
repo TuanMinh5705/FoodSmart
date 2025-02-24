@@ -58,12 +58,6 @@
                                 </c:forEach>
                             </c:if>
                         </div>
-
-<<<<<<< HEAD
-
-=======
-                        <!-- Mô tả -->
->>>>>>> bf4113bec7ab5d25a2bded56e1a1c1ffac027a28
                         <div class="mb-3">
                             <label for="description" class="form-label">
                                 <i class="fas fa-info-circle"></i> Mô tả

@@ -178,7 +178,7 @@ create table Product_Images
 (
     image_id   int primary key auto_increment,
     product_id int,
-    image_path text    default ('images/product/product_default.png'),
+    image_path text    default ('product_default.png'),
     is_primary boolean default true,
     foreign key (product_id) references Products (product_id)
 );

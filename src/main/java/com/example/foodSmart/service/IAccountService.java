@@ -16,7 +16,7 @@ public interface IAccountService {
     boolean checkUsername(String username);
 
     // Đăng kí tài khoản
-    void authenticateRegister(Account account, AccountDetails accountDetails);
+    boolean authenticateRegister(Account account, AccountDetails accountDetails);
 
     // Cập nhật mật khẩu
     void resetPassword(String newPassword, String username);
@@ -28,13 +28,13 @@ public interface IAccountService {
     Account getAccount(int accountID);
 
     // Cập nhật thông tin cơ bản
-    void editAccount(Account account);
+    boolean editAccount(Account account);
 
     // Cập nhật thông tin chi tiết
-    void editAccountDetails(AccountDetails accountDetails);
+    boolean editAccountDetails(AccountDetails accountDetails);
 
     // Thêm thông tin chi tiết cho tài khoản
-    void addAccountDetails(AccountDetails accountDetails);
+    boolean addAccountDetails(AccountDetails accountDetails);
 
     // Xóa thông tin chi tiết của tài khoản
     boolean deleteAccountDetails(int accountDetailID);

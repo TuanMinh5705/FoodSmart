@@ -47,7 +47,7 @@
             <c:forEach var="category" items="${categoryFoodList}" varStatus="status">
                 <tr>
                     <td>${status.index + 1}</td>
-                    <td><img src="/images/product/${category.avt_path}" alt="Ảnh danh mục" class="img-thumbnail" width="80"></td>
+                    <td><img src="${pageContext.request.contextPath}/foodSmartImages/product/${category.avt_path}" alt="Ảnh danh mục" class="img-thumbnail" width="80"></td>
                     <td>${category.category_name}</td>
                     <td>${category.description}</td>
                     <td>

@@ -42,7 +42,7 @@
 
                         <div class="mb-3">
                             <c:if test="${not empty account.avtPath}">
-                                <img src="/images/avatars/${account.avtPath}" alt="Ảnh đại diện" class="avatar mb-2">
+                                <img src="${pageContext.request.contextPath}/foodSmartImages/avatars/${account.avtPath}" alt="Ảnh đại diện" class="avatar mb-2">
                             </c:if>
                         </div>
 

@@ -45,7 +45,7 @@
                 <tr>
                     <td>${status.index + 1}</td>
                     <td>
-                        <img src="/images/product/${category.avt_path}" alt="Ảnh danh mục" class="img-thumbnail"
+                        <img src="${pageContext.request.contextPath}/foodSmartImages/product/${category.avt_path}" alt="Ảnh danh mục" class="img-thumbnail"
                              width="80">
                     </td>
                     <td>${category.category_name}</td>
