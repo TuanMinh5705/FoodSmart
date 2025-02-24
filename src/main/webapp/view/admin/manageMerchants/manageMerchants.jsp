@@ -26,6 +26,7 @@
             <thead class="table-dark">
             <tr>
                 <th class="text-center">STT</th>
+                <th>Ảnh cửa hàng</th>
                 <th>Tên cửa hàng</th>
                 <th>Địa chỉ</th>
                 <th>Số điện thoại</th>
@@ -36,6 +37,7 @@
             <c:forEach var="merchant" items="${merchantsList}" varStatus="status">
                 <tr>
                     <td class="text-center">${status.index + 1}</td>
+                    <td><img src="${merchant.avt_path}" alt="Merchant Avatar" width="100" height="100"></td>
                     <td>${merchant.store_name}</td>
                     <td>${merchant.store_address}</td>
                     <td>${merchant.contact_number}</td>
