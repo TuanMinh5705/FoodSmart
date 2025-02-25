@@ -71,7 +71,7 @@
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Tìm kiếm..." name="keyword" onkeyup="startTimer()">
                     <div class="input-group-append">
-                        <button class="btn btn-primary" type="submit">
+                        <button class="btn btn-primary" type="submit" title="Tìm kiếm">
                             <i class="fas fa-search"></i>
                         </button>
                     </div>
@@ -81,8 +81,8 @@
     </div>
 
     <div class="table-responsive">
-        <table class="table table-bordered table-striped table-hover" id="voucherTable">
-            <thead>
+        <table class="table table-hover table-bordered table-striped text-center align-middle">
+            <thead class="table-dark">
             <tr>
                 <th>STT</th>
                 <th>Mã giảm giá</th>

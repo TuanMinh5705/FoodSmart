@@ -38,7 +38,6 @@
 
             <div class="d-flex justify-content-center gap-2">
                 <a href="manageCarriers" class="btn btn-secondary">Quay lại</a>
-                <a href="editCarrier.jsp?carrierId=${carrier.carrier_id}" class="btn btn-primary">Chỉnh sửa</a>
             </div>
 
         </div>

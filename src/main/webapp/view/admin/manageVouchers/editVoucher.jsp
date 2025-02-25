@@ -56,7 +56,7 @@
 
                 <div class="text-center mt-4">
                     <button type="submit" class="btn btn-success">
-                        <i class="bi bi-save"></i> Cập nhật
+                        <i class="fas fa-save"></i> Cập nhật
                     </button>
                     <a href="/manageVouchers" class="btn btn-danger ms-3">
                         <i class="bi bi-x-circle"></i> Hủy

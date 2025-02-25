@@ -71,7 +71,7 @@
             <a class="nav-link text-white" href="/manageUsers"><i class="fas fa-user-cog"></i> Quản lý người dùng</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-white" href="/manageVouchers"><i class="fas fa-tags"></i> Mã giảm giá</a>
+            <a class="nav-link text-white" href="/manageVouchers"><i class="bi bi-gift-fill"></i> Mã giảm giá</a>
         </li>
         <li class="nav-item">
             <a class="nav-link text-white" href="/view/admin/homeAdmin.jsp?page=manageOrders"><i class="fas fa-shopping-cart"></i> Quản lý đơn hàng</a>

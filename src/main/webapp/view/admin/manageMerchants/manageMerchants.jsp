@@ -59,7 +59,7 @@
                 <input name="keyword" type="text" class="form-control" placeholder="Tìm kiếm..."
                        value="${searchKeyword}" onkeyup="startTimer()">
                 <div class="input-group-append">
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn btn-primary" title="Tìm kiếm">
                         <i class="fas fa-search"></i>
                     </button>
                 </div>
@@ -113,11 +113,10 @@
                                 <td>${merchant.store_address}</td>
                                 <td>${merchant.contact_number}</td>
                                 <td>
-                                    <a href="/manageMerchants?action=updateMerchantForm&store_id=${merchant.store_id}" class="btn btn-warning btn-sm">
+                                    <a href="/manageMerchants?action=updateMerchantForm&store_id=${merchant.store_id}" class="btn btn-warning btn-sm" title="Chỉnh sửa">
                                         <i class="bi bi-pencil-square"></i>
                                     </a>
-                                    <a href="/manageMerchants?action=detail&store_id=${merchant.store_id}"
-                                       class="btn btn-info btn-sm">
+                                    <a href="/manageMerchants?action=detail&store_id=${merchant.store_id}" class="btn btn-info btn-sm" title="Chi tiết">
                                         <i class="bi bi-info-circle"></i>
                                     </a>
                                 </td>
