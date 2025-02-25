@@ -100,66 +100,72 @@ public class ManageFoods extends HttpServlet {
                 boolean deleted = foodService.deleteFoodImage(imageId);
                 resp.getWriter().write(deleted ? "success" : "fail");
                 break;
-            case "updateImageFood" :
-                updateImageFood(req,resp);
-                break;
-            case "addImageFood" :
-                addImageFood(req,resp);
-                break;
         }
     }
 
-    private void addImageFood(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    private void updateFoodAction(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int product_id = Integer.parseInt(req.getParameter("product_id"));
+        int store_id = storeIDByLoggedInUser(req, resp);
+        String product_name = req.getParameter("product_name");
+        int price = Integer.parseInt(req.getParameter("price"));
+        int stock_quantity = Integer.parseInt(req.getParameter("stock_quantity"));
+        int discount = Integer.parseInt(req.getParameter("discount"));
+        int category_id = Integer.parseInt(req.getParameter("category_id"));
+
+        // Lấy thông tin món ăn hiện tại
+        Food food = foodService.getFoodByID(product_id);
+        List<FoodImages> foodImagesList = food.getList_food_images();
+
+        // Xử lý ảnh chính (primary image) mới
+        int newPrimaryImageId = Integer.parseInt(req.getParameter("primary_image"));
+        for (FoodImages img : foodImagesList) {
+            img.setIs_primary(img.getImage_id() == newPrimaryImageId);
+        }
+
+        // Cấu hình đường dẫn lưu ảnh
         String uploadPath = "C:\\foodSmartImages\\product";
         File uploadDir = new File(uploadPath);
         if (!uploadDir.exists()) {
             uploadDir.mkdirs();
         }
 
-        List<FoodImages> foodImagesList = new ArrayList<>();
+        // Cập nhật ảnh đã thay đổi
+        for (FoodImages img : foodImagesList) {
+            String paramName = "img_path_" + img.getImage_id();
+            Part part = req.getPart(paramName);
+            if (part != null && part.getSize() > 0) {
+                String newFileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
+                part.write(uploadPath + File.separator + newFileName);
+                img.setImage_path(newFileName);
+                foodService.editFoodImages(img);
+            }
+        }
+
+        // Xử lý thêm ảnh mới
         Collection<Part> fileParts = req.getParts();
         for (Part part : fileParts) {
             if (part.getName().equals("product_images") && part.getSize() > 0) {
                 String fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
                 part.write(uploadPath + File.separator + fileName);
-                boolean isPrimary = foodImagesList.isEmpty();
-                foodImagesList.add(new FoodImages(0, 0, fileName, isPrimary));
+                boolean isPrimary = foodImagesList.isEmpty(); // Ảnh đầu tiên được gán là ảnh chính nếu chưa có ảnh
+                FoodImages newImage = new FoodImages(product_id, fileName, isPrimary);
+                foodService.editFoodImages(newImage);
+                foodImagesList.add(newImage);
             }
         }
+
+        // Cập nhật món ăn
+        food.setProduct_name(product_name);
+        food.setPrice(price);
+        food.setStock_quantity(stock_quantity);
+        food.setDiscount(discount);
+        food.setCategory_id(category_id);
+        food.setList_food_images(foodImagesList);
+        foodService.updateFood(food, category_id, foodImagesList);
+
+        listFoodAndCategory(req, resp, store_id);
     }
 
-    private void updateImageFood(HttpServletRequest req, HttpServletResponse resp) {
-        int imageId = Integer.parseInt(req.getParameter("imageID"));
-        try{
-            Part filePart = req.getPart("img_path_"+imageId);
-            String imgPath = (filePart != null && filePart.getSize() > 0) ? filePart.getSubmittedFileName() : req.getParameter("currentImgPath");
-            String uploadPath = "C:\\foodSmartImages\\product";
-            File uploadDir = new File(uploadPath);
-            if (!uploadDir.exists()) {
-                uploadDir.mkdirs();
-            }
-            if (filePart != null && filePart.getSize() > 0) {
-                filePart.write(uploadPath + File.separator + imgPath);
-            }
-        } catch (ServletException | IOException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
-
-
-    private void updateFoodAction(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int product_id = Integer.parseInt(req.getParameter("product_id"));
-        int store_id = storeIDByLoggedInUser(req,resp);
-        String product_name = req.getParameter("product_name");
-        int price = Integer.parseInt(req.getParameter("price"));
-        int stock_quantity = Integer.parseInt(req.getParameter("stock_quantity"));
-        int discount = Integer.parseInt(req.getParameter("discount"));
-        int category_id = Integer.parseInt(req.getParameter("category_id"));
-        List<FoodImages> foodImagesList = new ArrayList<>();
-
-        Food food = new Food(product_id,store_id,product_name,price,stock_quantity,discount,category_id,foodImagesList);
-    }
     private void addFood(HttpServletResponse resp, HttpServletRequest req) throws ServletException, IOException {
         try {
             String productName = req.getParameter("product_name");

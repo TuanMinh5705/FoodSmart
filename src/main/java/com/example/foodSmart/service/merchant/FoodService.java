@@ -155,6 +155,23 @@ public class FoodService implements IFoodService {
     }
 
     @Override
+    public boolean editFoodImages(FoodImages foodImages) {
+        String sql = "INSERT INTO Product_Images (product_id, image_path, is_primary) VALUES (?, ?, ?)";
+        try (Connection conn = ConnectDB.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setInt(1, foodImages.getProduct_id());
+                ps.setString(2, foodImages.getImage_path());
+                ps.setBoolean(3, foodImages.isIs_primary());
+                ps.addBatch();
+            ps.executeBatch();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
     public boolean deleteFoodImage(int id) {
             try (Connection conn = ConnectDB.getConnection();
                  PreparedStatement ps = conn.prepareStatement(DELETE_FOOD_IMAGE_QUERY)) {
