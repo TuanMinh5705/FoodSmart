@@ -63,6 +63,7 @@ public class ManageUsers extends HttpServlet {
                 addAddress(req, resp);
                 break;
             default:
+                showListUser(req,resp);
                 break;
         }
     }

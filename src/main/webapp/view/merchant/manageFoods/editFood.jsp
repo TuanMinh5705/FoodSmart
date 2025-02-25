@@ -11,7 +11,6 @@
             height: 200px;
             object-fit: cover; /* Đảm bảo ảnh giữ tỉ lệ và không bị méo */
         }
-
         .custom-file-label {
             overflow: hidden;
             text-overflow: ellipsis;
@@ -24,7 +23,6 @@
 <h2 class="mb-4">Cập nhật món ăn</h2>
 
 <form action="updateFood" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
-
     <input type="hidden" name="product_id" value="${food.product_id}">
 
     <div class="mb-3">
@@ -59,27 +57,30 @@
     </div>
 
     <h4 class="mt-4">Danh sách ảnh:</h4>
+    <!-- Nút Thêm ảnh mới -->
+    <button type="button" class="btn btn-success mb-3" onclick="addNewImageCard()">Thêm ảnh mới</button>
+
     <c:choose>
         <c:when test="${not empty food.list_food_images}">
             <div class="row g-3" id="imageContainer">
                 <c:forEach var="img" items="${food.list_food_images}">
+                    <input type="hidden" name="imageID" value="${img.image_id}">
                     <div class="col-md-4 image-card">
                         <div class="card">
-                            <img id="img_${img.image_id}"
+                            <img id="imgPreview_${img.image_id}"
                                  src="${pageContext.request.contextPath}/foodSmartImages/product/${img.image_path}"
                                  class="image-slot card-img-top" alt="Ảnh món ăn">
                             <div class="card-body">
                                 <label class="form-check-label">Ảnh chính:</label>
                                 <input type="radio" name="primary_image"
                                        value="${img.image_id}" ${img.is_primary ? 'checked' : ''}>
-
                                 <div class="mt-3">
-                                    <label class="form-label">Chọn ảnh khác:</label>
-                                    <input type="file" name="replace_image_${img.image_id}" class="form-control"
-                                           onchange="previewReplacement(this, 'img_${img.image_id}')"
-                                           data-label="${img.image_path}">
+                                    <label for="image_${img.image_id}" class="btn btn-outline-success">Cập nhật ảnh</label>
+                                    <input type="file" class="d-none" id="image_${img.image_id}"
+                                           name="img_path_${img.image_path}" accept="image/*"
+                                           onchange="updateImagePreview(event, 'imgPreview_${img.image_id}')">
+                                    <input type="hidden" name="currentImgPath" value="${img.image_path}">
                                 </div>
-
                                 <button type="button" class="btn btn-danger btn-sm mt-3"
                                         onclick="showDeleteModal({ id: '${img.image_id}', url: 'manageFoods', action: 'deleteImage' });">
                                     Xóa ảnh
@@ -91,21 +92,62 @@
             </div>
         </c:when>
         <c:otherwise>
+            <div class="row g-3" id="imageContainer"></div>
             <p>Không có ảnh nào.</p>
         </c:otherwise>
     </c:choose>
+
     <jsp:include page="../../admin/system/modalConfirmDelete.jsp"/>
-
-    <label for="newImageInput" class="btn btn-outline-primary">Thêm ảnh mới</label>
-    <input type="file" id="newImageInput" name="product_images" multiple style="display: none;">
-    <div id="previewContainer" class="mt-3"></div>
-
-
     <button type="submit" class="btn btn-primary">Cập nhật</button>
     <a href="/manageFoods" class="btn btn-secondary">Hủy</a>
-
 </form>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    // Biến đếm để tạo id duy nhất cho các thẻ ảnh mới
+    var newImageCount = 0;
 
+    // Hàm cập nhật preview khi chọn file ảnh mới (dùng cho cả ảnh cũ và ảnh mới)
+    function updateImagePreview(event, previewId) {
+        var input = event.target;
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById(previewId).src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function addNewImageCard() {
+        newImageCount++;
+        var container = document.getElementById('imageContainer');
+        var colDiv = document.createElement('div');
+        colDiv.className = "col-md-4 image-card";
+        colDiv.innerHTML = `
+            <div class="card">
+                <img id="imgPreview_new_${newImageCount}" src="https://via.placeholder.com/200x200?text=No+Image" class="image-slot card-img-top" alt="Ảnh món ăn">
+                <div class="card-body">
+                    <label class="form-check-label">Ảnh chính:</label>
+                    <input type="radio" name="primary_image" value="new_${newImageCount}">
+                    <div class="mt-3">
+                        <label for="image_new_${newImageCount}" class="btn btn-outline-success">Cập nhật ảnh</label>
+                        <input type="file" class="d-none" id="image_new_${newImageCount}" name="new_img_path_${newImageCount}" accept="image/*" onchange="updateImagePreview(event, 'imgPreview_new_${newImageCount}')">
+                    </div>
+                    <button type="button" class="btn btn-danger btn-sm mt-3" onclick="removeImageCard(this)">Xóa ảnh</button>
+                </div>
+            </div>
+        `;
+        container.appendChild(colDiv);
+    }
+
+    function removeImageCard(button) {
+        var card = button.closest('.image-card');
+        if (card) {
+            card.remove();
+        }
+    }
+</script>
 </body>
 </html>

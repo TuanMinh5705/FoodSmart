@@ -44,7 +44,6 @@
                 <label class="form-label"><i class="fas fa-user-circle"></i> Avatar</label>
                 <div class="mb-3 text-center">
                     <div class="mb-2">
-                        <!-- Thêm id="avtPreview" để update ảnh -->
                         <img id="avtPreview" src="${pageContext.request.contextPath}/foodSmartImages/avatars/${merchant.avt_path}" alt="avatar"
                              class="img-fluid rounded-circle shadow" style="max-width: 120px;">
                     </div>

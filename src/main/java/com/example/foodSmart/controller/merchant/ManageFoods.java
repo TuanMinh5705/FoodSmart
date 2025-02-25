@@ -63,25 +63,10 @@ public class ManageFoods extends HttpServlet {
             case "getCategory":
                 getCategory(req,resp);
                 break;
-            case "deleteImage" :
-                System.out.println(111111);
-                int imageId = Integer.parseInt(req.getParameter("id"));
-                boolean deleted = foodService.deleteFoodImage(imageId);
-                resp.getWriter().write(deleted ? "success" : "fail");
-                break;
             default:
                 listFoodAndCategory(req,resp,store_id);
                 break;
         }
-    }
-
-    private void showEditFoodForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int productID = Integer.parseInt(req.getParameter("productID"));
-        Food food = foodService.getFoodByID(productID);
-        List<CategoryFood> categoryFoodList = categoryFoodService.listCategoryFood();
-        req.setAttribute("categoryFoodList", categoryFoodList);
-        req.setAttribute("food", food);
-        req.getRequestDispatcher("view/merchant/homeMerchant.jsp?page=editFood").forward(req,resp);
     }
 
     @Override
@@ -110,7 +95,56 @@ public class ManageFoods extends HttpServlet {
             case "updateFood":
                 updateFoodAction(req,resp);
                 break;
+            case "deleteImage" :
+                int imageId = Integer.parseInt(req.getParameter("id"));
+                boolean deleted = foodService.deleteFoodImage(imageId);
+                resp.getWriter().write(deleted ? "success" : "fail");
+                break;
+            case "updateImageFood" :
+                updateImageFood(req,resp);
+                break;
+            case "addImageFood" :
+                addImageFood(req,resp);
+                break;
         }
+    }
+
+    private void addImageFood(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String uploadPath = "C:\\foodSmartImages\\product";
+        File uploadDir = new File(uploadPath);
+        if (!uploadDir.exists()) {
+            uploadDir.mkdirs();
+        }
+
+        List<FoodImages> foodImagesList = new ArrayList<>();
+        Collection<Part> fileParts = req.getParts();
+        for (Part part : fileParts) {
+            if (part.getName().equals("product_images") && part.getSize() > 0) {
+                String fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
+                part.write(uploadPath + File.separator + fileName);
+                boolean isPrimary = foodImagesList.isEmpty();
+                foodImagesList.add(new FoodImages(0, 0, fileName, isPrimary));
+            }
+        }
+    }
+
+    private void updateImageFood(HttpServletRequest req, HttpServletResponse resp) {
+        int imageId = Integer.parseInt(req.getParameter("imageID"));
+        try{
+            Part filePart = req.getPart("img_path_"+imageId);
+            String imgPath = (filePart != null && filePart.getSize() > 0) ? filePart.getSubmittedFileName() : req.getParameter("currentImgPath");
+            String uploadPath = "C:\\foodSmartImages\\product";
+            File uploadDir = new File(uploadPath);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdirs();
+            }
+            if (filePart != null && filePart.getSize() > 0) {
+                filePart.write(uploadPath + File.separator + imgPath);
+            }
+        } catch (ServletException | IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 
@@ -126,7 +160,6 @@ public class ManageFoods extends HttpServlet {
 
         Food food = new Food(product_id,store_id,product_name,price,stock_quantity,discount,category_id,foodImagesList);
     }
-
     private void addFood(HttpServletResponse resp, HttpServletRequest req) throws ServletException, IOException {
         try {
             String productName = req.getParameter("product_name");
@@ -173,34 +206,29 @@ public class ManageFoods extends HttpServlet {
             req.getRequestDispatcher("view/merchant/homeMerchant.jsp?page=addFood").forward(req, resp);
         }
     }
-
     private void searchCategoryFoodByName(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String keyword = req.getParameter("keyword");
         List<CategoryFood> categoryFoodList = categoryFoodService.searchCategoryFoodWithName(keyword);
         req.setAttribute("categoryFoodList", categoryFoodList);
         req.getRequestDispatcher("view/merchant/homeMerchant.jsp?page=manageFoods").forward(req, resp);
     }
-
     private void deleteCategoryFood(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
             int categoryFood_id = Integer.parseInt(req.getParameter("id"));
             int store_id = storeIDByLoggedInUser(req, resp);
             foodService.deleteCategoryFoodStore(store_id, categoryFood_id);
         resp.getWriter().write("success");
     }
-
     private void addCategoryFoodAction(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int categoryFood_id = Integer.parseInt(req.getParameter("category_id"));
         int store_id = storeIDByLoggedInUser(req,resp);
         foodService.addCategoryFoodStore(store_id,categoryFood_id);
         listFoodAndCategory(req,resp,store_id);
     }
-
     private void getCategoryFoodAction(HttpServletRequest req, HttpServletResponse resp) {
         int categoryID = Integer.parseInt(req.getParameter("categoryID"));
         CategoryFood categoryFood = categoryFoodService.getCategoryFood(categoryID);
         req.setAttribute("category", categoryFood);
     }
-
     private void listFoodAndCategory(HttpServletRequest req, HttpServletResponse resp,int store_id) {
    try{
        List<Food> foodList = foodService.listFoodStore(store_id);
@@ -226,7 +254,6 @@ public class ManageFoods extends HttpServlet {
         int store_id = merchantService.getMerchantByMerchantId(loggedUserId).getStore_id();
         return store_id;
     }
-
     private void getCategory(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         int categoryId = Integer.parseInt(req.getParameter("categoryId"));
         CategoryFood category = categoryFoodService.getCategoryFood(categoryId);
@@ -245,4 +272,13 @@ public class ManageFoods extends HttpServlet {
             resp.getWriter().write("{\"success\": false}");
         }
     }
+    private void showEditFoodForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int productID = Integer.parseInt(req.getParameter("productID"));
+        Food food = foodService.getFoodByID(productID);
+        List<CategoryFood> categoryFoodList = categoryFoodService.listCategoryFood();
+        req.setAttribute("categoryFoodList", categoryFoodList);
+        req.setAttribute("food", food);
+        req.getRequestDispatcher("view/merchant/homeMerchant.jsp?page=editFood").forward(req,resp);
+    }
+
 }
