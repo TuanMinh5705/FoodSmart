@@ -77,13 +77,13 @@
             <jsp:include page="merchantStore.jsp"/>
         </c:when>
         <c:when test="${param.page == 'infoMerchantStore'}">
-            <jsp:include page="infoMerchantStore.jsp"/>
+            <jsp:include page="infoMerchant.jsp"/>
         </c:when>
         <c:when test="${param.page == 'editMerchantStore'}">
             <jsp:include page="editMerchant.jsp"/>
         </c:when>
         <c:when test="${param.page == 'editInfoStore'}">
-            <jsp:include page="editInfoMerchant.jsp"/>
+            <jsp:include page="editStore.jsp"/>
         </c:when>
 
 

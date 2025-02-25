@@ -150,7 +150,7 @@ public class ManageStore extends HttpServlet {
 
         String username = req.getParameter("username"),
                 password = req.getParameter("password");
-        boolean active = "active".equals(req.getParameter("status"));
+        boolean active = "active".equals(req.getParameter("status")); 
         Account account = new Account(accountId, username, password, avatarPath, "Merchant", active);
         if (accountService.editAccount(account)) {
             req.getSession().setAttribute("success", "Cập nhật thông tin người dùng thành công!");
