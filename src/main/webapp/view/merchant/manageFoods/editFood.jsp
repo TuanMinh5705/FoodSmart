@@ -11,6 +11,21 @@
             height: 200px;
             object-fit: cover;
         }
+        .image-container {
+            position: relative;
+            display: inline-block;
+            margin: 10px;
+        }
+        .delete-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -18,7 +33,7 @@
 
 <h2>Cập nhật món ăn</h2>
 
-<form action="updateFood" method="post" enctype="multipart/form-data">
+<form action="/manageFoods?action=updateFood" method="post" enctype="multipart/form-data">
     <input type="hidden" name="product_id" value="${food.product_id}">
 
     <div class="mb-3">
@@ -26,19 +41,44 @@
         <input type="text" name="product_name" value="${food.product_name}" class="form-control" required>
     </div>
 
+    <div class="mb-3">
+        <label class="form-label">Giá:</label>
+        <input type="number" name="price" value="${food.price}" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Số lượng trong kho:</label>
+        <input type="number" name="stock_quantity" value="${food.stock_quantity}" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Giảm giá (%):</label>
+        <input type="number" name="discount" value="${food.discount}" class="form-control">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Danh mục:</label>
+        <select name="category_id" class="form-control">
+            <c:forEach var="category" items="${categoryFoodList}">
+                <option value="${category.category_id}" ${category.category_id == food.category_id ? 'selected' : ''}>
+                        ${category.category_name}
+                </option>
+            </c:forEach>
+        </select>
+    </div>
+
     <h4>Danh sách ảnh:</h4>
     <div class="row g-3" id="imageContainer">
-        <c:forEach var="img" items="${food.list_food_images}">
-            <div class="col-md-4 image-card">
+        <c:forEach var="img" items="${food.list_food_images}" varStatus="status">
+            <div class="col-md-4">
                 <div class="card">
-                    <input type="hidden" name="primary_image" value="${food.getPrimaryImageId()}">
                     <img id="imgPreview_${img.image_id}"
                          src="${pageContext.request.contextPath}/foodSmartImages/product/${img.image_path}"
                          class="image-slot card-img-top" alt="Ảnh món ăn">
                     <div class="card-body">
                         <label class="form-check-label">Ảnh chính:</label>
                         <input type="radio" name="primary_image" value="${img.image_id}"
-                            ${img.is_primary ? 'checked' : ''}>
+                            ${img.is_primary ? 'checked' : (status.first ? 'checked' : '')}>
                         <div class="mt-3">
                             <label for="image_${img.image_id}" class="btn btn-outline-success">Cập nhật ảnh</label>
                             <input type="file" id="image_${img.image_id}" name="img_path_${img.image_id}" class="d-none"
@@ -58,9 +98,8 @@
 
     <div class="mb-3">
         <label class="form-label">Thêm ảnh sản phẩm</label>
-        <input type="file" class="form-control" name="product_images" id="productImages" multiple
-               accept="image/*" onchange="previewImages()">
-        <div id="imagePreview" class="mt-2 d-flex flex-wrap"></div>
+        <input type="file" class="form-control" name="product_images" id="productImages" multiple accept="image/*" onchange="previewImages()">
+        <div id="imagePreview" class="row g-3 mt-2"></div>
     </div>
 
     <button type="submit" class="btn btn-primary">Cập nhật</button>
@@ -86,6 +125,7 @@
     function previewImages() {
         const preview = document.getElementById('imagePreview');
         const files = document.getElementById('productImages').files;
+        preview.innerHTML = '';
 
         for (let i = 0; i < files.length; i++) {
             const file = files[i];
@@ -93,24 +133,37 @@
 
             reader.onload = function (e) {
                 const div = document.createElement('div');
-                div.className = 'image-container d-inline-block position-relative m-2';
+                div.className = 'col-md-4';
+
+                const card = document.createElement('div');
+                card.className = 'card';
 
                 const img = document.createElement('img');
                 img.src = e.target.result;
-                img.className = 'img-thumbnail';
-                img.style.width = '100px';
-                img.style.height = '100px';
-                div.appendChild(img);
+                img.className = 'image-slot card-img-top';
+                card.appendChild(img);
+
+                const cardBody = document.createElement('div');
+                cardBody.className = 'card-body';
+
+                const radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.name = 'primary_image';
+                radio.value = `new_${i}`;
+                cardBody.appendChild(document.createTextNode(" Ảnh chính: "));
+                cardBody.appendChild(radio);
 
                 const deleteBtn = document.createElement('button');
                 deleteBtn.type = 'button';
-                deleteBtn.className = 'btn btn-danger btn-sm position-absolute top-0 end-0';
-                deleteBtn.innerHTML = '✖';
+                deleteBtn.className = 'btn btn-danger btn-sm mt-3';
+                deleteBtn.innerHTML = 'Xóa ảnh';
                 deleteBtn.onclick = function () {
                     div.remove();
                 };
-                div.appendChild(deleteBtn);
+                cardBody.appendChild(deleteBtn);
 
+                card.appendChild(cardBody);
+                div.appendChild(card);
                 preview.appendChild(div);
             };
 

@@ -172,6 +172,19 @@ public class FoodService implements IFoodService {
     }
 
     @Override
+    public void addFoodToCategory(int food_id, int category_id) {
+        String query = "INSERT INTO Products_Categories (product_id, category_id) VALUES (?,?)";
+        try (Connection conn = ConnectDB.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setInt(1,food_id);
+            ps.setInt(2,category_id);
+            ps.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public boolean deleteFoodImage(int id) {
             try (Connection conn = ConnectDB.getConnection();
                  PreparedStatement ps = conn.prepareStatement(DELETE_FOOD_IMAGE_QUERY)) {
