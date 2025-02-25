@@ -5,15 +5,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Thêm Voucher</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 <div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <h2 class="mb-4 text-center">Thêm Voucher</h2>
+            <h2 class="mb-4 text-center"><i class="bi bi-plus-circle-fill"></i> Thêm mã giảm giá</h2>
+
             <div class="card shadow">
                 <div class="card-body">
                     <form action="/manageVouchers?action=addVoucher" method="post" id="voucherForm">
@@ -85,14 +88,13 @@
                                       placeholder="Nhập mô tả voucher"></textarea>
                         </div>
 
-                        <!-- Nút Thêm Voucher và Quay lại -->
                         <div class="d-flex justify-content-center gap-3 mt-3">
-                            <a href="/manageVouchers" class="btn btn-secondary btn-sm">
-                                <i class="fas fa-arrow-left"></i> Quay lại
-                            </a>
-                            <button type="submit" class="btn btn-primary btn-sm">
-                                <i class="fas fa-plus"></i> Thêm Voucher
+                            <button type="submit" class="btn btn-success">
+                                <i class="bi bi-check-circle"></i> Thêm Voucher
                             </button>
+                            <a href="/manageVouchers" class="btn btn-danger">
+                                <i class="bi bi-x-circle"></i> Hủy
+                            </a>
                         </div>
                     </form>
                 </div>
@@ -101,7 +103,6 @@
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 
     document.getElementById('voucherForm').addEventListener('submit', function(event) {

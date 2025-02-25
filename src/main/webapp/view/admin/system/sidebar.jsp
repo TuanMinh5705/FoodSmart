@@ -54,7 +54,7 @@
 <div class="sidebar" id="sidebar">
     <div class="text-center mb-3">
         <a href="/view/admin/homeAdmin.jsp">
-            <img src="#" alt="Logo" style="height: 40px;">
+            <img src="../../IMG/logo-smartfood.png" alt="Logo" style="height: 80px;">
         </a>
     </div>
     <ul class="nav flex-column">
@@ -65,7 +65,7 @@
             <a class="nav-link text-white" href="/manageMerchants"><i class="fas fa-store"></i> Quản lý cửa hàng</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-white" href="/manageCategoryFood"><i class="bi bi-grid"></i> Danh mục sản phẩm</a>
+            <a class="nav-link text-white" href="/manageCategoryFood"><i class="bi bi-grid-fill"></i> Danh mục sản phẩm</a>
         </li>
         <li class="nav-item">
             <a class="nav-link text-white" href="/manageUsers"><i class="fas fa-user-cog"></i> Quản lý người dùng</a>

@@ -56,7 +56,7 @@
 <div class="sidebar" id="sidebar">
     <div class="text-center mb-3">
         <a href="/view/merchant/homeMerchant.jsp">
-            <img src="../../../images/icon_default/system/face.png" alt="Logo" style="height: 40px;">
+            <img src="../../IMG/logo-smartfood.png" alt="Logo" style="height: 80px;">
         </a>
     </div>
     <ul class="nav flex-column">

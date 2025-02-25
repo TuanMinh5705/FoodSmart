@@ -52,6 +52,19 @@
     </script>
 
     <div class="d-flex justify-content-between align-items-center mb-3">
+        <a href="/manageMerchants?action=addMerchantForm" class="btn btn-success"><i class="bi bi-plus-circle"></i> Thêm cửa hàng</a>
+
+        <form method="post" action="/manageMerchants?action=searchWithNameMerchant" id="searchForm">
+            <div class="input-group">
+                <input name="keyword" type="text" class="form-control" placeholder="Tìm kiếm..."
+                       value="${searchKeyword}" onkeyup="startTimer()">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
 
         <form method="get" action="/manageMerchants" id="filterForm" class="d-flex align-items-center me-2">
             <input type="hidden" name="status" id="status">
@@ -65,19 +78,6 @@
                 <li><a class="dropdown-item" href="#" onclick="setStatusFilter('locked')">Khóa tài khoản</a></li>
             </ul>
         </form>
-
-        <form method="post" action="/manageMerchants?action=searchWithNameMerchant" id="searchForm"
-              class="d-flex me-2">
-            <input name="keyword" type="text" class="form-control me-2" placeholder="Tìm kiếm..."
-                   value="${searchKeyword}" oninput="startTimer()">
-            <button type="submit" class="btn btn-primary">
-                <i class="bi bi-search"></i>
-            </button>
-        </form>
-
-        <a href="/manageMerchants?action=addMerchantForm" class="btn btn-success">
-            <i class="bi bi-plus-circle"></i> Thêm cửa hàng
-        </a>
     </div>
 
     <div class="card shadow rounded">
@@ -113,8 +113,7 @@
                                 <td>${merchant.store_address}</td>
                                 <td>${merchant.contact_number}</td>
                                 <td>
-                                    <a href="/manageMerchants?action=updateMerchantForm&store_id=${merchant.store_id}"
-                                       class="btn btn-warning btn-sm">
+                                    <a href="/manageMerchants?action=updateMerchantForm&store_id=${merchant.store_id}" class="btn btn-warning btn-sm">
                                         <i class="bi bi-pencil-square"></i>
                                     </a>
                                     <a href="/manageMerchants?action=detail&store_id=${merchant.store_id}"

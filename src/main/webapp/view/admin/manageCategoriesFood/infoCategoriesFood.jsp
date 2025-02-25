@@ -36,9 +36,7 @@
             <p class="card-text mt-3"><strong>Mô tả:</strong> ${category.description}</p>
             <p class="card-text"><strong>Mã danh mục :</strong> ${category.category_id}</p>
             <div class="text-center">
-                <a href="/manageCategoryFood" class="btn btn-secondary">
-                    <i class="fas fa-arrow-left"></i> Quay lại
-                </a>
+                <a href="/manageCategoryFood" class="btn btn-secondary"></i>Quay lại</a>
             </div>
         </div>
     </div>
