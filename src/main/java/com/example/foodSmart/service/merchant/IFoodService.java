@@ -35,6 +35,10 @@ public interface IFoodService {
     Food getFoodByID(int id);
     // Cập nhật thông tin món ăn
     void updateFood(Food food, int category_id, List<FoodImages> foodImages);
+    // Xoá món ăn
+    boolean deleteFood(int id);
+    // Tìm kiếm món ăn
+    List<Food> listFoodStoreByName(int store_id , String keyword);
 
 
 }
