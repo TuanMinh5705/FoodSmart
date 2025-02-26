@@ -3,13 +3,16 @@ insert into Roles(role_name) values
 ('User'),
 ('Merchant');
 
-insert into `Account`(username, `password`, role_id)
-values ('NgocThom', 'Vy12092001', 1),
+insert into `Account`(username, `password`, role_id) values ('NgocThom', 'Vy12092001', 1),
        ('TuanMinh', 'Minh123', 1),
        ('DucKhanh', 'Khanh123', 1),
        ('VanDam', 'Dam123', 1),
        ('abc', 'abc123', 3),
-       ('bac', 'abc123', 3);
+       ('bac', 'abc123', 3),
+       ('ade','abc123',2);
+insert into account_details(user_id,address,phonenumber,is_default) value
+(7,"nhổn","0123456789",1),
+(7,"nhổn2","0123498765",0);
 
 insert into Stores(merchant_id, store_name, store_address, contact_number) values 
 (5, 'Cơm rang và phở bò Minh Khánh', '102 Tu Hoàng , Minh Khai , Bắc Từ Liêm , Hà Nội', '0123456789'),
