@@ -16,7 +16,7 @@ public class AccountService implements IAccountService {
     private static final String ACCOUNT_BY_USERNAME_QUERY = "SELECT * FROM Account WHERE username = ?";
     private static final String AUTHENTICATE_REGISTER_QUERY = "CALL register_account(?, ?,?, ?, ?,?);";
     private static final String RESET_PASSWORD_QUERY = "UPDATE Account SET password = ? WHERE username = ?";
-    private static final String LIST_ACCOUNTS_QUERY = "SELECT a.*, r.role_name FROM Account a JOIN Roles r ON a.role_id = r.role_id ORDER BY a.account_id DESC ";
+    private static final String LIST_ACCOUNTS_QUERY = "SELECT a.*, r.role_name FROM Account a JOIN Roles r ON a.role_id = r.role_id WHERE a.role_id != 1 ORDER BY a.account_id DESC ";
     private static final String UPDATE_ACCOUNT_QUERY = "CALL updateAccountInfo(?,?,?,?,?,?)";
     private static final String UPDATE_ACCOUNT_DETAILS_QUERY = "UPDATE Account_Details SET address = ?, phonenumber = ?, is_default = ? WHERE account_details_id = ?";
     private static final String ADD_ACCOUNT_DETAILS_QUERY = "INSERT INTO Account_Details(user_id,address,phonenumber,is_default) VALUES(?, ?, ?, ?)";

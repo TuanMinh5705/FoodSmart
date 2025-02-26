@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <style>
         .content {
-            margin-top: 10px;
             margin-left: 250px;
             padding: 10px;
             transition: margin-left 0.3s ease;
@@ -27,7 +26,7 @@
 <jsp:include page="system/menubar.jsp" />
 <jsp:include page="system/sidebar.jsp" />
 
-<div class="content">
+<div class="content" style="margin-top: 30px">
     <c:choose>
         <c:when test="${param.page == 'home'}">
             <jsp:include page="system/content.jsp"/>
