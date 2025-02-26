@@ -9,6 +9,7 @@ public class Food {
     private int price;
     private int stock_quantity;
     private int discount;
+    private int category_id;
     private List<FoodImages> list_food_images;
 
     public Food(){}
@@ -21,6 +22,25 @@ public class Food {
         this.stock_quantity = stock_quantity;
         this.discount = discount;
         this.list_food_images = list_food_images;
+    }
+
+    public Food(int product_id, int store_id, String product_name, int price, int stock_quantity, int discount, int category_id, List<FoodImages> list_food_images) {
+        this.product_id = product_id;
+        this.store_id = store_id;
+        this.product_name = product_name;
+        this.price = price;
+        this.stock_quantity = stock_quantity;
+        this.discount = discount;
+        this.category_id = category_id;
+        this.list_food_images = list_food_images;
+    }
+
+    public int getCategory_id() {
+        return category_id;
+    }
+
+    public void setCategory_id(int category_id) {
+        this.category_id = category_id;
     }
 
     public int getDiscount() {

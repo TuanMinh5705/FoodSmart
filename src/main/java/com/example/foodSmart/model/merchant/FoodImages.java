@@ -15,6 +15,11 @@ public class FoodImages {
         this.image_path = image_path;
         this.is_primary = is_primary;
     }
+    public FoodImages( int product_id, String image_path, boolean is_primary) {
+        this.product_id = product_id;
+        this.image_path = image_path;
+        this.is_primary = is_primary;
+    }
 
     public int getImage_id() {
         return image_id;

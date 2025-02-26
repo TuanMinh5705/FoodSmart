@@ -6,12 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cập nhật cửa hàng</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 </head>
 <body class="bg-light">
 
 <div class="container mt-4">
-    <h2 class="text-center mb-4">Cập nhật cửa hàng</h2>
+    <h2 class="text-center mb-4">
+        <i class="fas fa-edit"></i> Cập nhật cửa hàng
+    </h2>
 
     <div class="card shadow">
         <div class="card-body">
@@ -91,11 +93,11 @@
                 <input type="hidden" name="store_id" value="${merchant.store_id}">
 
                 <div class="text-center mt-4">
-                    <button type="submit" class="btn btn-success px-4">
+                    <button type="submit" class="btn btn-success">
                         <i class="fas fa-save"></i> Cập nhật
                     </button>
-                    <a href="/manageMerchants" class="btn btn-danger px-4 ms-3">
-                        <i class="fas fa-times-circle"></i> Hủy
+                    <a href="/manageMerchants" class="btn btn-danger ms-3">
+                        <i class="bi bi-x-circle"></i> Hủy
                     </a>
                 </div>
             </form>
