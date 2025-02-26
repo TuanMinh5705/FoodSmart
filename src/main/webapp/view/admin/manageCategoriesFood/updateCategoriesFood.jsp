@@ -66,15 +66,14 @@
                                       oninput="this.setCustomValidity(this.value.length < 5 || this.value.length > 255 ? 'Mô tả phải có từ 5 đến 255 ký tự' : '')">${category.description}</textarea>
                         </div>
                         <div class="d-grid">
-                        <div class="d-flex justify-content-center gap-2">
-                            <a href="/manageCategoryFood" class="btn btn-secondary">
-                                <i class="fas fa-arrow-left"></i> Quay lại
-                            </a>
-
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-save"></i> Cập nhật danh mục
-                            </button>
-                        </div>
+                            <div class="d-flex justify-content-center gap-2">
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fas fa-save"></i> Cập nhật danh mục
+                                </button>
+                                <a href="/manageCategoryFood" class="btn btn-danger">
+                                    <i class="bi bi-x-circle-fill"></i> Hủy
+                                </a>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -85,11 +84,11 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    document.getElementById("avatar")?.addEventListener("change", function(event) {
+    document.getElementById("avatar")?.addEventListener("change", function (event) {
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = function (e) {
                 document.getElementById("avatarPreview").src = e.target.result;
             };
             reader.readAsDataURL(file);

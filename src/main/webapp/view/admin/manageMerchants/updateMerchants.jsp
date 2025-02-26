@@ -6,12 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cập nhật cửa hàng</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 </head>
 <body class="bg-light">
 
 <div class="container mt-4">
-    <h2 class="text-center mb-4">Cập nhật cửa hàng</h2>
+    <h2 class="text-center mb-4">
+        <i class="fas fa-edit"></i> Cập nhật cửa hàng
+    </h2>
 
     <div class="card shadow">
         <div class="card-body">
@@ -22,6 +24,21 @@
                     <input type="text" class="form-control" value="${merchant.store_name}" name="store_name" required
                            pattern=".*\S.*"
                            title="Tên cửa hàng không được để trống" minlength="2">
+                </div>
+
+                <!-- Avatar -->
+                <label class="form-label"><i class="fas fa-user-circle"></i> Avatar</label>
+                <div class="mb-3 text-center">
+                    <div class="mb-2">
+                        <img id="avtPreview" src="${pageContext.request.contextPath}/foodSmartImages/avatars/${merchant.avt_path}" alt="avatar"
+                             class="img-fluid rounded-circle shadow" style="max-width: 130px; height: 130px">
+                    </div>
+                    <input type="hidden" value="${merchant.avt_path}" name="current_avt_path">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="avt_path" name="avt_path"
+                               style="max-width: 400px;">
+                        <label class="custom-file-label" for="avt_path">${merchant.avt_path}</label>
+                    </div>
                 </div>
 
                 <!-- Banner -->
@@ -40,21 +57,6 @@
                     </div>
                 </div>
 
-                <!-- Avatar -->
-                <label class="form-label"><i class="fas fa-user-circle"></i> Avatar</label>
-                <div class="mb-3 text-center">
-                    <div class="mb-2">
-                        <!-- Thêm id="avtPreview" để update ảnh -->
-                        <img id="avtPreview" src="${pageContext.request.contextPath}/foodSmartImages/avatars/${merchant.avt_path}" alt="avatar"
-                             class="img-fluid rounded-circle shadow" style="max-width: 120px;">
-                    </div>
-                    <input type="hidden" value="${merchant.avt_path}" name="current_avt_path">
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="avt_path" name="avt_path"
-                               style="max-width: 400px;">
-                        <label class="custom-file-label" for="avt_path">${merchant.avt_path}</label>
-                    </div>
-                </div>
 
                 <div class="mb-3">
                     <label class="form-label"><i class="fas fa-map-marker-alt"></i> Địa chỉ</label>
@@ -91,11 +93,11 @@
                 <input type="hidden" name="store_id" value="${merchant.store_id}">
 
                 <div class="text-center mt-4">
-                    <button type="submit" class="btn btn-success px-4">
+                    <button type="submit" class="btn btn-success">
                         <i class="fas fa-save"></i> Cập nhật
                     </button>
-                    <a href="/manageMerchants" class="btn btn-danger px-4 ms-3">
-                        <i class="fas fa-times-circle"></i> Hủy
+                    <a href="/manageMerchants" class="btn btn-danger ms-3">
+                        <i class="bi bi-x-circle"></i> Hủy
                     </a>
                 </div>
             </form>

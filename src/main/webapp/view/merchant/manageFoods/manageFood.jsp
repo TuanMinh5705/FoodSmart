@@ -44,22 +44,32 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="category" items="${categoryFoodList}" varStatus="status">
-                <tr>
-                    <td>${status.index + 1}</td>
-                    <td><img src="${pageContext.request.contextPath}/foodSmartImages/product/${category.avt_path}" alt="Ảnh danh mục" class="img-thumbnail" width="80"></td>
-                    <td>${category.category_name}</td>
-                    <td>${category.description}</td>
-                    <td>
-                        <a href="/manageFoods?action=infoCategoryForm&categoryID=${category.category_id}" class="btn btn-info btn-sm">
-                            <i class="fas fa-info-circle"></i> Chi tiết
-                        </a>
-                        <button type="button" class="btn btn-danger btn-sm" onclick="showDeleteModal({ id: ${category.category_id}, url: '/manageFoods', action: 'deleteCategory' })">
-                            <i class="fa fa-trash"></i> Xóa
-                        </button>
-                    </td>
-                </tr>
-            </c:forEach>
+            <c:choose>
+                <c:when test="${empty categoryFoodList}">
+                    <tr>
+                        <td colspan="5" class="text-center text-muted">Không có danh mục nào.</td>
+                    </tr>
+                </c:when>
+
+                <c:otherwise>
+                    <c:forEach var="category" items="${categoryFoodList}" varStatus="status">
+                        <tr>
+                            <td>${status.index + 1}</td>
+                            <td><img src="${pageContext.request.contextPath}/foodSmartImages/product/${category.avt_path}" alt="Ảnh danh mục" class="img-thumbnail" width="80"></td>
+                            <td>${category.category_name}</td>
+                            <td>${category.description}</td>
+                            <td>
+                                <a href="/manageFoods?action=infoCategoryForm&categoryID=${category.category_id}" class="btn btn-info btn-sm">
+                                    <i class="fas fa-info-circle"></i> Chi tiết
+                                </a>
+                                <button type="button" class="btn btn-danger btn-sm" onclick="showDeleteModal({ id: ${category.category_id}, url: '/manageFoods', action: 'deleteCategory' })">
+                                    <i class="fa fa-trash"></i> Xóa
+                                </button>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </c:otherwise>
+            </c:choose>
             </tbody>
         </table>
     </div>
@@ -79,33 +89,48 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="product" items="${foodList}" varStatus="status">
-                <tr>
-                    <td>${status.index + 1}</td>
-                    <td>
-                        <c:forEach var="image" items="${product.list_food_images}">
-                            <c:if test="${image.is_primary}">
-                                <img src="/images/product/${image.image_path}" alt="Ảnh món ăn" class="img-thumbnail" width="80">
-                            </c:if>
-                        </c:forEach>
-                    </td>
-                    <td>${product.product_name}</td>
-                    <td><fmt:formatNumber value="${product.price}" pattern="#,### đ"/></td>
-                    <td>${product.stock_quantity}</td>
-                    <td>${product.discount}%</td>
-                    <td>
-                        <a href="/manageFoods?action=infoProductForm&productID=${product.product_id}" class="btn btn-info btn-sm">
-                            <i class="fas fa-info-circle"></i> Chi tiết
-                        </a>
-                        <button type="button" class="btn btn-danger btn-sm" onclick="showDeleteModal(${product.product_id})">
-                            <i class="fa fa-trash"></i> Xóa
-                        </button>
-                    </td>
-                </tr>
-            </c:forEach>
+            <c:choose>
+                <c:when test="${empty foodList}">
+                    <tr>
+                        <td colspan="7" class="text-center text-muted">Không có món ăn nào.</td>
+                    </tr>
+                </c:when>
+
+                <c:otherwise>
+                    <c:forEach var="product" items="${foodList}" varStatus="status">
+                        <tr>
+                            <td>${status.index + 1}</td>
+                            <td>
+                                <c:forEach var="image" items="${product.list_food_images}">
+                                    <c:if test="${image.is_primary}">
+                                        <img src="${pageContext.request.contextPath}/foodSmartImages/product/${image.image_path}" alt="Ảnh món ăn" class="img-thumbnail" width="80">
+                                    </c:if>
+                                </c:forEach>
+                            </td>
+                            <td>${product.product_name}</td>
+                            <td><fmt:formatNumber value="${product.price}" pattern="#,### đ"/></td>
+                            <td>${product.stock_quantity}</td>
+                            <td>${product.discount}%</td>
+                            <td>
+                                <a href="/manageFoods?action=infoProductForm&productID=${product.product_id}" class="btn btn-info btn-sm">
+                                    <i class="fas fa-info-circle"></i> Chi tiết
+                                </a>
+                                <a href="/manageFoods?action=editProductForm&productID=${product.product_id}" class="btn btn-info btn-sm">
+                                    <i class="fas fa-edit"></i> Sửa
+                                </a>
+                                <button type="button" class="btn btn-danger btn-sm"
+                                        onclick="showDeleteModal({ id: '${product.product_id}', url: 'manageFoods', action: 'deleteFood' });">
+                                    <i class="fa fa-trash"></i> Xóa
+                                </button>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </c:otherwise>
+            </c:choose>
             </tbody>
         </table>
     </div>
+
 
 </div>
 <jsp:include page="../../admin/system/modalConfirmDelete.jsp" />
