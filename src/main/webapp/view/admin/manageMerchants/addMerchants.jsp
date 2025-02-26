@@ -10,8 +10,11 @@
 </head>
 <body class="bg-light">
 <div class="container mt-5">
+    <h2 class="text-center mb-4">
+        <i class="bi bi-plus-circle-fill"></i> Thêm Cửa Hàng
+    </h2>
+
     <div class="card shadow p-4">
-        <h2 class="text-center text-primary mb-4">Thêm Cửa Hàng</h2>
         <form action="/manageMerchants?action=addMerchant" method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label class="form-label">Tên cửa hàng</label>
@@ -57,10 +60,10 @@
             </div>
 
             <div class="d-flex justify-content-center gap-3 mt-4">
-                <button type="submit" class="btn btn-success px-4">
-                    <i class="bi bi-plus-circle"></i> Thêm cửa hàng
+                <button type="submit" class="btn btn-success">
+                    <i class="bi bi-check-circle"></i> Thêm cửa hàng
                 </button>
-                <a href="/manageMerchants" class="btn btn-danger px-4">
+                <a href="/manageMerchants" class="btn btn-danger">
                     <i class="bi bi-x-circle"></i> Hủy
                 </a>
             </div>

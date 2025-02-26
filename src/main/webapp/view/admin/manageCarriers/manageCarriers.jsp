@@ -7,23 +7,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản lý đối tác vận chuyển</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        body {
-            background-color: #f8f9fa;
-        }
-        .container {
-            background: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-        .table th, .table td {
-            text-align: center;
-            vertical-align: middle;
-        }
-    </style>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 <c:if test="${not empty success}">
@@ -58,10 +46,10 @@
     <div class="d-flex justify-content-between mb-3">
         <div>
             <a href="/manageCarriers?action=addCarrierForm" class="btn btn-success me-2">
-                <i class="fa fa-plus"></i> Thêm nhà vận chuyển
+                <i class="bi bi-plus-circle"></i> Thêm nhà vận chuyển
             </a>
             <a href="/manageCarriers?action=addShipperForm" class="btn btn-success">
-                <i class="fa fa-plus"></i> Thêm nhân viên vận chuyển
+                <i class="bi bi-plus-circle"></i> Thêm nhân viên vận chuyển
             </a>
         </div>
         <div class="d-flex align-items-center">
@@ -80,7 +68,7 @@
     <table id="carrierTable" class="table table-bordered table-hover">
         <thead class="table-dark">
         <tr>
-            <th>#</th>
+            <th>STT</th>
             <th>Tên Nhà Vận Chuyển</th>
             <th>Số Điện Thoại</th>
             <th>Phí Vận Chuyển</th>
@@ -89,7 +77,6 @@
         </thead>
         <tbody>
         <c:forEach var="carrier" items="${carriersList}" varStatus="status">
-            <!-- Gán thuộc tính data-carrier cho mỗi hàng -->
             <tr data-carrier="${carrier.carrier_name}">
                 <td>${status.index+1}</td>
                 <td id="carrierName">${carrier.carrier_name}</td>
@@ -97,11 +84,11 @@
                 <td><fmt:formatNumber value="${carrier.shipping_cost}" pattern="#,###" />đ</td>
                 <td>
                     <div class="btn-group">
-                        <a href="/manageCarriers?action=editCarrierForm&id=${carrier.carrier_id}" class="btn btn-warning btn-sm">
-                            <i class="fa fa-edit"></i> Sửa
+                        <a href="/manageCarriers?action=editCarrierForm&id=${carrier.carrier_id}" class="btn btn-warning btn-sm" title="Chỉnh sửa">
+                            <i class="fa fa-edit"></i>
                         </a>
-                        <a href="/manageCarriers?action=infoCarrierForm&id=${carrier.carrier_id}" class="btn btn-info btn-sm">
-                            <i class="fas fa-info-circle"></i> Chi tiết
+                        <a href="/manageCarriers?action=infoCarrierForm&id=${carrier.carrier_id}" class="btn btn-info btn-sm" title="Chi tiết">
+                            <i class="fas fa-info-circle"></i>
                         </a>
                     </div>
                 </td>
@@ -115,7 +102,7 @@
     <table id="shipperTable" class="table table-bordered table-hover">
         <thead class="table-dark">
         <tr>
-            <th>#</th>
+            <th>STT</th>
             <th>Tên Nhân Viên</th>
             <th>Số Điện Thoại</th>
             <th>Nhà Vận Chuyển</th>
@@ -131,11 +118,11 @@
                 <td id="carrierForShipper">${shipper.carrier_name}</td>
                 <td>
                     <div class="btn-group">
-                        <a href="/manageCarriers?action=editShipperForm&id=${shipper.shipper_id}" class="btn btn-warning btn-sm">
-                            <i class="fa fa-edit"></i> Sửa
+                        <a href="/manageCarriers?action=editShipperForm&id=${shipper.shipper_id}" class="btn btn-warning btn-sm" title="Chỉnh sửa">
+                            <i class="fa fa-edit"></i>
                         </a>
-                        <a href="/manageCarriers?action=infoShipperForm&id=${shipper.shipper_id}" class="btn btn-info btn-sm">
-                            <i class="fa fa-eye"></i> Chi tiết
+                        <a href="/manageCarriers?action=infoShipperForm&id=${shipper.shipper_id}" class="btn btn-info btn-sm" title="Chi tiết">
+                            <i class="fas fa-info-circle"></i>
                         </a>
                     </div>
                 </td>
@@ -145,7 +132,6 @@
     </table>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     document.getElementById("filterSelect").addEventListener("change", function () {
         let selectedCarrier = this.value;

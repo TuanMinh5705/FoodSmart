@@ -6,10 +6,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Quản lý cửa hàng</title>
-<<<<<<< HEAD
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
@@ -20,10 +19,8 @@
             font-size: 10px;
         }
     </style>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
-
 <body class="bg-light">
 <div class="container mt-4">
     <h2 class="text-center mb-4 text-primary">Quản lý cửa hàng</h2>
@@ -54,10 +51,21 @@
         </c:if>
     </script>
 
-    <!-- Thanh công cụ: Lọc, Tìm kiếm, Thêm cửa hàng -->
     <div class="d-flex justify-content-between align-items-center mb-3">
+        <a href="/manageMerchants?action=addMerchantForm" class="btn btn-success"><i class="bi bi-plus-circle"></i> Thêm cửa hàng</a>
 
-        <!-- Bộ lọc trạng thái -->
+        <form method="post" action="/manageMerchants?action=searchWithNameMerchant" id="searchForm">
+            <div class="input-group">
+                <input name="keyword" type="text" class="form-control" placeholder="Tìm kiếm..."
+                       value="${searchKeyword}" onkeyup="startTimer()">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary" title="Tìm kiếm">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+
         <form method="get" action="/manageMerchants" id="filterForm" class="d-flex align-items-center me-2">
             <input type="hidden" name="status" id="status">
             <button type="button" class="btn btn-outline-secondary dropdown-toggle" id="filterDropdown"
@@ -70,30 +78,14 @@
                 <li><a class="dropdown-item" href="#" onclick="setStatusFilter('locked')">Khóa tài khoản</a></li>
             </ul>
         </form>
-
-        <!-- Form tìm kiếm -->
-        <form method="post" action="/manageMerchants?action=searchWithNameMerchant" id="searchForm"
-              class="d-flex me-2">
-            <input name="keyword" type="text" class="form-control me-2" placeholder="Tìm kiếm..."
-                   value="${searchKeyword}" oninput="startTimer()">
-            <button type="submit" class="btn btn-primary">
-                <i class="bi bi-search"></i>
-            </button>
-        </form>
-
-        <!-- Nút thêm cửa hàng -->
-        <a href="/manageMerchants?action=addMerchantForm" class="btn btn-success">
-            <i class="bi bi-plus-circle"></i> Thêm cửa hàng
-        </a>
     </div>
 
-    <!-- Bảng danh sách cửa hàng -->
     <div class="card shadow rounded">
         <div class="card-body">
             <table class="table table-hover table-bordered table-striped text-center align-middle">
                 <thead class="table-dark">
                 <tr>
-                    <th>#</th>
+                    <th>STT</th>
                     <th>Ảnh đại diện</th>
                     <th>Tên cửa hàng</th>
                     <th>Địa chỉ</th>
@@ -121,13 +113,11 @@
                                 <td>${merchant.store_address}</td>
                                 <td>${merchant.contact_number}</td>
                                 <td>
-                                    <a href="/manageMerchants?action=updateMerchantForm&store_id=${merchant.store_id}"
-                                       class="btn btn-warning btn-sm">
-                                        <i class="bi bi-pencil-square"></i> Sửa
+                                    <a href="/manageMerchants?action=updateMerchantForm&store_id=${merchant.store_id}" class="btn btn-warning btn-sm" title="Chỉnh sửa">
+                                        <i class="bi bi-pencil-square"></i>
                                     </a>
-                                    <a href="/manageMerchants?action=detail&store_id=${merchant.store_id}"
-                                       class="btn btn-info btn-sm">
-                                        <i class="bi bi-info-circle"></i> Chi tiết
+                                    <a href="/manageMerchants?action=detail&store_id=${merchant.store_id}" class="btn btn-info btn-sm" title="Chi tiết">
+                                        <i class="bi bi-info-circle"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -141,7 +131,6 @@
 </div>
 
 <script>
-    // Tự động gửi form tìm kiếm sau 2 giây
     let searchTimeout;
     function startTimer() {
         clearTimeout(searchTimeout);
@@ -150,7 +139,6 @@
         }, 2000);
     }
 
-    // Gửi form lọc theo trạng thái
     function submitForm() {
         document.getElementById("filterForm").submit();
     }
