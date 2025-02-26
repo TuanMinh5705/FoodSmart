@@ -45,10 +45,10 @@
     <c:when test="${param.page == 'addFood'}">
         <jsp:include page="manageFoods/addFood.jsp"/>
     </c:when>
-    <c:when test="${param.page == 'infoFood'}">
-        <jsp:include page="manageFoods/infoFood.jsp"/>
-    </c:when>
-    <c:when test="${param.page == 'editFood'}">
+        <c:when test="${page == 'infoFood'}">
+            <jsp:include page="manageFoods/infoFood.jsp"/>
+        </c:when>
+        <c:when test="${param.page == 'editFood'}">
         <jsp:include page="manageFoods/editFood.jsp"/>
     </c:when>
 

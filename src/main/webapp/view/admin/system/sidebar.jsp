@@ -54,7 +54,7 @@
 <div class="sidebar" id="sidebar">
     <div class="text-center mb-3">
         <a href="/view/admin/homeAdmin.jsp">
-            <img src="#" alt="Logo" style="height: 40px;">
+            <img src="../../../images/logo.png" alt="Logo" style="height: 40px;">
         </a>
     </div>
     <ul class="nav flex-column">

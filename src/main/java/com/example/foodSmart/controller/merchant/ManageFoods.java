@@ -65,13 +65,15 @@ public class ManageFoods extends HttpServlet {
             case "getCategory":
                 getCategory(req,resp);
                 break;
-            case "infoProductForm" :
+            case "infoProductForm":
                 int id = Integer.parseInt(req.getParameter("productID"));
                 Food food = foodService.getFoodByID(id);
                 req.setAttribute("food", food);
                 CategoryFood categoryFood = categoryFoodService.getCategoryFood(food.getCategory_id());
                 req.setAttribute("categoryFood", categoryFood);
-                req.getRequestDispatcher("view/merchant/homeMerchant.jsp?page=infoFood").forward(req,resp);
+                req.setAttribute("page", "infoFood");
+                req.getRequestDispatcher("view/merchant/homeMerchant.jsp").forward(req, resp);
+                break;
             default:
                 listFoodAndCategory(req,resp,store_id);
                 break;
