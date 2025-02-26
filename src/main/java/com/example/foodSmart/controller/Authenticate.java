@@ -106,7 +106,7 @@ public class Authenticate extends HttpServlet {
                     resp.sendRedirect("view/admin/homeAdmin.jsp");
                     break;
                 case "User":
-                    resp.sendRedirect("view/user/homeUser.jsp");
+                    resp.sendRedirect("/homeUser");
                     break;
                 case "Merchant":
                     resp.sendRedirect("view/merchant/homeMerchant.jsp");

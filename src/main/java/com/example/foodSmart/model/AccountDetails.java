@@ -28,6 +28,16 @@ public class AccountDetails {
         this.isDefault = isDefault;
         this.accountID = accountID;
     }
+    public AccountDetails(int accountID,int accountDetailID, String address, String phonenumber, Boolean isDefault) {
+        this.phonenumber = phonenumber;
+        this.accountDetailID = accountDetailID;
+        this.address = address;
+        this.isDefault = isDefault;
+        this.accountID = accountID;
+    }
+
+    public AccountDetails(int addressId, String recipientName, String phoneNumber, String address, boolean isDefault) {
+    }
 
 
     public int getAccountID() {

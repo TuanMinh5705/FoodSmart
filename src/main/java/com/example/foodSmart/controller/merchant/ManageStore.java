@@ -12,13 +12,17 @@ import com.example.foodSmart.service.merchant.IFoodService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import java.io.File;
 import java.io.IOException;
 
 @WebServlet("/manageStore")
+@MultipartConfig
 public class ManageStore extends HttpServlet {
     IMerchantService merchantService = new MerchantService();
     IAccountService accountService = new AccountService();
@@ -35,6 +39,7 @@ public class ManageStore extends HttpServlet {
         switch (action) {
             case "showInfoStore":
                 showInfoStore(req, resp);
+                req.getRequestDispatcher("view/merchant/homeMerchant.jsp?page=infoStore").forward(req, resp);
                 break;
             case "showMerchantStore":
                 showMerchantStore(req, resp);
@@ -43,7 +48,9 @@ public class ManageStore extends HttpServlet {
                 showMerchantStoreForm(req, resp);
                 break;
                 case "editInfoStoreForm":
+                    showInfoStore(req,resp);
                 showInfoStoreForm(req, resp);
+                break;
         }
     }
 
@@ -69,7 +76,6 @@ public class ManageStore extends HttpServlet {
         int store_id = manageFoods.storeIDByLoggedInUser(req, resp);
         Merchant store = merchantService.getMerchantById(store_id);
         req.setAttribute("store", store);
-        req.getRequestDispatcher("view/merchant/homeMerchant.jsp?page=infoStore").forward(req, resp);
     }
 
     @Override
@@ -83,44 +89,70 @@ public class ManageStore extends HttpServlet {
         }
         switch (action) {
             case "editMerchantStore":
-                editMerchantStore(req, resp);
+                editInfoStore(req,resp);
                 break;
             case "editInfoStore":
-                editInfoStore(req,resp);
+                editMerchantStore(req, resp);
                 break;
         }
     }
 
-    private void editInfoStore(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        MerchantService merchantService = new MerchantService();
+    private void editInfoStore(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        int store_id = Integer.parseInt(req.getParameter("store_id"));
+        String store_name = req.getParameter("store_name");
+        String store_address = req.getParameter("store_address");
+        String contact_number = req.getParameter("contact_number");
+        Part fileBannerPart = req.getPart("banner_path");
+        String banner_path = (fileBannerPart != null && fileBannerPart.getSize() > 0) ? fileBannerPart.getSubmittedFileName() : req.getParameter("current_banner_path");
+        Part fileAvatarPart = req.getPart("avt_path");
+        String avt_path = (fileAvatarPart != null && fileAvatarPart.getSize() > 0) ? fileAvatarPart.getSubmittedFileName() : req.getParameter("current_avt_path");
 
-        int merchantId = Integer.parseInt(req.getParameter("merchantId"));
-        String storeName = req.getParameter("storeName");
-        String storeAddress = req.getParameter("storeAddress");
-        String contactNumber = req.getParameter("contact_number");
-        String bannerPath = req.getParameter("banner_path");
-        String avtPath = req.getParameter("avt_path");
-        boolean storeType = Boolean.parseBoolean(req.getParameter("store_type"));
-        Merchant updatedMerchant = new Merchant(merchantId, storeName, storeAddress, contactNumber, bannerPath, avtPath, storeType);
-        merchantService.updateMerchant(updatedMerchant);
-        resp.sendRedirect("/manageStore?action=showMerchantStore");
+        String uploadPath = "C:\\foodSmartImages\\avatars";
+        File uploadDir = new File(uploadPath);
+        if (!uploadDir.exists()) {
+            uploadDir.mkdirs();
+        }
+
+        File bannerFile = new File(uploadPath, banner_path);
+        File avtFile = new File(uploadPath,avt_path);
+        if (!bannerFile.exists()) {
+            fileBannerPart.write(uploadPath + File.separator + banner_path);
+        }
+        if(!avtFile.exists()){
+            fileAvatarPart.write(uploadPath + File.separator + avt_path);
+        }
+        String storeTypeParam = req.getParameter("store_type");
+        boolean store_type = Boolean.parseBoolean(storeTypeParam);
+
+        Merchant merchant = new Merchant(store_id, store_name, store_address, contact_number, banner_path, avt_path, store_type);
+        boolean success = merchantService.updateMerchant(merchant);
+        if (success){
+            req.getSession().setAttribute("success", "Cập nhật thông tin cửa hàng thành công!");
+        }
+        resp.sendRedirect("/manageStore?action=showInfoStore");
     }
-
-
-
-
 
     private void editMerchantStore(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         AccountService accountService = new AccountService();
         Account loggedInUser = (Account) req.getSession().getAttribute("loggedInAccount");
         int accountId = loggedInUser.getAccountID();
-        String username = req.getParameter("username");
-        String password = req.getParameter("password");
-        String avtPath = req.getParameter("avtPath");
-        boolean active = Boolean.parseBoolean(req.getParameter("active"));
-        String role = loggedInUser.getRole();
-        Account updatedAccount = new Account(accountId, username, password, avtPath, role, active);
-        accountService.editAccount(updatedAccount);
+        Part filePart = req.getPart("avtPath");
+        String avatarPath = (filePart != null && filePart.getSize() > 0)
+                ? filePart.getSubmittedFileName() : req.getParameter("currentAvtPath");
+        String uploadPath = "C:\\foodSmartImages\\avatars";
+        File uploadDir = new File(uploadPath);
+        if (!uploadDir.exists()) uploadDir.mkdirs();
+        if (filePart != null && filePart.getSize() > 0) {
+            filePart.write(uploadPath + File.separator + avatarPath);
+        }
+
+        String username = req.getParameter("username"),
+                password = req.getParameter("password");
+        boolean active = "active".equals(req.getParameter("status"));
+        Account account = new Account(accountId, username, password, avatarPath, "Merchant", active);
+        if (accountService.editAccount(account)) {
+            req.getSession().setAttribute("success", "Cập nhật thông tin người dùng thành công!");
+        }
         resp.sendRedirect("/manageStore?action=showMerchantStore");
     }
 }
