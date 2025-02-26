@@ -18,7 +18,7 @@
         </c:when>
 
 <%--        --%>
-        <c:when test="${param.page == 'editUserPath'}">
+        <c:when test="${param.page == 'editUser'}">
             <jsp:include page="UserStore/editInfo.jsp"/>
         </c:when>
 

@@ -43,24 +43,26 @@
             <i class="fa fa-trash"></i> Xóa
         </button>
     </div>
-    <script>
-        function setDefaultAddress(accountDetailID) {
-            fetch('/userInformation?action=setDefaultAddress', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'accountDetailID=' + accountDetailID
-            }).then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        location.reload();
-                    } else {
-                        alert('Cập nhật địa chỉ mặc định thất bại!');
-                    }
-                })
-                .catch(error => console.error('Error:', error));
-        }
-    </script>
+
 </c:forEach>
+<script>
+    function setDefaultAddress(accountDetailID) {
+        fetch('/userInformation?action=setDefaultAddress', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: 'accountDetailID=' + accountDetailID
+        }).then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload();
+                } else {
+                    alert('Cập nhật địa chỉ mặc định thất bại!');
+                }
+            })
+            .catch(error => console.error('Lỗi:', error));
+    }
+</script>
+
 
 <jsp:include page="../../admin/system/modalConfirmDelete.jsp" />
 </body>

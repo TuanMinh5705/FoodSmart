@@ -7,6 +7,7 @@ import com.example.foodSmart.service.AccountService;
 import com.example.foodSmart.service.IAccountService;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet("/userInformation")
+@MultipartConfig
 public class UserInformation extends HttpServlet {
     IAccountService accountService = new AccountService();
 
@@ -36,10 +38,10 @@ public class UserInformation extends HttpServlet {
                 showInfoUser(req, resp);
                 req.getRequestDispatcher("view/user/homeUser.jsp?page=infoUser").forward(req, resp);
                 break;
-            case "editMerchantStoreForm":
-                Account loggedInUser = (Account) req.getSession().getAttribute("loggedInAccount");
-                req.setAttribute("loggedInAccount", loggedInUser);
-                showMerchantStoreForm(req, resp);
+            case "editUserForm":
+                Account account = (Account) req.getSession().getAttribute("loggedInAccount");
+                req.setAttribute("account", account);
+                showEditUserForm(req, resp);
                 break;
             case "showAddressUser":
                 showAddressUser(req, resp);
@@ -56,7 +58,7 @@ public class UserInformation extends HttpServlet {
         int accountDetailID = Integer.parseInt(req.getParameter("accountDetailID"));
         Account loggedInUser = (Account) req.getSession().getAttribute("loggedInAccount");
         int accountId = loggedInUser.getAccountID();
-        AccountDetails address = accountService.getAccountDetailById(accountDetailID,accountId );
+        AccountDetails address = accountService.getAccountDetailById(accountDetailID, accountId);
         req.setAttribute("address", address);
         req.getRequestDispatcher("view/user/homeUser.jsp?page=editAddressUser").forward(req, resp);
     }
@@ -72,16 +74,16 @@ public class UserInformation extends HttpServlet {
     }
 
 
-    private void showMerchantStoreForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("view/user/homeUser.jsp?page=editUserPath").forward(req, resp);
+    private void showEditUserForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("view/user/homeUser.jsp?page=editUser").forward(req, resp);
 
     }
 
     private void showInfoUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Account loggedInUser = (Account) req.getSession().getAttribute("loggedInAccount");
         int merchant_id = loggedInUser.getAccountID();
-        Account merchant = accountService.getAccount(merchant_id);
-        req.setAttribute("merchant", merchant);
+        Account user = accountService.getAccount(merchant_id);
+        req.setAttribute("user", user);
         req.getRequestDispatcher("view/user/homeUser.jsp?page=infoUser").forward(req, resp);
     }
 
@@ -96,8 +98,8 @@ public class UserInformation extends HttpServlet {
         }
         switch (action) {
 
-            case "editInfoStore":
-                editMerchantStore(req, resp);
+            case "editInfoUser":
+                editInfoUser(req, resp);
                 break;
             case "editAddressUser":
                 editAddressUser(req, resp);
@@ -124,7 +126,6 @@ public class UserInformation extends HttpServlet {
         int accountId = loggedInUser.getAccountID();
 
         if (isDefault) {
-            // Hủy tất cả địa chỉ mặc định khác trước khi cập nhật địa chỉ mới
             accountService.resetDefaultAddress(accountId);
         }
 
@@ -141,23 +142,30 @@ public class UserInformation extends HttpServlet {
     }
 
 
-    private void editMerchantStore(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    private void editInfoUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         IAccountService accountService = new AccountService();
         Account loggedInUser = (Account) req.getSession().getAttribute("loggedInAccount");
-        int accountId = loggedInUser.getAccountID();
-
-        String avatarPath = null;
+        int accountID = loggedInUser.getAccountID();
+        Part filePart = req.getPart("avtPath");
+        String avatarPath = (filePart != null && filePart.getSize() > 0)
+                ? filePart.getSubmittedFileName() : req.getParameter("currentAvtPath");
+        String uploadPath = "C:\\foodSmartImages\\avatars";
+        File uploadDir = new File(uploadPath);
+        if (!uploadDir.exists()) uploadDir.mkdirs();
+        if (filePart != null && filePart.getSize() > 0) {
+            filePart.write(uploadPath + File.separator + avatarPath);
+        }
 
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         boolean active = "active".equals(req.getParameter("status"));
-
-        Account account = new Account(accountId, username, password, avatarPath, "User", active);
+        Account account = new Account(accountID, username, password, avatarPath, "User", active);
         if (accountService.editAccount(account)) {
             req.getSession().setAttribute("success", "Cập nhật thông tin người dùng thành công!");
         }
+        showInfoUser(req,resp);
+        req.getRequestDispatcher("/view/user/homeUser.jsp?page=infoUser").forward(req, resp);
 
-        resp.sendRedirect("/userInformation?action=showMerchantStore");
     }
 
 
