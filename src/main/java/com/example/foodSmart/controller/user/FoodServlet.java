@@ -1,9 +1,14 @@
 package com.example.foodSmart.controller.user;
 
 import com.example.foodSmart.model.admin.CategoryFood;
+import com.example.foodSmart.model.admin.Merchant;
 import com.example.foodSmart.model.merchant.Food;
+import com.example.foodSmart.service.AccountService;
+import com.example.foodSmart.service.IAccountService;
 import com.example.foodSmart.service.admin.CategoryFoodService;
 import com.example.foodSmart.service.admin.ICategoryFoodService;
+import com.example.foodSmart.service.admin.IMerchantService;
+import com.example.foodSmart.service.admin.MerchantService;
 import com.example.foodSmart.service.merchant.FoodService;
 import com.example.foodSmart.service.merchant.IFoodService;
 import com.example.foodSmart.service.user.IProductService;
@@ -28,6 +33,16 @@ ICategoryFoodService categoryFoodService = new CategoryFoodService();
             action = "";
         }
         switch (action) {
+            case "showFoodDetail" :
+                int id = Integer.parseInt(req.getParameter("id"));
+                IFoodService foodService = new FoodService();
+                IMerchantService merchantService = new MerchantService();
+                Food food = foodService.getFoodByID(id);
+                Merchant merchant = merchantService.getMerchantById(food.getStore_id());
+                req.setAttribute("store", merchant);
+                req.setAttribute("food", food);
+                req.getRequestDispatcher("view/user/homeUser.jsp?page=productDetail").forward(req, resp);
+                break;
             default:
                 showListFood(req,resp);
                 break;

@@ -13,9 +13,9 @@
 <!-- Header -->
 <jsp:include page="system/header.jsp"></jsp:include>
 
-<!-- Nội dung chính (đã thêm margin-top phù hợp với header cố định) -->
 <main class="mt-40 mb-4">
     <c:choose>
+<%--        Thông tin tài khoản--%>
         <c:when test="${param.page == 'infoUser'}">
             <jsp:include page="infoAccount/infoUser.jsp"/>
         </c:when>
@@ -27,6 +27,10 @@
         </c:when>
         <c:when test="${param.page == 'editAddressUser'}">
             <jsp:include page="infoAccount/editAddressUser.jsp"/>
+        </c:when>
+<%--Chi tiết sản phẩm --%>
+        <c:when test="${param.page == 'productDetail'}">
+            <jsp:include page="product/productDetail.jsp"/>
         </c:when>
         <c:otherwise>
             <div class="bg-white flex flex-wrap justify-around items-center">
