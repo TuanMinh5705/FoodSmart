@@ -2,7 +2,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,64 +9,42 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
-
 <body class="font-sans">
 <!-- Header -->
 <jsp:include page="system/header.jsp"></jsp:include>
 
-<content>
-    <a href="/userInformation?action=showUserInformation">Thong tin ca nhan</a>
-    <a href="/userInformation?action=showAddressUser">Địa chỉ</a>
-
+<!-- Nội dung chính (đã thêm margin-top phù hợp với header cố định) -->
+<main class="mt-40 mb-4">
     <c:choose>
         <c:when test="${param.page == 'infoUser'}">
             <jsp:include page="infoAccount/infoUser.jsp"/>
         </c:when>
-
         <c:when test="${param.page == 'editUser'}">
             <jsp:include page="infoAccount/editInfoUser.jsp"/>
         </c:when>
-
         <c:when test="${param.page == 'addressUser'}">
             <jsp:include page="infoAccount/addressUser.jsp"/>
         </c:when>
         <c:when test="${param.page == 'editAddressUser'}">
             <jsp:include page="infoAccount/editAddressUser.jsp"/>
         </c:when>
-
         <c:otherwise>
-            <!-- Categories -->
-            <div class="bg-white p-6 flex justify-around items-center">
-                <div class="text-center space-y-2">
-                    <img src="https://placehold.co/80x80" alt="Bánh mì" class="mx-auto">
-                    <p class="text-xl font-semibold">Bánh mì</p>
-                </div>
-                <div class="text-center space-y-2">
-                    <img src="https://placehold.co/80x80" alt="Đồ tráng miệng" class="mx-auto">
-                    <p class="text-xl font-semibold">Đồ tráng miệng</p>
-                </div>
-                <div class="text-center space-y-2">
-                    <img src="https://placehold.co/80x80" alt="Cơm" class="mx-auto">
-                    <p class="text-xl font-semibold">Cơm</p>
-                </div>
-                <div class="text-center space-y-2">
-                    <img src="https://placehold.co/80x80" alt="Đồ uống" class="mx-auto">
-                    <p class="text-xl font-semibold">Đồ uống</p>
-                </div>
-                <div class="text-center space-y-2">
-                    <img src="https://placehold.co/80x80" alt="Mì" class="mx-auto">
-                    <p class="text-xl font-semibold">Mì</p>
-                </div>
-                <div class="text-center space-y-2">
-                    <img src="https://placehold.co/80x80" alt="Đồ ăn nhanh" class="mx-auto">
-                    <p class="text-xl font-semibold">Đồ ăn nhanh</p>
-                </div>
+            <div class="bg-white flex flex-wrap justify-around items-center">
+                <c:forEach var="category" items="${categoryFoodList}">
+                    <div class="text-center space-y-2 mx-4">
+                        <img src="${pageContext.request.contextPath}/foodSmartImages/product/${category.avt_path}"
+                             alt="${category.category_name}"
+                             class="mx-auto w-[80px] h-[80px] object-fit object-contain">
+                        <p class="text-xl font-semibold">${category.category_name}</p>
+                    </div>
+                </c:forEach>
             </div>
 
-
             <!-- Banner -->
-            <div class="relative">
-                <img src="https://nhathauxaydung24h.com/wp-content/uploads/2021/05/hinh-nen-powerpoint-am-thuc-3.jpg" alt="Banner Image" class="w-full h-[650px] object-cover">
+            <div class="relative mt-8">
+                <img src="https://nhathauxaydung24h.com/wp-content/uploads/2021/05/hinh-nen-powerpoint-am-thuc-3.jpg"
+                     alt="Banner Image"
+                     class="w-full h-[650px] object-cover">
                 <div class="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-white text-center">
                     <h1 class="text-3xl font-bold">CHÀO MỪNG ĐẾN VỚI THẾ GIỚI ẨM THỰC SMART FOOD!</h1>
                     <p class="text-xl">KHÁM PHÁ CÁC MÓN ĂN & ĐẶC SẢN NƠI HƯƠNG VỊ BAY XA</p>
@@ -85,15 +62,9 @@
             <jsp:include page="system/content.jsp"></jsp:include>
         </c:otherwise>
     </c:choose>
-</content>
+</main>
 
+<!-- Footer -->
 <jsp:include page="system/footer.jsp"></jsp:include>
-
-
-
-
-
-
 </body>
-
 </html>

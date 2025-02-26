@@ -1,10 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <head>
     <title>Footer</title>
 </head>
 <body>
-<footer class="bg-yellow-400 pt-6">
+<footer class="bg-yellow-400 pt-6 mt-3">
     <div class="container mx-auto px-4">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 border-b border-black pb-4">
             <!-- Thông tin liên hệ -->

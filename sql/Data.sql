@@ -19,13 +19,13 @@ insert into Stores(merchant_id, store_name, store_address, contact_number) value
 (5, 'Pizza Hut', '202 Đường Phan Xích Long, Quận Phú Nhuận, TP.HCM', '0945123456'),
 (6, 'Lẩu Bò Ba Toa', '303 Đường Hai Bà Trưng, Đà Lạt', '0956123456');
 
-insert into Categories(category_name,`description`) values
-("Đồ ăn nhanh","Đồ ăn nhanh"),
-('Bánh mì','Bánh mì'),
-('Cơm,Cơm rang','Cơm,Cơm rang'),
-('Mì , bún , phở','Mì , bún , phở'),
-('Đồ tráng miệng , đồ ngọt','Đồ tráng miệng , đồ ngọt'),
-("Đồ uống","Đồ uống");
+insert into Categories(category_name,`description`,avt_path) values
+("Đồ ăn nhanh","Đồ ăn nhanh",'fast_food.png'),
+('Bánh mì','Bánh mì','bread.png'),
+('Cơm,Cơm rang','Cơm,Cơm rang','chicken_rice.png'),
+('Mì , bún , phở','Mì , bún , phở','noodles.png'),
+('Đồ tráng miệng , đồ ngọt','Đồ tráng miệng , đồ ngọt','chocolate_cake.png'),
+("Đồ uống","Đồ uống",'fruit.png');
 
 insert into Products(store_id,product_name,price,stock_quantity) values
 (3,'Cơm rang dưa bò',35000,20),
@@ -88,3 +88,23 @@ INSERT INTO Store_Coupons (store_id, coupon_code, discount_value, start_date, en
 (3, 'S0001', 10, '2025-05-01 00:00:00', '2025-05-10 00:00:00', '09:00:00', '21:00:00', 50, "Mã giảm giá 10% cho cửa hàng 3"),
 (3, 'S0002', 15, '2025-06-01 00:00:00', '2025-06-15 00:00:00', '10:00:00', '22:00:00', 40, "Mã giảm giá 15% áp dụng cho cửa hàng 3"),
 (3, 'S0003', 20, '2025-07-01 00:00:00', '2025-07-20 00:00:00', '11:00:00', '23:00:00', 30, "Mã giảm giá 20% từ 11:00 đến 23:00");
+
+use foodsmart;
+INSERT INTO Orders (user_id, shipper_id, store_id, voucher_id, coupon_id, order_status, shipping_date, delivery_date, order_date, payment_method, payment_status, shipping_address) 
+VALUES 
+(7, 1, 1, NULL, NULL, 'Completed', '2024-02-15 10:00:00', '2024-02-16 15:00:00', '2024-02-14 08:00:00', 'Credit Card', 'Paid', '123 Đường ABC, Hà Nội'),
+(7, 2, 2, NULL, NULL, 'Completed', '2024-02-18 14:00:00', '2024-02-19 18:00:00', '2024-02-17 09:30:00', 'COD', 'Paid', '456 Đường XYZ, TP.HCM'),
+(7, 1, 1, NULL, NULL, 'Completed', '2024-02-20 09:00:00', '2024-02-21 12:00:00', '2024-02-19 07:45:00', 'Credit Card', 'Paid', '789 Đường DEF, Đà Nẵng'),
+(7, 2, 3, NULL, NULL, 'Completed', '2024-02-22 11:00:00', '2024-02-23 14:30:00', '2024-02-21 10:00:00', 'COD', 'Paid', '101 Đường MNO, Cần Thơ'),
+(7, 1, 2, NULL, NULL, 'Completed', '2024-02-25 16:00:00', '2024-02-26 20:00:00', '2024-02-24 13:15:00', 'Credit Card', 'Paid', '112 Đường PQR, Hải Phòng');
+
+INSERT INTO Products_Orders (product_id, order_id, price_at_time, quantity) 
+VALUES 
+(1, 6, 50000, 5), -- Sản phẩm 1 bán được 5 lần trong đơn hàng 1
+(2, 7, 45000, 3), -- Sản phẩm 2 bán được 3 lần trong đơn hàng 1
+(1, 8, 50000, 10), -- Sản phẩm 1 bán được 10 lần trong đơn hàng 2 (bán chạy)
+(3, 9, 70000, 2), -- Sản phẩm 3 bán được 2 lần trong đơn hàng 2
+(4, 10, 60000, 1), -- Sản phẩm 4 bán được 1 lần trong đơn hàng 3
+(2, 6, 45000, 7), -- Sản phẩm 2 bán được 7 lần trong đơn hàng 4
+(5, 7, 80000, 4), -- Sản phẩm 5 bán được 4 lần trong đơn hàng 5
+(1, 6, 50000, 6); -- Sản phẩm 1 tiếp tục bán được 6 lần trong đơn hàng 5 (bán chạy)
