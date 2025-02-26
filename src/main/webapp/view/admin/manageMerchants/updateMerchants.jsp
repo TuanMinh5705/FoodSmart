@@ -24,6 +24,21 @@
                            title="Tên cửa hàng không được để trống" minlength="2">
                 </div>
 
+                <!-- Avatar -->
+                <label class="form-label"><i class="fas fa-user-circle"></i> Avatar</label>
+                <div class="mb-3 text-center">
+                    <div class="mb-2">
+                        <img id="avtPreview" src="${pageContext.request.contextPath}/foodSmartImages/avatars/${merchant.avt_path}" alt="avatar"
+                             class="img-fluid rounded-circle shadow" style="max-width: 130px; height: 130px">
+                    </div>
+                    <input type="hidden" value="${merchant.avt_path}" name="current_avt_path">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="avt_path" name="avt_path"
+                               style="max-width: 400px;">
+                        <label class="custom-file-label" for="avt_path">${merchant.avt_path}</label>
+                    </div>
+                </div>
+
                 <!-- Banner -->
                 <label class="form-label"><i class="fas fa-image"></i> Banner</label>
                 <div class="mb-3 text-center">
@@ -40,21 +55,6 @@
                     </div>
                 </div>
 
-                <!-- Avatar -->
-                <label class="form-label"><i class="fas fa-user-circle"></i> Avatar</label>
-                <div class="mb-3 text-center">
-                    <div class="mb-2">
-                        <!-- Thêm id="avtPreview" để update ảnh -->
-                        <img id="avtPreview" src="${pageContext.request.contextPath}/foodSmartImages/avatars/${merchant.avt_path}" alt="avatar"
-                             class="img-fluid rounded-circle shadow" style="max-width: 120px;">
-                    </div>
-                    <input type="hidden" value="${merchant.avt_path}" name="current_avt_path">
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="avt_path" name="avt_path"
-                               style="max-width: 400px;">
-                        <label class="custom-file-label" for="avt_path">${merchant.avt_path}</label>
-                    </div>
-                </div>
 
                 <div class="mb-3">
                     <label class="form-label"><i class="fas fa-map-marker-alt"></i> Địa chỉ</label>

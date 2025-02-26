@@ -11,14 +11,14 @@
                                             <i class="fas fa-eye"></i>
                                         </span>
 </div>
-<p>Ảnh đại diện : <img src="${pageContext.request.contextPath}/foodSmartImages/avatars/${merchant.avtPath}"></p>
+<p>Ảnh đại diện : <img src="${pageContext.request.contextPath}/foodSmartImages/avatars/${merchant.avtPath}" alt=""></p>
 <p>Trạng thái : ${merchant.active}</p>
 <a href="/manageStore?action=editMerchantStoreForm">sửa</a>
 </body>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    $(document).on('click', '.toggle-password', function() {
+    $(document).on('click', '.toggle-password', function () {
         var input = $('#password');
         if (input.attr('type') === 'password') {
             input.attr('type', 'text');

@@ -102,10 +102,8 @@ public class ManageStore extends HttpServlet {
         String store_name = req.getParameter("store_name");
         String store_address = req.getParameter("store_address");
         String contact_number = req.getParameter("contact_number");
-
         Part fileBannerPart = req.getPart("banner_path");
         String banner_path = (fileBannerPart != null && fileBannerPart.getSize() > 0) ? fileBannerPart.getSubmittedFileName() : req.getParameter("current_banner_path");
-
         Part fileAvatarPart = req.getPart("avt_path");
         String avt_path = (fileAvatarPart != null && fileAvatarPart.getSize() > 0) ? fileAvatarPart.getSubmittedFileName() : req.getParameter("current_avt_path");
 
