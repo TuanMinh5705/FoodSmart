@@ -15,7 +15,7 @@
 
 <body class="bg-light">
 <div class="container mt-4">
-    <h2 class="text-center mb-4 text-primary">Quản lý danh mục sản phẩm</h2>
+    <h2 class="text-center mb-4 font-weight-bold">Quản lý danh mục sản phẩm</h2>
 
     <div class="d-flex justify-content-between align-items-center mb-3">
         <a href="/manageCategoryFood?action=addForm" class="btn btn-success">
@@ -25,7 +25,8 @@
         <div class="flex-grow-1 d-flex" style="margin-left: 15%;">
             <form action="/manageCategoryFood?action=search" method="post" id="searchForm" class="w-50">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Tìm kiếm..." name="keyword" onkeyup="startTimer()">
+                    <input type="text" class="form-control" placeholder="Tìm kiếm..." name="keyword"
+                           onkeyup="startTimer()">
                     <button class="btn btn-primary" type="submit" title="Tìm kiếm">
                         <i class="fas fa-search"></i>
                     </button>
@@ -51,15 +52,18 @@
                     <tr>
                         <td>${status.index + 1}</td>
                         <td>
-                            <img src="${pageContext.request.contextPath}/foodSmartImages/product/${category.avt_path}" alt="Ảnh danh mục" class="img-thumbnail" width="80">
+                            <img src="${pageContext.request.contextPath}/foodSmartImages/product/${category.avt_path}"
+                                 alt="Ảnh danh mục" class="img-thumbnail" width="80">
                         </td>
                         <td>${category.category_name}</td>
                         <td>${category.description}</td>
                         <td>
-                            <a href="/manageCategoryFood?action=editForm&categoryID=${category.category_id}" class="btn btn-warning btn-sm" title="Chỉnh sửa">
+                            <a href="/manageCategoryFood?action=editForm&categoryID=${category.category_id}"
+                               class="btn btn-warning btn-sm" title="Chỉnh sửa">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
-                            <a href="/manageCategoryFood?action=infoForm&categoryID=${category.category_id}" class="btn btn-info btn-sm" title="Chi tiết">
+                            <a href="/manageCategoryFood?action=infoForm&categoryID=${category.category_id}"
+                               class="btn btn-info btn-sm" title="Chi tiết">
                                 <i class="bi bi-info-circle"></i>
                             </a>
                         </td>
@@ -73,6 +77,7 @@
 
 <script>
     let timer;
+
     function startTimer() {
         clearTimeout(timer);
         timer = setTimeout(function () {
