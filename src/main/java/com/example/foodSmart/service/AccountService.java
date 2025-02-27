@@ -23,7 +23,6 @@ public class AccountService implements IAccountService {
     private static final String DELETE_ACCOUNT_DETAILS_QUERY = "DELETE FROM Account_Details WHERE account_details_id = ?";
     private static final String LIST_ACCOUNT_BY_USERNAME_QUERY = "SELECT a.*, r.role_name FROM Account a JOIN Roles r ON a.role_id = r.role_id WHERE a.username LIKE ?";
     private static final String GET_ACCOUNT_DETAILS_BY_ID = "SELECT * FROM Account_Details WHERE account_details_id = ?";
-
     private static final String UPDATE_DEFAULT_QUERY = "UPDATE Account_Details SET is_default = false WHERE account_details_id = ?";
 
     @Override
@@ -39,7 +38,7 @@ public class AccountService implements IAccountService {
                 String address = rs.getString("address");
                 String phonenumber = rs.getString("phonenumber");
                 boolean isDefault = rs.getBoolean("is_default");
-                AccountDetails accountDetail = new AccountDetails(accountDetailID, address, phonenumber, isDefault, accountID);
+                AccountDetails accountDetail = new AccountDetails(accountDetailID,phonenumber, address, isDefault, accountID);
                 accountDetails.add(accountDetail);
             }
         } catch (SQLException e) {
@@ -261,8 +260,6 @@ public class AccountService implements IAccountService {
                 AccountDetails accountDetail = new AccountDetails(accountID, accountDetailID, address, phonenumber, isDefault);
                 return accountDetail;
             }
-
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
