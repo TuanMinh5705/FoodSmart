@@ -43,7 +43,8 @@
                                     <button class="bg-gray-200 text-gray-600 p-4 rounded-full hover:bg-red-500 hover:text-white">
                                         <i class="bi bi-heart" title="Thêm vào bộ sưu tập"></i>
                                     </button>
-                                    <button class="bg-gray-200 text-gray-600 p-4 rounded-full hover:bg-blue-500 hover:text-white">
+                                    <button class="bg-gray-200 text-gray-600 p-4 rounded-full hover:bg-blue-500 hover:text-white"
+                                            onclick="addToCart(${food.product_id}, ${food.price})">
                                         <i class="bi bi-cart" title="Thêm vào giỏ hàng"></i>
                                     </button>
                                     <button class="bg-gray-200 text-gray-600 p-4 rounded-full hover:bg-green-500 hover:text-white">
@@ -109,7 +110,8 @@
                             <button class="bg-gray-200 text-gray-600 p-4 rounded-full hover:bg-red-500 hover:text-white">
                                 <i class="bi bi-heart" title="Thêm vào bộ sưu tập"></i>
                             </button>
-                            <button class="bg-gray-200 text-gray-600 p-4 rounded-full hover:bg-blue-500 hover:text-white">
+                            <button class="bg-gray-200 text-gray-600 p-4 rounded-full hover:bg-blue-500 hover:text-white"
+                                    onclick="addToCart(${food.product_id}, ${food.price})">
                                 <i class="bi bi-cart" title="Thêm vào giỏ hàng"></i>
                             </button>
                             <button class="bg-gray-200 text-gray-600 p-4 rounded-full hover:bg-green-500 hover:text-white">
@@ -150,9 +152,10 @@
     <!-- Bootstrap Icons (nếu chưa có) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="/view/user/product/addToCart.js"></script>
 <script>
     const swiper = new Swiper(".mySwiper", {
         slidesPerView: 1,
