@@ -102,7 +102,10 @@ public class ManageVouchers extends HttpServlet {
         Time start_time = new Time(timeFormat.parse(req.getParameter("start_time")).getTime());
         Time end_time = new Time(timeFormat.parse(req.getParameter("end_time")).getTime());
         Voucher voucher = new Voucher(voucher_id, voucher_code, start_date, end_date, start_time, end_time, discount_value, quantity, description);
-        voucherService.updateVoucher(voucher);
+        boolean success = voucherService.updateVoucher(voucher);
+        if (success){
+            req.getSession().setAttribute("success", "Cập nhật mã giảm giá thành công!");
+        }
         listVouchers(req, resp);
     }
 
@@ -120,7 +123,10 @@ public class ManageVouchers extends HttpServlet {
             Time start_time = new Time(timeFormat.parse(req.getParameter("start_time")).getTime());
             Time end_time = new Time(timeFormat.parse(req.getParameter("end_time")).getTime());
             Voucher voucher = new Voucher(voucher_code, start_date, end_date, start_time, end_time, quantity, discount_value, description);
-            voucherService.addVoucher(voucher);
+            boolean success = voucherService.addVoucher(voucher);
+            if (success){
+                req.getSession().setAttribute("success", "Thêm mã giảm giá thành công!");
+            }
             listVouchers(req, resp);
         } catch (Exception e) {
             e.printStackTrace();

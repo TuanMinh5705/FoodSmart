@@ -6,8 +6,11 @@
     <meta charset="UTF-8">
     <title>Sửa danh mục sản phẩm</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         .avatar-preview {
             width: 150px;
@@ -34,7 +37,7 @@
                         <input type="hidden" name="category_id" value="${category.category_id}">
                         <div class="mb-3 text-center">
                             <img id="avatarPreview" class="avatar-preview"
-                                 src="${pageContext.request.contextPath}/images/product/${category.avt_path}"
+                                 src="${pageContext.request.contextPath}/foodSmartImages/product/${category.avt_path}"
                                  alt="Ảnh danh mục">
                             <label for="avatar" class="form-label d-block">
                                 <i class="fas fa-image"></i> Chọn ảnh danh mục (nếu muốn thay đổi)
@@ -66,15 +69,14 @@
                                       oninput="this.setCustomValidity(this.value.length < 5 || this.value.length > 255 ? 'Mô tả phải có từ 5 đến 255 ký tự' : '')">${category.description}</textarea>
                         </div>
                         <div class="d-grid">
-                        <div class="d-flex justify-content-center gap-2">
-                            <a href="/manageCategoryFood" class="btn btn-secondary">
-                                <i class="fas fa-arrow-left"></i> Quay lại
-                            </a>
-
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-save"></i> Cập nhật danh mục
-                            </button>
-                        </div>
+                            <div class="d-flex justify-content-center gap-2">
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fas fa-save"></i> Cập nhật danh mục
+                                </button>
+                                <a href="/manageCategoryFood" class="btn btn-danger">
+                                    <i class="bi bi-x-circle"></i> Hủy
+                                </a>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -82,14 +84,12 @@
         </div>
     </div>
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    document.getElementById("avatar")?.addEventListener("change", function(event) {
+    document.getElementById("avatar")?.addEventListener("change", function (event) {
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = function (e) {
                 document.getElementById("avatarPreview").src = e.target.result;
             };
             reader.readAsDataURL(file);

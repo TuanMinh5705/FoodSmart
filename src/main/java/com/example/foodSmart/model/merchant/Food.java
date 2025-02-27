@@ -9,6 +9,8 @@ public class Food {
     private int price;
     private int stock_quantity;
     private int discount;
+    private int category_id;
+    private int total_sold;
     private List<FoodImages> list_food_images;
 
     public Food(){}
@@ -21,6 +23,45 @@ public class Food {
         this.stock_quantity = stock_quantity;
         this.discount = discount;
         this.list_food_images = list_food_images;
+    }
+
+    public Food(int product_id, int store_id, String product_name, int price, int stock_quantity, int discount, int category_id, List<FoodImages> list_food_images) {
+        this.product_id = product_id;
+        this.store_id = store_id;
+        this.product_name = product_name;
+        this.price = price;
+        this.stock_quantity = stock_quantity;
+        this.discount = discount;
+        this.category_id = category_id;
+        this.list_food_images = list_food_images;
+    }
+
+    public Food(int product_id, int store_id, String product_name, int price, int stock_quantity, int discount, int category_id, int total_sold, List<FoodImages> list_food_images) {
+        this.product_id = product_id;
+        this.store_id = store_id;
+        this.product_name = product_name;
+        this.price = price;
+        this.stock_quantity = stock_quantity;
+        this.discount = discount;
+        this.category_id = category_id;
+        this.total_sold = total_sold;
+        this.list_food_images = list_food_images;
+    }
+
+    public int getTotal_sold() {
+        return total_sold;
+    }
+
+    public void setTotal_sold(int total_sold) {
+        this.total_sold = total_sold;
+    }
+
+    public int getCategory_id() {
+        return category_id;
+    }
+
+    public void setCategory_id(int category_id) {
+        this.category_id = category_id;
     }
 
     public int getDiscount() {
@@ -82,12 +123,14 @@ public class Food {
     @Override
     public String toString() {
         return "Food{" +
-                "discount=" + discount +
+                "category_id=" + category_id +
                 ", product_id=" + product_id +
                 ", store_id=" + store_id +
                 ", product_name='" + product_name + '\'' +
                 ", price=" + price +
                 ", stock_quantity=" + stock_quantity +
+                ", discount=" + discount +
+                ", total_sold=" + total_sold +
                 ", list_food_images=" + list_food_images +
                 '}';
     }

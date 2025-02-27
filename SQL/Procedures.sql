@@ -79,6 +79,20 @@ BEGIN
 END //
 DELIMITER ;
 
+CREATE VIEW ProductSummary AS
+SELECT p.*, 
+       c.category_id, 
+       c.category_name,
+       s.store_name,
+       COALESCE(SUM(po.quantity), 0) AS total_sold
+FROM Products p
+LEFT JOIN Products_Orders po ON p.product_id = po.product_id
+LEFT JOIN Products_Categories pc ON p.product_id = pc.product_id
+LEFT JOIN Categories c ON pc.category_id = c.category_id
+LEFT JOIN Stores s ON p.store_id = s.store_id
+GROUP BY p.product_id, p.product_name, p.price, p.stock_quantity, p.discount, p.store_id,
+         c.category_id, c.category_name, s.store_name;
+
 
 
 

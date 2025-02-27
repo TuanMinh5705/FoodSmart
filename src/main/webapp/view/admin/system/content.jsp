@@ -54,6 +54,7 @@
 
 <div class="container mt-4">
     <div class="row g-4">
+
         <div class="col-md-4">
             <div class="card bg-red">
                 <div class="card-body text-center">
@@ -129,7 +130,6 @@
                 <a href="/manageCategoryFood" class="text-white detail-btn">Chi tiết</a>
             </div>
         </div>
-
     </div>
 </div>
 

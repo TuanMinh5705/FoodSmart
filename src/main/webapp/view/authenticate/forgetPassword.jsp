@@ -25,9 +25,9 @@
                             <label for="username">Tên đăng nhập</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="fas fa-user"></i>
-                  </span>
+                                    <span class="input-group-text">
+                                        <i class="fas fa-user"></i>
+                                    </span>
                                 </div>
                                 <input type="text" class="form-control" id="username" name="username"
                                        pattern="[A-Za-z0-9]{3,}"
@@ -41,9 +41,9 @@
                             <label for="newPassword">Mật khẩu mới</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="fas fa-lock"></i>
-                  </span>
+                                    <span class="input-group-text">
+                                        <i class="fas fa-lock"></i>
+                                    </span>
                                 </div>
                                 <input type="password" class="form-control" id="newPassword" name="newPassword"
                                        placeholder="Nhập mật khẩu mới" required>
@@ -54,9 +54,9 @@
                             <label for="captchaInput">Nhập mã xác minh</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="fas fa-shield-alt"></i>
-                  </span>
+                                    <span class="input-group-text">
+                                        <i class="fas fa-shield-alt"></i>
+                                    </span>
                                 </div>
                                 <input type="text" class="form-control" id="captchaInput" name="captchaInput"
                                        placeholder="Nhập mã xác minh" required>
@@ -64,22 +64,35 @@
                         </div>
 
                         <div class="form-group">
-                            <p class="mb-0">Mã xác minh: <strong>${captchaText}</strong></p>
+                            <p class="mb-0">Mã xác minh: <strong>${sessionScope.captcha}</strong></p>
                         </div>
-                        <c:if test="${not empty error}">
-                            <div class="alert alert-danger" role="alert">${error}</div>
+
+                        <c:if test="${not empty sessionScope.error}">
+                            <div class="alert alert-danger" role="alert">
+                                    ${sessionScope.error}
+                                <c:remove var="error" scope="session"/>
+                            </div>
                         </c:if>
+
+                        <c:if test="${not empty sessionScope.success}">
+                            <div class="alert alert-success" role="alert">
+                                    ${sessionScope.success}
+                                <c:remove var="success" scope="session"/>
+                            </div>
+                        </c:if>
+
                         <button type="submit" class="btn btn-danger btn-block">Reset Mật Khẩu</button>
                     </form>
                 </div>
             </div>
+
             <div class="text-center mt-3">
                 <a href="/authenticate?action=loginForm" class="text-muted">Quay lại đăng nhập</a>
             </div>
+
         </div>
     </div>
 </div>
-
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>

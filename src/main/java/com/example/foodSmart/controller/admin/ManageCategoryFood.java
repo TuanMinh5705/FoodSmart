@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -76,6 +77,13 @@ public class ManageCategoryFood extends HttpServlet {
         int categoryFood_id = Integer.parseInt(req.getParameter("category_id"));
         Part filePart = req.getPart("avt_path");
         String avatarPath = (filePart != null && filePart.getSize() > 0) ? filePart.getSubmittedFileName() : req.getParameter("currentAvtPath");
+
+        String uploadPath = "C:\\foodSmartImages\\product";
+        File uploadDir = new File(uploadPath);
+        if (!uploadDir.exists()) {
+            uploadDir.mkdirs();
+        }
+        filePart.write(uploadPath + File.separator + avatarPath);
         String categoryName = req.getParameter("category_name");
         String description = req.getParameter("description");
         CategoryFood categoryFood = new CategoryFood(categoryFood_id,categoryName,description,avatarPath);
@@ -86,6 +94,13 @@ public class ManageCategoryFood extends HttpServlet {
     private void addCategoryFoodAction(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Part filePart = req.getPart("avatar");
         String avatarPath = filePart.getSubmittedFileName();
+
+        String uploadPath = "C:\\foodSmartImages\\product";
+        File uploadDir = new File(uploadPath);
+        if (!uploadDir.exists()) {
+            uploadDir.mkdirs();
+        }
+        filePart.write(uploadPath + File.separator + avatarPath);
 
         String category_name = req.getParameter("category_name");
         String description = req.getParameter("description");

@@ -55,37 +55,36 @@
     <div class="text-center mb-3">
         <a href="/view/admin/homeAdmin.jsp">
 
-            <img src="../../../images/icon_default/system/logo.jpg" alt="Logo" style="height: 40px;">
-
+            <img src="../../../images/logo.png" alt="Logo" style="height: 100px;">
         </a>
     </div>
     <ul class="nav flex-column">
         <li class="nav-item">
-            <a class="nav-link text-white" href="/view/admin/homeAdmin.jsp"><i class="fas fa-home"></i> Trang chủ</a>
+            <a class="nav-link text-white" href="/view/admin/homeAdmin.jsp"><i class="bi bi-house"></i> Trang chủ</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-white" href="/manageMerchants"><i class="fas fa-store"></i> Quản lý cửa hàng</a>
+            <a class="nav-link text-white" href="/manageMerchants"><i class="bi bi-shop-window"></i> Quản lý cửa hàng</a>
         </li>
         <li class="nav-item">
             <a class="nav-link text-white" href="/manageCategoryFood"><i class="bi bi-grid"></i> Danh mục sản phẩm</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-white" href="/manageUsers"><i class="fas fa-user-cog"></i> Quản lý người dùng</a>
+            <a class="nav-link text-white" href="/manageUsers"><i class="bi bi-person-gear"></i> Quản lý người dùng</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-white" href="/manageVouchers"><i class="fas fa-tags"></i> Mã giảm giá</a>
+            <a class="nav-link text-white" href="/manageVouchers"><i class="bi bi-ticket-perforated"></i> Mã giảm giá</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-white" href="/view/admin/homeAdmin.jsp?page=manageOrders"><i class="fas fa-shopping-cart"></i> Quản lý đơn hàng</a>
+            <a class="nav-link text-white" href="/view/admin/homeAdmin.jsp?page=manageOrders"><i class="bi bi-clipboard-minus"></i> Quản lý đơn hàng</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-white" href="/manageCarriers"><i class="fas fa-shipping-fast"></i> Đối tác vận chuyển</a>
+            <a class="nav-link text-white" href="/manageCarriers"><i class="bi bi-truck"></i> Đối tác vận chuyển</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-white" href="/view/admin/homeAdmin.jsp?page=revenueStatistics"><i class="fas fa-chart-line"></i> Thống kê doanh thu</a>
+            <a class="nav-link text-white" href="/view/admin/homeAdmin.jsp?page=revenueStatistics"><i class="bi bi-graph-up-arrow"></i> Thống kê doanh thu</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-white" href="/view/admin/homeAdmin.jsp?page=complaints"><i class="fas fa-exclamation-circle"></i> Xử lý khiếu nại</a>
+            <a class="nav-link text-white" href="/view/admin/homeAdmin.jsp?page=complaints"><i class="bi bi-exclamation-octagon"></i> Xử lý khiếu nại</a>
         </li>
     </ul>
 </div>

@@ -15,7 +15,7 @@ create table `Account`
     `active`   boolean default true,
     avt_path   text    default ('avt_default.jpg'),
     role_id    int,
-    foreign key (role_id) references Roles (role_id)
+    foreign key (role_id) references Roles (role_id) on delete cascade
 );
 -- Bảng địa chỉ, số điện thoại người dùng
 create table Account_Details
@@ -25,7 +25,7 @@ create table Account_Details
     address     text,
     phonenumber varchar(255),
     is_default boolean default false,
-    foreign key (user_id) references `Account` (account_id)
+    foreign key (user_id) references `Account` (account_id) on delete cascade
 );
 -- Bảng ví điện tử người dùng
 create table E_Wallet
@@ -36,7 +36,7 @@ create table E_Wallet
     updated_at timestamp,
     `status`   boolean,
     account_id int,
-    foreign key (account_id) references `Account` (account_id)
+    foreign key (account_id) references `Account` (account_id) on delete cascade
 );
 -- Bảng báo cáo doanh thu 
 create table Revenue_Report
@@ -44,7 +44,7 @@ create table Revenue_Report
     report_id   int primary key auto_increment,
     account_id  int,
     report_date timestamp,
-    foreign key (account_id) references `Account` (account_id)
+    foreign key (account_id) references `Account` (account_id) on delete cascade
 );
 -- Bảng thông báo 
 create table Notifications
@@ -55,7 +55,7 @@ create table Notifications
     `status`          boolean default false,
     created_at        timestamp,
     account_id        int,
-    foreign key (account_id) references `Account` (account_id)
+    foreign key (account_id) references `Account` (account_id) on delete cascade
 );
 -- Bảng trung gian thông báo và tài khoản
 create table Notification_Account
@@ -63,7 +63,7 @@ create table Notification_Account
     notification_id int,
     account_id      int,
     foreign key (account_id) references `Account` (account_id),
-    foreign key (notification_id) references Notifications (notification_id)
+    foreign key (notification_id) references Notifications (notification_id) on delete cascade
 );
 -- Bảng khiếu nại , báo cáo
 create table User_Complaint
@@ -74,7 +74,7 @@ create table User_Complaint
     `status`     boolean default false,
     created_at   timestamp,
     user_id      int,
-    foreign key (user_id) references `Account` (account_id)
+    foreign key (user_id) references `Account` (account_id) on delete cascade
 );
 -- Bảng trò chuyện 
 create table Conversation
@@ -91,9 +91,9 @@ create table Conversation_Account
     sender_id       int,
     receiver_id     int,
     chat_type       boolean default true,
-    foreign key (sender_id) references `Account` (account_id),
-    foreign key (receiver_id) references `Account` (account_id),
-    foreign key (conversation_id) references Conversation (conversation_id)
+    foreign key (sender_id) references `Account` (account_id) on delete cascade,
+    foreign key (receiver_id) references `Account` (account_id) on delete cascade,
+    foreign key (conversation_id) references Conversation (conversation_id) on delete cascade
 );
 -- Bảng cửa hàng 
 create table Stores
@@ -106,7 +106,7 @@ create table Stores
     banner_path    text    default ('banner-default.jpg'),
     avt_path       text    default ('avt_store_default.jpg'),
     store_type     boolean default true,
-    foreign key (merchant_id) references `Account` (account_id)
+    foreign key (merchant_id) references `Account` (account_id) on delete cascade
 );
 -- Bảng mã giảm giá của cửa hàng 
 CREATE TABLE Store_Coupons
@@ -150,8 +150,8 @@ create table Categories
 CREATE TABLE Categories_Stores (
     store_id INT,
     category_id INT,
-    FOREIGN KEY (category_id) REFERENCES Categories (category_id),
-    FOREIGN KEY (store_id) REFERENCES Stores (store_id)
+    FOREIGN KEY (category_id) REFERENCES Categories (category_id) on delete cascade,
+    FOREIGN KEY (store_id) REFERENCES Stores (store_id) on delete cascade
 );
 
 -- Bảng sản phẩm
@@ -163,24 +163,24 @@ create table Products
     price          int,
     stock_quantity int,
     discount       int default 0,
-    foreign key (store_id) references Stores (store_id)
+    foreign key (store_id) references Stores (store_id) on delete cascade
 );
 -- Bảng trung gian giữa sản phẩm và danh mục 
 create table Products_Categories
 (
     product_id  int,
     category_id int,
-    foreign key (category_id) references Categories (category_id),
-    foreign key (product_id) references Products (product_id)
+    foreign key (category_id) references Categories (category_id) on delete cascade,
+    foreign key (product_id) references Products (product_id) on delete cascade
 );
 -- Bảng ảnh sản phẩm
 create table Product_Images
 (
     image_id   int primary key auto_increment,
     product_id int,
-    image_path text    default ('images/product/product_default.png'),
+    image_path text    default ('product_default.png'),
     is_primary boolean default true,
-    foreign key (product_id) references Products (product_id)
+    foreign key (product_id) references Products (product_id) on delete cascade
 );
 
 
@@ -199,7 +199,7 @@ create table Shippers
     carrier_id   int,
     shipper_name varchar(255),
     phonenumber  varchar(255),
-    foreign key (carrier_id) references Carriers (carrier_id)
+    foreign key (carrier_id) references Carriers (carrier_id) on delete cascade
 );
 
 
@@ -219,11 +219,11 @@ create table Orders
     payment_method   varchar(255),
     payment_status   varchar(255),
     shipping_address text,
-    foreign key (coupon_id) references Store_Coupons (coupon_id),
-    foreign key (voucher_id) references Vouchers (voucher_id),
-    foreign key (store_id) references Stores (store_id),
-    foreign key (shipper_id) references Shippers (shipper_id),
-    foreign key (user_id) references `Account` (account_id)
+    foreign key (coupon_id) references Store_Coupons (coupon_id) on delete cascade,
+    foreign key (voucher_id) references Vouchers (voucher_id) on delete cascade,
+    foreign key (store_id) references Stores (store_id) on delete cascade,
+    foreign key (shipper_id) references Shippers (shipper_id) on delete cascade,
+    foreign key (user_id) references `Account` (account_id) on delete cascade
 );
 -- Bảng trung gian giữa đơn hàng và sản phẩm
 create table Products_Orders
@@ -232,8 +232,8 @@ create table Products_Orders
     order_id      int,
     price_at_time int,
     quantity      int,
-    foreign key (product_id) references Products (product_id),
-    foreign key (order_id) references Orders (order_id)
+    foreign key (product_id) references Products (product_id) on delete cascade,
+    foreign key (order_id) references Orders (order_id) on delete cascade
 );
 -- Bảng hóa đơn
 create table Invoices
@@ -242,5 +242,5 @@ create table Invoices
     order_id     int,
     payment_date timestamp,
     total_amount bigint,
-    foreign key (order_id) references Orders (order_id)
+    foreign key (order_id) references Orders (order_id) on delete cascade
 );
