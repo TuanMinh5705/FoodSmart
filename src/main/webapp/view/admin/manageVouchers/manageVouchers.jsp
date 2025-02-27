@@ -58,7 +58,7 @@
 </c:if>
 
 <div class="container my-4">
-    <h2 class="text-center mb-4 text-primary">Quản lý mã giảm giá</h2>
+    <h2 class="text-center mb-4 font-weight-bold">Quản lý mã giảm giá</h2>
 
     <div class="row mb-3">
         <div class="col-md-3">

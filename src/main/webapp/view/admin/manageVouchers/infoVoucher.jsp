@@ -11,7 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
-<h2 class="text-center mb-4"><i class="bi bi-gift"></i> Chi Tiết Voucher</h2>
+<h2 class="text-center mb-4"><i class="fas fa-info-circle"></i> Chi Tiết Voucher</h2>
 
 <div class="container mt-5 p-4 shadow rounded bg-light">
     <form action="/manageVouchers" method="post">
@@ -60,7 +60,7 @@
         </div>
 
         <div class="text-center mt-4">
-            <a href="/manageVouchers" class="btn btn-secondary">Quay lại</a>
+            <a href="/manageVouchers" class="btn btn-secondary"><i class="bi bi-arrow-left-circle"></i> Quay lại</a>
         </div>
     </form>
 </div>

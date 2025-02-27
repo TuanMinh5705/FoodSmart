@@ -26,7 +26,7 @@
             <div class="mb-3">
                 <label class="form-label">Tên danh mục</label>
                 <div class="input-group">
-                    <span class="input-group-text"><i class="bi bi-tags"></i></span>
+                    <span class="input-group-text"><i class="bi bi-tags-fill"></i></span>
                     <input type="text" class="form-control" id="category_name" name="category_name"
                            placeholder="Nhập tên danh mục" required
                            pattern="^[\p{L}0-9\s]{3,100}$"
