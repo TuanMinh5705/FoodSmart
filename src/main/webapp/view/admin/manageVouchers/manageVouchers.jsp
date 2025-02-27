@@ -10,16 +10,11 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <style>
-        .table thead th {
-            background-color: #343a40;
-            color: #fff;
-            text-align: center;
+        .table th, .table td {
             vertical-align: middle;
-        }
-        .table td, .table th {
             text-align: center;
-            vertical-align: middle;
         }
         .action-buttons .btn {
             margin-right: 0.5rem;
@@ -27,9 +22,12 @@
         .action-buttons .btn:last-child {
             margin-right: 0;
         }
+        .swal2-popup {
+            font-size: 10px;
+        }
     </style>
 </head>
-<body>
+<body class="bg-light">
 <c:if test="${not empty success}">
     <script>
         Swal.fire({
@@ -38,7 +36,7 @@
             title: '${success}',
             showConfirmButton: false,
             timer: 2000,
-            width: '300px'
+            width: '400px'
         });
     </script>
     <% session.removeAttribute("success"); %>
@@ -51,79 +49,74 @@
             title: '${error}',
             showConfirmButton: false,
             timer: 2000,
-            width: '300px'
+            width: '400px'
         });
     </script>
     <% session.removeAttribute("error"); %>
 </c:if>
 
-<div class="container my-4">
+<div class="container mt-4">
     <h2 class="text-center mb-4 font-weight-bold">Quản lý mã giảm giá</h2>
-
-    <div class="row mb-3">
-        <div class="col-md-3">
-            <a href="/manageVouchers?action=addVoucherForm" class="btn btn-success">
-                <i class="bi bi-plus-circle"></i> Thêm mã giảm giá
-            </a>
-        </div>
-        <div class="col-md-6">
-            <form action="/manageVouchers?action=searchVouchers" method="post" id="searchForm">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Tìm kiếm..." name="keyword" onkeyup="startTimer()">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="submit" title="Tìm kiếm">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <a href="/manageVouchers?action=addVoucherForm" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Thêm mã giảm giá
+        </a>
+        <form action="/manageVouchers?action=searchVouchers" method="post" id="searchForm" class="d-flex">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Tìm kiếm..." name="keyword" onkeyup="startTimer()">
+                <button class="btn btn-primary" type="submit" title="Tìm kiếm">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </form>
     </div>
 
-    <div class="table-responsive">
-        <table class="table table-hover table-bordered table-striped text-center align-middle">
-            <thead class="table-dark">
-            <tr>
-                <th>STT</th>
-                <th>Mã giảm giá</th>
-                <th>Giá trị (%)</th>
-                <th>Số lượng</th>
-                <th>Hành động</th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach var="voucher" items="${voucherList}" varStatus="status">
-                <tr>
-                    <td>${status.index + 1}</td>
-                    <td>${voucher.voucher_code}</td>
-                    <td>${voucher.discount_value}%</td>
-                    <td>${voucher.quantity}</td>
-                    <td>
-                        <div class="action-buttons d-inline-flex">
-                            <a href="/manageVouchers?action=editVoucherForm&voucherID=${voucher.voucher_id}" class="btn btn-warning btn-sm" title="Chỉnh sửa">
-                                <i class="bi bi-pencil-square"></i>
-                            </a>
-                            <a href="/manageVouchers?action=infoVoucherForm&voucherID=${voucher.voucher_id}" class="btn btn-info btn-sm" title="Chi tiết">
-                                <i class="bi bi-info-circle"></i>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
+    <div class="card shadow rounded">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered table-striped">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>STT</th>
+                        <th>Mã giảm giá</th>
+                        <th>Giá trị (%)</th>
+                        <th>Số lượng</th>
+                        <th>Hành động</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach var="voucher" items="${voucherList}" varStatus="status">
+                        <tr>
+                            <td>${status.index + 1}</td>
+                            <td>${voucher.voucher_code}</td>
+                            <td>${voucher.discount_value}%</td>
+                            <td>${voucher.quantity}</td>
+                            <td>
+                                <div class="action-buttons d-inline-flex">
+                                    <a href="/manageVouchers?action=editVoucherForm&voucherID=${voucher.voucher_id}" class="btn btn-warning btn-sm" title="Chỉnh sửa">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                    <a href="/manageVouchers?action=infoVoucherForm&voucherID=${voucher.voucher_id}" class="btn btn-info btn-sm" title="Chi tiết">
+                                        <i class="bi bi-info-circle"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 
 <script>
     let timer;
-
     function startTimer() {
         clearTimeout(timer);
-
         timer = setTimeout(function() {
             document.getElementById("searchForm").submit();
-        }, 4500);
+        }, 2000);
     }
 </script>
 </body>
