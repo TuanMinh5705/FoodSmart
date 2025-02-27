@@ -40,7 +40,6 @@ function showToast(message, icon) {
     });
 }
 
-// Hàm lấy số lượng từ input nếu tồn tại, nếu không có thì trả về 1
 function getQuantity(productId) {
     const input = document.querySelector(`#quantity_${productId}`);
     return input ? (parseInt(input.value, 10) || 1) : 1;

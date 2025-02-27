@@ -32,7 +32,7 @@
 
         <!-- Right: Account & Icons -->
         <div class="flex items-center space-x-6">
-            <a href="/view/user/cart/cart_store.jsp" title="Giỏ hàng" class="relative text-black text-2xl">
+            <a href="/homeUser?action=showCartStore" title="Giỏ hàng" class="relative text-black text-2xl">
                 <i class="fas fa-shopping-cart"></i>
                 <c:if test="${not empty sessionScope.cartCount and sessionScope.cartCount > 0}">
                     <span id="cartCount" class="absolute -top-1 -right-3 bg-red-500 text-white text-sm rounded-full px-2">
