@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 @WebServlet("/homeUser")
 public class FoodServlet extends HttpServlet {
 
+    // Biến toàn cục
     private final IProductService productService = new ProductService();
     private final ICategoryFoodService categoryFoodService = new CategoryFoodService();
     private final IFoodService foodService = new FoodService();
@@ -46,6 +47,7 @@ public class FoodServlet extends HttpServlet {
                 showCartStore(req, resp);
                 break;
             case "toggleFavorite":
+                // Thêm case này vào doGet nếu bạn gọi bằng link GET (?action=toggleFavorite)
                 toggleFavoriteFood(req, resp);
                 break;
             default:
@@ -70,11 +72,18 @@ public class FoodServlet extends HttpServlet {
             case "deleteStore":
                 removeStoreFromCart(req, resp);
                 break;
+            // Nếu bạn muốn toggleFavorite dùng POST, để case này ở đây
+            // case "toggleFavorite":
+            //     toggleFavoriteFood(req, resp);
+            //     break;
         }
     }
 
-
+    /**
+     * Thêm/Bỏ món ăn vào danh sách yêu thích của người dùng.
+     */
     private void toggleFavoriteFood(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        // Lấy tham số "id" từ request
         String foodIdParam = req.getParameter("id");
         if (foodIdParam == null || foodIdParam.trim().isEmpty()) {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Thiếu thông tin id món ăn.");
@@ -83,26 +92,32 @@ public class FoodServlet extends HttpServlet {
 
         int foodId = Integer.parseInt(foodIdParam);
 
+        // Kiểm tra người dùng đã đăng nhập hay chưa
         HttpSession session = req.getSession(false);
         if (session == null || session.getAttribute("currentUser") == null) {
-            resp.sendRedirect("login.jsp");
+            // Nếu chưa đăng nhập, chuyển hướng về trang đăng nhập
+            resp.sendRedirect("login.jsp"); // Đảm bảo file login.jsp có tồn tại
             return;
         }
 
+        // Lấy đối tượng người dùng từ session
         Account currentUser = (Account) session.getAttribute("currentUser");
 
+        // Gọi FoodService để lấy món ăn theo id
         Food foodItem = foodService.getFoodByID(foodId);
         if (foodItem == null) {
             resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Không tìm thấy món ăn.");
             return;
         }
 
+        // Lấy danh sách món ăn yêu thích từ Account (nếu chưa có thì khởi tạo)
         List<Food> favoriteFoods = currentUser.getFavoriteFoods();
         if (favoriteFoods == null) {
             favoriteFoods = new ArrayList<>();
             currentUser.setFavoriteFoods(favoriteFoods);
         }
 
+        // Kiểm tra món ăn đã có trong danh sách chưa
         boolean isFavorite = false;
         for (Food f : favoriteFoods) {
             if (f.getProduct_id() == foodItem.getProduct_id()) {
@@ -111,18 +126,23 @@ public class FoodServlet extends HttpServlet {
             }
         }
 
+        // Nếu đã có -> xóa khỏi danh sách, nếu chưa -> thêm vào
         if (isFavorite) {
             favoriteFoods.removeIf(f -> f.getProduct_id() == foodItem.getProduct_id());
         } else {
             favoriteFoods.add(foodItem);
         }
 
+        // Cập nhật lại session nếu cần
         session.setAttribute("currentUser", currentUser);
 
+        // Chuyển hướng về trang homeUser
         resp.sendRedirect("homeUser");
     }
 
-
+    /**
+     * Hiển thị chi tiết món ăn
+     */
     private void showFoodDetail(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
         Food foodDetail = foodService.getFoodByID(id);
@@ -133,7 +153,9 @@ public class FoodServlet extends HttpServlet {
         req.getRequestDispatcher("view/user/homeUser.jsp?page=productDetail").forward(req, resp);
     }
 
-
+    /**
+     * Xóa cửa hàng ra khỏi giỏ
+     */
     private void removeStoreFromCart(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession();
         List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
@@ -151,7 +173,9 @@ public class FoodServlet extends HttpServlet {
         resp.getWriter().write("success");
     }
 
-
+    /**
+     * Hiển thị giỏ hàng, nhóm theo store
+     */
     private void showCartStore(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
@@ -201,7 +225,9 @@ public class FoodServlet extends HttpServlet {
         req.getRequestDispatcher("view/user/homeUser.jsp?page=cart_store").forward(req, resp);
     }
 
-
+    /**
+     * Thêm sản phẩm vào giỏ
+     */
     private void addProductToCart(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession();
 
@@ -235,7 +261,9 @@ public class FoodServlet extends HttpServlet {
         System.out.println(cart);
     }
 
-
+    /**
+     * Tìm kiếm sản phẩm
+     */
     private void searchProduct(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String keyword = req.getParameter("keyword");
         if (keyword == null) {
@@ -247,7 +275,9 @@ public class FoodServlet extends HttpServlet {
         req.getRequestDispatcher("view/user/homeUser.jsp?page=foodsByCategory").forward(req, resp);
     }
 
-
+    /**
+     * Lấy danh sách món ăn theo danh mục
+     */
     private void getFoodsByCategory(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int category_id = Integer.parseInt(req.getParameter("category_id"));
         List<Food> foodList = productService.getFoodListByCategory(category_id);
@@ -260,7 +290,9 @@ public class FoodServlet extends HttpServlet {
         req.getRequestDispatcher("view/user/homeUser.jsp?page=foodsByCategory").forward(req, resp);
     }
 
-
+    /**
+     * Hiển thị danh sách món ăn mặc định
+     */
     private void showListFood(HttpServletRequest req, HttpServletResponse resp) {
         try {
             List<CategoryFood> categoryFoodList = categoryFoodService.listCategoryFood();
