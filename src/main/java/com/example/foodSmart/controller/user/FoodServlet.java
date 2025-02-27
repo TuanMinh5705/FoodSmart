@@ -24,6 +24,7 @@ import java.util.List;
 public class FoodServlet extends HttpServlet {
 IProductService productService = new ProductService();
 ICategoryFoodService categoryFoodService = new CategoryFoodService();
+IFoodService foodService = new FoodService();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
@@ -44,19 +45,48 @@ ICategoryFoodService categoryFoodService = new CategoryFoodService();
             case "getFoodsByCategory":
                 getFoodsByCategory(req,resp);
                 break;
+            case "addProductToCart":
+                break;
             default:
                 showListFood(req,resp);
                 break;
         }
     }
 
-    private void getFoodsByCategory(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int category_id = Integer.parseInt(req.getParameter("category_id"));
-        List<Food> foodList = productService.getFoodListByCategory(category_id);
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String action = req.getParameter("action");
+        if (action == null) {
+            action = "";
+        }
+        switch (action) {
+            case "searchProduct":
+                searchProduct(req,resp);
+                break;
+        }
+    }
+
+    private void searchProduct(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String keyword = req.getParameter("keyword");
+        if (keyword == null) {
+            req.setAttribute("error", "Please enter a keyword");
+        }
+        List<Food> foodList = foodService.listFoodStoreByName(-1,keyword);
         req.setAttribute("foodList", foodList);
+        req.setAttribute("keyword", keyword);
         req.getRequestDispatcher("view/user/homeUser.jsp?page=foodsByCategory").forward(req, resp);
     }
 
+    private void getFoodsByCategory(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int category_id = Integer.parseInt(req.getParameter("category_id"));
+        List<Food> foodList = productService.getFoodListByCategory(category_id);
+            List<CategoryFood> categoryFoodList = categoryFoodService.listCategoryFood();
+            CategoryFood categoryFood = categoryFoodService.getCategoryFood(category_id);
+            req.setAttribute("category", categoryFood);
+            req.setAttribute("categoryFoodList", categoryFoodList);
+        req.setAttribute("foodList", foodList);
+        req.getRequestDispatcher("view/user/homeUser.jsp?page=foodsByCategory").forward(req, resp);
+    }
     private void showListFood(HttpServletRequest req, HttpServletResponse resp) {
         try{
             List<CategoryFood> categoryFoodList = categoryFoodService.listCategoryFood();

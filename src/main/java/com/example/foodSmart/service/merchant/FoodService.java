@@ -18,6 +18,7 @@ public class FoodService implements IFoodService {
     private static final String LIST_FOODS_IMAGE_QUERY = "select * from product_images where product_id = ?";
     private static final String LIST_FOODS_STORE_QUERY = "select * from products WHERE store_id = ? order by product_id desc";
     private static final String SEARCH_FOODS_STORE_QUERY = "SELECT * FROM products WHERE store_id = ? AND product_name LIKE ?";
+    private static final String SEARCH_FOODS_ALL_QUERY = "SELECT * FROM products WHERE product_name LIKE ?";
     private static final String GET_FOODS_QUERY = "SELECT p.product_id,p.product_name,p.price,p.stock_quantity,p.discount,p.store_id,pc.category_id\n" +
             "FROM Products p LEFT JOIN Products_Categories pc ON p.product_id = pc.product_id WHERE p.product_id = ?;";
     private static final  String DELETE_FOOD_IMAGE_QUERY = "DELETE FROM Product_Images WHERE image_id = ?";
@@ -325,10 +326,17 @@ public class FoodService implements IFoodService {
     @Override
     public List<Food> listFoodStoreByName(int store_id, String keyword) {
         List<Food> foodList = new ArrayList<>();
+        String query = (store_id == -1) ? SEARCH_FOODS_ALL_QUERY : SEARCH_FOODS_STORE_QUERY;
+
         try (Connection conn = ConnectDB.getConnection();
-             PreparedStatement pstm = conn.prepareStatement(SEARCH_FOODS_STORE_QUERY)) {
-            pstm.setInt(1, store_id);
-            pstm.setString(2,"%"+keyword+"%");
+             PreparedStatement pstm = conn.prepareStatement(query)) {
+            if (store_id != -1) {
+                pstm.setInt(1, store_id);
+                pstm.setString(2, "%" + keyword + "%");
+            } else {
+                pstm.setString(1, "%" + keyword + "%");
+            }
+
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
                 int product_id = rs.getInt("product_id");
@@ -336,6 +344,7 @@ public class FoodService implements IFoodService {
                 int price = rs.getInt("price");
                 int stock_quantity = rs.getInt("stock_quantity");
                 int discount = rs.getInt("discount");
+
                 List<FoodImages> foodImagesList = listFoodImageStore(product_id);
                 Food food = new Food(product_id, store_id, product_name, price, stock_quantity, discount, foodImagesList);
                 foodList.add(food);
@@ -345,6 +354,8 @@ public class FoodService implements IFoodService {
         }
         return foodList;
     }
+
+
 
 
 }

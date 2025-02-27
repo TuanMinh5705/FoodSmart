@@ -100,20 +100,20 @@ VALUES
 
 INSERT INTO Products_Orders (product_id, order_id, price_at_time, quantity) 
 VALUES 
-(1, 6, 50000, 5), -- Sản phẩm 1 bán được 5 lần trong đơn hàng 1
-(2, 7, 45000, 3), -- Sản phẩm 2 bán được 3 lần trong đơn hàng 1
-(1, 8, 50000, 10), -- Sản phẩm 1 bán được 10 lần trong đơn hàng 2 (bán chạy)
-(3, 9, 70000, 2), -- Sản phẩm 3 bán được 2 lần trong đơn hàng 2
-(4, 10, 60000, 1), -- Sản phẩm 4 bán được 1 lần trong đơn hàng 3
-(2, 6, 45000, 7), -- Sản phẩm 2 bán được 7 lần trong đơn hàng 4
-(5, 7, 80000, 4), -- Sản phẩm 5 bán được 4 lần trong đơn hàng 5
-(1, 6, 50000, 6); -- Sản phẩm 1 tiếp tục bán được 6 lần trong đơn hàng 5 (bán chạy)
+(1, 1, 50000, 5), -- Sản phẩm 1 bán được 5 lần trong đơn hàng 1
+(2, 1, 45000, 3), -- Sản phẩm 2 bán được 3 lần trong đơn hàng 1
+(1, 2, 50000, 10), -- Sản phẩm 1 bán được 10 lần trong đơn hàng 2 (bán chạy)
+(3, 2, 70000, 2), -- Sản phẩm 3 bán được 2 lần trong đơn hàng 2
+(4, 2, 60000, 1), -- Sản phẩm 4 bán được 1 lần trong đơn hàng 3
+(2, 2, 45000, 7), -- Sản phẩm 2 bán được 7 lần trong đơn hàng 4
+(5, 2, 80000, 4), -- Sản phẩm 5 bán được 4 lần trong đơn hàng 5
+(1, 3, 50000, 6); -- Sản phẩm 1 tiếp tục bán được 6 lần trong đơn hàng 5 (bán chạy)
 insert into products_categories(product_id,category_id) value
-(1,13),
-(2,13),
-(3,13),
-(4,13),
-(5,13),
-(6,13),(7,18),
-(8,18),
-(9,18),(10,18);
+(1,1),
+(2,1),
+(3,1),
+(4,1),
+(5,1),
+(6,1),(7,2),
+(8,2),
+(9,2),(10,2);

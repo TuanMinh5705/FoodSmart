@@ -20,12 +20,12 @@
 </head>
 <body class="bg-light">
 <div class="container mt-4">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb ">
-            <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/homeUser">Trang chủ</a></li>
-            <li class="breadcrumb-item active" aria-current="page">${food.product_name}</li>
-        </ol>
-    </nav>
+    <div class="text-sm text-gray-600 mt-4 ml-4">
+        <a href="/homeUser" class="hover:underline">Trang chủ</a> /
+        <c:if test="${not empty food.product_name}">
+            <span>${food.product_name}</span>
+        </c:if>
+    </div>
 
     <div class="row">
         <div class="col-md-7">

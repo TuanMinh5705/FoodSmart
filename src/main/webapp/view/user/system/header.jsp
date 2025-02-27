@@ -16,9 +16,11 @@
 
         <!-- Center: Search -->
         <div class="flex-1 mx-10 relative">
-            <input type="text" placeholder="Tìm kiếm món ăn hoặc nhà hàng"
-                   class="w-full p-2 pl-4 pr-10 rounded-lg border border-gray-300 shadow-sm focus:outline-none">
-            <i class="fas fa-search absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"></i>
+            <form action="/homeUser?action=searchProduct" method="post">
+                <input type="text" placeholder="Tìm kiếm món ăn hoặc nhà hàng" name="keyword"
+                       class="w-full p-2 pl-4 pr-10 rounded-lg border border-gray-300 shadow-sm focus:outline-none">
+                <i class="fas fa-search absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"></i>
+            </form>
         </div>
 
         <!-- Right: Account & Icons -->

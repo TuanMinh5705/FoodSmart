@@ -13,7 +13,7 @@
 <!-- Header -->
 <jsp:include page="system/header.jsp"></jsp:include>
 
-<main class="mt-40 mb-4">
+<main class="mt-[125px] mb-4">
     <c:choose>
 <%--        Thông tin tài khoản--%>
         <c:when test="${param.page == 'infoUser'}">
