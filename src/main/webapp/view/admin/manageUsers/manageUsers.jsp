@@ -29,8 +29,8 @@
         }
 
         .table img.rounded-circle {
-            width: 80px;
-            height: 80px;
+            width: 60px;
+            height: 60px;
             object-fit: cover;
         }
 
@@ -49,7 +49,7 @@
         <script>
             Swal.fire({
                 position: 'top-end',
-                icon: ${success == 'success' ? 'success' : },
+                icon: 'success',
                 title: '${success}',
                 showConfirmButton: false,
                 timer: 2000,
