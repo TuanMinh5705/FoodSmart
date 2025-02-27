@@ -16,6 +16,15 @@
 </head>
 <body>
 <div class="p-4">
+    <h3 class="text-2xl font-bold mt-4 flex items-center"> Cửa hàng nổi bật</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+ <c:forEach var="store" items="${storeList}">
+     <a href="/homeUser?action=showStore&store_id=${store.store_id}">
+         <img src="${pageContext.request.contextPath}/foodSmartImages/avatars/${store.avt_path}" alt="Ảnh đại diện cửa hàng">
+         <p>${store.name}</p>
+     </a>
+ </c:forEach>
+    </div>
     <h3 class="text-2xl font-bold mt-4 flex items-center">
         <i class="bi bi-fire text-red-500 text-3xl mr-2"></i>SẢN PHẨM BÁN CHẠY
     </h3>
@@ -39,7 +48,8 @@
                                      class="w-64 h-64 object-cover rounded mx-auto">
                             </c:if>
                                 <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <button class="bg-gray-200 text-gray-600 p-4 rounded-full hover:bg-red-500 hover:text-white">
+                                    <button class="bg-gray-200 text-gray-600 p-4 rounded-full hover:bg-red-500 hover:text-white"
+                                            onclick="addToCollection(${food.product_id})">
                                         <i class="bi bi-heart" title="Thêm vào bộ sưu tập"></i>
                                     </button>
                                     <button class="bg-gray-200 text-gray-600 p-4 rounded-full hover:bg-blue-500 hover:text-white"
@@ -106,7 +116,8 @@
                         </c:if>
                         <!-- Các icon hiển thị khi hover -->
                         <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <button class="bg-gray-200 text-gray-600 p-4 rounded-full hover:bg-red-500 hover:text-white">
+                            <button class="bg-gray-200 text-gray-600 p-4 rounded-full hover:bg-red-500 hover:text-white"
+                                    onclick="addToCollection(${food.product_id})">
                                 <i class="bi bi-heart" title="Thêm vào bộ sưu tập"></i>
                             </button>
                             <button class="bg-gray-200 text-gray-600 p-4 rounded-full hover:bg-blue-500 hover:text-white"

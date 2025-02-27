@@ -1,5 +1,6 @@
 package com.example.foodSmart.model.user;
 
+import com.example.foodSmart.model.AccountDetails;
 import com.example.foodSmart.model.admin.Shipper;
 
 import java.sql.Timestamp;
@@ -18,13 +19,14 @@ public class Order {
     private Timestamp orderDate;
     private String paymentMethod;
     private String paymentStatus;
-    private String shippingAddress;
+    private AccountDetails shippingInfo;
     private List<OrderItem> orderItems;
 
-    public Order() {}
+    public Order() {
+    }
 
     public Order(int orderId, int userId, int storeId, Shipper shipper, int voucherId, int couponId, String orderStatus,
-                 Timestamp shippingDate, Timestamp deliveryDate, Timestamp orderDate, String paymentMethod, String paymentStatus, String shippingAddress, List<OrderItem> orderItems) {
+                 Timestamp shippingDate, Timestamp deliveryDate, Timestamp orderDate, String paymentMethod, String paymentStatus, AccountDetails shippingInfo, List<OrderItem> orderItems) {
         this.orderId = orderId;
         this.userId = userId;
         this.storeId = storeId;
@@ -37,7 +39,7 @@ public class Order {
         this.orderDate = orderDate;
         this.paymentMethod = paymentMethod;
         this.paymentStatus = paymentStatus;
-        this.shippingAddress = shippingAddress;
+        this.shippingInfo = shippingInfo;
         this.orderItems = orderItems;
     }
 
@@ -137,12 +139,12 @@ public class Order {
         this.paymentStatus = paymentStatus;
     }
 
-    public String getShippingAddress() {
-        return shippingAddress;
+    public AccountDetails getShippingInfo() {
+        return shippingInfo;
     }
 
-    public void setShippingAddress(String shippingAddress) {
-        this.shippingAddress = shippingAddress;
+    public void setShippingInfo(AccountDetails shippingInfo) {
+        this.shippingInfo = shippingInfo;
     }
 
     public List<OrderItem> getOrderItems() {
@@ -168,7 +170,7 @@ public class Order {
                 ", orderDate=" + orderDate +
                 ", paymentMethod='" + paymentMethod + '\'' +
                 ", paymentStatus='" + paymentStatus + '\'' +
-                ", shippingAddress='" + shippingAddress + '\'' +
+                ", shippingInfo=" + shippingInfo +
                 ", orderItems=" + orderItems +
                 '}';
     }

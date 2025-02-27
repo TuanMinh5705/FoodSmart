@@ -67,10 +67,79 @@ IAccountService accountService = new AccountService();
             case "showStore" :
                 showStore(req,resp);
                 break;
+            case "showCollection" :
+                showCollection(req,resp);
+                break;
             default:
                 showListFood(req,resp);
                 break;
         }
+    }
+
+    private void showCollection(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        List<Food> foods = (List<Food>) session.getAttribute("collection");
+        if (foods == null) {
+            foods = new ArrayList<>();
+        }
+        req.setAttribute("foodList", foods);
+        req.getRequestDispatcher("view/user/homeUser.jsp?page=foodsByCategory").forward(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String action = req.getParameter("action");
+        if (action == null) {
+            action = "";
+        }
+        switch (action) {
+            case "searchProduct":
+                searchProduct(req, resp);
+                break;
+            case "addProductToCart":
+                addProductToCart(req, resp);
+                break;
+            case "deleteStore":
+                removeStoreFromCart(req, resp);
+                break;
+            case "deleteProduct":
+                removeProductFromCart(req, resp);
+                break;
+            case "orderProduct":
+                orderProduct(req, resp);
+                break;
+            case "updateCart":
+                updateCart(req,resp);
+                break;
+            case "payment" :
+                paymentOrder(req,resp);
+                break;
+            case "addProductToCollection":
+                addProductToCollection(req,resp);
+                break;
+        }
+    }
+
+    private void addProductToCollection(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        HttpSession session = req.getSession();
+        int productId = Integer.parseInt(req.getParameter("id"));
+        List<Food> collection = (List<Food>) session.getAttribute("collection");
+        if (collection == null) {
+            collection = new ArrayList<>();
+            session.setAttribute("collection", collection);
+        }
+
+        boolean exists = collection.stream().anyMatch(food -> food.getProduct_id() == productId);
+        if (!exists) {
+            Food food = foodService.getFoodByID(productId);
+            if (food != null) {
+                collection.add(food);
+            }
+        }
+
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        resp.getWriter().write("{\"success\": true, \"collectionCount\": " + collection.size() + "}");
     }
 
     private void showStore(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -96,7 +165,6 @@ IAccountService accountService = new AccountService();
         req.setAttribute("storeCategories", categoryList);
         req.getRequestDispatcher("view/user/homeUser.jsp?page=showStore").forward(req, resp);
     }
-
     private void showCartProduct(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
@@ -143,35 +211,22 @@ IAccountService accountService = new AccountService();
         req.setAttribute("storeData", storeData);
         req.getRequestDispatcher("view/user/homeUser.jsp?page=showCartProduct").forward(req, resp);
     }
+    private void paymentOrder(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        HttpSession session = req.getSession();
+        Order order = (Order) session.getAttribute("order");
+        Account account = (Account) session.getAttribute("loggedInAccount");
+        String addressParam = req.getParameter("address");
+        int addressShipping = (addressParam != null && !addressParam.isEmpty()) ? Integer.parseInt(addressParam) : 0;
+        AccountDetails accountDetails = accountService.getAccountDetailById(addressShipping,account.getAccountID());
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String action = req.getParameter("action");
-        if (action == null) {
-            action = "";
-        }
-        switch (action) {
-            case "searchProduct":
-                searchProduct(req, resp);
-                break;
-            case "addProductToCart":
-                addProductToCart(req, resp);
-                break;
-            case "deleteStore":
-                removeStoreFromCart(req, resp);
-                break;
-            case "deleteProduct":
-                removeProductFromCart(req, resp);
-                break;
-            case "orderProduct":
-                orderProduct(req, resp);
-                break;
-            case "updateCart":
-                updateCart(req,resp);
-                break;
-        }
+        String paymentMethod = req.getParameter("payment");
+        order.setShippingInfo(accountDetails);
+        order.setPaymentMethod(paymentMethod);
+        session = req.getSession(false);
+        if (session != null) session.removeAttribute("cart");
+        System.out.println(order);
+        resp.sendRedirect("/homeUser");
     }
-
     private void updateCart(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         int productId = Integer.parseInt(req.getParameter("productId"));
         int quantity = Integer.parseInt(req.getParameter("quantity"));
@@ -193,9 +248,6 @@ IAccountService accountService = new AccountService();
 
         resp.getWriter().write("Success");
     }
-
-
-
     private void orderProduct(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         int storeId = Integer.parseInt(req.getParameter("storeId"));
@@ -248,7 +300,7 @@ IAccountService accountService = new AccountService();
 
         order.setVoucherId(0);
         order.setCouponId(0);
-        order.setShippingAddress(null);
+        order.setShippingInfo(null);
         order.setPaymentMethod(null);
         order.setPaymentStatus(null);
         order.setShippingDate(null);
@@ -256,14 +308,7 @@ IAccountService accountService = new AccountService();
 
         order.setOrderItems(orderItems);
         session.setAttribute("order", order);
-
-        cart.removeIf(item -> item.getStoreId() == storeId);
-        if (cart.isEmpty()) {
-            session.removeAttribute("cart");
-        } else {
-            session.setAttribute("cart", cart);
-        }
-
+        session.setAttribute("cart", cart);
         List<AccountDetails> accountDetails = accountService.getAccountDetails(user.getAccountID());
         session.setAttribute("productMap", productMap);
         req.setAttribute("accountDetails", accountDetails);
@@ -363,7 +408,6 @@ IAccountService accountService = new AccountService();
             cart = new ArrayList<>();
             session.setAttribute("cart", cart);
         }
-
         boolean found = false;
         for (CartItem item : cart) {
             if (item.getProductId() == productId) {
@@ -372,11 +416,10 @@ IAccountService accountService = new AccountService();
                 break;
             }
         }
-
         if (!found) {
             cart.add(new CartItem(food.getStore_id(), productId, priceAtTime, quantity));
         }
-
+        req.setAttribute("cartCount", cart.size());
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
         resp.getWriter().write("{\"success\": true, \"cartCount\": " + cart.size() + "}");
