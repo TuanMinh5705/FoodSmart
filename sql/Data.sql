@@ -108,3 +108,12 @@ VALUES
 (2, 6, 45000, 7), -- Sản phẩm 2 bán được 7 lần trong đơn hàng 4
 (5, 7, 80000, 4), -- Sản phẩm 5 bán được 4 lần trong đơn hàng 5
 (1, 6, 50000, 6); -- Sản phẩm 1 tiếp tục bán được 6 lần trong đơn hàng 5 (bán chạy)
+insert into products_categories(product_id,category_id) value
+(1,13),
+(2,13),
+(3,13),
+(4,13),
+(5,13),
+(6,13),(7,18),
+(8,18),
+(9,18),(10,18);

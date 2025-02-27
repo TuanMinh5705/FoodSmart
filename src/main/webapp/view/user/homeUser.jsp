@@ -32,18 +32,12 @@
         <c:when test="${param.page == 'productDetail'}">
             <jsp:include page="product/productDetail.jsp"/>
         </c:when>
-        <c:otherwise>
-            <div class="bg-white flex flex-wrap justify-around items-center">
-                <c:forEach var="category" items="${categoryFoodList}">
-                    <div class="text-center space-y-2 mx-4">
-                        <img src="${pageContext.request.contextPath}/foodSmartImages/product/${category.avt_path}"
-                             alt="${category.category_name}"
-                             class="mx-auto w-[80px] h-[80px] object-fit object-contain">
-                        <p class="text-xl font-semibold">${category.category_name}</p>
-                    </div>
-                </c:forEach>
-            </div>
+        <c:when test="${param.page == 'foodsByCategory'}">
+            <jsp:include page="product/foodsByCategory.jsp"/>
+        </c:when>
 
+        <c:otherwise>
+            <jsp:include page="system/menu.jsp"></jsp:include>
             <!-- Banner -->
             <div class="relative mt-8">
                 <img src="https://nhathauxaydung24h.com/wp-content/uploads/2021/05/hinh-nen-powerpoint-am-thuc-3.jpg"

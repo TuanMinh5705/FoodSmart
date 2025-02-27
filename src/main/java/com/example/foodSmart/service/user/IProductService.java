@@ -9,4 +9,6 @@ public interface IProductService {
     List<Food> getFoodList();
     // Random 10 sản phẩm
     List<Food> getFoodListRandom();
+    // Hiển thị sản phẩm theo danh mục
+    List<Food> getFoodListByCategory(int category);
 }
