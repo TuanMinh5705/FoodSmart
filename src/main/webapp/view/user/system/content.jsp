@@ -19,7 +19,6 @@
     <h3 class="text-2xl font-bold mt-4 flex items-center">
         <i class="bi bi-fire text-red-500 text-3xl mr-2"></i>SẢN PHẨM BÁN CHẠY
     </h3>
-    <!-- Swiper Container -->
     <div class="swiper mySwiper mt-4">
         <div class="swiper-wrapper">
             <c:forEach var="food" items="${foodListHotSale}">
@@ -149,11 +148,9 @@
         </c:forEach>
     </div>
 
-    <!-- Bootstrap Icons (nếu chưa có) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 </div>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="/view/user/product/addToCart.js"></script>
 <script>

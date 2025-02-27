@@ -1,5 +1,7 @@
 package com.example.foodSmart.model.admin;
 
+import java.util.Objects;
+
 public class Merchant {
     private int store_id;
     private int merchant_id;
@@ -10,7 +12,18 @@ public class Merchant {
     private String avt_path;
     private  boolean store_type;
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Merchant merchant = (Merchant) obj;
+        return store_id == merchant.store_id;
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(store_id);
+    }
     public Merchant() {
     }
 

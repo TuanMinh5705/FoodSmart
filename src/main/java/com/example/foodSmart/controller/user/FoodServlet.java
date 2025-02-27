@@ -56,10 +56,37 @@ IFoodService foodService = new FoodService();
             case "showCartProduct":
                 showCartProduct(req, resp);
                 break;
+            case "showStore" :
+                showStore(req,resp);
+                break;
             default:
                 showListFood(req,resp);
                 break;
         }
+    }
+
+    private void showStore(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int store_id = Integer.parseInt(req.getParameter("store_id"));
+        Merchant merchant = merchantService.getMerchantById(store_id);
+        List<Food> foodList = foodService.listFoodStore(store_id);
+
+        Map<Integer, List<Food>> categoryFoodMap = new HashMap<>();
+
+        for (Food food : foodList) {
+            int categoryId = food.getCategory_id();
+            categoryFoodMap.putIfAbsent(categoryId, new ArrayList<>());
+            categoryFoodMap.get(categoryId).add(food);
+        }
+        List<CategoryFood> categoryList =foodService.listCategoriesFoodStore(store_id);
+        for (CategoryFood category : categoryList) {
+            int categoryId = category.getCategory_id();
+            if (categoryFoodMap.containsKey(categoryId)) {
+                category.setFoodList(categoryFoodMap.get(categoryId));
+            }
+        }
+        req.setAttribute("store", merchant);
+        req.setAttribute("storeCategories", categoryList);
+        req.getRequestDispatcher("view/user/homeUser.jsp?page=showStore").forward(req, resp);
     }
 
     private void showCartProduct(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -125,7 +152,49 @@ IFoodService foodService = new FoodService();
             case "deleteStore" :
                 removeStoreFromCart(req,resp);
                 break;
+            case "deleteProduct" :
+                removeProductFromCart(req,resp);
+                break;
+//            case "updateQuantityProduct" :
+//                updateQuantityProduct(req,resp);
+//                break;
         }
+    }
+
+    //    private void updateQuantityProduct(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+//        HttpSession session = req.getSession();
+//        int productId = Integer.parseInt(req.getParameter("productId"));
+//        int quantity = Integer.parseInt(req.getParameter("quantity"));
+//        List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
+//        if (cart != null) {
+//            for (CartItem item : cart) {
+//                if (item.getProductId() == productId) {
+//                    item.setQuantity(quantity);
+//                    break;
+//                }
+//            }
+//        }
+//        session.setAttribute("cart", cart);
+//
+//        double totalAmount = cart.stream().mapToDouble(item -> item.getPriceAtTime() * item.getQuantity()).sum();
+//        resp.setContentType("application/json");
+//        resp.getWriter().write("{\"success\": true, \"totalAmount\": " + totalAmount + "}");
+//    }
+    private void removeProductFromCart(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        HttpSession session = req.getSession();
+        List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
+        int productId = Integer.parseInt(req.getParameter("id"));
+
+        if (cart != null) {
+            cart = cart.stream()
+                    .filter(item -> item.getProductId() != productId)
+                    .collect(Collectors.toList());
+            session.setAttribute("cart", cart);
+        }
+
+        resp.setContentType("text/plain");
+        resp.setCharacterEncoding("UTF-8");
+        resp.getWriter().write("success");
     }
 
     private void removeStoreFromCart(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -230,6 +299,8 @@ IFoodService foodService = new FoodService();
             req.setAttribute("error", "Please enter a keyword");
         }
         List<Food> foodList = foodService.listFoodStoreByName(-1,keyword);
+        List<Merchant> storeList = merchantService.searchMerchant(keyword);
+        req.setAttribute("storeList", storeList);
         req.setAttribute("foodList", foodList);
         req.setAttribute("keyword", keyword);
         req.getRequestDispatcher("view/user/homeUser.jsp?page=foodsByCategory").forward(req, resp);
@@ -239,6 +310,15 @@ IFoodService foodService = new FoodService();
         List<Food> foodList = productService.getFoodListByCategory(category_id);
             List<CategoryFood> categoryFoodList = categoryFoodService.listCategoryFood();
             CategoryFood categoryFood = categoryFoodService.getCategoryFood(category_id);
+
+        Set<Merchant> storeSet = new HashSet<>();
+        for (Food food : foodList) {
+            Merchant merchant = merchantService.getMerchantById(food.getStore_id());
+            storeSet.add(merchant);
+        }
+
+        List<Merchant> storeList = new ArrayList<>(storeSet);
+        req.setAttribute("storeList", storeList);
             req.setAttribute("category", categoryFood);
             req.setAttribute("categoryFoodList", categoryFoodList);
         req.setAttribute("foodList", foodList);
