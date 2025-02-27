@@ -23,7 +23,7 @@
 </head>
 <body class="bg-light">
 <div class="container mt-4">
-    <h2 class="text-center mb-4 font-weight-bold">Quản lý cửa hàng</h2>
+    <h2 class="text-center mb-4 text-primary">Quản lý cửa hàng</h2>
 
     <script>
         <c:if test="${not empty success}">
@@ -78,9 +78,22 @@
                 <li><a class="dropdown-item" href="#" onclick="setStatusFilter('locked')">Khóa tài khoản</a></li>
             </ul>
         </form>
+<<<<<<< HEAD
 
+        <form method="post" action="/manageMerchants?action=searchWithNameMerchant" id="searchForm"
+              class="d-flex me-2">
+            <input name="keyword" type="text" class="form-control me-2" placeholder="Tìm kiếm..."
+                   value="${searchKeyword}" oninput="startTimer()">
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-search"></i>
+            </button>
+        </form>
 
-
+        <a href="/manageMerchants?action=addMerchantForm" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Thêm cửa hàng
+        </a>
+=======
+>>>>>>> 00d19a5469abf71f0152c903e77184ae13d2c3e8
     </div>
 
     <div class="card shadow rounded">
@@ -116,11 +129,19 @@
                                 <td>${merchant.store_address}</td>
                                 <td>${merchant.contact_number}</td>
                                 <td>
-
+<<<<<<< HEAD
+                                    <a href="/manageMerchants?action=updateMerchantForm&store_id=${merchant.store_id}"
+                                       class="btn btn-warning btn-sm">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                    <a href="/manageMerchants?action=detail&store_id=${merchant.store_id}"
+                                       class="btn btn-info btn-sm">
+=======
                                     <a href="/manageMerchants?action=updateMerchantForm&store_id=${merchant.store_id}" class="btn btn-warning btn-sm" title="Chỉnh sửa">
                                         <i class="bi bi-pencil-square"></i>
                                     </a>
                                     <a href="/manageMerchants?action=detail&store_id=${merchant.store_id}" class="btn btn-info btn-sm" title="Chi tiết">
+>>>>>>> 00d19a5469abf71f0152c903e77184ae13d2c3e8
                                         <i class="bi bi-info-circle"></i>
                                     </a>
                                 </td>

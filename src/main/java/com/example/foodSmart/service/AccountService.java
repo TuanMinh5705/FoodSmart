@@ -16,12 +16,15 @@ public class AccountService implements IAccountService {
     private static final String ACCOUNT_BY_USERNAME_QUERY = "SELECT * FROM Account WHERE username = ?";
     private static final String AUTHENTICATE_REGISTER_QUERY = "CALL register_account(?, ?,?, ?, ?,?);";
     private static final String RESET_PASSWORD_QUERY = "UPDATE Account SET password = ? WHERE username = ?";
-    private static final String LIST_ACCOUNTS_QUERY = "SELECT a.*, r.role_name FROM Account a JOIN Roles r ON a.role_id = r.role_id ORDER BY a.account_id DESC ";
+    private static final String LIST_ACCOUNTS_QUERY = "SELECT a.*, r.role_name FROM Account a JOIN Roles r ON a.role_id = r.role_id WHERE a.role_id != 1 ORDER BY a.account_id DESC ";
     private static final String UPDATE_ACCOUNT_QUERY = "CALL updateAccountInfo(?,?,?,?,?,?)";
     private static final String UPDATE_ACCOUNT_DETAILS_QUERY = "UPDATE Account_Details SET address = ?, phonenumber = ?, is_default = ? WHERE account_details_id = ?";
     private static final String ADD_ACCOUNT_DETAILS_QUERY = "INSERT INTO Account_Details(user_id,address,phonenumber,is_default) VALUES(?, ?, ?, ?)";
     private static final String DELETE_ACCOUNT_DETAILS_QUERY = "DELETE FROM Account_Details WHERE account_details_id = ?";
     private static final String LIST_ACCOUNT_BY_USERNAME_QUERY = "SELECT a.*, r.role_name FROM Account a JOIN Roles r ON a.role_id = r.role_id WHERE a.username LIKE ?";
+    private static final String GET_ACCOUNT_DETAILS_BY_ID = "SELECT * FROM Account_Details WHERE account_details_id = ?";
+
+    private static final String UPDATE_DEFAULT_QUERY = "UPDATE Account_Details SET is_default = false WHERE account_details_id = ?";
 
     @Override
     public List<AccountDetails> getAccountDetails(int accountID) {
@@ -36,7 +39,7 @@ public class AccountService implements IAccountService {
                 String address = rs.getString("address");
                 String phonenumber = rs.getString("phonenumber");
                 boolean isDefault = rs.getBoolean("is_default");
-                AccountDetails accountDetail = new AccountDetails(accountDetailID, phonenumber, address, isDefault, accountID);
+                AccountDetails accountDetail = new AccountDetails(accountDetailID, address, phonenumber, isDefault, accountID);
                 accountDetails.add(accountDetail);
             }
         } catch (SQLException e) {
@@ -175,6 +178,7 @@ public class AccountService implements IAccountService {
             return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
+
         }
     }
 
@@ -225,7 +229,7 @@ public class AccountService implements IAccountService {
         List<Account> accounts = new ArrayList<>();
         try (Connection conn = ConnectDB.getConnection();
              PreparedStatement prep = conn.prepareStatement(LIST_ACCOUNT_BY_USERNAME_QUERY)) {
-            prep.setString(1, "%"+keyword+"%");
+            prep.setString(1, "%" + keyword + "%");
             ResultSet rs = prep.executeQuery();
             while (rs.next()) {
                 int accountID = rs.getInt("account_id");
@@ -242,6 +246,44 @@ public class AccountService implements IAccountService {
         }
         return accounts;
     }
+
+    @Override
+    public AccountDetails getAccountDetailById(int addressId, int accountID) {
+        try (Connection conn = ConnectDB.getConnection();
+             PreparedStatement prep = conn.prepareStatement(GET_ACCOUNT_DETAILS_BY_ID)) {
+            prep.setInt(1, addressId);
+            ResultSet rs = prep.executeQuery();
+            if (rs.next()) {
+                int accountDetailID = rs.getInt("account_details_id");
+                String address = rs.getString("address");
+                String phonenumber = rs.getString("phonenumber");
+                boolean isDefault = rs.getBoolean("is_default");
+                AccountDetails accountDetail = new AccountDetails(accountID, accountDetailID, address, phonenumber, isDefault);
+                return accountDetail;
+            }
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
+    @Override
+    public void resetDefaultAddress(int accountId) {
+        try (Connection conn = ConnectDB.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(UPDATE_DEFAULT_QUERY)) {
+            stmt.setInt(1, accountId);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+
+
 }
 
 

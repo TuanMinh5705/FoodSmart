@@ -67,6 +67,7 @@
         }
     });
 
+    // Toggle hiển thị mật khẩu (phần script hiện có)
     document.getElementById("togglePassword").addEventListener("click", function () {
         var passwordInput = document.getElementById("passwordInput");
         var icon = this.querySelector("i");

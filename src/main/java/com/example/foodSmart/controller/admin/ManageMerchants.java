@@ -131,7 +131,6 @@ public class ManageMerchants extends HttpServlet {
             fileBannerPart.write(uploadPath + File.separator + banner_path);
         }
 
-
         String storeTypeParam = req.getParameter("store_type");
         boolean store_type = Boolean.parseBoolean(storeTypeParam);
 

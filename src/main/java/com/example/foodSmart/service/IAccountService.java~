@@ -47,4 +47,6 @@ public interface IAccountService {
     void resetDefaultAddress(int accountId);
 
 
+
+    boolean setDefaultAddress(int accountDetailID, int user_id);
 }

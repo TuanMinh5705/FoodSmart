@@ -49,7 +49,7 @@
         <script>
             Swal.fire({
                 position: 'top-end',
-                icon: 'success',
+                icon: ${success == 'success' ? 'success' : },
                 title: '${success}',
                 showConfirmButton: false,
                 timer: 2000,
