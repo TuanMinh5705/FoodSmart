@@ -43,9 +43,11 @@
 
                     <!-- Nút đặt hàng -->
                     <div class="col-auto">
-                        <button class="btn btn-warning btn-sm">
-                            <i class="fa fa-shopping-cart"></i> Đặt hàng
-                        </button>
+                        <a href="/homeUser?action=showCartProduct&storeId=${group.storeId}">
+                            <button class="btn btn-warning btn-sm">
+                                <i class="fa fa-shopping-cart"></i> Đặt hàng
+                            </button>
+                        </a>
                     </div>
 
                     <!-- Nút xóa -->

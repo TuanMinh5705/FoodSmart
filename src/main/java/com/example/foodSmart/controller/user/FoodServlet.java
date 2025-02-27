@@ -3,6 +3,7 @@ package com.example.foodSmart.controller.user;
 import com.example.foodSmart.model.admin.CategoryFood;
 import com.example.foodSmart.model.admin.Merchant;
 import com.example.foodSmart.model.merchant.Food;
+import com.example.foodSmart.model.merchant.FoodImages;
 import com.example.foodSmart.model.user.CartItem;
 import com.example.foodSmart.service.admin.CategoryFoodService;
 import com.example.foodSmart.service.admin.ICategoryFoodService;
@@ -52,11 +53,62 @@ IFoodService foodService = new FoodService();
             case "showCartStore" :
                 showCartStore(req,resp);
                 break;
+            case "showCartProduct":
+                showCartProduct(req, resp);
+                break;
             default:
                 showListFood(req,resp);
                 break;
         }
     }
+
+    private void showCartProduct(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
+
+        String storeIdToShow = req.getParameter("storeId");
+        int storeId = Integer.parseInt(storeIdToShow);
+        Merchant merchant = merchantService.getMerchantById(storeId);
+
+        Map<String, Object> storeData = new HashMap<>();
+        storeData.put("storeId", storeIdToShow);
+        storeData.put("storeName", (merchant != null) ? merchant.getStore_name() : "Không xác định");
+        storeData.put("storeLogo",
+                (merchant != null && merchant.getAvt_path() != null)
+                        ? merchant.getAvt_path()
+                        : "https://via.placeholder.com/80");
+
+        List<Map<String, Object>> items = new ArrayList<>();
+        int totalAmount = 0;
+
+
+        if (cart != null && !cart.isEmpty()) {
+            for (CartItem cartItem : cart) {
+                if (cartItem.getStoreId() == storeId) {
+                    Map<String, Object> itemData = new HashMap<>();
+                    itemData.put("productId", cartItem.getProductId());
+                    itemData.put("priceAtTime", cartItem.getPriceAtTime());
+                    itemData.put("quantity", cartItem.getQuantity());
+                    Food food = foodService.getFoodByID(cartItem.getProductId());
+                    itemData.put("productName", food.getProduct_name());
+                    for (FoodImages foodImage : food.getList_food_images()) {
+                        if(foodImage.isIs_primary()){
+                            String imagePath = foodImage.getImage_path();
+                            itemData.put("productImage", imagePath);
+                        }
+                    }
+                    items.add(itemData);
+                    totalAmount += cartItem.getPriceAtTime() * cartItem.getQuantity();
+                }
+            }
+        }
+        storeData.put("items", items);
+        storeData.put("totalAmount", totalAmount);
+        System.out.println(storeData);
+        req.setAttribute("storeData", storeData);
+        req.getRequestDispatcher("view/user/homeUser.jsp?page=showCartProduct").forward(req, resp);
+    }
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
