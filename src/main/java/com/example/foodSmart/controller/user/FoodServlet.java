@@ -1,10 +1,16 @@
 package com.example.foodSmart.controller.user;
 
+import com.example.foodSmart.model.Account;
+import com.example.foodSmart.model.AccountDetails;
 import com.example.foodSmart.model.admin.CategoryFood;
 import com.example.foodSmart.model.admin.Merchant;
 import com.example.foodSmart.model.merchant.Food;
 import com.example.foodSmart.model.merchant.FoodImages;
 import com.example.foodSmart.model.user.CartItem;
+import com.example.foodSmart.model.user.Order;
+import com.example.foodSmart.model.user.OrderItem;
+import com.example.foodSmart.service.AccountService;
+import com.example.foodSmart.service.IAccountService;
 import com.example.foodSmart.service.admin.CategoryFoodService;
 import com.example.foodSmart.service.admin.ICategoryFoodService;
 import com.example.foodSmart.service.admin.IMerchantService;
@@ -21,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -29,6 +36,7 @@ public class FoodServlet extends HttpServlet {
 IProductService productService = new ProductService();
 ICategoryFoodService categoryFoodService = new CategoryFoodService();
 IFoodService foodService = new FoodService();
+IAccountService accountService = new AccountService();
     IMerchantService merchantService = new MerchantService();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -144,42 +152,124 @@ IFoodService foodService = new FoodService();
         }
         switch (action) {
             case "searchProduct":
-                searchProduct(req,resp);
+                searchProduct(req, resp);
                 break;
             case "addProductToCart":
-                addProductToCart(req,resp);
+                addProductToCart(req, resp);
                 break;
-            case "deleteStore" :
-                removeStoreFromCart(req,resp);
+            case "deleteStore":
+                removeStoreFromCart(req, resp);
                 break;
-            case "deleteProduct" :
-                removeProductFromCart(req,resp);
+            case "deleteProduct":
+                removeProductFromCart(req, resp);
                 break;
-//            case "updateQuantityProduct" :
-//                updateQuantityProduct(req,resp);
-//                break;
+            case "orderProduct":
+                orderProduct(req, resp);
+                break;
+            case "updateCart":
+                updateCart(req,resp);
+                break;
         }
     }
 
-    //    private void updateQuantityProduct(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-//        HttpSession session = req.getSession();
-//        int productId = Integer.parseInt(req.getParameter("productId"));
-//        int quantity = Integer.parseInt(req.getParameter("quantity"));
-//        List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
-//        if (cart != null) {
-//            for (CartItem item : cart) {
-//                if (item.getProductId() == productId) {
-//                    item.setQuantity(quantity);
-//                    break;
-//                }
-//            }
-//        }
-//        session.setAttribute("cart", cart);
-//
-//        double totalAmount = cart.stream().mapToDouble(item -> item.getPriceAtTime() * item.getQuantity()).sum();
-//        resp.setContentType("application/json");
-//        resp.getWriter().write("{\"success\": true, \"totalAmount\": " + totalAmount + "}");
-//    }
+    private void updateCart(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        int productId = Integer.parseInt(req.getParameter("productId"));
+        int quantity = Integer.parseInt(req.getParameter("quantity"));
+
+
+        HttpSession session = req.getSession();
+        List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
+
+        if (cart != null) {
+            for (CartItem item : cart) {
+                if (item.getProductId() == productId) {
+                    item.setQuantity(quantity);
+                    break;
+                }
+            }
+        }
+
+        session.setAttribute("cart", cart);
+
+        resp.getWriter().write("Success");
+    }
+
+
+
+    private void orderProduct(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        int storeId = Integer.parseInt(req.getParameter("storeId"));
+        List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
+        if (cart == null || cart.isEmpty()) {
+            resp.sendRedirect("view/user/homeUser.jsp?page=cart_store");
+            return;
+        }
+
+        List<CartItem> storeCartItems = new ArrayList<>();
+        for (CartItem item : cart) {
+            if (item.getStoreId() == storeId) {
+                storeCartItems.add(item);
+            }
+        }
+        Set<Integer> productIds = new HashSet<>();
+        List<OrderItem> orderItems = new ArrayList<>();
+        int totalAmount = 0;
+        for (CartItem cartItem : storeCartItems) {
+            OrderItem oi = new OrderItem();
+            oi.setProductId(cartItem.getProductId());
+            oi.setPriceAtTime(cartItem.getPriceAtTime());
+            oi.setQuantity(cartItem.getQuantity());
+            totalAmount += cartItem.getPriceAtTime() * cartItem.getQuantity();
+            orderItems.add(oi);
+            productIds.add(cartItem.getProductId());
+        }
+        Map<Integer, Food> productMap = new HashMap<>();
+        for (Integer id : productIds) {
+            Food food = foodService.getFoodByID(id);
+            if (food != null) {
+                productMap.put(id, food);
+            }
+        }
+        int shipping_cost = 25000;
+        int discount1 = 5000;
+        int discount2 = 5000;
+        totalAmount = totalAmount + shipping_cost - discount1 - discount2;
+
+        Order order = new Order();
+        order.setStoreId(storeId);
+        Account user = (Account) session.getAttribute("loggedInAccount");
+        if (user != null) {
+            order.setUserId(user.getAccountID());
+        }
+
+        order.setOrderStatus("Chờ xác nhận");
+        order.setOrderDate(new Timestamp(System.currentTimeMillis()));
+        order.setShipper(null);
+
+        order.setVoucherId(0);
+        order.setCouponId(0);
+        order.setShippingAddress(null);
+        order.setPaymentMethod(null);
+        order.setPaymentStatus(null);
+        order.setShippingDate(null);
+        order.setDeliveryDate(null);
+
+        order.setOrderItems(orderItems);
+        session.setAttribute("order", order);
+
+        cart.removeIf(item -> item.getStoreId() == storeId);
+        if (cart.isEmpty()) {
+            session.removeAttribute("cart");
+        } else {
+            session.setAttribute("cart", cart);
+        }
+
+        List<AccountDetails> accountDetails = accountService.getAccountDetails(user.getAccountID());
+        session.setAttribute("productMap", productMap);
+        req.setAttribute("accountDetails", accountDetails);
+        req.setAttribute("totalAmount", totalAmount);
+        req.getRequestDispatcher("view/user/homeUser.jsp?page=orderProduct").forward(req, resp);
+    }
     private void removeProductFromCart(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession();
         List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
@@ -196,7 +286,6 @@ IFoodService foodService = new FoodService();
         resp.setCharacterEncoding("UTF-8");
         resp.getWriter().write("success");
     }
-
     private void removeStoreFromCart(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession();
         List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");

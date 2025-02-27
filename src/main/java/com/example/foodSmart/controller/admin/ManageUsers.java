@@ -74,7 +74,10 @@ public class ManageUsers extends HttpServlet {
         String uploadPath = "C:\\foodSmartImages\\avatars";
         File uploadDir = new File(uploadPath);
         if (!uploadDir.exists()) uploadDir.mkdirs();
-        filePart.write(uploadPath + File.separator + avatarPath);
+        File uploadFile = new File(uploadPath, avatarPath);
+        if(!uploadFile.exists()) {
+            filePart.write(uploadPath + File.separator + avatarPath);
+        }
 
         String username = req.getParameter("username"),
                 password = req.getParameter("password"),

@@ -17,6 +17,7 @@
 </div>
 <div class="max-w-6xl mx-auto p-4">
     <c:if test="${not empty storeData}">
+        <form action="/homeUser?action=orderProduct&storeId=${storeData.storeId}" method="post">
         <div class="flex items-center justify-between mb-6 bg-white p-4 rounded shadow">
             <div class="flex items-center">
                 <img alt="Restaurant logo"
@@ -55,10 +56,14 @@
                             <td class="py-4 text-gray-600"><fmt:formatNumber pattern="#,###" value="${item.priceAtTime}"/> đ</td>
                             <td class="py-4">
                                 <div class="flex items-center space-x-2">
-                                    <button id="decrease_${item.productId}" class="btn btn-outline-secondary">-</button>
+                                    <button id="decrease_${item.productId}" type="button"
+                                            class="btn btn-outline-secondary">-
+                                    </button>
                                     <input id="quantity_${item.productId}" type="number" value="${item.quantity}"
-                                           class="form-control text-center mx-2" style="width: 60px;" min="1">
-                                    <button id="increase_${item.productId}" class="btn btn-outline-secondary">+</button>
+                                           class="form-control text-center mx-2" style="width: 60px;" min="1" step="1">
+                                    <button id="increase_${item.productId}" type="button"
+                                            class="btn btn-outline-secondary">+
+                                    </button>
                                 </div>
                             </td>
                             <td class="py-4 text-gray-600" id="total-${item.productId}">
@@ -83,6 +88,7 @@
                                     const quantity = parseInt(quantityInput.value) || 1;
                                     totalCell.textContent = (priceAtTime * quantity).toLocaleString('vi-VN') + ' đ';
                                     updateOrderTotal();
+                                    updateProductQuantity(${item.productId}, quantity);
                                 };
 
                                 increaseBtn.addEventListener('click', () => {
@@ -99,6 +105,18 @@
 
                                 quantityInput.addEventListener('input', updateTotal);
                             })();
+
+                            function updateProductQuantity(productId, quantity) {
+                                console.log('Updating product quantity:', productId, quantity);
+                                const xhr = new XMLHttpRequest();
+                                xhr.open('POST', '/homeUser?action=updateCart', true);
+                                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                                xhr.onreadystatechange = function () {
+                                    if (xhr.readyState == 4 && xhr.status == 200) {
+                                        console.log('Product quantity updated successfully');
+                                    }
+                                };
+                                xhr.send('productId=' + productId + '&quantity=' + quantity);}
                         </script>
                     </c:forEach>
                     </tbody>
@@ -109,7 +127,7 @@
                 <h2 class="text-lg font-semibold mb-4 text-gray-800">Tổng đơn hàng</h2>
                 <div class="mb-2 flex justify-between text-gray-700">
                     <span>Tổng phụ :</span>
-                    <span id="subtotal"><fmt:formatNumber pattern="#,###" value ="${storeData.totalAmount}"/>đ</span>
+                    <span id="subtotal"><fmt:formatNumber pattern="#,###" value="${storeData.totalAmount}"/>đ</span>
                 </div>
                 <div class="mb-2 flex justify-between text-gray-700">
                     <span>Phí áp dụng :</span>
@@ -136,18 +154,9 @@
                     <span>Tổng :</span>
                     <span id="total"><fmt:formatNumber pattern="#,###" value="${storeData.totalAmount + 25000 - 5000 - 5000}"/> đ</span>
                 </div>
-                <div class="mb-4">
-                    <span class="block mb-2 text-gray-700 font-medium">Chọn đối tác vận chuyển :</span>
-                    <div class="flex items-center space-x-2 mb-2">
-                        <input class="mr-1" name="shipping" type="radio"/>
-                        <span>BeShip</span>
-                    </div>
-                    <div class="flex items-center space-x-2">
-                        <input class="mr-1" name="shipping" type="radio"/>
-                        <span>GrapShip</span>
-                    </div>
-                </div>
-                <button class="w-full px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-md font-semibold transition-colors duration-200 shadow-md">
+
+                <button type="submit"
+                        class="w-full px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-md font-semibold transition-colors duration-200 shadow-md">
                     Tiến hành đặt hàng
                 </button>
             </div>
@@ -169,8 +178,11 @@
                 }
             </script>
         </div>
+        </form>
     </c:if>
     <jsp:include page="../../admin/system/modalConfirmDelete.jsp" />
 </div>
+
+
 </body>
 </html>

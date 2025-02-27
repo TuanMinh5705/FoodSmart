@@ -47,9 +47,8 @@ public class Merchant {
         this.avt_path = avt_path;
         this.store_type = store_type;
     }
-
-    public Merchant(String store_name, String store_address, String contact_number, String banner_path, String avt_path, boolean store_type) {
-
+    public Merchant(String test,int merchant_id, String store_name, String store_address, String contact_number, String banner_path, String avt_path, boolean store_type) {
+        this.merchant_id = merchant_id;
         this.store_name = store_name;
         this.store_address = store_address;
         this.contact_number = contact_number;
@@ -57,6 +56,16 @@ public class Merchant {
         this.avt_path = avt_path;
         this.store_type = store_type;
     }
+
+    public Merchant(String store_name, String store_address, String contact_number, String banner_path, String avt_path, boolean store_type) {
+        this.store_name = store_name;
+        this.store_address = store_address;
+        this.contact_number = contact_number;
+        this.banner_path = banner_path;
+        this.avt_path = avt_path;
+        this.store_type = store_type;
+    }
+
 
     public int getStore_id() {
         return store_id;
