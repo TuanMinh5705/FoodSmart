@@ -47,10 +47,9 @@
                     <button class="bg-gray-200 text-gray-600 p-4 rounded-full hover:bg-red-500 hover:text-white">
                         <i class="bi bi-heart" title="Thêm vào bộ sưu tập"></i>
                     </button>
-                    <button class="bg-gray-200 text-gray-600 p-4 rounded-full hover:bg-blue-500 hover:text-white">
-                        <a href="/homeUser?action=addProductToCart&id=${food.product_id}">
-                            <i class="bi bi-cart" title="Thêm vào giỏ hàng"></i>
-                        </a>
+                    <button class="bg-gray-200 text-gray-600 p-4 rounded-full hover:bg-blue-500 hover:text-white"
+                            onclick="addToCart(${food.product_id}, ${food.price})">
+                        <i class="bi bi-cart" title="Thêm vào giỏ hàng"></i>
                     </button>
                     <button class="bg-gray-200 text-gray-600 p-4 rounded-full hover:bg-green-500 hover:text-white">
                         <a href="/homeUser?action=showFoodDetail&id=${food.product_id}"><i
@@ -86,7 +85,8 @@
         </div>
     </c:forEach>
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/view/user/product/addToCart.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 
 </body>

@@ -89,19 +89,40 @@
             </div>
 
             <div class="my-3 d-flex align-items-center">
-                <button id="decrease" class="btn btn-outline-secondary">-</button>
-                <input id="quantity" type="number" value="1" class="form-control text-center mx-2" style="width: 60px;" min="1" max="${food.stock_quantity}">
-                <button id="increase" class="btn btn-outline-secondary">+</button>
+                <button id="decrease" class="btn btn-outline-secondary" onclick="changeQuantity(${food.product_id}, -1)">-</button>
+                <input id="quantity_${food.product_id}" type="number" value="1" class="form-control text-center mx-2" style="width: 60px;" min="1" max="${food.stock_quantity}">
+                <button id="increase" class="btn btn-outline-secondary" onclick="changeQuantity(${food.product_id}, 1)">+</button>
             </div>
 
             <div class="d-flex gap-3">
-                <button class="btn btn-warning text-dark">
+                <button class="btn btn-warning text-dark" onclick="addToCart(${food.product_id}, ${food.price}, getQuantity(${food.product_id}))">
                     <i class="fas fa-cart-plus"></i> Thêm vào giỏ hàng
                 </button>
+
                 <button class="btn btn-outline-dark">
                     <i class="fas fa-bolt"></i> Mua ngay
                 </button>
             </div>
+
+            <script>
+                function getQuantity(productId) {
+                    const input = document.querySelector(`#quantity_${productId}`);
+                    return input ? parseInt(input.value, 10) : 1;
+                }
+
+                function changeQuantity(productId, delta) {
+                    const input = document.querySelector(`#quantity_${productId}`);
+                    if (input) {
+                        let currentValue = parseInt(input.value, 10) || 1;
+                        let newValue = currentValue + delta;
+                        const max = parseInt(input.max, 10) || Infinity;
+                        if (newValue >= 1 && newValue <= max) {
+                            input.value = newValue;
+                        }
+                    }
+                }
+            </script>
+
 
             <h2 class="h5 mt-4">Mô tả chi tiết sản phẩm</h2>
             <ul>
@@ -120,13 +141,14 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/view/user/product/addToCart.js"></script>
 <script>
     function changeMainImage(imagePath) {
         document.getElementById('mainImage').src = imagePath;
     }
 
 
-        const quantityInput = document.getElementById('quantity');
+        const quantityInput = document.getElementById('quantity_${food.product_id}');
         const increaseBtn = document.getElementById('increase');
         const decreaseBtn = document.getElementById('decrease');
 
@@ -141,5 +163,6 @@
     }
     });
 </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>
