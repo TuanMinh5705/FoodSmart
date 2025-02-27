@@ -36,6 +36,11 @@
             <jsp:include page="product/foodsByCategory.jsp"/>
         </c:when>
 
+
+        <c:when test="${param.page == 'cart_store'}">
+            <jsp:include page="cart/cart_store.jsp"/>
+        </c:when>
+
         <c:otherwise>
             <jsp:include page="system/menu.jsp"></jsp:include>
             <!-- Banner -->
