@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <header class="bg-yellow-400 fixed top-0 left-0 w-full z-50 shadow-md">
     <!-- Xoá max-w-7xl mx-auto, thay bằng w-full + px-4/px-6 -->

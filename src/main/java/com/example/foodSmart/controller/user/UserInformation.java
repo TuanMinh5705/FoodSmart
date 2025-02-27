@@ -162,7 +162,6 @@ public class UserInformation extends HttpServlet {
             req.getSession().setAttribute("success", "Cập nhật thông tin người dùng thành công!");
         }
         showInfoUser(req,resp);
-        req.getRequestDispatcher("/view/user/homeUser.jsp?page=infoUser").forward(req, resp);
 
     }
 

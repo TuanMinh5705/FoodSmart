@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="vi">
@@ -7,33 +9,89 @@
     <title>Chi tiết sản phẩm</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        #mainImage {
+            width: 100%;
+            height: 500px;
+            object-fit: contain;
+            object-position: center;
+        }
+    </style>
 </head>
 <body class="bg-light">
 <div class="container mt-4">
-    <a href="#" class="text-decoration-none text-dark mb-3 d-inline-block">
-        <i class="fas fa-arrow-left"></i> Chi tiết sản phẩm
-    </a>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb ">
+            <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/homeUser">Trang chủ</a></li>
+            <li class="breadcrumb-item active" aria-current="page">${food.product_name}</li>
+        </ol>
+    </nav>
+
     <div class="row">
-        <div class="col-md-2">
-            <div class="d-flex flex-column gap-2">
-                <img src="thumb1.jpg" alt="Thumbnail 1" class="img-fluid rounded border">
-                <img src="thumb2.jpg" alt="Thumbnail 2" class="img-fluid rounded border">
-                <img src="thumb3.jpg" alt="Thumbnail 3" class="img-fluid rounded border">
-                <img src="thumb4.jpg" alt="Thumbnail 4" class="img-fluid rounded border">
+        <div class="col-md-7">
+            <c:choose>
+                <c:when test="${not empty food.list_food_images}">
+                    <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-indicators">
+                            <c:forEach var="img" items="${food.list_food_images}" varStatus="status">
+                                <button type="button" data-bs-target="#productCarousel" data-bs-slide-to="${status.index}"
+                                        class="${status.first ? 'active' : ''}"
+                                        aria-current="${status.first ? 'true' : 'false'}"
+                                        aria-label="Slide ${status.index + 1}"></button>
+                            </c:forEach>
+                        </div>
+
+                        <div class="carousel-inner">
+                            <c:forEach var="img" items="${food.list_food_images}" varStatus="status">
+                                <div class="carousel-item ${status.first ? 'active' : ''}">
+                                    <img src="${pageContext.request.contextPath}/foodSmartImages/product/${img.image_path}"
+                                         class="d-block w-100" alt="${food.product_name}" style="height:400px; object-fit: contain; object-position: center;">
+                                </div>
+                            </c:forEach>
+                        </div>
+
+                        <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev" style="background: none; border-radius: 50%;">
+                            <span class="carousel-control-prev-icon" aria-hidden="true" style="filter: invert(56%) sepia(72%) saturate(861%) hue-rotate(1deg) brightness(102%) contrast(104%);"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next" style="background: none; border-radius: 50%;">
+                            <span class="carousel-control-next-icon" aria-hidden="true" style="filter: invert(56%) sepia(72%) saturate(861%) hue-rotate(1deg) brightness(102%) contrast(104%);"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <img id="mainImage" src="${pageContext.request.contextPath}/foodSmartImages/product/product_default.jpg"
+                         alt="No image available" class="img-fluid rounded border">
+                </c:otherwise>
+            </c:choose>
+        </div>
+
+        <div class="col-md-5">
+            <h1 class="h2">${food.product_name}</h1>
+            <a>Cửa hàng : ${store.store_name}</a>
+            <div class="fs-4 fw-bold">
+                <c:choose>
+                    <c:when test="${food.discount gt 0}">
+                        <span class="text-danger">
+                            <c:set var="discountedPrice" value="${food.price - (food.price * food.discount / 100)}"/>
+                            <fmt:formatNumber value="${discountedPrice}" pattern="#,###"/> ₫
+                        </span>
+                        <span class="text-muted text-decoration-line-through ms-2">
+                            <fmt:formatNumber value="${food.price}" pattern="#,###"/> ₫
+                        </span>
+                    </c:when>
+                    <c:otherwise>
+                        <fmt:formatNumber value="${food.price}" pattern="#,###"/> ₫
+                    </c:otherwise>
+                </c:choose>
             </div>
-        </div>
-        <div class="col-md-5">
-            <img src="main.jpg" alt="Bánh mì thập cẩm" class="img-fluid rounded border">
-        </div>
-        <div class="col-md-5">
-            <h1 class="h3">BÁNH MÌ THẬP CẨM</h1>
-            <p>Mô tả: bánh mì ngon nguyên liệu làm niên tươi mới,....</p>
-            <div class="fs-4 fw-bold">25.000 ₫</div>
 
             <div class="my-3 d-flex align-items-center">
-                <button class="btn btn-outline-secondary">-</button>
-                <input type="text" value="1" class="form-control text-center mx-2" style="width: 60px;">
-                <button class="btn btn-outline-secondary">+</button>
+                <button id="decrease" class="btn btn-outline-secondary">-</button>
+                <input id="quantity" type="number" value="1" class="form-control text-center mx-2" style="width: 60px;" min="1" max="${food.stock_quantity}">
+                <button id="increase" class="btn btn-outline-secondary">+</button>
             </div>
 
             <div class="d-flex gap-3">
@@ -62,6 +120,26 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function changeMainImage(imagePath) {
+        document.getElementById('mainImage').src = imagePath;
+    }
 
+
+        const quantityInput = document.getElementById('quantity');
+        const increaseBtn = document.getElementById('increase');
+        const decreaseBtn = document.getElementById('decrease');
+
+        increaseBtn.addEventListener('click', () => {
+            if(parseInt(quantityInput.value) < ${food.stock_quantity})
+        quantityInput.value = parseInt(quantityInput.value) + 1;
+    });
+
+        decreaseBtn.addEventListener('click', () => {
+        if (parseInt(quantityInput.value) > 1) {
+        quantityInput.value = parseInt(quantityInput.value) - 1;
+    }
+    });
+</script>
 </body>
 </html>
