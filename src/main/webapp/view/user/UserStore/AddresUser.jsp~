@@ -54,7 +54,7 @@
         }).then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    location.reload(); 
+                    location.reload();
                 } else {
                     alert('Cập nhật địa chỉ mặc định thất bại!');
                 }

@@ -32,7 +32,7 @@
         </c:when>
 
         <c:when test="${param.page == 'addAddressUser'}">
-            <jsp:include page="UserStore/AddAddressUser.jsp"/>
+            <jsp:include page="UserStore/editAddresUser.jsp"/>
         </c:when>
 
     </c:choose>

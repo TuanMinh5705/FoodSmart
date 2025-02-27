@@ -24,6 +24,7 @@
 </head>
 <body>
 <h2>Danh sách địa chỉ giao hàng</h2>
+<a href="/userInformation?action=addAddressForm" class="btn btn-primary">Thêm địa chỉ giao hàng</a>
 
 <c:forEach var="accountDetail" items="${accountDetailsList}">
     <div class="address-container">
