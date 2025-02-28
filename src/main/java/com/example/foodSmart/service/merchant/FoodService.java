@@ -16,7 +16,7 @@ public class FoodService implements IFoodService {
     private static final String ADD_CATEGORY_STORE_QUERY = "INSERT INTO Categories_Stores (store_id, category_id) VALUES (?, ?)";
 
     private static final String LIST_FOODS_IMAGE_QUERY = "select * from product_images where product_id = ?";
-    private static final String LIST_FOODS_STORE_QUERY = "select * from products WHERE store_id = ? order by product_id desc";
+    private static final String LIST_FOODS_STORE_QUERY = "SELECT p.*, pc.category_id  FROM Products p LEFT JOIN Products_Categories pc ON p.product_id = pc.product_id WHERE p.store_id = ? ORDER BY p.product_id DESC;";
     private static final String SEARCH_FOODS_STORE_QUERY = "SELECT * FROM products WHERE store_id = ? AND product_name LIKE ?";
     private static final String SEARCH_FOODS_ALL_QUERY = "SELECT * FROM products WHERE product_name LIKE ?";
     private static final String GET_FOODS_QUERY = "SELECT p.product_id,p.product_name,p.price,p.stock_quantity,p.discount,p.store_id,pc.category_id\n" +
@@ -97,13 +97,14 @@ public class FoodService implements IFoodService {
             pstm.setInt(1, store_id);
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
+                int category_id = rs.getInt("category_id");
                 int product_id = rs.getInt("product_id");
                 String product_name = rs.getString("product_name");
                 int price = rs.getInt("price");
                 int stock_quantity = rs.getInt("stock_quantity");
                 int discount = rs.getInt("discount");
                 List<FoodImages> foodImagesList = listFoodImageStore(product_id);
-                Food food = new Food(product_id, store_id, product_name, price, stock_quantity, discount, foodImagesList);
+                Food food = new Food(product_id,store_id,product_name,price,stock_quantity,discount,category_id,foodImagesList);
                 foodList.add(food);
             }
         } catch (SQLException e) {

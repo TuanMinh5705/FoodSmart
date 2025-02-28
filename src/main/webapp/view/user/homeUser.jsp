@@ -40,6 +40,16 @@
         <c:when test="${param.page == 'cart_store'}">
             <jsp:include page="cart/cart_store.jsp"/>
         </c:when>
+        <c:when test="${param.page == 'showCartProduct'}">
+            <jsp:include page="cart/cart_product.jsp"/>
+        </c:when>
+        <c:when test="${param.page == 'showStore'}">
+            <jsp:include page="product/store.jsp"/>
+        </c:when>
+        <c:when test="${param.page == 'orderProduct'}">
+            <jsp:include page="cart/order.jsp"/>
+        </c:when>
+
 
         <c:otherwise>
             <jsp:include page="system/menu.jsp"></jsp:include>
@@ -58,7 +68,7 @@
                     </ul>
                     <div class="mt-4 flex space-x-4">
                         <p class="bg-gray-800 p-2 rounded">Bạn muốn đăng ký bán hàng trên SmartFood ?</p>
-                        <button class="bg-blue-500 text-white p-2 rounded">Đăng ký ngay</button>
+                        <a href="/authenticate?action=showFormRegisterStore"><button class="bg-blue-500 text-white p-2 rounded">Đăng ký ngay</button></a>
                     </div>
                 </div>
             </div>

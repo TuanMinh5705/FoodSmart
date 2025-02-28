@@ -13,7 +13,6 @@
     <div class="text-sm text-gray-600 ">
         <a href="/homeUser" class="hover:underline">Trang chủ</a> / <span>Giỏ hàng của tôi</span>
     </div>
-
     <c:choose>
         <c:when test="${empty cartDisplayList}">
             <div class="d-flex flex-column align-items-center justify-content-center" style="height: 70vh;">
@@ -43,9 +42,11 @@
 
                     <!-- Nút đặt hàng -->
                     <div class="col-auto">
-                        <button class="btn btn-warning btn-sm">
-                            <i class="fa fa-shopping-cart"></i> Đặt hàng
-                        </button>
+                        <a href="/homeUser?action=showCartProduct&storeId=${group.storeId}">
+                            <button class="btn btn-warning btn-sm">
+                                <i class="fa fa-shopping-cart"></i> Đặt hàng
+                            </button>
+                        </a>
                     </div>
 
                     <!-- Nút xóa -->
