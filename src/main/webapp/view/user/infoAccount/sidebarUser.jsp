@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link rel="stylesheet" type="text/css" href="/view/user/infoAccount/user.css" />
+
 <div class="sidebar">
     <h4 class="text-center text-primary mb-4">Tài khoản</h4>
     <ul class="nav flex-column">
