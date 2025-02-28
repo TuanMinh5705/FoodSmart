@@ -6,11 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Quản lý mã giảm giá - VIP Pro</title>
-    <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <style>
         :root {
@@ -75,12 +72,12 @@
             border-right: none;
             transition: border-color 0.3s, box-shadow 0.3s;
         }
-        /* Hiệu ứng focus cho thanh tìm kiếm */
+
         .input-group .form-control:focus {
             border-color: var(--secondary-color);
             box-shadow: 0 0 8px rgba(37,117,252,0.5);
         }
-        /* Nút tìm kiếm nhỏ gọn */
+
         .btn-search {
             border-radius: 0 50px 50px 0;
             background: var(--primary-gradient);

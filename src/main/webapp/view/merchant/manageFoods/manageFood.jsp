@@ -7,11 +7,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Quản lý danh mục và sản phẩm cửa hàng</title>
-    <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <!-- Bootstrap CSS (v5.3.0) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <style>
         :root {
@@ -23,6 +20,7 @@
             --bg-dark: #c3cfe2;
             --table-row-hover: #f1f1f1;
         }
+
         body {
             background: linear-gradient(135deg, var(--bg-light), var(--bg-dark));
             font-family: 'Poppins', sans-serif;
@@ -31,26 +29,29 @@
             padding: 20px;
             line-height: 1.6;
         }
+
         .custom-container {
             max-width: 1000px;
             margin: auto;
         }
+
         h2 {
             font-weight: 700;
             color: #333;
             margin-bottom: 1.5rem;
             text-align: center;
         }
-        /* Card style chung cho header các phần */
+
         .card {
             border: none;
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             background: #fff;
             animation: fadeInUp 0.8s ease;
             margin-bottom: 2rem;
         }
+
         .card-header {
             background: var(--primary-gradient);
             color: #fff;
@@ -60,6 +61,7 @@
             font-weight: 700;
             position: relative;
         }
+
         .card-header::after {
             content: "";
             position: absolute;
@@ -71,10 +73,11 @@
             background: #fff;
             border-radius: 2px;
         }
+
         .card-body {
             padding: 1.5rem 2rem;
         }
-        /* Button styles */
+
         .btn-primary {
             border-radius: 50px;
             padding: 0.65rem 2rem;
@@ -84,10 +87,12 @@
             border: none;
             transition: transform 0.3s, box-shadow 0.3s;
         }
+
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(142,45,226,0.3);
+            box-shadow: 0 6px 15px rgba(142, 45, 226, 0.3);
         }
+
         .btn-secondary {
             border-radius: 50px;
             padding: 0.65rem 2rem;
@@ -98,10 +103,12 @@
             transition: transform 0.3s, box-shadow 0.3s;
             color: #fff;
         }
+
         .btn-secondary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(255,65,108,0.3);
+            box-shadow: 0 6px 15px rgba(255, 65, 108, 0.3);
         }
+
         .btn-danger {
             border-radius: 50px;
             padding: 0.65rem 1.5rem;
@@ -109,44 +116,51 @@
             font-weight: 600;
             transition: transform 0.3s, box-shadow 0.3s;
         }
+
         .btn-danger:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(220,53,69,0.3);
+            box-shadow: 0 6px 15px rgba(220, 53, 69, 0.3);
         }
-        /* Input group */
+
         .input-group .form-control {
             border-radius: 50px 0 0 50px;
             border-right: none;
             padding: 0.65rem 1rem;
         }
+
         .input-group .btn {
             border-radius: 0 50px 50px 0;
         }
-        /* Table style */
+
         .table {
             margin-bottom: 0;
         }
+
         .table thead {
             background: var(--primary-gradient);
             color: #fff;
         }
+
         .table th, .table td {
             vertical-align: middle;
             text-align: center;
             padding: 0.75rem;
         }
+
         .table tbody tr:nth-child(even) {
             background-color: #f9f9f9;
         }
+
         .table tbody tr:hover {
             background-color: var(--table-row-hover);
         }
-        /* Image styling */
+
         .img-thumbnail {
             border: none;
             border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
+
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -157,11 +171,12 @@
                 transform: translateY(0);
             }
         }
-        /* Responsive adjustments */
+
         @media (max-width: 576px) {
             .card-header {
                 font-size: 1.5rem;
             }
+
             .btn-primary, .btn-secondary, .btn-danger {
                 font-size: 0.9rem;
                 padding: 0.5rem 1.5rem;
@@ -184,7 +199,8 @@
         </div>
         <form action="/manageFoods?action=search" method="post" class="d-flex" id="searchForm">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Tìm kiếm" name="keyword" id="searchBox" oninput="startTimer()">
+                <input type="text" class="form-control" placeholder="Tìm kiếm" name="keyword" id="searchBox"
+                       oninput="startTimer()">
                 <button class="btn btn-primary" type="submit">
                     <i class="fas fa-search"></i>
                 </button>
@@ -192,7 +208,6 @@
         </form>
     </div>
 
-    <!-- Danh mục sản phẩm -->
     <div class="card">
         <div class="card-header">
             Danh mục sản phẩm
@@ -248,7 +263,6 @@
         </div>
     </div>
 
-    <!-- Danh sách món ăn -->
     <div class="card">
         <div class="card-header">
             Danh sách món ăn
@@ -320,14 +334,14 @@
 
 </div>
 
-<!-- Modal confirm delete (nếu có) -->
-<jsp:include page="../../admin/system/modalConfirmDelete.jsp" />
+<jsp:include page="../../admin/system/modalConfirmDelete.jsp"/>
 
 <script>
     let timer;
+
     function startTimer() {
         clearTimeout(timer);
-        timer = setTimeout(function() {
+        timer = setTimeout(function () {
             document.getElementById("searchForm").submit();
         }, 4500);
     }
