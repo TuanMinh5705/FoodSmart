@@ -26,7 +26,29 @@
     <c:if test="${not empty keyword}">
         <span>Tìm kiếm với từ khoá : `${keyword}`</span>
     </c:if>
+    <c:if test="${sessionScope.collection}">
+        <span>Bộ sưu tập</span>
+    </c:if>
 </div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
+   <c:choose>
+       <c:when test="${not empty storeList}">
+           <h3 class="text-2xl font-bold mt-4 flex items-center">Cửa hàng</h3>
+           <c:forEach var="store" items="${storeList}">
+               <a href="/homeUser?action=showStore&store_id=${store.store_id}" class="block border rounded-2xl p-4 shadow-lg hover:shadow-xl transition">
+                   <img src="${pageContext.request.contextPath}/foodSmartImages/avatars/${store.avt_path}"
+                        alt="Ảnh đại diện cửa hàng"
+                        class="w-32 h-32 object-cover rounded-full mx-auto">
+                   <p class="text-2xl font-semibold text-center mt-4">${store.store_name}</p>
+               </a>
+           </c:forEach>
+       </c:when>
+       <c:otherwise>
+           <p class="text-muted fs-3">Không có cửa hàng nào!</p>
+       </c:otherwise>
+   </c:choose>
+</div>
+<h3 class="text-2xl font-bold mt-4 flex items-center"> Sản phẩm </h3>
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
     <c:choose>
         <c:when test="${not empty foodList}">
@@ -45,11 +67,10 @@
                         </c:if>
 
                         <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <button class="bg-gray-200 text-gray-600 p-4 rounded-full hover:bg-red-500 hover:text-white favorite-btn"
-                                    data-product-id>
-                                <a href="/homeUser?action=toggleFavorite&id=${food.product_id}">
-                                    <i class="bi bi-heart" title="Thêm vào bộ sưu tập"></i>
-                                </a>
+
+                            <button class="bg-gray-200 text-gray-600 p-4 rounded-full hover:bg-red-500 hover:text-white"
+                                    onclick="addToCollection(${food.product_id})">
+                                <i class="bi bi-heart" title="Thêm vào bộ sưu tập"></i>
                             </button>
 
 

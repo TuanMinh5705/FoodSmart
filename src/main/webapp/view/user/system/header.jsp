@@ -41,7 +41,8 @@
                 </c:if>
             </a>
 
-            <a href="/homeUser?action=" title="Bộ sưu tập" class="text-black text-2xl">
+
+            <a href="/homeUser?action=showCollection" title="Bộ sưu tập" class="text-black text-2xl">
                 <i class="fas fa-heart"></i>
             </a>
 

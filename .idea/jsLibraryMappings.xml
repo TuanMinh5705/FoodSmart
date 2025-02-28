@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JavaScriptLibraryMappings">
+<<<<<<< HEAD
     <file url="file://$PROJECT_DIR$/src/main" libraries="{bootstrap, jquery-3.6.0}" />
+=======
+    <file url="file://$PROJECT_DIR$/src/main" libraries="{bootstrap, jquery-3.6.0, swiper, tailwindcss}" />
+>>>>>>> 8968ab5ef690f3bea3a5b50df70a9bf8e33d608b
   </component>
 </project>

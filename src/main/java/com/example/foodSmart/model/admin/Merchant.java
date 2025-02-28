@@ -1,5 +1,7 @@
 package com.example.foodSmart.model.admin;
 
+import java.util.Objects;
+
 public class Merchant {
     private int store_id;
     private int merchant_id;
@@ -10,7 +12,18 @@ public class Merchant {
     private String avt_path;
     private  boolean store_type;
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Merchant merchant = (Merchant) obj;
+        return store_id == merchant.store_id;
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(store_id);
+    }
     public Merchant() {
     }
 
@@ -34,9 +47,8 @@ public class Merchant {
         this.avt_path = avt_path;
         this.store_type = store_type;
     }
-
-    public Merchant(String store_name, String store_address, String contact_number, String banner_path, String avt_path, boolean store_type) {
-
+    public Merchant(String test,int merchant_id, String store_name, String store_address, String contact_number, String banner_path, String avt_path, boolean store_type) {
+        this.merchant_id = merchant_id;
         this.store_name = store_name;
         this.store_address = store_address;
         this.contact_number = contact_number;
@@ -44,6 +56,16 @@ public class Merchant {
         this.avt_path = avt_path;
         this.store_type = store_type;
     }
+
+    public Merchant(String store_name, String store_address, String contact_number, String banner_path, String avt_path, boolean store_type) {
+        this.store_name = store_name;
+        this.store_address = store_address;
+        this.contact_number = contact_number;
+        this.banner_path = banner_path;
+        this.avt_path = avt_path;
+        this.store_type = store_type;
+    }
+
 
     public int getStore_id() {
         return store_id;

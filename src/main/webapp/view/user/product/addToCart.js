@@ -1,5 +1,5 @@
 function addToCart(productId, price, quantity) {
-    // Nếu quantity không hợp lệ (undefined, NaN, 0, ...) thì mặc định là 1
+
     quantity = quantity && !isNaN(quantity) && quantity > 0 ? quantity : 1;
 
     fetch('/homeUser?action=addProductToCart', {
@@ -20,7 +20,27 @@ function addToCart(productId, price, quantity) {
         })
         .catch(error => console.error('Lỗi khi thêm vào giỏ hàng:', error));
 }
+function addToCollection(productId) {
 
+    quantity = quantity && !isNaN(quantity) && quantity > 0 ? quantity : 1;
+
+    fetch('/homeUser?action=addProductToCollection', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `id=${productId}`
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                showToast('Đã thêm vào bộ sưu tập!', 'success');
+            } else {
+                showToast('Thêm vào bộ sưu tập thất bại!', 'error');
+            }
+        })
+        .catch(error => console.error('Lỗi khi thêm vào bộ sưu tập:', error));
+}
 function updateCartCount(count) {
     const cartBadge = document.querySelector('#cartCount');
     if (cartBadge) {

@@ -107,30 +107,23 @@ public class ManageMerchants extends HttpServlet {
         String store_name = req.getParameter("store_name");
         String store_address = req.getParameter("store_address");
         String contact_number = req.getParameter("contact_number");
-
         Part fileBannerPart = req.getPart("banner_path");
         String banner_path = (fileBannerPart != null && fileBannerPart.getSize() > 0) ? fileBannerPart.getSubmittedFileName() : req.getParameter("current_banner_path");
-
         Part fileAvatarPart = req.getPart("avt_path");
         String avt_path = (fileAvatarPart != null && fileAvatarPart.getSize() > 0) ? fileAvatarPart.getSubmittedFileName() : req.getParameter("current_avt_path");
-
         String uploadPath = "C:\\foodSmartImages\\avatars";
         File uploadDir = new File(uploadPath);
         if (!uploadDir.exists()) {
             uploadDir.mkdirs();
         }
-
         File banner = new File(uploadDir, banner_path);
         File avt = new File(uploadDir, avt_path);
-
         if (!avt.exists()) {
             fileAvatarPart.write(uploadPath + File.separator + avt_path);
         }
-
         if (!banner.exists()) {
             fileBannerPart.write(uploadPath + File.separator + banner_path);
         }
-
         String storeTypeParam = req.getParameter("store_type");
         boolean store_type = Boolean.parseBoolean(storeTypeParam);
 
@@ -151,15 +144,19 @@ public class ManageMerchants extends HttpServlet {
 
         String banner_path = fileBannerPart.getSubmittedFileName().toString();
         String avt_path = fileAvatarPart.getSubmittedFileName().toString();
-
-
         String uploadPath = "C:\\foodSmartImages\\avatars";
         File uploadDir = new File(uploadPath);
         if (!uploadDir.exists()) {
             uploadDir.mkdirs();
         }
-        fileBannerPart.write(uploadPath + File.separator + banner_path);
-        fileAvatarPart.write(uploadPath + File.separator + avt_path);
+        File uploadBanner = new File(uploadPath,banner_path);
+        File uploadAvatar = new File(uploadPath,avt_path);
+        if (!uploadAvatar.exists()) {
+            fileAvatarPart.write(uploadPath + File.separator + avt_path);
+        }
+        if(!uploadBanner.exists()) {
+            fileBannerPart.write(uploadPath + File.separator + banner_path);
+        }
 
         Merchant merchant = new Merchant(store_name, store_address, contact_number, banner_path, avt_path, true);
         boolean success = merchantService.addMerchant(merchant);
