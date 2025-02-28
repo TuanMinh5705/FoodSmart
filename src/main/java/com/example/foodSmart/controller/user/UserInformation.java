@@ -33,7 +33,7 @@ public class UserInformation extends HttpServlet {
         }
 
         switch (action) {
-            case "showUserInformation":
+            default:
                 showInfoUser(req, resp);
                 break;
             case "editUserForm":

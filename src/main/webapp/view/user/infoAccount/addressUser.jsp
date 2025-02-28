@@ -24,6 +24,8 @@
 
 </head>
 <body>
+<jsp:include page="sidebarUser.jsp"/>
+
 <h2>Danh sách địa chỉ giao hàng</h2>
 
 <c:forEach var="accountDetail" items="${accountDetailsList}">

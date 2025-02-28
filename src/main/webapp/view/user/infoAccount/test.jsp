@@ -1,3 +1,4 @@
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -10,29 +11,25 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600&display=swap" rel="stylesheet">
     <style>
         /* Tổng thể */
         body {
-            background: #eef2f7;
+            background: #f4f7f9;
             font-family: 'Poppins', sans-serif;
-            color: #333;
         }
         /* Sidebar */
         .sidebar {
-            padding: 30px 20px;
-            background-color: #ffffff;
-            border-right: 1px solid #eaeaea;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            background-color: #f8f9fa;
             min-height: 100vh;
         }
         .sidebar .nav-link {
             font-weight: 500;
-            padding: 12px 20px;
-            margin: 5px 0;
-            border-radius: 8px;
+            padding: 10px 15px;
+            transition: all 0.3s ease;
+            border-radius: 5px;
             color: #333;
-            transition: background 0.3s, color 0.3s;
         }
         .sidebar .nav-link:hover {
             background-color: #2575fc;
@@ -41,75 +38,57 @@
         .sidebar .nav-link.text-danger:hover {
             background-color: #dc3545;
         }
-        /* Card */
+        /* Thẻ Card */
         .card {
             border: none;
             border-radius: 15px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-            margin-top: 30px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         .card-header {
             background: linear-gradient(90deg, #6a11cb, #2575fc);
             color: #fff;
             border-top-left-radius: 15px;
             border-top-right-radius: 15px;
-            text-align: center;
-            padding: 20px;
-        }
-        .card-body {
-            background: #fff;
-            padding: 30px;
         }
         .avatar {
-            width: 130px;
-            height: 130px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             object-fit: cover;
-            border: 4px solid #2575fc;
         }
         .form-label {
             font-weight: 600;
-            margin-bottom: 5px;
         }
         .toggle-password-btn {
             cursor: pointer;
-        }
-        .btn-primary {
-            background-color: #2575fc;
-            border: none;
-            border-radius: 8px;
-            padding: 10px 20px;
-        }
-        .btn-primary:hover {
-            background-color: #1a5bb8;
         }
     </style>
 </head>
 <body>
 <div class="container-fluid">
     <div class="row">
-        <!-- Sidebar -->
+        <!-- Cột Sidebar -->
         <div class="col-md-3 d-none d-md-block">
-            <div class="sidebar">
-                <jsp:include page="sidebarUser.jsp"/>
-            </div>
+            <jsp:include page="sidebarUser.jsp"/>
         </div>
-        <!-- Nội dung chính -->
+        <!-- Cột Nội dung Chính -->
         <div class="col-md-9">
             <div class="container my-5">
                 <div class="row justify-content-center">
                     <div class="col-md-8">
                         <div class="card">
-                            <div class="card-header">
+                            <div class="card-header text-center">
                                 <h4 class="mb-0">Thông tin Tài Khoản</h4>
                             </div>
                             <div class="card-body">
                                 <div class="form-group text-center mb-4">
-                                    <label class="form-label d-block">Ảnh đại diện</label>
-                                    <c:if test="${not empty account.avtPath}">
-                                        <img src="${pageContext.request.contextPath}/foodSmartImages/avatars/${account.avtPath}"
-                                             alt="Ảnh đại diện" class="avatar img-thumbnail" id="avatarPreview">
-                                    </c:if>
+                                    <label class="form-label">Ảnh đại diện</label>
+                                    <div>
+                                        <c:if test="${not empty account.avtPath}">
+                                            <img src="${pageContext.request.contextPath}/foodSmartImages/avatars/${account.avtPath}"
+                                                 alt="Ảnh đại diện" class="avatar img-thumbnail" id="avatarPreview">
+                                        </c:if>
+                                    </div>
                                 </div>
                                 <div class="form-group mb-3">
                                     <label class="form-label">Tên đăng nhập</label>
@@ -146,9 +125,10 @@
                 </div>
             </div>
         </div>
-        <!-- End Nội dung chính -->
+        <!-- Bạn có thể thêm giao diện cho thiết bị di động (mobile) nếu cần -->
     </div>
 </div>
+
 <!-- jQuery và Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
