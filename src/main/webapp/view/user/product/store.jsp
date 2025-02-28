@@ -32,11 +32,11 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
                 <a href="/homeUser">
-                    <i class="fas fa-home"></i> Trang chủ
+                    Trang chủ
                 </a>
             </li>
             <li class="breadcrumb-item active" aria-current="page">
-                <i class="fas fa-store"></i> ${store.store_name}
+                ${store.store_name}
             </li>
         </ol>
     </nav>

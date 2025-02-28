@@ -40,6 +40,9 @@ IAccountService accountService = new AccountService();
     IMerchantService merchantService = new MerchantService();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/html;charset=UTF-8");
         String action = req.getParameter("action");
         if (action == null) {
             action = "";
@@ -88,6 +91,9 @@ IAccountService accountService = new AccountService();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/html;charset=UTF-8");
         String action = req.getParameter("action");
         if (action == null) {
             action = "";

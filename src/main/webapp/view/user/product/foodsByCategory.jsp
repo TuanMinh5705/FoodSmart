@@ -18,7 +18,7 @@
 <body>
 <jsp:include page="../system/menu.jsp" />
 
-<div class="text-sm text-gray-600 mt-4 ml-4">
+<div class="text-sm text-gray-600 mt-6 ml-4 mb-4">
     <a href="/homeUser" class="hover:underline">Trang chủ</a> /
     <c:if test="${not empty category.category_name}">
         <span>${category.category_name}</span>
@@ -30,10 +30,10 @@
         <span>Bộ sưu tập</span>
     </c:if>
 </div>
+<h3 class="text-2xl font-bold mt-4 flex items-center">Cửa hàng</h3>
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
    <c:choose>
        <c:when test="${not empty storeList}">
-           <h3 class="text-2xl font-bold mt-4 flex items-center">Cửa hàng</h3>
            <c:forEach var="store" items="${storeList}">
                <a href="/homeUser?action=showStore&store_id=${store.store_id}" class="block border rounded-2xl p-4 shadow-lg hover:shadow-xl transition">
                    <img src="${pageContext.request.contextPath}/foodSmartImages/avatars/${store.avt_path}"
@@ -58,12 +58,12 @@
                         <c:if test="${not empty food.list_food_images}">
                             <img src="${pageContext.request.contextPath}/foodSmartImages/product/${food.list_food_images[0].image_path}"
                                  alt="${food.product_name}"
-                                 class="w-64 h-64 object-cover rounded mx-auto">
+                                 class="w-64 h-64 object-contain object-center rounded mx-auto">
                         </c:if>
                         <c:if test="${empty food.list_food_images}">
                             <img src="../../../images/product_default.png"
                                  alt="Không có ảnh"
-                                 class="w-64 h-64 object-cover rounded mx-auto">
+                                 class="w-64 h-64 object-contain object-center rounded mx-auto">
                         </c:if>
 
                         <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-4 opacity-0 group-hover:opacity-100 transition-opacity">
