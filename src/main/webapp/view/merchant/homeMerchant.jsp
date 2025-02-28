@@ -28,10 +28,6 @@
 <jsp:include page="system/sidebar.jsp"/>
 <div class="content">
     <c:choose>
-
-
-
-    <%--        quản lý món ăn--%>
     <c:when test="${param.page == 'manageFoods'}">
         <jsp:include page="manageFoods/manageFood.jsp"/>
     </c:when>
@@ -51,7 +47,6 @@
         <c:when test="${param.page == 'editFood'}">
         <jsp:include page="manageFoods/editFood.jsp"/>
     </c:when>
-
 
         <%--    quan ly ma giam gia--%>
         <c:when test="${param.page == 'manageCoupons'}">
@@ -85,10 +80,6 @@
         <c:when test="${param.page == 'editInfoStore'}">
             <jsp:include page="editStore.jsp"/>
         </c:when>
-
-
-
-
 
         <c:otherwise>
             <jsp:include page="system/content.jsp"/>
