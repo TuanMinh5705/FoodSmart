@@ -89,7 +89,6 @@
         }
 
         .btn-primary:hover {
-            transform: translateY(-2px);
             box-shadow: 0 6px 15px rgba(142, 45, 226, 0.3);
         }
 
@@ -105,7 +104,6 @@
         }
 
         .btn-secondary:hover {
-            transform: translateY(-2px);
             box-shadow: 0 6px 15px rgba(255, 65, 108, 0.3);
         }
 
@@ -118,7 +116,6 @@
         }
 
         .btn-danger:hover {
-            transform: translateY(-2px);
             box-shadow: 0 6px 15px rgba(220, 53, 69, 0.3);
         }
 
