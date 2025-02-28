@@ -22,7 +22,7 @@
 
         /* Khoảng cách để không bị che mất nội dung */
         .content {
-            margin-top: 80px;
+            margin-top: 20px;
         }
 
         /* Căn giữa modal */

@@ -97,6 +97,7 @@ public class ManageStore extends HttpServlet {
         }
     }
 
+
     private void editInfoStore(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         int store_id = Integer.parseInt(req.getParameter("store_id"));
         String store_name = req.getParameter("store_name");
