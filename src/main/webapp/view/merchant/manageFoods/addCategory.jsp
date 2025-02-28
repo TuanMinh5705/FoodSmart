@@ -50,10 +50,15 @@
                             <textarea class="form-control" id="description" name="description"
                                       placeholder="Mô tả danh mục" required readonly></textarea>
                         </div>
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-save"></i> Lưu danh mục
-                            </button>
+                        <div class="form-group">
+                            <div class="d-flex justify-content-center">
+                                <button type="submit" class="btn btn-primary mr-2">
+                                    Thêm danh mục
+                                </button>
+                                <a href="/manageFoods" class="btn btn-outline-secondary">
+                                    Huỷ
+                                </a>
+                            </div>
                         </div>
                     </form>
                 </div>
