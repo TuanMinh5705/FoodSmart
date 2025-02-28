@@ -31,7 +31,8 @@
                 <div class="card-body">
                     <form id="addCategoryForm" action="/manageFoods?action=addCategory" method="post">
                         <div class="mb-3 text-center">
-                            <img id="avatarPreview" class="avatar-preview" src="https://via.placeholder.com/150" alt="Ảnh danh mục">
+                            <img id="avatarPreview" class="avatar-preview" src="../../../images/product_default.png"
+                                 alt="Ảnh danh mục">
                         </div>
                         <div class="mb-3">
                             <label for="category_name" class="form-label">
@@ -75,16 +76,16 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    document.getElementById("avatarPreview").src = "${pageContext.request.contextPath}/foodSmartImages/product " + data.imageUrl;
+                    document.getElementById("avatarPreview").src = "${pageContext.request.contextPath}/foodSmartImages/product/" + data.imageUrl;
                     document.getElementById("description").value = data.description;
                 } else {
-                    document.getElementById("avatarPreview").src = "https://via.placeholder.com/150";
+                    document.getElementById("avatarPreview").src = "../../../images/product_default.png";
                     document.getElementById("description").value = "";
                 }
             })
             .catch(error => {
                 console.error("Error:", error);
-                document.getElementById("avatarPreview").src = "https://via.placeholder.com/150";
+                document.getElementById("avatarPreview").src = "../../../images/product_default.png";
                 document.getElementById("description").value = "";
             });
     });

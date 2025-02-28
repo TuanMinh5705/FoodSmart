@@ -20,11 +20,11 @@ create table `Account`
 -- Bảng địa chỉ, số điện thoại người dùng
 create table Account_Details
 (
-    account_details_id  int primary key auto_increment,
-    user_id     int,
-    address     text,
-    phonenumber varchar(255),
-    is_default boolean default false,
+    account_details_id int primary key auto_increment,
+    user_id            int,
+    address            text,
+    phonenumber        varchar(255),
+    is_default         boolean default false,
     foreign key (user_id) references `Account` (account_id) on delete cascade
 );
 -- Bảng ví điện tử người dùng
@@ -141,14 +141,15 @@ CREATE TABLE Vouchers
 -- Bảng danh mục sản phẩm 
 create table Categories
 (
-    category_id      int primary key auto_increment,
-    category_name    varchar(255),
+    category_id   int primary key auto_increment,
+    category_name varchar(255),
     `description` text,
-    avt_path text default ('product_default.png')
+    avt_path      text default ('product_default.png')
 );
 -- Bảng danh mục sản phẩm của cửa hàng 
-CREATE TABLE Categories_Stores (
-    store_id INT,
+CREATE TABLE Categories_Stores
+(
+    store_id    INT,
     category_id INT,
     FOREIGN KEY (category_id) REFERENCES Categories (category_id) on delete cascade,
     FOREIGN KEY (store_id) REFERENCES Stores (store_id) on delete cascade

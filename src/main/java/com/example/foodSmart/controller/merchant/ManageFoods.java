@@ -133,7 +133,12 @@ public class ManageFoods extends HttpServlet {
             Part part = req.getPart("img_path_" + img.getImage_id());
             if (part != null && part.getSize() > 0) {
                 String newFileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
-                part.write(uploadPath + File.separator + newFileName);
+                File imageFile = new File(uploadPath + File.separator + newFileName);
+
+                if (!imageFile.exists()) {
+                    part.write(imageFile.getAbsolutePath());
+                }
+
                 img.setImage_path(newFileName);
                 foodService.editFoodImages(img);
             }
@@ -142,7 +147,12 @@ public class ManageFoods extends HttpServlet {
         for (Part part : req.getParts()) {
             if ("product_images".equals(part.getName()) && part.getSize() > 0) {
                 String fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
-                part.write(uploadPath + File.separator + fileName);
+                File imageFile = new File(uploadPath + File.separator + fileName);
+
+                if (!imageFile.exists()) {
+                    part.write(imageFile.getAbsolutePath());
+                }
+
                 FoodImages newImage = new FoodImages(product_id, fileName, false);
                 if (foodService.editFoodImages(newImage)) {
                     newImageList.add(newImage);
@@ -150,6 +160,7 @@ public class ManageFoods extends HttpServlet {
                 }
             }
         }
+
 
         String primaryImageParam = req.getParameter("primary_image");
         if (primaryImageParam != null && !primaryImageParam.trim().isEmpty()) {
