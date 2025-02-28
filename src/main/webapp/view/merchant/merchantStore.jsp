@@ -5,12 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Thông tin cửa hàng - VIP Pro</title>
-    <!-- Google Font -->
+    <title>Thông tin cửa hàng</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <style>
         :root {
@@ -20,6 +17,7 @@
             --bg-light: #f5f7fa;
             --bg-dark: #c3cfe2;
         }
+
         body {
             background: linear-gradient(135deg, var(--bg-light), var(--bg-dark));
             font-family: 'Poppins', sans-serif;
@@ -27,12 +25,13 @@
             margin: 0;
             padding: 0;
         }
-        /* Custom container: thu hẹp chiều rộng và tăng chiều cao */
+
         .custom-container {
             max-width: 800px;
             min-height: 100vh;
             margin: auto;
         }
+
         .profile-card {
             border: none;
             border-radius: 20px;
@@ -42,6 +41,7 @@
             animation: fadeInUp 1s ease;
             margin-bottom: 2rem;
         }
+
         .profile-card .card-header {
             position: relative;
             height: 180px;
@@ -49,6 +49,7 @@
             background-size: cover;
             background-position: center;
         }
+
         .profile-card .card-header::after {
             content: "";
             position: absolute;
@@ -56,35 +57,41 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.4);
+            background: rgba(0, 0, 0, 0.4);
         }
+
         .avatar-container {
             position: relative;
             text-align: center;
             margin-top: -60px;
         }
+
         .avatar {
             width: 120px;
             height: 120px;
             border: 5px solid #fff;
             border-radius: 50%;
             object-fit: cover;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
+
         .store-info {
             text-align: center;
             padding-top: 1rem;
         }
+
         .store-info h3 {
             margin-bottom: 0.5rem;
             font-weight: 700;
             color: #333;
         }
+
         .store-info p {
             margin: 0.2rem 0;
             font-size: 1.1rem;
             color: #555;
         }
+
         .btn-primary {
             border-radius: 50px;
             padding: 0.75rem 2.5rem;
@@ -94,10 +101,12 @@
             border: none;
             transition: transform 0.3s, box-shadow 0.3s;
         }
+
         .btn-primary:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(142, 45, 226, 0.4);
         }
+
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -115,11 +124,8 @@
     <c:choose>
         <c:when test="${not empty store}">
             <div class="profile-card mx-auto">
-                <!-- Banner làm nền header -->
                 <div class="card-header"></div>
-                <!-- Nội dung chính -->
                 <div class="card-body">
-                    <!-- Avatar nổi giữa header và nội dung -->
                     <div class="avatar-container">
                         <img src="${pageContext.request.contextPath}/foodSmartImages/avatars/${store.avt_path}"
                              alt="Ảnh đại diện của cửa hàng" class="avatar">
@@ -138,7 +144,6 @@
                                 </c:otherwise>
                             </c:choose>
                         </p>
-                        <!-- Thêm khoảng cách bên dưới nút -->
                         <div class="mt-4 mb-4">
                             <a href="/manageStore?action=editInfoStoreForm" class="btn btn-primary">
                                 <i class="fas fa-edit me-2"></i> Sửa thông tin
