@@ -23,7 +23,7 @@
 </head>
 <body class="bg-light">
 <div class="container mt-4">
-    <h2 class="text-center mb-4 text-primary">Quản lý cửa hàng</h2>
+    <h2 class="text-center mb-4 font-weight-bold">Quản lý cửa hàng</h2>
 
     <script>
         <c:if test="${not empty success}">

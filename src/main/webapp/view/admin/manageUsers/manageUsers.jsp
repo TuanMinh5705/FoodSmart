@@ -6,11 +6,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản lý người dùng</title>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-    <!-- Thêm SweetAlert2 -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         .table thead th {
@@ -70,11 +72,11 @@
         <% session.removeAttribute("error"); %>
     </c:if>
 
-    <h2 class="text-center mb-4">Quản lý người dùng</h2>
+    <h2 class="text-center mb-4 font-weight-bold">Quản lý người dùng</h2>
     <div class="row mb-3 align-items-center">
         <div class="col-md-3">
-            <a href="/manageUsers?action=showAddAccountForm" class="btn btn-success w-100">
-                <i class="fas fa-user-plus"></i> Thêm người dùng mới
+            <a href="/manageUsers?action=showAddAccountForm" class="btn btn-success">
+                <i class="bi bi-plus-circle"></i> Thêm người dùng mới
             </a>
         </div>
 
@@ -109,7 +111,7 @@
         <table class="table table-bordered table-striped table-hover">
             <thead>
             <tr>
-                <th>#</th>
+                <th>STT</th>
                 <th>Ảnh đại diện</th>
                 <th>Tên đăng nhập</th>
                 <th>Vai trò</th>
@@ -150,12 +152,12 @@
                     <td>
                         <div class="action-buttons d-inline-flex">
                             <a href="/manageUsers?action=editForm&accountID=${account.accountID}"
-                               class="btn btn-primary btn-sm" title="Chỉnh sửa">
-                                <i class="fas fa-edit"></i>
+                               class="btn btn-warning btn-sm" title="Chỉnh sửa">
+                                <i class="bi bi-pencil-square"></i>
                             </a>
                             <a href="/manageUsers?action=showInfoForm&accountID=${account.accountID}"
-                               class="btn btn-secondary btn-sm" title="Chi tiết">
-                                <i class="fas fa-info-circle"></i>
+                               class="btn btn-info btn-sm" title="Chi tiết">
+                                <i class="bi bi-info-circle"></i>
                             </a>
                         </div>
                     </td>
@@ -166,8 +168,6 @@
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 <script>
     document.getElementById("roleFilter").addEventListener("change", function () {
         let selectedRole = this.value;
@@ -183,11 +183,12 @@
     });
 
     let timer;
+
     function startTimer() {
         clearTimeout(timer);
         timer = setTimeout(function () {
             document.getElementById("searchForm").submit();
-        }, 4500);
+        }, 2500);
     }
 </script>
 </body>

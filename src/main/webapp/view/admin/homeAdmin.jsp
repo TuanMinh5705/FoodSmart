@@ -26,7 +26,8 @@
 <jsp:include page="system/menubar.jsp" />
 <jsp:include page="system/sidebar.jsp" />
 
-<div class="content" style="margin-top: 30px">
+<div class="content" style="margin-top: 20px">
+
     <c:choose>
         <c:when test="${param.page == 'home'}">
             <jsp:include page="system/content.jsp"/>
