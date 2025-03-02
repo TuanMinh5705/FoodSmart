@@ -19,6 +19,7 @@ public class ProductService implements IProductService {
     private static final String RANDOM_PRODUCT_QUERY = "SELECT * FROM ProductSummary ORDER BY RAND() LIMIT 12";
     private static final String PRODUCTS_BY_CATEGORY = "SELECT * FROM ProductSummary WHERE category_id = ?";
 
+
     @Override
     public List<Food> getFoodList() {
         return getFoods(GET_PRODUCT_HOT_SALE);
