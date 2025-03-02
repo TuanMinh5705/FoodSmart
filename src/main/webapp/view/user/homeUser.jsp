@@ -35,6 +35,9 @@
         <c:when test="${param.page == 'foodsByCategory'}">
             <jsp:include page="product/foodsByCategory.jsp"/>
         </c:when>
+        <c:when test="${param.page == 'collection'}">
+            <jsp:include page="product/collection.jsp"/>
+        </c:when>
 
 
         <c:when test="${param.page == 'cart_store'}">

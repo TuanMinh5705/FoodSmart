@@ -99,9 +99,10 @@
                     <i class="fas fa-cart-plus"></i> Thêm vào giỏ hàng
                 </button>
 
-                <button class="btn btn-outline-dark">
+                <button class="btn btn-outline-dark" onclick="buyNow(${food.productId}, ${food.price})">
                     <i class="fas fa-bolt"></i> Mua ngay
                 </button>
+
             </div>
 
             <script>

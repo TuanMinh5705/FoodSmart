@@ -30,8 +30,6 @@ public class ProductService implements IProductService {
         return getFoods(RANDOM_PRODUCT_QUERY);
     }
 
-
-
     @Override
     public List<Food> getFoodListByCategory(int categoryId) {
         List<Food> foodList = new ArrayList<>();
@@ -46,7 +44,6 @@ public class ProductService implements IProductService {
         }
         return foodList;
     }
-
 
     private List<Food> getFoods(String query) {
         List<Food> foodList = new ArrayList<>();
