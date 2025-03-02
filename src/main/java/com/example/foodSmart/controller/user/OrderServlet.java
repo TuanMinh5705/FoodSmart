@@ -1,5 +1,10 @@
 package com.example.foodSmart.controller.user;
 
+import com.example.foodSmart.model.Account;
+import com.example.foodSmart.model.AccountDetails;
+import com.example.foodSmart.model.user.CartItem;
+import com.example.foodSmart.model.user.Order;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,6 +34,10 @@ public class OrderServlet extends HttpServlet {
 
     private void showOrder(HttpServletRequest req, HttpServletResponse resp) {
         HttpSession session = req.getSession();
+
+    }
+    private void paymentOrder(HttpServletRequest req, HttpServletResponse resp){
+
 
     }
 }

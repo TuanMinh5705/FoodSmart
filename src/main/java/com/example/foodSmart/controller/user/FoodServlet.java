@@ -34,12 +34,13 @@ import java.util.stream.Collectors;
 
 @WebServlet("/homeUser")
 public class FoodServlet extends HttpServlet {
-IProductService productService = new ProductService();
-ICategoryFoodService categoryFoodService = new CategoryFoodService();
-IFoodService foodService = new FoodService();
-IAccountService accountService = new AccountService();
+    IProductService productService = new ProductService();
+    ICategoryFoodService categoryFoodService = new CategoryFoodService();
+    IFoodService foodService = new FoodService();
+    IAccountService accountService = new AccountService();
     IOrderService orderService = new OrderService();
     IMerchantService merchantService = new MerchantService();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
@@ -50,7 +51,7 @@ IAccountService accountService = new AccountService();
             action = "";
         }
         switch (action) {
-            case "showFoodDetail" :
+            case "showFoodDetail":
                 int id = Integer.parseInt(req.getParameter("id"));
                 IFoodService foodService = new FoodService();
                 IMerchantService merchantService = new MerchantService();
@@ -61,22 +62,22 @@ IAccountService accountService = new AccountService();
                 req.getRequestDispatcher("view/user/homeUser.jsp?page=productDetail").forward(req, resp);
                 break;
             case "getFoodsByCategory":
-                getFoodsByCategory(req,resp);
+                getFoodsByCategory(req, resp);
                 break;
-            case "showCartStore" :
-                showCartStore(req,resp);
+            case "showCartStore":
+                showCartStore(req, resp);
                 break;
             case "showCartProduct":
                 showCartProduct(req, resp);
                 break;
-            case "showStore" :
-                showStore(req,resp);
+            case "showStore":
+                showStore(req, resp);
                 break;
-            case "showCollection" :
-                showCollection(req,resp);
+            case "showCollection":
+                showCollection(req, resp);
                 break;
             default:
-                showListFood(req,resp);
+                showListFood(req, resp);
                 break;
         }
     }
@@ -117,13 +118,13 @@ IAccountService accountService = new AccountService();
                 orderProduct(req, resp);
                 break;
             case "updateCart":
-                updateCart(req,resp);
+                updateCart(req, resp);
                 break;
-            case "payment" :
-                paymentOrder(req,resp);
+            case "payment":
+                paymentOrder(req, resp);
                 break;
             case "addCollection":
-                addCollection(req,resp);
+                addCollection(req, resp);
                 break;
             case "addAddress":
                 addAddress(req, resp);
@@ -131,12 +132,59 @@ IAccountService accountService = new AccountService();
             case "updateAddress":
                 updateAddress(req, resp);
                 break;
-            case "removeCollection" :
-                removeCollection(req,resp);
+            case "removeCollection":
+                removeCollection(req, resp);
                 break;
 
         }
     }
+
+    private void paymentOrder(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        HttpSession session = req.getSession();
+        List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
+        Order order = (Order) session.getAttribute("order");
+        Account account = (Account) session.getAttribute("loggedInAccount");
+
+        String addressParam = req.getParameter("address");
+        int addressShipping = (addressParam != null && !addressParam.isEmpty()) ? Integer.parseInt(addressParam) : 0;
+        AccountDetails accountDetails = accountService.getAccountDetailById(addressShipping, account.getAccountID());
+
+        String paymentMethod = req.getParameter("payment");
+        order.setShippingInfo(accountDetails);
+        order.setPaymentMethod(paymentMethod);
+
+// Cập nhật số lượng tồn kho
+        for (CartItem item : order.getCartItems()) {
+            Food product = foodService.getFoodByID(item.getProductId());
+            if (product != null) {
+                int newQuantity = product.getStock_quantity() - item.getQuantity();
+                if (newQuantity < 0) {
+                    resp.getWriter().write("error: Not enough stock for product " + product.getProduct_name());
+                    return;
+                }
+                productService.updateStockQuantity(item.getProductId(), newQuantity);
+            }
+        }
+
+// Thêm đơn hàng vào database
+        orderService.addOrder(order);
+
+// Xóa các sản phẩm trong giỏ hàng thuộc đơn hàng vừa thanh toán
+        if (cart != null) {
+            cart.removeIf(item ->
+                    order.getCartItems().stream().anyMatch(o -> o.getProductId() == item.getProductId())
+            );
+        }
+
+// Cập nhật giỏ hàng trong session
+        session.setAttribute("cart", cart);
+        session.setAttribute("cartCount", cart != null ? cart.size() : 0);
+
+// Chuyển hướng về trang chủ
+        resp.sendRedirect("/homeUser");
+
+    }
+
     private void removeCollection(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession();
         String productIdStr = req.getParameter("id");
@@ -166,6 +214,7 @@ IAccountService accountService = new AccountService();
             resp.getWriter().write("error");
         }
     }
+
     private void addCollection(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession();
         String productIdStr = req.getParameter("product_id");
@@ -203,6 +252,7 @@ IAccountService accountService = new AccountService();
             resp.getWriter().write("error");
         }
     }
+
     private void addAddress(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try {
             HttpSession session = req.getSession();
@@ -222,6 +272,7 @@ IAccountService accountService = new AccountService();
             resp.getWriter().write("error");
         }
     }
+
     private void updateAddress(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try {
             int addressID = Integer.parseInt(req.getParameter("id"));
@@ -240,6 +291,7 @@ IAccountService accountService = new AccountService();
             resp.getWriter().write("error");
         }
     }
+
     private void showStore(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int store_id = Integer.parseInt(req.getParameter("store_id"));
         Merchant merchant = merchantService.getMerchantById(store_id);
@@ -252,7 +304,7 @@ IAccountService accountService = new AccountService();
             categoryFoodMap.putIfAbsent(categoryId, new ArrayList<>());
             categoryFoodMap.get(categoryId).add(food);
         }
-        List<CategoryFood> categoryList =foodService.listCategoriesFoodStore(store_id);
+        List<CategoryFood> categoryList = foodService.listCategoriesFoodStore(store_id);
         for (CategoryFood category : categoryList) {
             int categoryId = category.getCategory_id();
             if (categoryFoodMap.containsKey(categoryId)) {
@@ -263,6 +315,7 @@ IAccountService accountService = new AccountService();
         req.setAttribute("storeCategories", categoryList);
         req.getRequestDispatcher("view/user/homeUser.jsp?page=showStore").forward(req, resp);
     }
+
     private void showCartProduct(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
@@ -293,7 +346,7 @@ IAccountService accountService = new AccountService();
                     Food food = foodService.getFoodByID(cartItem.getProductId());
                     itemData.put("productName", food.getProduct_name());
                     for (FoodImages foodImage : food.getList_food_images()) {
-                        if(foodImage.isIs_primary()){
+                        if (foodImage.isIs_primary()) {
                             String imagePath = foodImage.getImage_path();
                             itemData.put("productImage", imagePath);
                         }
@@ -309,23 +362,7 @@ IAccountService accountService = new AccountService();
         req.setAttribute("storeData", storeData);
         req.getRequestDispatcher("view/user/homeUser.jsp?page=showCartProduct").forward(req, resp);
     }
-    private void paymentOrder(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        HttpSession session = req.getSession();
-        Order order = (Order) session.getAttribute("order");
-        Account account = (Account) session.getAttribute("loggedInAccount");
-        String addressParam = req.getParameter("address");
-        int addressShipping = (addressParam != null && !addressParam.isEmpty()) ? Integer.parseInt(addressParam) : 0;
-        AccountDetails accountDetails = accountService.getAccountDetailById(addressShipping,account.getAccountID());
-        String paymentMethod = req.getParameter("payment");
-        order.setShippingInfo(accountDetails);
-        order.setPaymentMethod(paymentMethod);
-        session = req.getSession(false);
-        if (session != null) session.removeAttribute("cart");
-        System.out.println(order);
-        orderService.addOrder(order);
-        resp.getWriter().write("success");
-        resp.sendRedirect("/homeUser");
-    }
+
     private void updateCart(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         int productId = Integer.parseInt(req.getParameter("productId"));
         int quantity = Integer.parseInt(req.getParameter("quantity"));
@@ -347,6 +384,7 @@ IAccountService accountService = new AccountService();
 
         resp.getWriter().write("Success");
     }
+
     private void orderProduct(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         int storeId = Integer.parseInt(req.getParameter("storeId"));
@@ -406,6 +444,7 @@ IAccountService accountService = new AccountService();
         req.setAttribute("totalAmount", totalAmount);
         req.getRequestDispatcher("view/user/homeUser.jsp?page=orderProduct").forward(req, resp);
     }
+
     private void removeProductFromCart(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession();
         List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
@@ -422,6 +461,7 @@ IAccountService accountService = new AccountService();
         resp.setCharacterEncoding("UTF-8");
         resp.getWriter().write("success");
     }
+
     private void removeStoreFromCart(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession();
         List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
@@ -438,6 +478,7 @@ IAccountService accountService = new AccountService();
         resp.setCharacterEncoding("UTF-8");
         resp.getWriter().write("success");
     }
+
     private void showCartStore(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
@@ -486,6 +527,7 @@ IAccountService accountService = new AccountService();
         req.setAttribute("cartDisplayList", cartDisplayList);
         req.getRequestDispatcher("view/user/homeUser.jsp?page=cart_store").forward(req, resp);
     }
+
     private void addProductToCart(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession();
         resp.setContentType("application/json");
@@ -540,18 +582,19 @@ IAccountService accountService = new AccountService();
         if (keyword == null) {
             req.setAttribute("error", "Please enter a keyword");
         }
-        List<Food> foodList = foodService.listFoodStoreByName(-1,keyword);
+        List<Food> foodList = foodService.listFoodStoreByName(-1, keyword);
         List<Merchant> storeList = merchantService.searchMerchant(keyword);
         req.setAttribute("storeList", storeList);
         req.setAttribute("foodList", foodList);
         req.setAttribute("keyword", keyword);
         req.getRequestDispatcher("view/user/homeUser.jsp?page=foodsByCategory").forward(req, resp);
     }
+
     private void getFoodsByCategory(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int category_id = Integer.parseInt(req.getParameter("category_id"));
         List<Food> foodList = productService.getFoodListByCategory(category_id);
-            List<CategoryFood> categoryFoodList = categoryFoodService.listCategoryFood();
-            CategoryFood categoryFood = categoryFoodService.getCategoryFood(category_id);
+        List<CategoryFood> categoryFoodList = categoryFoodService.listCategoryFood();
+        CategoryFood categoryFood = categoryFoodService.getCategoryFood(category_id);
 
         Set<Merchant> storeSet = new HashSet<>();
         for (Food food : foodList) {
@@ -561,13 +604,14 @@ IAccountService accountService = new AccountService();
 
         List<Merchant> storeList = new ArrayList<>(storeSet);
         req.setAttribute("storeList", storeList);
-            req.setAttribute("category", categoryFood);
-            req.setAttribute("categoryFoodList", categoryFoodList);
+        req.setAttribute("category", categoryFood);
+        req.setAttribute("categoryFoodList", categoryFoodList);
         req.setAttribute("foodList", foodList);
         req.getRequestDispatcher("view/user/homeUser.jsp?page=foodsByCategory").forward(req, resp);
     }
+
     private void showListFood(HttpServletRequest req, HttpServletResponse resp) {
-        try{
+        try {
             List<CategoryFood> categoryFoodList = categoryFoodService.listCategoryFood();
             List<Food> foodListHotSale = productService.getFoodList();
             List<Food> foodListFoodRandom = productService.getFoodListRandom();
@@ -580,3 +624,4 @@ IAccountService accountService = new AccountService();
         }
     }
 }
+

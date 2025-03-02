@@ -11,4 +11,6 @@ public interface IProductService {
     List<Food> getFoodListRandom();
     // Hiển thị sản phẩm theo danh mục
     List<Food> getFoodListByCategory(int category);
+    // Cập nhật số lượng sp
+    void updateStockQuantity(int productId, int quantity);
 }

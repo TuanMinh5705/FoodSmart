@@ -18,6 +18,7 @@ public class ProductService implements IProductService {
     private static final String GET_PRODUCT_HOT_SALE = "SELECT * FROM ProductSummary ORDER BY total_sold DESC LIMIT 10";
     private static final String RANDOM_PRODUCT_QUERY = "SELECT * FROM ProductSummary ORDER BY RAND() LIMIT 12";
     private static final String PRODUCTS_BY_CATEGORY = "SELECT * FROM ProductSummary WHERE category_id = ?";
+    private static final String UPDATE_STOCK = "UPDATE products SET stock_quantity= ? WHERE product_id = ?";
 
 
     @Override
@@ -43,6 +44,19 @@ public class ProductService implements IProductService {
             throw new RuntimeException(e);
         }
         return foodList;
+    }
+
+    @Override
+    public void updateStockQuantity(int productId, int quantity) {
+        try (Connection conn = ConnectDB.getConnection();
+             PreparedStatement ps = conn.prepareStatement(UPDATE_STOCK)) {
+            ps.setInt(1, quantity);
+            ps.setInt(2, productId);
+            ps.executeUpdate();
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private List<Food> getFoods(String query) {

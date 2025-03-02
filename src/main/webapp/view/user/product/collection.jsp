@@ -61,5 +61,6 @@
         alert('Đã thêm sản phẩm ' + productId + ' vào giỏ hàng với giá ' + price + 'đ');
     }
 </script>
+<jsp:include page="../../admin/system/modalConfirmDelete.jsp" />
 </body>
 </html>

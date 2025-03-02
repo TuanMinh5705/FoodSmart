@@ -118,12 +118,12 @@
                placeholder="Nhập địa chỉ" required> `,
             focusConfirm: false,
             preConfirm: () => {
-                const phone = document.getElementById('swal-input-phone').value;
-                const address = document.getElementById('swal-input-address').value;
+                const phone = document.getElementById('swal-edit-phone').value;
+                const address = document.getElementById('swal-edit-address').value;
                 if (!phone || !address) {
                     Swal.showValidationMessage('Vui lòng nhập đầy đủ thông tin!');
                 }
-                return {phone, address};
+                return { phone, address };
             }
         }).then((result) => {
             if (result.isConfirmed) {

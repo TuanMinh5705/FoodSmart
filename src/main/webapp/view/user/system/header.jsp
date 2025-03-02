@@ -39,7 +39,6 @@
     </span>
             </a>
 
-
             <!-- Bộ sưu tập -->
             <a href="/homeUser?action=showCollection" title="Bộ sưu tập" class="relative text-black text-2xl">
                 <i class="fas fa-heart"></i>
@@ -113,6 +112,7 @@
         }, 2000);
     });
 
+    // Giả lập cập nhật số lượng khi thêm sản phẩm vào giỏ hoặc bộ sưu tập
     function simulateAddToCart() {
         let count = parseInt(document.getElementById('cartCount')?.textContent || '0', 10) + 1;
         updateCartCount(count);
