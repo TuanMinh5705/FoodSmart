@@ -12,17 +12,91 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/view/user/infoAccount/user.css" />
-
+    <!-- CSS chung -->
+    <style>
+        /* Tổng thể */
+        body {
+            background: #ecf0f1;
+            font-family: 'Poppins', sans-serif;
+            color: #2c3e50;
+        }
+        /* Card hiển thị thông tin tài khoản */
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+            background: #ffffff;
+        }
+        .card-header {
+            background: linear-gradient(90deg, #2980b9, #3498db);
+            color: #ffffff;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            text-align: center;
+            padding: 20px;
+        }
+        .card-body {
+            padding: 30px;
+        }
+        .avatar {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #2980b9;
+        }
+        .form-label {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .toggle-password-btn {
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .toggle-password-btn:hover {
+            color: #2980b9;
+        }
+        .btn-primary {
+            background-color: #2980b9;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            transition: background-color 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #2471a3;
+        }
+        /* Hiển thị thông tin theo hàng ngang */
+        .inline-field {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .inline-field label {
+            min-width: 150px;
+            margin-bottom: 0;
+        }
+        .inline-field span,
+        .inline-field .input-group {
+            flex-grow: 1;
+        }
+        .badge-success {
+            background-color: #27ae60;
+            color: #ffffff;
+        }
+        .badge-secondary {
+            background-color: #95a5a6;
+            color: #ffffff;
+        }
+    </style>
 </head>
 <body>
 <div class="container-fluid">
     <div class="row">
-        <!-- Sidebar -->
+        <!-- Sidebar (include file) -->
         <div class="col-md-3 d-none d-md-block">
-            <div class="sidebar">
-                <jsp:include page="sidebarUser.jsp"/>
-            </div>
+            <jsp:include page="sidebarUser.jsp" />
         </div>
         <!-- Nội dung chính -->
         <div class="col-md-9">
@@ -42,21 +116,21 @@
                                              alt="Ảnh đại diện" class="avatar img-thumbnail mx-auto d-block" id="avatarPreview">
                                     </c:if>
                                 </div>
-                                <!-- Tên đăng nhập hiển thị theo hàng ngang -->
+                                <!-- Tên đăng nhập -->
                                 <div class="inline-field">
                                     <label class="form-label">Tên đăng nhập:</label>
                                     <span>${account.username}</span>
                                 </div>
-                                <!-- Mật khẩu hiển thị theo hàng ngang với chức năng toggle -->
+                                <!-- Mật khẩu với toggle -->
                                 <div class="inline-field">
                                     <label class="form-label">Mật khẩu:</label>
                                     <div class="input-group" style="max-width: 300px;">
                                         <input type="password" class="form-control" id="passwordInput"
                                                name="password" value="${account.password}" readonly>
                                         <div class="input-group-append">
-                                            <span class="input-group-text toggle-password-btn" id="togglePassword">
-                                                <i class="fas fa-eye"></i>
-                                            </span>
+                        <span class="input-group-text toggle-password-btn" id="togglePassword">
+                          <i class="fas fa-eye"></i>
+                        </span>
                                         </div>
                                     </div>
                                 </div>
@@ -88,6 +162,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 <script>
+    // Toggle hiển thị mật khẩu
     document.getElementById("togglePassword").addEventListener("click", function () {
         var passwordInput = document.getElementById("passwordInput");
         var icon = this.querySelector("i");

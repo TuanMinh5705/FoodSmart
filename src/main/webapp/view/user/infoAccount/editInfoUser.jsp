@@ -6,17 +6,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sửa Thông Tin Tài Khoản</title>
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- FontAwesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/view/user/infoAccount/user.css" />
+    <!-- Nhúng CSS trực tiếp -->
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background: #f8f9fa;
+            background: #eef2f7;
             min-height: 100vh;
         }
         /* Sidebar styles */
@@ -40,7 +43,7 @@
         }
         /* Card styles */
         .card-glass {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             border: none;
@@ -63,12 +66,13 @@
             background-color: #4652b5;
             border-color: #4652b5;
         }
-        .avatar-preview {
-            width: 120px;
-            height: 120px;
+        /* Cập nhật giao diện ảnh đại diện giống trang Thông tin Tài Khoản */
+        .avatar {
+            width: 130px;
+            height: 130px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid #dee2e6;
+            border: 4px solid #2980b9;
         }
         @media (max-width: 768px) {
             .sidebar {
@@ -87,7 +91,6 @@
         <!-- Nội dung chỉnh sửa thông tin bên phải -->
         <div class="col-md-9">
             <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
-                <!-- Sử dụng col-12 để chiếm đủ chiều rộng, với col-lg-8 giới hạn trên màn hình lớn -->
                 <div class="col-12 col-lg-8">
                     <div class="card card-glass">
                         <div class="card-header card-header-glass text-center py-3">
@@ -102,12 +105,16 @@
                                         <div class="mb-3">
                                             <c:if test="${not empty account.avtPath}">
                                                 <img src="${pageContext.request.contextPath}/foodSmartImages/avatars/${account.avtPath}"
-                                                     alt="Ảnh đại diện" class="avatar-preview" id="avatarPreview">
+                                                     alt="Ảnh đại diện" class="avatar img-thumbnail mx-auto d-block" id="avatarPreview">
                                             </c:if>
                                         </div>
                                         <div>
                                             <input type="hidden" name="currentAvtPath" value="${account.avtPath}">
-                                            <input type="file" class="form-control form-control-sm" name="avtPath" id="avt_path">
+                                            <!-- Ẩn input file và sử dụng button để chọn file -->
+                                            <input type="file" class="d-none" name="avtPath" id="avt_path">
+                                            <button type="button" class="btn btn-outline-secondary" id="chooseImageButton">
+                                                <i class="bi bi-images"></i> Chỉnh sửa hình ảnh
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -149,12 +156,16 @@
                 </div>
             </div>
         </div>
+        <!-- End nội dung chỉnh sửa thông tin -->
     </div>
 </div>
 
-<!-- Bootstrap 5 JS Bundle -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+    // Khi nhấn button "Chỉnh sửa hình ảnh", kích hoạt input file ẩn
+    document.getElementById("chooseImageButton").addEventListener("click", function () {
+        document.getElementById("avt_path").click();
+    });
+
     // Preview ảnh đại diện khi chọn file mới
     document.getElementById("avt_path").addEventListener("change", function (event) {
         const file = event.target.files[0];
