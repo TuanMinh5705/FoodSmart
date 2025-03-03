@@ -19,7 +19,7 @@
         }
         body {
             background: linear-gradient(135deg, var(--bg-light), var(--bg-dark));
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Fantasy', sans-serif;
             min-height: 100vh;
             margin: 0;
             padding: 0;
@@ -38,26 +38,15 @@
             animation: fadeInUp 1s ease;
             margin-bottom: 2rem;
         }
-        .profile-card .card-header {
-            position: relative;
-            height: 180px;
-            background-image: url('${pageContext.request.contextPath}/foodSmartImages/avatars/${merchant.avtPath}');
-            background-size: cover;
-            background-position: center;
-        }
-        .profile-card .card-header::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.4);
+        /* Sử dụng Flexbox để xếp avatar bên trái, thông tin bên phải */
+        .profile-card .card-body {
+            display: flex;
+            align-items: center;
+            padding: 2rem;
         }
         .avatar-container {
-            position: relative;
-            text-align: center;
-            margin-top: -60px;
+            flex-shrink: 0;
+            margin-right: 2rem;
         }
         .avatar {
             width: 120px;
@@ -68,8 +57,7 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
         .merchant-info {
-            text-align: center;
-            padding-top: 1rem;
+            flex-grow: 1;
         }
         .merchant-info h3 {
             margin-bottom: 0.5rem;
@@ -82,9 +70,8 @@
             color: #555;
         }
         .input-group {
-            justify-content: center;
-            margin: 1rem auto;
             max-width: 300px;
+            margin: 0;
         }
         .btn-primary {
             border-radius: 50px;
@@ -116,22 +103,30 @@
     <c:choose>
         <c:when test="${not empty merchant}">
             <div class="profile-card mx-auto">
-                <div class="card-header"></div>
+                <!-- Không cần phần card-header vì bỏ ảnh nền -->
                 <div class="card-body">
                     <div class="avatar-container">
                         <img src="${pageContext.request.contextPath}/foodSmartImages/avatars/${merchant.avtPath}"
                              alt="Ảnh đại diện của Merchant" class="avatar">
                     </div>
-                    <div class="merchant-info mt-3">
-                        <h3>${merchant.username}</h3>
-                        <div class="input-group">
-                            <input id="password" type="password" name="password" class="form-control"
-                                   value="${merchant.password}" readonly>
-                            <span class="input-group-text toggle-password" style="cursor: pointer;">
-                                <i class="fas fa-eye"></i>
-                            </span>
+                    <div class="merchant-info">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Tên tài khoản:</label>
+                                <h3>${merchant.username}</h3>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Mật khẩu:</label>
+                                <div class="input-group">
+                                    <input id="password" type="password" name="password" class="form-control"
+                                           value="${merchant.password}" readonly>
+                                    <span class="input-group-text toggle-password" style="cursor: pointer;">
+                                        <i class="fas fa-eye"></i>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
-                        <p><strong>Trạng thái: </strong>
+                        <p class="mt-3"><strong>Trạng thái: </strong>
                             <c:choose>
                                 <c:when test="${merchant.active}">
                                     <span class="badge bg-success">Hoạt động</span>

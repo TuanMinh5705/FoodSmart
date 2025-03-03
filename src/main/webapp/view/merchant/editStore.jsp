@@ -13,7 +13,7 @@
         body {
             background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
             min-height: 100vh;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Fantasy', sans-serif;
         }
 
         .card {
@@ -117,7 +117,7 @@
                     <form action="/manageStore?action=editMerchantStore" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="store_id" value="${store.store_id}">
                         <div class="mb-4">
-                            <label class="form-label"><i class="fas fa-user-circle"></i> Avatar</label>
+                            <label class="form-label"><i class="fas fa-user-circle"></i> Bấm vào ảnh để chỉnh sửa</label>
                             <div class="text-center mb-3">
                                 <img id="avtPreview"
                                      src="${pageContext.request.contextPath}/foodSmartImages/avatars/${store.avt_path}"
@@ -129,7 +129,7 @@
                         </div>
 
                         <div class="mb-4">
-                            <label class="form-label"><i class="fas fa-image"></i> Banner</label>
+                            <label class="form-label"><i class="fas fa-image"></i> Bấm vào nền để chỉnh sửa</label>
                             <div class="text-center mb-3">
                                 <img id="bannerPreview"
                                      src="${pageContext.request.contextPath}/foodSmartImages/avatars/${store.banner_path}"

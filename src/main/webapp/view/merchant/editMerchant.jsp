@@ -11,7 +11,7 @@
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <style>
         :root {
-            --primary-color: #6a11cb;
+            --primary-color: #8865ff;
             --secondary-color: #2575fc;
             --primary-gradient: linear-gradient(90deg, #8E2DE2, #4A00E0);
             --bg-light: #f5f7fa;
@@ -19,7 +19,7 @@
         }
         body {
             background: linear-gradient(135deg, var(--bg-light), var(--bg-dark));
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Fantasy', sans-serif;
             min-height: 100vh;
             margin: 0;
             padding: 0;
@@ -61,7 +61,7 @@
         }
         .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(142, 45, 226, 0.4);
+            box-shadow: 0 8px 20px rgb(94, 35, 144);
         }
         .avatar-preview {
             width: 120px;
@@ -69,16 +69,65 @@
             border-radius: 50%;
             object-fit: cover;
         }
+        /* Custom style cho button "Chọn ảnh" */
+        .btn-custom-upload {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            padding: 0.75rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .btn-custom-upload:hover {
+            background-color: #218838;
+            transform: translateY(-3px);
+            color: #fff; /* Giữ nguyên màu chữ */
+        }
+        /* Custom style cho button "Quay lại" */
+        .btn-custom-back {
+            background-color: #f86e51;
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            padding: 0.75rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .btn-custom-back:hover {
+            background-color: #ee3e38;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgb(251, 164, 101);
+            color: #fff; /* Giữ nguyên màu chữ */
+        }
     </style>
 </head>
 <body>
 <div class="container custom-container">
     <div class="profile-card">
         <div class="card-header">
-            <h2>Cập nhật thông tin tài khoản</h2>
+            <h2 class="form-label fw-bold">Cập nhật thông tin tài khoản</h2>
         </div>
         <form action="/manageStore?action=editInfoStore" method="post" enctype="multipart/form-data">
             <input type="hidden" name="accountID" value="${loggedInAccount.accountID}">
+            <div class="mb-3">
+                <label class="form-label">Ảnh đại diện:</label>
+                <div class="text-center">
+                    <c:if test="${not empty loggedInAccount.avtPath}">
+                        <img src="${pageContext.request.contextPath}/foodSmartImages/avatars/${loggedInAccount.avtPath}"
+                             alt="Ảnh đại diện" class="img-thumbnail avatar-preview mb-3" id="avatarPreview">
+                    </c:if>
+                    <input type="hidden" name="currentAvtPath" value="${loggedInAccount.avtPath}">
+                    <!-- Input file ẩn -->
+                    <input type="file" class="d-none" name="avtPath" id="avt_path">
+                    <!-- Nút chọn ảnh với style riêng -->
+                    <div>
+                        <button type="button" class="btn btn-outline-success" onclick="document.getElementById('avt_path').click()">Chọn ảnh</button>
+                    </div>
+                </div>
+            </div>
             <div class="mb-3">
                 <label for="username" class="form-label">Username:</label>
                 <input type="text" class="form-control" id="username" name="username"
@@ -94,20 +143,7 @@
                     </button>
                 </div>
             </div>
-            <div class="mb-3">
-                <label class="form-label">Ảnh đại diện:</label>
-                <div class="d-flex align-items-center">
-                    <c:if test="${not empty loggedInAccount.avtPath}">
-                        <img src="${pageContext.request.contextPath}/foodSmartImages/avatars/${loggedInAccount.avtPath}"
-                             alt="Ảnh đại diện" class="img-thumbnail me-3 avatar-preview" id="avatarPreview">
-                    </c:if>
-                    <div>
-                        <input type="hidden" name="currentAvtPath" value="${loggedInAccount.avtPath}">
-                        <input type="file" class="form-control" name="avtPath" id="avt_path">
-                    </div>
-                </div>
-            </div>
-            <div class="mb-3">
+            <div class="mb-3 center">
                 <label class="form-label">Trạng thái tài khoản:</label>
                 <div class="form-check form-check-inline">
                     <input type="radio" id="active" name="status" value="active" class="form-check-input"
@@ -122,6 +158,7 @@
             </div>
             <div class="text-center">
                 <button type="submit" class="btn btn-primary">Cập nhật</button>
+                <a href="#" class="btn btn-custom-back">Quay lại</a>
             </div>
         </form>
     </div>
@@ -129,17 +166,17 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    document.getElementById("avt_path").addEventListener("change", function (event) {
+    document.getElementById("avt_path").addEventListener("change", function(event) {
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
-            reader.onload = function (e) {
+            reader.onload = function(e) {
                 document.getElementById("avatarPreview").src = e.target.result;
             };
             reader.readAsDataURL(file);
         }
     });
-    document.getElementById("togglePassword").addEventListener("click", function () {
+    document.getElementById("togglePassword").addEventListener("click", function() {
         var passwordInput = document.getElementById("passwordInput");
         var icon = this.querySelector("i");
         if (passwordInput.type === "password") {

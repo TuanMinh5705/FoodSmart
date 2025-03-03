@@ -20,8 +20,8 @@
 
         body {
             background: linear-gradient(135deg, var(--bg-light), var(--bg-dark));
-            font-family: 'Poppins', sans-serif;
             min-height: 100vh;
+            font-family: 'Fantasy', sans-serif;
             margin: 0;
             padding: 0;
         }
