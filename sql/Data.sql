@@ -25,6 +25,8 @@ insert into Categories(category_name,`description`,avt_path) values
 ('Cơm,Cơm rang','Cơm,Cơm rang','chicken_rice.png'),
 ('Mì , bún , phở','Mì , bún , phở','noodles.png'),
 ('Đồ tráng miệng , đồ ngọt','Đồ tráng miệng , đồ ngọt','chocolate_cake.png'),
+('Đồ ăn Nhật','đồ nhật','chocolate_cake.png'),
+('Đồ ăn Hàn','Đồ ăn Hàn','noodles.png'),
 ("Đồ uống","Đồ uống",'fruit.png');
 
 insert into Products(store_id,product_name,price,stock_quantity) values

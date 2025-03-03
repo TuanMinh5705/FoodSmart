@@ -13,7 +13,7 @@
 <!-- Header -->
 <jsp:include page="system/header.jsp"></jsp:include>
 
-<main class="mt-[125px] mb-4">
+<main class="mt-[109px] mb-4">
     <c:choose>
 <%--        Thông tin tài khoản--%>
         <c:when test="${param.page == 'infoUser'}">
@@ -61,7 +61,7 @@
         <c:otherwise>
             <jsp:include page="system/menu.jsp" />
             <!-- Banner -->
-            <div class="relative mt-8">
+            <div class="relative mt-1">
                 <img src="https://nhathauxaydung24h.com/wp-content/uploads/2021/05/hinh-nen-powerpoint-am-thuc-3.jpg"
                      alt="Banner Image"
                      class="w-full h-[650px] object-cover">
