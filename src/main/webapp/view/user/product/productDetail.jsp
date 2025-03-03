@@ -99,9 +99,11 @@
                     <i class="fas fa-cart-plus"></i> Thêm vào giỏ hàng
                 </button>
 
-                <button class="btn btn-outline-dark">
-                    <i class="fas fa-bolt"></i> Mua ngay
-                </button>
+                <a href="/homeUser?action=buyNow&id=${food.product_id}"
+                   class="bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 transition-transform duration-300">
+                    <i class="bi bi-bag"></i><span class="ml-2">Mua ngay</span>
+                </a>
+
             </div>
 
             <script>
