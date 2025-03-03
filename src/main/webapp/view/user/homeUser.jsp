@@ -35,7 +35,12 @@
         <c:when test="${param.page == 'foodsByCategory'}">
             <jsp:include page="product/foodsByCategory.jsp"/>
         </c:when>
-
+        <c:when test="${param.page == 'collection'}">
+            <jsp:include page="product/collection.jsp"/>
+        </c:when>
+        <c:when test="${param.page == 'showOrder'}">
+            <jsp:include page="cart/list_order.jsp"/>
+        </c:when>
 
         <c:when test="${param.page == 'cart_store'}">
             <jsp:include page="cart/cart_store.jsp"/>
@@ -49,6 +54,10 @@
         <c:when test="${param.page == 'orderProduct'}">
             <jsp:include page="cart/order.jsp"/>
         </c:when>
+        <c:when test="${param.page == 'showOrderDetail'}">
+            <jsp:include page="cart/orderDetail.jsp"/>
+        </c:when>
+
 
 
         <c:otherwise>

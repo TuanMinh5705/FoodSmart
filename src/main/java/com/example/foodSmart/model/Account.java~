@@ -1,7 +1,10 @@
 package com.example.foodSmart.model;
 
+<<<<<<< HEAD
 import com.example.foodSmart.model.merchant.Food;
 
+=======
+>>>>>>> 940d88055e7cadab69b32cffab4d8992f66c6ca1
 import java.util.List;
 
 public class Account {
@@ -110,6 +113,7 @@ public class Account {
                 ", active=" + active +
                 '}';
     }
+<<<<<<< HEAD
 
 
     public List<Food> getFavoriteFoods() {
@@ -119,4 +123,8 @@ public class Account {
     public void setFavoriteFoods(List<Food> favoriteFoods) {
         this.favoriteFoods = favoriteFoods;
     }
+=======
+b
+
+>>>>>>> 940d88055e7cadab69b32cffab4d8992f66c6ca1
 }

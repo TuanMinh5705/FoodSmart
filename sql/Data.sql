@@ -43,7 +43,7 @@ insert into Products(store_id,product_name,price,stock_quantity) values
 (3,'Bánh Flan',20000,50),
 (3,'Trà Sữa Matcha',50000,60);
 
- 
+
 insert into categories_stores(store_id,category_id) values
 (1,3),
 (1,4),

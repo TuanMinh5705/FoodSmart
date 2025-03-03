@@ -36,9 +36,6 @@ public class AccountDetails {
         this.accountID = accountID;
     }
 
-    public AccountDetails(int addressId, String recipientName, String phoneNumber, String address, boolean isDefault) {
-    }
-
 
     public int getAccountID() {
         return accountID;
