@@ -58,10 +58,8 @@
             <jsp:include page="cart/orderDetail.jsp"/>
         </c:when>
 
-
-
         <c:otherwise>
-            <jsp:include page="system/menu.jsp"></jsp:include>
+            <jsp:include page="system/menu.jsp" />
             <!-- Banner -->
             <div class="relative mt-8">
                 <img src="https://nhathauxaydung24h.com/wp-content/uploads/2021/05/hinh-nen-powerpoint-am-thuc-3.jpg"

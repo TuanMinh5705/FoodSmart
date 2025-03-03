@@ -106,7 +106,10 @@ public class ManageUsers extends HttpServlet {
         File uploadDir = new File(uploadPath);
         if (!uploadDir.exists()) uploadDir.mkdirs();
         if (filePart != null && filePart.getSize() > 0) {
-            filePart.write(uploadPath + File.separator + avatarPath);
+            File file = new File(uploadPath,avatarPath);
+            if(!file.exists()) {
+                filePart.write(uploadPath + File.separator + avatarPath);
+            }
         }
 
         String username = req.getParameter("username"),

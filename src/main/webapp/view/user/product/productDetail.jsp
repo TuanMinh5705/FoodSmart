@@ -41,7 +41,7 @@
                             </c:forEach>
                         </div>
 
-                        <div class="carousel-inner">
+                        <div class="carousel-inner mt-5">
                             <c:forEach var="img" items="${food.list_food_images}" varStatus="status">
                                 <div class="carousel-item ${status.first ? 'active' : ''}">
                                     <img src="${pageContext.request.contextPath}/foodSmartImages/product/${img.image_path}"
@@ -127,7 +127,7 @@
 
 
             <h2 class="h5 mt-4">Mô tả chi tiết sản phẩm</h2>
-            <ul>
+            <ul style="list-style-type: disc; margin-left: 1.5rem;">
                 <li>Bánh mì kẹp thập cẩm:</li>
                 <li>Thịt nguội (chả lụa, jambon, xúc xích, pate, thịt xá xíu...)</li>
                 <li>Trứng chiên hoặc trứng ốp la</li>
