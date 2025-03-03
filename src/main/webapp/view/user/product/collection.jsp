@@ -36,9 +36,12 @@
                             <fmt:formatNumber value="${food.price}" pattern="#,###"/> đ
                         </td>
                         <td class="p-2 text-center">
+                            <a href="/homeUser?action=buyNow&id=${food.product_id}">
                             <button class="text-blue-500 hover:text-blue-700" onclick="addToCart(${food.product_id}, ${food.price})">
                                 <i class="bi bi-cart text-xl" title="Thêm vào giỏ hàng"></i>
                             </button>
+                            </a>
+
                         </td>
                         <td class="p-2 text-center">
                             <button class="text-red-500 hover:text-red-700"  onclick="showDeleteModal({ id: ${food.product_id}, url: '/homeUser', action: 'removeCollection' })">

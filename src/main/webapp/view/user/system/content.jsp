@@ -79,9 +79,11 @@
                                     </c:if>
                                 </p>
 
-                                <button class="flex items-center bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 transition-transform duration-300 group-hover:translate-x-2">
-                                    <i class="bi bi-bag"></i><span class="ml-2 hidden lg:inline">Mua ngay</span>
-                                </button>
+                                <a href="/homeUser?action=buyNow&id=${food.product_id}"
+                                   class="bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 transition-transform duration-300">
+                                    <i class="bi bi-bag"></i><span class="ml-2">Mua ngay</span>
+                                </a>
+
                             </div>
                             <p class="text-yellow-500 mt-1">
                                 <i class="fas fa-star"></i> 4.5 | Đã bán ${food.total_sold}
@@ -147,9 +149,11 @@
                                 <span class="text-green-500"> -${food.discount}%</span>
                             </c:if>
                         </p>
-                        <button class="bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 transition-transform duration-300">
+                        <a href="/homeUser?action=buyNow&id=${food.product_id}"
+                           class="bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 transition-transform duration-300">
                             <i class="bi bi-bag"></i><span class="ml-2">Mua ngay</span>
-                        </button>
+                        </a>
+
                     </div>
                     <p class="text-yellow-500 mt-1">
                         <i class="fas fa-star"></i> 4.5 | Đã bán ${food.total_sold}

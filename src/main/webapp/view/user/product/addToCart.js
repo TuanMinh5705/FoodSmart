@@ -78,20 +78,4 @@ function showNotification(message, type) {
         timerProgressBar: true
     });
 }
-function buyNow(productId, price) {
-    fetch('/homeUser?action=addProductToCart', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `id=${productId}&price=${price}&quantity=1`
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                window.location.href = "/homeUser?action=showCartProduct";
-            } else {
-                alert("Lỗi khi thêm sản phẩm vào giỏ hàng: " + data.message);
-            }
-        })
-        .catch(() => alert("Lỗi kết nối khi thêm vào giỏ hàng!"));
-}
 

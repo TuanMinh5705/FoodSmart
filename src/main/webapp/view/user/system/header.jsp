@@ -64,7 +64,7 @@
                     <a href="/userInformation?action=showUserInformation" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">
                         Thông tin tài khoản
                     </a>
-                    <a href="/orders" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Đơn hàng</a>
+                    <a href="/order" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Đơn hàng</a>
                     <a href="/authenticate?action=logout" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">
                         <i class="fas fa-sign-out-alt mr-2"></i> Đăng xuất
                     </a>
