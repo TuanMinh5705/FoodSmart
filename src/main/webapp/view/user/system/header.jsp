@@ -62,9 +62,11 @@
                 <!-- Dropdown menu -->
                 <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-50">
                     <a href="/userInformation" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">
-                        Thông tin tài khoản
+                        <i class="fas fa-user-circle"></i> Thông tin tài khoản
                     </a>
-                    <a href="/order" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Đơn hàng</a>
+                    <a href="/order" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">
+                        <i class="bi bi-clipboard-minus-fill"></i> Đơn hàng
+                    </a>
                     <a href="/authenticate?action=logout" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">
                         <i class="fas fa-sign-out-alt mr-2"></i> Đăng xuất
                     </a>
