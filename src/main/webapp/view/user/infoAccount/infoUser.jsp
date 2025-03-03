@@ -105,7 +105,7 @@
                     <div class="col-md-8">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="mb-0">Thông tin Tài Khoản</h4>
+                                <h3 class="mb-0">Thông tin Tài Khoản</h3>
                             </div>
                             <div class="card-body">
                                 <!-- Ảnh đại diện -->
