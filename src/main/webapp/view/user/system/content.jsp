@@ -40,12 +40,12 @@
                             <c:if test="${not empty food.list_food_images}">
                                 <img src="${pageContext.request.contextPath}/foodSmartImages/product/${food.list_food_images[0].image_path}"
                                      alt="${food.product_name}"
-                                     class="w-64 h-64 object-cover rounded mx-auto">
+                                     class="w-64 h-64 object-contain object-center rounded mx-auto">
                             </c:if>
                             <c:if test="${ empty food.list_food_images}">
                                 <img src="../../../images/product_default.png"
                                      alt="Không có ảnh"
-                                     class="w-64 h-64 object-cover rounded mx-auto">
+                                     class="w-64 h-64 object-contain object-center rounded mx-auto">
                             </c:if>
                                 <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-4 opacity-0 group-hover:opacity-100 transition-opacity">
                                     <button class="bg-gray-200 text-gray-600 p-4 rounded-full hover:bg-red-500 hover:text-white"
@@ -79,9 +79,11 @@
                                     </c:if>
                                 </p>
 
-                                <button class="flex items-center bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 transition-transform duration-300 group-hover:translate-x-2">
-                                    <i class="bi bi-bag"></i><span class="ml-2 hidden lg:inline">Mua ngay</span>
-                                </button>
+                                <a href="/homeUser?action=buyNow&id=${food.product_id}"
+                                   class="bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 transition-transform duration-300">
+                                    <i class="bi bi-bag"></i><span class="ml-2">Mua ngay</span>
+                                </a>
+
                             </div>
                             <p class="text-yellow-500 mt-1">
                                 <i class="fas fa-star"></i> 4.5 | Đã bán ${food.total_sold}
@@ -107,12 +109,12 @@
                         <c:if test="${not empty food.list_food_images}">
                         <img src="${pageContext.request.contextPath}/foodSmartImages/product/${food.list_food_images[0].image_path}"
                              alt="${food.product_name}"
-                             class="w-64 h-64 object-cover rounded mx-auto">
+                             class="w-64 h-64 object-contain object-center rounded mx-auto">
                         </c:if>
                         <c:if test="${ empty food.list_food_images}">
                             <img src="../../../images/product_default.png"
                                  alt="Không có ảnh"
-                                 class="w-64 h-64 object-cover rounded mx-auto">
+                                 class="w-64 h-64 object-contain object-center rounded mx-auto">
                         </c:if>
                         <!-- Các icon hiển thị khi hover -->
                         <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-4 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -147,9 +149,11 @@
                                 <span class="text-green-500"> -${food.discount}%</span>
                             </c:if>
                         </p>
-                        <button class="bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 transition-transform duration-300">
+                        <a href="/homeUser?action=buyNow&id=${food.product_id}"
+                           class="bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 transition-transform duration-300">
                             <i class="bi bi-bag"></i><span class="ml-2">Mua ngay</span>
-                        </button>
+                        </a>
+
                     </div>
                     <p class="text-yellow-500 mt-1">
                         <i class="fas fa-star"></i> 4.5 | Đã bán ${food.total_sold}

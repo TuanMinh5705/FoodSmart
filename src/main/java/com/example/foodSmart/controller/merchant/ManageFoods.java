@@ -41,7 +41,6 @@ public class ManageFoods extends HttpServlet {
             action = "";
         }
         int store_id = storeIDByLoggedInUser(req,resp);
-        System.out.println(action);
         switch (action){
             case "addFoodForm":
                 List<CategoryFood> categoryStoreList = foodService.listCategoriesFoodStore(store_id);
@@ -133,12 +132,10 @@ public class ManageFoods extends HttpServlet {
             Part part = req.getPart("img_path_" + img.getImage_id());
             if (part != null && part.getSize() > 0) {
                 String newFileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
-                File imageFile = new File(uploadPath + File.separator + newFileName);
-
-                if (!imageFile.exists()) {
-                    part.write(imageFile.getAbsolutePath());
+                File file = new File(uploadPath,newFileName);
+                if(!file.exists()){
+                    part.write(uploadPath + File.separator + newFileName);
                 }
-
                 img.setImage_path(newFileName);
                 foodService.editFoodImages(img);
             }
@@ -147,12 +144,10 @@ public class ManageFoods extends HttpServlet {
         for (Part part : req.getParts()) {
             if ("product_images".equals(part.getName()) && part.getSize() > 0) {
                 String fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
-                File imageFile = new File(uploadPath + File.separator + fileName);
-
-                if (!imageFile.exists()) {
-                    part.write(imageFile.getAbsolutePath());
+                File file = new File(uploadPath,fileName);
+                if(!file.exists()){
+                    part.write(uploadPath + File.separator + fileName);
                 }
-
                 FoodImages newImage = new FoodImages(product_id, fileName, false);
                 if (foodService.editFoodImages(newImage)) {
                     newImageList.add(newImage);
@@ -160,7 +155,6 @@ public class ManageFoods extends HttpServlet {
                 }
             }
         }
-
 
         String primaryImageParam = req.getParameter("primary_image");
         if (primaryImageParam != null && !primaryImageParam.trim().isEmpty()) {
@@ -175,17 +169,13 @@ public class ManageFoods extends HttpServlet {
             } catch (NumberFormatException ignored) {
             }
         }
-
         food.setProduct_name(req.getParameter("product_name"));
         food.setPrice(Integer.parseInt(req.getParameter("price")));
         food.setStock_quantity(Integer.parseInt(req.getParameter("stock_quantity")));
         food.setDiscount(Integer.parseInt(req.getParameter("discount")));
         food.setCategory_id(Integer.parseInt(req.getParameter("category_id")));
         food.setList_food_images(foodImagesList);
-
         foodService.updateFood(food, food.getCategory_id(), foodImagesList);
-        foodService.addFoodToCategory(food.getProduct_id(), food.getCategory_id());
-
         listFoodAndCategory(req, resp, store_id);
     }
     private void addFood(HttpServletResponse resp, HttpServletRequest req) throws ServletException, IOException {
@@ -195,7 +185,6 @@ public class ManageFoods extends HttpServlet {
             int stockQuantity = Integer.parseInt(req.getParameter("stock_quantity"));
             int discount = Integer.parseInt(req.getParameter("discount"));
             int store_id = storeIDByLoggedInUser(req, resp);
-
 
             String uploadPath = "C:\\foodSmartImages\\product";
             File uploadDir = new File(uploadPath);

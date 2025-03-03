@@ -220,6 +220,7 @@ create table Orders
     payment_method   varchar(255),
     payment_status   varchar(255),
     shipping_address text,
+    shipping_phone varchar(255),
     foreign key (coupon_id) references Store_Coupons (coupon_id) on delete cascade,
     foreign key (voucher_id) references Vouchers (voucher_id) on delete cascade,
     foreign key (store_id) references Stores (store_id) on delete cascade,

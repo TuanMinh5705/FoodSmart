@@ -14,8 +14,7 @@ public class FoodService implements IFoodService {
     private static final String LIST_CATEGORIES_STORE_QUERY = "SELECT c.category_id, c.category_name, c.description, c.avt_path FROM Categories c JOIN categories_stores cs ON c.category_id = cs.category_id WHERE cs.store_id = ?";
     private static final String DELETE_CATEGORY_STORE_QUERY = "DELETE FROM Categories_Stores WHERE store_id = ? AND category_id = ?";
     private static final String ADD_CATEGORY_STORE_QUERY = "INSERT INTO Categories_Stores (store_id, category_id) VALUES (?, ?)";
-
-    private static final String LIST_FOODS_IMAGE_QUERY = "select * from product_images where product_id = ?";
+    private static final String LIST_FOODS_IMAGE_QUERY = "select * from product_images where product_id = ? ORDER BY is_primary DESC";
     private static final String LIST_FOODS_STORE_QUERY = "SELECT p.*, pc.category_id  FROM Products p LEFT JOIN Products_Categories pc ON p.product_id = pc.product_id WHERE p.store_id = ? ORDER BY p.product_id DESC;";
     private static final String SEARCH_FOODS_STORE_QUERY = "SELECT * FROM products WHERE store_id = ? AND product_name LIKE ?";
     private static final String SEARCH_FOODS_ALL_QUERY = "SELECT * FROM products WHERE product_name LIKE ?";

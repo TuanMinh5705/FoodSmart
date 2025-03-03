@@ -60,7 +60,6 @@ public class UserInformation extends HttpServlet {
         req.setAttribute("address", address);
         req.getRequestDispatcher("view/user/homeUser.jsp?page=editAddressUser").forward(req, resp);
     }
-
     private void showAddressUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Account loggedInUser = (Account) req.getSession().getAttribute("loggedInAccount");
         if (loggedInUser != null) {
@@ -70,13 +69,10 @@ public class UserInformation extends HttpServlet {
             req.setAttribute("accountDetailsList", accountDetailsList);
         }
     }
-
-
     private void showEditUserForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("view/user/homeUser.jsp?page=editUser").forward(req, resp);
 
     }
-
     private void showInfoUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Account loggedInUser = (Account) req.getSession().getAttribute("loggedInAccount");
         int merchant_id = loggedInUser.getAccountID();
@@ -113,7 +109,6 @@ public class UserInformation extends HttpServlet {
         accountService.deleteAccountDetails(accountDetailID);
         resp.sendRedirect("/userInformation?action=showAddressUser");
     }
-
     private void editAddressUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int accountDetailID = Integer.parseInt(req.getParameter("accountDetailID"));
         String address = req.getParameter("address");
@@ -138,8 +133,6 @@ public class UserInformation extends HttpServlet {
 
         resp.sendRedirect("/userInformation?action=showAddressUser");
     }
-
-
     private void editInfoUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         IAccountService accountService = new AccountService();
         Account loggedInUser = (Account) req.getSession().getAttribute("loggedInAccount");

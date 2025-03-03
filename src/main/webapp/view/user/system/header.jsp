@@ -29,21 +29,24 @@
             </form>
         </div>
 
-
         <!-- Right: Account & Icons -->
         <div class="flex items-center space-x-6">
+            <!-- Giỏ hàng -->
             <a href="/homeUser?action=showCartStore" title="Giỏ hàng" class="relative text-black text-2xl">
                 <i class="fas fa-shopping-cart"></i>
-                <c:if test="${not empty sessionScope.cartCount and sessionScope.cartCount > 0}">
-                    <span id="cartCount" class="absolute -top-1 -right-3 bg-red-500 text-white text-sm rounded-full px-2">
-                        <c:out value="${sessionScope.cartCount}" />
-                    </span>
-                </c:if>
+                <span id="cartCount" class="absolute -top-1 -right-3 bg-red-500 text-white text-sm rounded-full px-2">
+        <c:out value="${not empty sessionScope.cartCount ? sessionScope.cartCount : 0}" />
+    </span>
             </a>
 
-            <a href="/homeUser?action=showCollection" title="Bộ sưu tập" class="text-black text-2xl">
+            <!-- Bộ sưu tập -->
+            <a href="/homeUser?action=showCollection" title="Bộ sưu tập" class="relative text-black text-2xl">
                 <i class="fas fa-heart"></i>
+                <span id="collectionCount" class="absolute -top-1 -right-3 bg-red-500 text-white text-sm rounded-full px-2">
+        <c:out value="${not empty sessionScope.collectionCount ? sessionScope.collectionCount : 0}" />
+    </span>
             </a>
+
 
             <a href="/notifications" title="Thông báo" class="text-black text-2xl">
                 <i class="fas fa-bell"></i>
@@ -61,7 +64,7 @@
                     <a href="/userInformation" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">
                         Thông tin tài khoản
                     </a>
-                    <a href="/orders" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Đơn hàng</a>
+                    <a href="/order" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Đơn hàng</a>
                     <a href="/authenticate?action=logout" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">
                         <i class="fas fa-sign-out-alt mr-2"></i> Đăng xuất
                     </a>
@@ -72,29 +75,51 @@
 </header>
 
 <script>
-    function updateCartCount(count) {
-        const cartBadge = document.querySelector('#cartCount');
-        if (cartBadge) {
-            cartBadge.textContent = count;
+    function updateBadge(id, count) {
+        let badge = document.getElementById(id);
+        if (badge) {
+            if (count > 0) {
+                badge.textContent = count;
+                badge.style.display = 'inline-block';
+            } else {
+                badge.style.display = 'none';
+            }
         } else if (count > 0) {
-            // Nếu chưa có badge, tạo badge mới
-            const cartLink = document.querySelector('a[title="Giỏ hàng"]');
-            if (cartLink) {
-                const badge = document.createElement('span');
-                badge.id = 'cartCount';
+            let parentLink = document.querySelector(`a[title="${id == 'cartCount' ? 'Giỏ hàng' : 'Bộ sưu tập'}"]`);
+            if (parentLink) {
+                badge = document.createElement('span');
+                badge.id = id;
                 badge.className = 'absolute -top-1 -right-3 bg-red-500 text-white text-sm rounded-full px-2';
                 badge.textContent = count;
-                cartLink.appendChild(badge);
+                parentLink.appendChild(badge);
             }
         }
     }
 
-        let timer;
-        document.getElementById('searchInput').addEventListener('input', function() {
+    function updateCartCount(count) {
+        updateBadge('cartCount', count);
+    }
+
+    function updateCollectionCount(count) {
+        updateBadge('collectionCount', count);
+    }
+
+    let timer;
+    document.getElementById('searchInput').addEventListener('input', function() {
         clearTimeout(timer);
         timer = setTimeout(() => {
-        document.getElementById('searchForm').submit();
-    }, 2000);
+            document.getElementById('searchForm').submit();
+        }, 2000);
     });
 
+    // Giả lập cập nhật số lượng khi thêm sản phẩm vào giỏ hoặc bộ sưu tập
+    function simulateAddToCart() {
+        let count = parseInt(document.getElementById('cartCount')?.textContent || '0', 10) + 1;
+        updateCartCount(count);
+    }
+
+    function simulateAddToCollection() {
+        let count = parseInt(document.getElementById('collectionCount')?.textContent || '0', 10) + 1;
+        updateCollectionCount(count);
+    }
 </script>
