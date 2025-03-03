@@ -29,9 +29,13 @@
     <c:forEach var="order" items="${orders}">
         <c:if test="${empty selectedStatus || selectedStatus == 'all' || order.orderStatus == selectedStatus}">
             <c:set var="totalPrice" value="0" />
+
             <c:forEach var="item" items="${order.cartItems}">
                 <c:set var="totalPrice" value="${totalPrice + (item.priceAtTime * item.quantity)}" />
             </c:forEach>
+
+            <c:set var="shippingFee" value="25000" />
+            <c:set var="totalPrice" value="${totalPrice + shippingFee}" />
 
             <div class="card mb-3 shadow-sm">
                 <div class="card-body">
