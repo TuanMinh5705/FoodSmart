@@ -60,7 +60,7 @@
                 <div class="flex-1 md:ml-8">
                     <h4 class="text-2xl font-bold mb-4">Giấy phép</h4>
                     <a href="#" class="text-xl block">K15 363/GP-CODEGYM</a>
-                    <img src="../../images/footer.png" alt="Giấy phép Bộ Công Thương" class="w-52 h-auto mt-4" />
+                    <img src="../../images/footer.png"  alt="Giấy phép Bộ Công Thương" class="w-52 h-auto mt-4" />
                 </div>
             </div>
         </div>

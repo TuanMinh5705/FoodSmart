@@ -15,7 +15,7 @@
             </a>
             <nav class="flex space-x-6">
                 <a href="/homeUser" class="text-black font-bold text-lg">Trang chủ</a>
-                <a href="#" class="text-black font-bold text-lg">Khuyến mãi</a>
+                <a href="/voucher?action=displayVouchers" class="text-black font-bold text-lg">Khuyến mãi</a>
             </nav>
         </div>
 
