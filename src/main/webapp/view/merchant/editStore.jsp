@@ -72,7 +72,7 @@
             background: linear-gradient(90deg, #1E88E5, #2a9ffc);
             box-shadow: 0 8px 20px rgba(21, 149, 255, 0.4);
         }
-        .btn-custom-back {
+        .btn-back {
             background: linear-gradient(90deg, #f67272, #f55d5d);
             color: #fff;
             border: none;
@@ -82,13 +82,11 @@
             font-weight: 600;
             transition: background-color 0.3s, transform 0.3s;
         }
-        .btn-custom-back:hover {
+        .btn-back:hover {
             background: linear-gradient(90deg, #f55d5d, #f67272);
             transform: translateY(-3px);
-            color: #fff;
             box-shadow: 0 8px 20px rgb(234, 177, 177);
         }
-        /* Giữ nguyên phần ảnh như cũ */
         .img-preview {
             transition: opacity 0.5s ease, transform 0.5s ease;
         }
@@ -99,6 +97,7 @@
             position: relative;
             display: inline-block;
         }
+        /* Sửa CSS của icon pen giống với trang cập nhật thông tin tài khoản */
         .pen-icon {
             position: absolute;
             top: 5px;
@@ -109,6 +108,10 @@
             border-radius: 50%;
             cursor: pointer;
             font-size: 0.8rem;
+            transition: background 0.3s;
+        }
+        .pen-icon:hover {
+            background: rgba(0, 0, 0, 0.8);
         }
     </style>
 </head>
@@ -163,23 +166,33 @@
                 <input type="text" name="contact_number" value="${store.contact_number}" class="form-control" required>
             </div>
 
-            <div class="mb-4 form-check">
-                <input type="checkbox" class="form-check-input" id="store_type" name="store_type"
-                       value="true" <c:if test="${store.store_type}">checked</c:if>>
-                <label class="form-check-label" for="store_type">
-                    Trạng thái (đánh dấu nếu cửa hàng đang hoạt động)
-                </label>
+            <!-- Phần trạng thái được xếp theo hàng ngang và căn giữa -->
+            <div class="mb-4 text-center">
+                <label class="form-label d-block">Trạng thái cửa hàng:</label>
+                <div class="d-flex justify-content-center">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="store_type" id="storeActive" value="true" <c:if test="${store.store_type}">checked</c:if>>
+                        <label class="form-check-label" for="storeActive">
+                            Đang hoạt động
+                        </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="store_type" id="storeInactive" value="false" <c:if test="${!store.store_type}">checked</c:if>>
+                        <label class="form-check-label" for="storeInactive">
+                            Không hoạt động
+                        </label>
+                    </div>
+                </div>
             </div>
 
             <div class="text-center">
                 <button type="submit" class="btn btn-primary me-4">Cập nhật</button>
-                <a href="/manageStore?action=showInfoStore" class="btn btn-custom-back">Quay lại</a>
+                <button type="button" class="btn-back" onclick="location.href='/manageStore?action=showInfoStore'">Quay lại</button>
             </div>
         </form>
     </div>
 </div>
 
-<!-- Sử dụng Bootstrap Bundle -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     // Khi click vào ảnh hoặc icon pen của avatar thì mở file input

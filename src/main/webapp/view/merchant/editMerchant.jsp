@@ -55,7 +55,7 @@
         .form-control {
             border-radius: 50px;
         }
-        /* Nút cập nhật theo gradient xanh ban đầu */
+        /* Buttons */
         .btn-primary {
             border-radius: 50px;
             padding: 0.75rem 2.5rem;
@@ -70,26 +70,7 @@
             background: linear-gradient(90deg, #1E88E5, #2a9ffc);
             box-shadow: 0 8px 20px rgba(21, 149, 255, 0.4);
         }
-        .avatar-preview {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            transition: transform 0.5s ease, opacity 0.5s ease;
-        }
-
-        .img-preview {
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-
-        .img-preview:hover {
-            transform: scale(1.05);
-        }
-
-        .avatar-preview:hover {
-            transform: scale(1.05);
-        }
-        .btn-custom-back {
+        .btn-back {
             background: linear-gradient(90deg, #f67272, #f55d5d);
             color: #fff;
             border: none;
@@ -99,32 +80,12 @@
             font-weight: 600;
             transition: background-color 0.3s, transform 0.3s;
         }
-        .btn-custom-back:hover {
+        .btn-back:hover {
             background: linear-gradient(90deg, #f55d5d, #f67272);
             transform: translateY(-3px);
-            color: #fff;
             box-shadow: 0 8px 20px rgb(234, 177, 177);
         }
-        .account-status {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-        }
-        /* Container cho input mật khẩu và icon toggle */
-        .password-container {
-            position: relative;
-        }
-        .toggle-password {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            color: #6c757d;
-            z-index: 2;
-        }
-        /* Avatar container và icon edit */
+        /* Avatar & ảnh preview */
         .avatar-container {
             position: relative;
             display: inline-block;
@@ -144,6 +105,38 @@
         .edit-icon:hover {
             background: rgba(0, 0, 0, 0.8);
         }
+        /* Gộp chung hiệu ứng chuyển đổi cho avatar và các ảnh preview */
+        .avatar-preview,
+        .img-preview {
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .avatar-preview {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .img-preview:hover {
+            transform: scale(1.05);
+        }
+        .account-status {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+        .password-container {
+            position: relative;
+        }
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #6c757d;
+            z-index: 2;
+        }
     </style>
 </head>
 <body>
@@ -160,7 +153,7 @@
                     <c:if test="${not empty loggedInAccount.avtPath}">
                         <div class="avatar-container">
                             <img src="${pageContext.request.contextPath}/foodSmartImages/avatars/${loggedInAccount.avtPath}"
-                                 alt="Ảnh đại diện" class="img-thumbnail avatar-preview mb-3" id="avatarPreview">
+                                 alt="Ảnh đại diện" class="img-thumbnail avatar-preview img-preview mb-3" id="avatarPreview">
                             <i class="fas fa-pen edit-icon"></i>
                         </div>
                     </c:if>
@@ -172,7 +165,6 @@
                 <label for="username" class="form-label">Username:</label>
                 <input type="text" class="form-control" id="username" name="username" value="${loggedInAccount.username}" required>
             </div>
-            <!-- Input mật khẩu với icon toggle bên trong -->
             <div class="mb-3">
                 <label for="passwordInput" class="form-label">Mật khẩu:</label>
                 <div class="password-container">
@@ -195,39 +187,51 @@
             </div>
             <div class="text-center">
                 <button type="submit" class="btn btn-primary me-4">Cập nhật</button>
-                <a href="#" class="btn btn-custom-back">Quay lại</a>
+                <button type="button" class="btn-back" onclick="location.href='/manageStore?action=showInfoStore'">Quay lại</button>
             </div>
         </form>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    // Preview ảnh đại diện sau khi chọn file
-    document.getElementById("avt_path").addEventListener("change", function(event) {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                document.getElementById("avatarPreview").src = e.target.result;
-            };
-            reader.readAsDataURL(file);
+    document.addEventListener("DOMContentLoaded", () => {
+        const avatarInput     = document.getElementById("avt_path");
+        const avatarPreview   = document.getElementById("avatarPreview");
+        const avatarContainer = document.querySelector(".avatar-container");
+        const togglePassword  = document.getElementById("togglePassword");
+        const passwordInput   = document.getElementById("passwordInput");
+
+        if (avatarInput && avatarPreview) {
+            avatarInput.addEventListener("change", event => {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = e => {
+                        avatarPreview.style.opacity = 0;
+                        setTimeout(() => {
+                            avatarPreview.src = e.target.result;
+                            avatarPreview.style.opacity = 1;
+                        }, 300);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
         }
-    });
-    // Khi nhấp vào avatar container (bao gồm ảnh và icon pen), kích hoạt file input
-    document.querySelector(".avatar-container").addEventListener("click", function() {
-        document.getElementById("avt_path").click();
-    });
-    // Xử lý ẩn/hiện mật khẩu khi click vào icon toggle
-    document.getElementById("togglePassword").addEventListener("click", function() {
-        const passwordInput = document.getElementById("passwordInput");
-        const icon = this;
-        if (passwordInput.type === "password") {
-            passwordInput.type = "text";
-            icon.classList.replace("fa-eye", "fa-eye-slash");
-        } else {
-            passwordInput.type = "password";
-            icon.classList.replace("fa-eye-slash", "fa-eye");
+
+        if (avatarContainer) {
+            avatarContainer.addEventListener("click", () => avatarInput.click());
+        }
+
+        if (togglePassword && passwordInput) {
+            togglePassword.addEventListener("click", () => {
+                if (passwordInput.type === "password") {
+                    passwordInput.type = "text";
+                    togglePassword.classList.replace("fa-eye", "fa-eye-slash");
+                } else {
+                    passwordInput.type = "password";
+                    togglePassword.classList.replace("fa-eye-slash", "fa-eye");
+                }
+            });
         }
     });
 </script>
