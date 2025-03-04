@@ -13,7 +13,7 @@
         :root {
             --primary-color: #6a11cb;
             --secondary-color: #2575fc;
-            --primary-gradient: linear-gradient(90deg, #8E2DE2, #4A00E0);
+            --primary-gradient: linear-gradient(90deg, #2196F3, #1E88E5);
             --bg-light: #f5f7fa;
             --bg-dark: #c3cfe2;
         }
@@ -73,6 +73,7 @@
             max-width: 300px;
             margin: 0;
         }
+        /* Cập nhật style cho button sử dụng gradient mới */
         .btn-primary {
             border-radius: 50px;
             padding: 0.75rem 2.5rem;
@@ -84,7 +85,8 @@
         }
         .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(142, 45, 226, 0.4);
+            background: linear-gradient(90deg, #1E88E5, #2a9ffc);
+            box-shadow: 0 8px 20px rgba(21, 149, 255, 0.4);
         }
         @keyframes fadeInUp {
             from {
