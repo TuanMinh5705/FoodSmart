@@ -98,84 +98,84 @@ public class ManageStore extends HttpServlet {
     }
 
 
-//    private void editInfoStore(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-//        int store_id = Integer.parseInt(req.getParameter("store_id"));
-//        String store_name = req.getParameter("store_name");
-//        String store_address = req.getParameter("store_address");
-//        String contact_number = req.getParameter("contact_number");
-//        Part fileBannerPart = req.getPart("banner_path");
-//        String banner_path = (fileBannerPart != null && fileBannerPart.getSize() > 0) ? fileBannerPart.getSubmittedFileName() : req.getParameter("current_banner_path");
-//        Part fileAvatarPart = req.getPart("avt_path");
-//        String avt_path = (fileAvatarPart != null && fileAvatarPart.getSize() > 0) ? fileAvatarPart.getSubmittedFileName() : req.getParameter("current_avt_path");
-//
-//        String uploadPath = "C:\\foodSmartImages\\avatars";
-//        File uploadDir = new File(uploadPath);
-//        if (!uploadDir.exists()) {
-//            uploadDir.mkdirs();
-//        }
-//
-//        File bannerFile = new File(uploadPath, banner_path);
-//        File avtFile = new File(uploadPath,avt_path);
-//        if (!bannerFile.exists()) {
-//            fileBannerPart.write(uploadPath + File.separator + banner_path);
-//        }
-//        if(!avtFile.exists()){
-//            fileAvatarPart.write(uploadPath + File.separator + avt_path);
-//        }
-//        String storeTypeParam = req.getParameter("store_type");
-//        boolean store_type = Boolean.parseBoolean(storeTypeParam);
-//
-//        Merchant merchant = new Merchant(store_id, store_name, store_address, contact_number, banner_path, avt_path, store_type);
-//        boolean success = merchantService.updateMerchant(merchant);
-//        if (success){
-//            req.getSession().setAttribute("success", "Cập nhật thông tin cửa hàng thành công!");
-//        }
-//        resp.sendRedirect("/manageStore?action=showInfoStore");
-//    }
-
     private void editInfoStore(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         int store_id = Integer.parseInt(req.getParameter("store_id"));
         String store_name = req.getParameter("store_name");
         String store_address = req.getParameter("store_address");
         String contact_number = req.getParameter("contact_number");
-
         Part fileBannerPart = req.getPart("banner_path");
-        String banner_path = (fileBannerPart != null && fileBannerPart.getSize() > 0)
-                ? fileBannerPart.getSubmittedFileName()
-                : req.getParameter("current_banner_path");
-
+        String banner_path = (fileBannerPart != null && fileBannerPart.getSize() > 0) ? fileBannerPart.getSubmittedFileName() : req.getParameter("current_banner_path");
         Part fileAvatarPart = req.getPart("avt_path");
-        String avt_path = (fileAvatarPart != null && fileAvatarPart.getSize() > 0)
-                ? fileAvatarPart.getSubmittedFileName()
-                : req.getParameter("current_avt_path");
+        String avt_path = (fileAvatarPart != null && fileAvatarPart.getSize() > 0) ? fileAvatarPart.getSubmittedFileName() : req.getParameter("current_avt_path");
 
-
-        String uploadPath = getServletContext().getRealPath("/images/avatars");
+        String uploadPath = "C:\\foodSmartImages\\avatars";
         File uploadDir = new File(uploadPath);
         if (!uploadDir.exists()) {
             uploadDir.mkdirs();
         }
 
-        File bannerFile = new File(uploadDir, banner_path);
-        if (!bannerFile.exists() && fileBannerPart != null && fileBannerPart.getSize() > 0) {
-            fileBannerPart.write(bannerFile.getAbsolutePath());
+        File bannerFile = new File(uploadPath, banner_path);
+        File avtFile = new File(uploadPath,avt_path);
+        if (!bannerFile.exists()) {
+            fileBannerPart.write(uploadPath + File.separator + banner_path);
         }
-
-        File avtFile = new File(uploadDir, avt_path);
-        if (!avtFile.exists() && fileAvatarPart != null && fileAvatarPart.getSize() > 0) {
-            fileAvatarPart.write(avtFile.getAbsolutePath());
+        if(!avtFile.exists()){
+            fileAvatarPart.write(uploadPath + File.separator + avt_path);
         }
-
         String storeTypeParam = req.getParameter("store_type");
         boolean store_type = Boolean.parseBoolean(storeTypeParam);
 
         Merchant merchant = new Merchant(store_id, store_name, store_address, contact_number, banner_path, avt_path, store_type);
         boolean success = merchantService.updateMerchant(merchant);
-        if (success) {
+        if (success){
             req.getSession().setAttribute("success", "Cập nhật thông tin cửa hàng thành công!");
         }
         resp.sendRedirect("/manageStore?action=showInfoStore");
     }
+
+//    private void editInfoStore(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+//        int store_id = Integer.parseInt(req.getParameter("store_id"));
+//        String store_name = req.getParameter("store_name");
+//        String store_address = req.getParameter("store_address");
+//        String contact_number = req.getParameter("contact_number");
+//
+//        Part fileBannerPart = req.getPart("banner_path");
+//        String banner_path = (fileBannerPart != null && fileBannerPart.getSize() > 0)
+//                ? fileBannerPart.getSubmittedFileName()
+//                : req.getParameter("current_banner_path");
+//
+//        Part fileAvatarPart = req.getPart("avt_path");
+//        String avt_path = (fileAvatarPart != null && fileAvatarPart.getSize() > 0)
+//                ? fileAvatarPart.getSubmittedFileName()
+//                : req.getParameter("current_avt_path");
+//
+//
+//        String uploadPath = getServletContext().getRealPath("/images/avatars");
+//        File uploadDir = new File(uploadPath);
+//        if (!uploadDir.exists()) {
+//            uploadDir.mkdirs();
+//        }
+//
+//        File bannerFile = new File(uploadDir, banner_path);
+//        if (!bannerFile.exists() && fileBannerPart != null && fileBannerPart.getSize() > 0) {
+//            fileBannerPart.write(bannerFile.getAbsolutePath());
+//        }
+//
+//        File avtFile = new File(uploadDir, avt_path);
+//        if (!avtFile.exists() && fileAvatarPart != null && fileAvatarPart.getSize() > 0) {
+//            fileAvatarPart.write(avtFile.getAbsolutePath());
+//        }
+//
+//        String storeTypeParam = req.getParameter("store_type");
+//        boolean store_type = Boolean.parseBoolean(storeTypeParam);
+//
+//        Merchant merchant = new Merchant(store_id, store_name, store_address, contact_number, banner_path, avt_path, store_type);
+//        boolean success = merchantService.updateMerchant(merchant);
+//        if (success) {
+//            req.getSession().setAttribute("success", "Cập nhật thông tin cửa hàng thành công!");
+//        }
+//        resp.sendRedirect("/manageStore?action=showInfoStore");
+//    }
 
     private void editMerchantStore(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         AccountService accountService = new AccountService();

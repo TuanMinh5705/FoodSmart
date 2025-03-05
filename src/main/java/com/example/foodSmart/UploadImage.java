@@ -31,9 +31,12 @@ public class UploadImage extends HttpServlet {
 
         String baseDir;
         if ("avatars".equals(directory)) {
-            baseDir = getServletContext().getRealPath("/images/avatars");;
+//            baseDir = getServletContext().getRealPath("/images/avatars");
+            baseDir = avtars_dir;
+
         } else if ("product".equals(directory)) {
-            baseDir = getServletContext().getRealPath("/images/product");
+//            baseDir = getServletContext().getRealPath("/images/product");
+            baseDir = products_dir;
         } else {
             resp.sendError(HttpServletResponse.SC_FORBIDDEN, "Access denied");
             return;
