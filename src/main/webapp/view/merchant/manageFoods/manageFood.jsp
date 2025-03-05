@@ -6,159 +6,175 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Quản lý danh mục và sản phẩm cửa hàng</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Quản lý sản phẩm cửa hàng</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <style>
         :root {
-            --primary-color: #1E88E5; /* Màu xanh chủ đạo */
-            --primary-color-hover: #1565c0; /* Màu xanh đậm khi hover */
-            --secondary-color: #f55d5d; /* Màu phụ cho nút */
-            --secondary-color-hover: #d32f2f;
-            --bg-light: #f5f7fa;
-            --bg-dark: #c3cfe2;
-            --card-bg: #ffffff;
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            --border-radius: 15px;
+            --primary-color: #3498db; /* Xanh dương tươi */
+            --secondary-color: #2ecc71; /* Xanh lá mát */
+            --primary-gradient: linear-gradient(90deg, #3498db, #2980b9);
+            --secondary-gradient: linear-gradient(90deg, #2ecc71, #27ae60);
+            --danger-gradient: linear-gradient(90deg, #e74c3c, #c0392b);
+            --bg-light: #ffffff;
+            --bg-dark: #ecf0f1;  /* Màu nền sáng nhẹ */
+            --text-color: #2c3e50; /* Xám đậm */
+            --card-shadow: rgba(44, 62, 80, 0.1);
+            --hover-shadow: rgba(44, 62, 80, 0.15);
         }
 
+        /* Global Styles */
         body {
-            background: linear-gradient(135deg, var(--bg-light), var(--bg-dark));
+            background: var(--bg-dark);
             font-family: 'Poppins', sans-serif;
-            min-height: 100vh;
             margin: 0;
             padding: 20px;
+            color: var(--text-color);
         }
 
         .custom-container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: auto;
-            padding: 30px;
         }
 
         h2 {
             font-weight: 700;
-            color: #333;
-            margin-bottom: 2rem;
             text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
         }
 
+        /* Card Styles */
         .card {
-            background: var(--card-bg);
             border: none;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            padding: 2rem;
+            border-radius: 15px;
+            background: var(--bg-light);
+            box-shadow: 0 4px 20px var(--card-shadow);
             margin-bottom: 2rem;
-            transition: transform 0.3s;
+            transition: transform 0.3s ease;
         }
 
         .card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-3px);
         }
 
+        /* Chỉnh sửa card-header: bỏ màu nền và hiển thị chữ đậm */
         .card-header {
-            font-size: 1.8rem;
-            font-weight: 600;
+            background: transparent; /* Bỏ màu nền */
+            color: var(--text-color); /* Sử dụng màu chữ mặc định */
+            padding: 1.5rem;
+            font-size: 1.75rem;
+            font-weight: 700; /* Chữ đậm */
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
             text-align: center;
-            margin-bottom: 1.5rem;
             position: relative;
-            padding-bottom: 10px;
         }
 
-        .card-header::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 50px;
-            height: 3px;
-            background: var(--primary-color);
-            border-radius: 2px;
+        .card-body {
+            padding: 1.5rem 2rem;
+        }
+
+        /* Button Styles */
+        .btn {
+            border-radius: 50px;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
         .btn-primary {
-            border-radius: 50px;
-            padding: 0.75rem 2.5rem;
-            font-size: 1rem;
-            font-weight: 600;
-            background: var(--primary-color);
+            background: var(--primary-gradient);
             border: none;
-            transition: background 0.3s, transform 0.3s;
+            padding: 0.65rem 2rem;
+            font-weight: 600;
         }
 
         .btn-primary:hover {
-            background: var(--primary-color-hover);
-            transform: translateY(-3px);
-        }
-
-        .btn-secondary {
-            border-radius: 50px;
-            padding: 0.75rem 2.5rem;
-            font-size: 1rem;
-            font-weight: 600;
-            background: var(--secondary-color);
-            border: none;
-            color: #fff;
-            transition: background 0.3s, transform 0.3s;
-        }
-
-        .btn-secondary:hover {
-            background: var(--secondary-color-hover);
-            transform: translateY(-3px);
-        }
-
-        .btn-danger {
-            border-radius: 50px;
-            padding: 0.65rem 1.5rem;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: transform 0.3s;
-        }
-
-        .btn-danger:hover {
+            box-shadow: 0 6px 15px var(--hover-shadow);
             transform: translateY(-2px);
         }
 
-        .input-group .form-control {
-            border-radius: 50px 0 0 50px;
-            border: 1px solid #ddd;
-            padding: 0.75rem 1rem;
+        .btn-secondary {
+            background: var(--secondary-gradient);
+            border: none;
+            color: #fff;
+            padding: 0.65rem 2rem;
+            font-weight: 600;
         }
 
-        .input-group .btn {
-            border-radius: 0 50px 50px 0;
+        .btn-secondary:hover {
+            box-shadow: 0 6px 15px var(--hover-shadow);
+            transform: translateY(-2px);
         }
 
+        .btn-danger {
+            background: var(--danger-gradient);
+            border: none;
+            padding: 0.65rem 1.5rem;
+            font-weight: 600;
+        }
+
+        .btn-danger:hover {
+            box-shadow: 0 6px 15px var(--hover-shadow);
+            transform: translateY(-2px);
+        }
+
+        /* Search input with icon on right */
+        .search-form {
+            position: relative;
+            max-width: 300px;
+        }
+
+        .search-input {
+            padding-right: 2.5rem;
+            border-radius: 50px;
+            transition: box-shadow 0.3s;
+        }
+
+        .search-input:focus {
+            box-shadow: 0 0 8px var(--primary-color);
+        }
+
+        .search-icon {
+            position: absolute;
+            top: 50%;
+            right: 0.75rem;
+            transform: translateY(-50%);
+            color: #aaa;
+            cursor: pointer;
+        }
+
+        /* Table styles */
         .table {
-            margin-bottom: 0;
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px var(--card-shadow);
         }
 
         .table thead {
-            background: var(--primary-color);
+            background: var(--primary-gradient);
             color: #fff;
         }
 
         .table th, .table td {
             vertical-align: middle;
             text-align: center;
-            padding: 1rem;
+            padding: 0.75rem;
         }
 
         .table tbody tr:nth-child(even) {
-            background-color: #f9f9f9;
+            background: #f8f8f8;
         }
 
         .table tbody tr:hover {
-            background-color: #f1f1f1;
+            background: #f1f1f1;
         }
 
         .img-thumbnail {
             border: none;
             border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 8px var(--card-shadow);
         }
 
         @media (max-width: 576px) {
@@ -166,7 +182,7 @@
                 font-size: 1.5rem;
             }
 
-            .btn-primary, .btn-secondary, .btn-danger {
+            .btn {
                 font-size: 0.9rem;
                 padding: 0.5rem 1.5rem;
             }
@@ -174,25 +190,18 @@
     </style>
 </head>
 <body>
-<div class="container custom-container">
-    <h2>Quản lý danh mục và sản phẩm</h2>
-
+<div class="container my-4 custom-container">
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4 gap-3">
         <div>
             <a href="/manageFoods?action=addFoodForm" class="btn btn-secondary">
                 <i class="fas fa-plus me-1"></i> Thêm món ăn
             </a>
         </div>
-        <form action="/manageFoods?action=search" method="post" class="d-flex" id="searchForm">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Tìm kiếm" name="keyword" id="searchBox" oninput="startTimer()">
-                <button class="btn btn-primary" type="submit">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
+        <form action="/manageFoods?action=search" method="post" class="search-form" id="searchForm">
+            <input type="text" class="form-control search-input" placeholder="Tìm kiếm" name="keyword" id="searchBox" oninput="startTimer()">
+            <i class="fas fa-search search-icon" onclick="document.getElementById('searchForm').submit();"></i>
         </form>
     </div>
-
     <div class="card">
         <div class="card-header">
             Danh sách món ăn
@@ -241,7 +250,8 @@
                                             <a href="/manageFoods?action=infoProductForm&productID=${product.product_id}" class="btn btn-primary btn-sm" title="Chi tiết">
                                                 <i class="fas fa-info-circle"></i>
                                             </a>
-                                            <button type="button" class="btn btn-danger btn-sm" title="Xóa" onclick="showDeleteModal({ id: '${product.product_id}', url: 'manageFoods', action: 'deleteFood' });">
+                                            <button type="button" class="btn btn-danger btn-sm" title="Xóa"
+                                                    onclick="showDeleteModal({ id: '${product.product_id}', url: 'manageFoods', action: 'deleteFood' });">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </div>
@@ -263,9 +273,9 @@
     let timer;
     function startTimer() {
         clearTimeout(timer);
-        timer = setTimeout(function () {
+        timer = setTimeout(function() {
             document.getElementById("searchForm").submit();
-        }, 2500);
+        }, 4500);
     }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
