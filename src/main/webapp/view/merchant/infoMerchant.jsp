@@ -75,6 +75,16 @@
         }
         .input-with-icon input {
             padding-right: 2.5rem;
+            background-color: transparent !important; /* Bỏ màu nền */
+            border-radius: 10px !important; /* Bo góc */
+            border: 1px solid #ced4da; /* Đặt border mặc định */
+        }
+        /* Loại bỏ hiệu ứng hover và focus cho input */
+        .input-with-icon input:hover,
+        .input-with-icon input:focus {
+            background-color: transparent !important;
+            box-shadow: none !important;
+            border-color: #ced4da !important;
         }
         .input-with-icon .toggle-password {
             position: absolute;

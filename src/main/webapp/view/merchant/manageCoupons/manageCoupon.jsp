@@ -165,7 +165,7 @@
                 <table class="table table-bordered table-striped table-hover" id="voucherTable">
                     <thead>
                     <tr>
-                        <th>#</th>
+                        <th>STT</th>
                         <th>Mã giảm giá</th>
                         <th>Giá trị (%)</th>
                         <th>Số lượng</th>
