@@ -207,8 +207,6 @@ public class FoodServlet extends HttpServlet {
         }
     }
 
-
-
     private void paymentOrder(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession();
         List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
@@ -505,7 +503,6 @@ public class FoodServlet extends HttpServlet {
         req.setAttribute("totalAmount", totalAmount);
         req.getRequestDispatcher("view/user/homeUser.jsp?page=orderProduct").forward(req, resp);
     }
-
     private void removeProductFromCart(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession();
         List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
@@ -515,14 +512,15 @@ public class FoodServlet extends HttpServlet {
             cart = cart.stream()
                     .filter(item -> item.getProductId() != productId)
                     .collect(Collectors.toList());
+
             session.setAttribute("cart", cart);
+            session.setAttribute("cartCount", cart.size());
         }
 
         resp.setContentType("text/plain");
         resp.setCharacterEncoding("UTF-8");
         resp.getWriter().write("success");
     }
-
     private void removeStoreFromCart(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession();
         List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
@@ -532,14 +530,14 @@ public class FoodServlet extends HttpServlet {
             cart = cart.stream()
                     .filter(item -> item.getStoreId() != storeId)
                     .collect(Collectors.toList());
-            session.setAttribute("cart", cart);
-        }
 
+            session.setAttribute("cart", cart);
+            session.setAttribute("cartCount", cart.size());
+        }
         resp.setContentType("text/plain");
         resp.setCharacterEncoding("UTF-8");
         resp.getWriter().write("success");
     }
-
     private void showCartStore(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
@@ -588,7 +586,6 @@ public class FoodServlet extends HttpServlet {
         req.setAttribute("cartDisplayList", cartDisplayList);
         req.getRequestDispatcher("view/user/homeUser.jsp?page=cart_store").forward(req, resp);
     }
-
     private void addProductToCart(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession();
         resp.setContentType("application/json");
@@ -636,7 +633,6 @@ public class FoodServlet extends HttpServlet {
             resp.getWriter().write("{\"success\": false, \"message\": \"Dữ liệu không hợp lệ\"}");
         }
     }
-
     private void searchProduct(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String keyword = req.getParameter("keyword");
         if (keyword == null) {
@@ -649,7 +645,6 @@ public class FoodServlet extends HttpServlet {
         req.setAttribute("keyword", keyword);
         req.getRequestDispatcher("view/user/homeUser.jsp?page=foodsByCategory").forward(req, resp);
     }
-
     private void getFoodsByCategory(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int category_id = Integer.parseInt(req.getParameter("category_id"));
         List<Food> foodList = productService.getFoodListByCategory(category_id);
@@ -669,7 +664,6 @@ public class FoodServlet extends HttpServlet {
         req.setAttribute("foodList", foodList);
         req.getRequestDispatcher("view/user/homeUser.jsp?page=foodsByCategory").forward(req, resp);
     }
-
     private void showListFood(HttpServletRequest req, HttpServletResponse resp) {
         try {
             List<CategoryFood> categoryFoodList = categoryFoodService.listCategoryFood();

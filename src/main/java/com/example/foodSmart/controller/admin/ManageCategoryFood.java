@@ -83,7 +83,10 @@ public class ManageCategoryFood extends HttpServlet {
         if (!uploadDir.exists()) {
             uploadDir.mkdirs();
         }
-        filePart.write(uploadPath + File.separator + avatarPath);
+        File file = new File(uploadPath,avatarPath);
+        if (!file.exists()) {
+            filePart.write(uploadPath + File.separator + avatarPath);
+        }
         String categoryName = req.getParameter("category_name");
         String description = req.getParameter("description");
         CategoryFood categoryFood = new CategoryFood(categoryFood_id,categoryName,description,avatarPath);
@@ -100,8 +103,10 @@ public class ManageCategoryFood extends HttpServlet {
         if (!uploadDir.exists()) {
             uploadDir.mkdirs();
         }
-        filePart.write(uploadPath + File.separator + avatarPath);
-
+        File file = new File(uploadPath,avatarPath);
+        if (!file.exists()) {
+            filePart.write(uploadPath + File.separator + avatarPath);
+        }
         String category_name = req.getParameter("category_name");
         String description = req.getParameter("description");
         CategoryFood categoryFood = new CategoryFood(category_name,description,avatarPath);

@@ -184,7 +184,7 @@
                                     <a href="/manageCoupons?action=editCouponForm&coupon_id=${coupon.coupon_id}" class="btn btn-primary btn-sm" title="Chỉnh sửa">
                                         <i class="fas fa-pencil-alt"></i>
                                     </a>
-                                    <a href="#" class="btn btn-secondary btn-sm" title="Chi tiết">
+                                    <a href="/manageCoupons?action=infoCouponForm&coupon_id=${coupon.coupon_id}" class="btn btn-secondary btn-sm" title="Chi tiết">
                                         <i class="fas fa-eye"></i>
                                     </a>
                                 </div>

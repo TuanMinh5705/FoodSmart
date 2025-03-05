@@ -5,9 +5,9 @@
     <title>Footer</title>
 </head>
 <body>
-<footer class="bg-yellow-400 pt-6 mt-3">
+<footer class="pt-6 mt-3" style="background-color: rgb(255 237 56 / 97%);">
     <div class="container mx-auto px-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 border-b border-black pb-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pb-4">
             <!-- Thông tin liên hệ -->
             <div class="pl-6">
                 <h4 class="text-2xl font-bold mb-4">Thông tin liên hệ</h4>
@@ -29,7 +29,7 @@
                         </div>
                     </div>
                     <!-- Email -->
-                    <div class="pb-4 border-b border-black text-xl flex items-start">
+                    <div class="pb-4 text-xl flex items-start">
                         <i class="fas fa-envelope text-2xl mr-4"></i>
                         <div>
                             <p class="font-semibold">EMAIL:</p>
@@ -57,17 +57,17 @@
                         <i class="fab fa-youtube text-3xl"></i>
                     </div>
                 </div>
-                <div class="flex-1 md:ml-8">
+                <div class="flex-1 md:ml-8 text-center">
                     <h4 class="text-2xl font-bold mb-4">Giấy phép</h4>
                     <a href="#" class="text-xl block">K15 363/GP-CODEGYM</a>
-                    <img src="../../images/footer.png" alt="Giấy phép Bộ Công Thương" class="w-52 h-auto mt-4" />
+                    <img src="../../../images/footer.png" alt="Giấy phép Bộ Công Thương" class="w-52 h-auto mt-4 mx-auto" />
                 </div>
             </div>
         </div>
-        <!-- Phần bản quyền -->
-        <div class="text-center mt-4 border-t-4 border-black pt-2 bg-blue-500">
-            <p class="text-xl text-white">Bản quyền &copy; 2025 SmartFood</p>
-        </div>
+    </div>
+    <!-- Phần bản quyền -->
+    <div class="text-center mt-4 pt-2" style="background-color: rgb(33 64 61);">
+        <p class="text-xl text-white">Bản quyền &copy; 2025 SmartFood</p>
     </div>
 </footer>
 </body>
