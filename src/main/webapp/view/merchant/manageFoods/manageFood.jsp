@@ -12,13 +12,15 @@
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <style>
         :root {
-            --primary-color: #6a11cb;
-            --secondary-color: #2575fc;
-            --primary-gradient: linear-gradient(90deg, #8E2DE2, #4A00E0);
-            --secondary-gradient: linear-gradient(90deg, #FF416C, #FF4B2B);
+            --primary-color: #1E88E5; /* Màu xanh chủ đạo */
+            --primary-color-hover: #1565c0; /* Màu xanh đậm khi hover */
+            --secondary-color: #f55d5d; /* Màu phụ cho nút */
+            --secondary-color-hover: #d32f2f;
             --bg-light: #f5f7fa;
             --bg-dark: #c3cfe2;
-            --table-row-hover: #f1f1f1;
+            --card-bg: #ffffff;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --border-radius: 15px;
         }
 
         body {
@@ -27,102 +29,103 @@
             min-height: 100vh;
             margin: 0;
             padding: 20px;
-            line-height: 1.6;
         }
 
         .custom-container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: auto;
+            padding: 30px;
         }
 
         h2 {
             font-weight: 700;
             color: #333;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             text-align: center;
         }
 
         .card {
+            background: var(--card-bg);
             border: none;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            background: #fff;
-            animation: fadeInUp 0.8s ease;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 2rem;
             margin-bottom: 2rem;
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
         }
 
         .card-header {
-            background: var(--primary-gradient);
-            color: #fff;
-            text-align: center;
-            padding: 1.5rem;
             font-size: 1.8rem;
-            font-weight: 700;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 1.5rem;
             position: relative;
+            padding-bottom: 10px;
         }
 
         .card-header::after {
             content: "";
             position: absolute;
-            bottom: -5px;
+            bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 40%;
+            width: 50px;
             height: 3px;
-            background: #fff;
+            background: var(--primary-color);
             border-radius: 2px;
-        }
-
-        .card-body {
-            padding: 1.5rem 2rem;
         }
 
         .btn-primary {
             border-radius: 50px;
-            padding: 0.65rem 2rem;
+            padding: 0.75rem 2.5rem;
             font-size: 1rem;
             font-weight: 600;
-            background: var(--primary-gradient);
+            background: var(--primary-color);
             border: none;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: background 0.3s, transform 0.3s;
         }
 
         .btn-primary:hover {
-            box-shadow: 0 6px 15px rgba(142, 45, 226, 0.3);
+            background: var(--primary-color-hover);
+            transform: translateY(-3px);
         }
 
         .btn-secondary {
             border-radius: 50px;
-            padding: 0.65rem 2rem;
+            padding: 0.75rem 2.5rem;
             font-size: 1rem;
             font-weight: 600;
-            background: var(--secondary-gradient);
+            background: var(--secondary-color);
             border: none;
-            transition: transform 0.3s, box-shadow 0.3s;
             color: #fff;
+            transition: background 0.3s, transform 0.3s;
         }
 
         .btn-secondary:hover {
-            box-shadow: 0 6px 15px rgba(255, 65, 108, 0.3);
+            background: var(--secondary-color-hover);
+            transform: translateY(-3px);
         }
 
         .btn-danger {
             border-radius: 50px;
             padding: 0.65rem 1.5rem;
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 600;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: transform 0.3s;
         }
 
         .btn-danger:hover {
-            box-shadow: 0 6px 15px rgba(220, 53, 69, 0.3);
+            transform: translateY(-2px);
         }
 
         .input-group .form-control {
             border-radius: 50px 0 0 50px;
-            border-right: none;
-            padding: 0.65rem 1rem;
+            border: 1px solid #ddd;
+            padding: 0.75rem 1rem;
         }
 
         .input-group .btn {
@@ -134,14 +137,14 @@
         }
 
         .table thead {
-            background: var(--primary-gradient);
+            background: var(--primary-color);
             color: #fff;
         }
 
         .table th, .table td {
             vertical-align: middle;
             text-align: center;
-            padding: 0.75rem;
+            padding: 1rem;
         }
 
         .table tbody tr:nth-child(even) {
@@ -149,24 +152,13 @@
         }
 
         .table tbody tr:hover {
-            background-color: var(--table-row-hover);
+            background-color: #f1f1f1;
         }
 
         .img-thumbnail {
             border: none;
             border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         @media (max-width: 576px) {
@@ -182,82 +174,23 @@
     </style>
 </head>
 <body>
-<div class="container my-4 custom-container">
+<div class="container custom-container">
     <h2>Quản lý danh mục và sản phẩm</h2>
 
-    <div class="d-flex flex-column flex-md-row justify-content-between align-items-stretch mb-4 gap-3">
-        <div class="d-flex gap-2">
-            <a href="/manageFoods?action=addCategoryForm" class="btn btn-primary">
-                <i class="fas fa-plus me-1"></i> Thêm danh mục
-            </a>
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4 gap-3">
+        <div>
             <a href="/manageFoods?action=addFoodForm" class="btn btn-secondary">
                 <i class="fas fa-plus me-1"></i> Thêm món ăn
             </a>
         </div>
         <form action="/manageFoods?action=search" method="post" class="d-flex" id="searchForm">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Tìm kiếm" name="keyword" id="searchBox"
-                       oninput="startTimer()">
+                <input type="text" class="form-control" placeholder="Tìm kiếm" name="keyword" id="searchBox" oninput="startTimer()">
                 <button class="btn btn-primary" type="submit">
                     <i class="fas fa-search"></i>
                 </button>
             </div>
         </form>
-    </div>
-
-    <div class="card">
-        <div class="card-header">
-            Danh mục sản phẩm
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover">
-                    <thead>
-                    <tr>
-                        <th>STT</th>
-                        <th>Ảnh danh mục</th>
-                        <th>Tên danh mục</th>
-                        <th>Mô tả</th>
-                        <th>Hành động</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:choose>
-                        <c:when test="${empty categoryFoodList}">
-                            <tr>
-                                <td colspan="5" class="text-center text-muted">Không có danh mục nào.</td>
-                            </tr>
-                        </c:when>
-                        <c:otherwise>
-                            <c:forEach var="category" items="${categoryFoodList}" varStatus="status">
-                                <tr>
-                                    <td>${status.index + 1}</td>
-                                    <td>
-                                        <img src="${pageContext.request.contextPath}/foodSmartImages/product/${category.avt_path}"
-                                             alt="Ảnh danh mục" class="img-thumbnail" width="80">
-                                    </td>
-                                    <td>${category.category_name}</td>
-                                    <td>${category.description}</td>
-                                    <td>
-                                        <div class="d-flex justify-content-center gap-2">
-                                            <a href="/manageFoods?action=infoCategoryForm&categoryID=${category.category_id}"
-                                               class="btn btn-primary btn-sm" title="Chi tiết">
-                                                <i class="fas fa-info-circle"></i>
-                                            </a>
-                                            <button type="button" class="btn btn-danger btn-sm" title="Xóa"
-                                                    onclick="showDeleteModal({ id: ${category.category_id}, url: '/manageFoods', action: 'deleteCategory' })">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                        </c:otherwise>
-                    </c:choose>
-                    </tbody>
-                </table>
-            </div>
-        </div>
     </div>
 
     <div class="card">
@@ -292,8 +225,7 @@
                                     <td>
                                         <c:forEach var="image" items="${product.list_food_images}">
                                             <c:if test="${image.is_primary}">
-                                                <img src="${pageContext.request.contextPath}/foodSmartImages/product/${image.image_path}"
-                                                     alt="Ảnh món ăn" class="img-thumbnail" width="80">
+                                                <img src="${pageContext.request.contextPath}/foodSmartImages/product/${image.image_path}" alt="Ảnh món ăn" class="img-thumbnail" width="80">
                                             </c:if>
                                         </c:forEach>
                                     </td>
@@ -303,18 +235,13 @@
                                     <td>${product.discount}%</td>
                                     <td>
                                         <div class="d-flex justify-content-center gap-2">
-                                            <a href="/manageFoods?action=editProductForm&productID=${product.product_id}"
-                                               class="btn btn-secondary btn-sm" title="Sửa">
+                                            <a href="/manageFoods?action=editProductForm&productID=${product.product_id}" class="btn btn-secondary btn-sm" title="Sửa">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-
-                                            <a href="/manageFoods?action=infoProductForm&productID=${product.product_id}"
-                                               class="btn btn-primary btn-sm" title="Chi tiết">
+                                            <a href="/manageFoods?action=infoProductForm&productID=${product.product_id}" class="btn btn-primary btn-sm" title="Chi tiết">
                                                 <i class="fas fa-info-circle"></i>
                                             </a>
-
-                                            <button type="button" class="btn btn-danger btn-sm" title="Xóa"
-                                                    onclick="showDeleteModal({ id: '${product.product_id}', url: 'manageFoods', action: 'deleteFood' });">
+                                            <button type="button" class="btn btn-danger btn-sm" title="Xóa" onclick="showDeleteModal({ id: '${product.product_id}', url: 'manageFoods', action: 'deleteFood' });">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </div>
@@ -328,19 +255,17 @@
             </div>
         </div>
     </div>
-
 </div>
 
 <jsp:include page="../../admin/system/modalConfirmDelete.jsp"/>
 
 <script>
     let timer;
-
     function startTimer() {
         clearTimeout(timer);
         timer = setTimeout(function () {
             document.getElementById("searchForm").submit();
-        }, 4500);
+        }, 2500);
     }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

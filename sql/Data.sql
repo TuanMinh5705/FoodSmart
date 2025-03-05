@@ -25,6 +25,8 @@ insert into Categories(category_name,`description`,avt_path) values
 ('Cơm,Cơm rang','Cơm,Cơm rang','chicken_rice.png'),
 ('Mì , bún , phở','Mì , bún , phở','noodles.png'),
 ('Đồ tráng miệng , đồ ngọt','Đồ tráng miệng , đồ ngọt','chocolate_cake.png'),
+('Đồ ăn Nhật','đồ nhật','chocolate_cake.png'),
+('Đồ ăn Hàn','Đồ ăn Hàn','noodles.png'),
 ("Đồ uống","Đồ uống",'fruit.png');
 
 insert into Products(store_id,product_name,price,stock_quantity) values
@@ -45,12 +47,12 @@ insert into Products(store_id,product_name,price,stock_quantity) values
 
 
 insert into categories_stores(store_id,category_id) values
-(1,3),
-(1,4),
-(1,1),
-(2,1),
-(2,2),
-(3,1),(3,2),(3,3);
+(1,7),
+(1,8),
+(1,9),
+(2,10),
+(2,11),
+(3,12),(3,11),(3,10);
 
 INSERT INTO Product_Images (product_id, is_primary)  
 VALUES  

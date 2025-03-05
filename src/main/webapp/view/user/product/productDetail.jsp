@@ -19,16 +19,16 @@
     </style>
 </head>
 <body class="bg-light">
-<div class="container mt-4">
-    <div class="text-sm text-gray-600 mt-4 ml-4">
+<div class="container mt-8">
+    <div class="text-sm text-gray-600 mb-16 ml-4" style="margin-top: 160px">
         <a href="/homeUser" class="hover:underline">Trang chủ</a> /
         <c:if test="${not empty food.product_name}">
             <span>${food.product_name}</span>
         </c:if>
     </div>
 
-    <div class="row">
-        <div class="col-md-7">
+    <div class="row ">
+        <div class="col-md-6 mt-8">
             <c:choose>
                 <c:when test="${not empty food.list_food_images}">
                     <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
@@ -45,7 +45,8 @@
                             <c:forEach var="img" items="${food.list_food_images}" varStatus="status">
                                 <div class="carousel-item ${status.first ? 'active' : ''}">
                                     <img src="${pageContext.request.contextPath}/foodSmartImages/product/${img.image_path}"
-                                         class="d-block w-100" alt="${food.product_name}" style="height:400px; object-fit: contain; object-position: center;">
+                                         class="d-block w-100" alt="${food.product_name}"
+                                         style="height: 350px; object-fit: contain; object-position: center;">
                                 </div>
                             </c:forEach>
                         </div>
@@ -61,14 +62,11 @@
 
                     </div>
                 </c:when>
-                <c:otherwise>
-                    <img id="mainImage" src="${pageContext.request.contextPath}/foodSmartImages/product/product_default.jpg"
-                         alt="No image available" class="img-fluid rounded border">
-                </c:otherwise>
             </c:choose>
         </div>
 
-        <div class="col-md-5">
+
+        <div class="col-md-5 ">
             <h1 class="h2">${food.product_name}</h1>
             <a>Cửa hàng : ${store.store_name}</a>
             <div class="fs-4 fw-bold">
@@ -127,7 +125,7 @@
 
 
             <h2 class="h5 mt-4">Mô tả chi tiết sản phẩm</h2>
-            <ul>
+            <ul style="list-style-type: disc; margin-left: 1.5rem;">
                 <li>Bánh mì kẹp thập cẩm:</li>
                 <li>Thịt nguội (chả lụa, jambon, xúc xích, pate, thịt xá xíu...)</li>
                 <li>Trứng chiên hoặc trứng ốp la</li>

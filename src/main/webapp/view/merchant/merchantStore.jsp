@@ -42,7 +42,7 @@
         .profile-card .card-header {
             position: relative;
             height: 180px;
-            background-image: url('${pageContext.request.contextPath}/foodSmartImages/avatars/${store.banner_path}');
+            background-image: url('${pageContext.request.contextPath}/images/avatars/${store.banner_path}');
             background-size: cover;
             background-position: center;
         }
