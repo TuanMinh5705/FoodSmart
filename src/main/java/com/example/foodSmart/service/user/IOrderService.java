@@ -10,4 +10,5 @@ public interface IOrderService {
     void addOrder(Order order);
     Order getOrder(int id);
     List<Order> getOrders();
+    List<Order> getOrdersByUser(int id);
 }

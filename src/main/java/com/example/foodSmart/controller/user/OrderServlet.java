@@ -99,7 +99,9 @@ public class OrderServlet extends HttpServlet {
 
     private void showOrder(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        List<Order> allOrders = orderService.getOrders();
+        Account loggedInUser = (Account) req.getSession().getAttribute("loggedInAccount");
+        int accountId = loggedInUser.getAccountID();
+        List<Order> allOrders = orderService.getOrdersByUser(accountId);
         Map<Integer, Merchant> merchantMap = new HashMap<>();
         for (Order order : allOrders) {
             Merchant store = merchantService.getMerchantById(order.getStoreId());
