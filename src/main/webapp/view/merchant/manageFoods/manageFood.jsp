@@ -187,9 +187,6 @@
 
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-stretch mb-4 gap-3">
         <div class="d-flex gap-2">
-            <a href="/manageFoods?action=addCategoryForm" class="btn btn-primary">
-                <i class="fas fa-plus me-1"></i> Thêm danh mục
-            </a>
             <a href="/manageFoods?action=addFoodForm" class="btn btn-secondary">
                 <i class="fas fa-plus me-1"></i> Thêm món ăn
             </a>
@@ -203,61 +200,6 @@
                 </button>
             </div>
         </form>
-    </div>
-
-    <div class="card">
-        <div class="card-header">
-            Danh mục sản phẩm
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover">
-                    <thead>
-                    <tr>
-                        <th>STT</th>
-                        <th>Ảnh danh mục</th>
-                        <th>Tên danh mục</th>
-                        <th>Mô tả</th>
-                        <th>Hành động</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:choose>
-                        <c:when test="${empty categoryFoodList}">
-                            <tr>
-                                <td colspan="5" class="text-center text-muted">Không có danh mục nào.</td>
-                            </tr>
-                        </c:when>
-                        <c:otherwise>
-                            <c:forEach var="category" items="${categoryFoodList}" varStatus="status">
-                                <tr>
-                                    <td>${status.index + 1}</td>
-                                    <td>
-                                        <img src="${pageContext.request.contextPath}/foodSmartImages/product/${category.avt_path}"
-                                             alt="Ảnh danh mục" class="img-thumbnail" width="80">
-                                    </td>
-                                    <td>${category.category_name}</td>
-                                    <td>${category.description}</td>
-                                    <td>
-                                        <div class="d-flex justify-content-center gap-2">
-                                            <a href="/manageFoods?action=infoCategoryForm&categoryID=${category.category_id}"
-                                               class="btn btn-primary btn-sm" title="Chi tiết">
-                                                <i class="fas fa-info-circle"></i>
-                                            </a>
-                                            <button type="button" class="btn btn-danger btn-sm" title="Xóa"
-                                                    onclick="showDeleteModal({ id: ${category.category_id}, url: '/manageFoods', action: 'deleteCategory' })">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                        </c:otherwise>
-                    </c:choose>
-                    </tbody>
-                </table>
-            </div>
-        </div>
     </div>
 
     <div class="card">

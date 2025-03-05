@@ -26,29 +26,13 @@
     </style>
 </head>
 <body class="bg-light">
-<!-- Breadcrumb Navigation với icon -->
-<div class="container mt-3">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-                <a href="/homeUser">
-                    Trang chủ
-                </a>
-            </li>
-            <li class="breadcrumb-item active" aria-current="page">
-                ${store.store_name}
-            </li>
-        </ol>
-    </nav>
-</div>
-
 <!-- Banner -->
 <div>
     <img src="${pageContext.request.contextPath}/foodSmartImages/avatars/${store.banner_path}" alt="Banner" class="store-banner img-fluid">
 </div>
 
 <!-- Thông tin cửa hàng: Avatar lớn bên cạnh thông tin -->
-<div class="container mt-4">
+<div class="container mt-5">
     <div class="row align-items-center">
         <div class="col-md-3 text-center">
             <img src="${pageContext.request.contextPath}/foodSmartImages/avatars/${store.avt_path}" alt="Avatar" class="store-avatar">
@@ -71,23 +55,23 @@
 <div class="container mt-4">
     <c:if test="${not empty storeCategories}">
         <c:forEach var="category" items="${storeCategories}">
-            <section class="mb-5">
-                <h2 class="fw-bold border-bottom pb-2">
+            <section class="mb-2">
+                <h2 class="fw-bold border-bottom pb-4 mt-5">
                     <i class="fas fa-utensils"></i> ${category.category_name}
                 </h2>
                 <c:if test="${not empty category.foodList}">
-                    <div class="row">
+                    <div class="row g-2">
                         <c:forEach var="food" items="${category.foodList}">
-                            <div class="col-md-4 col-lg-3 mb-4">
-                                <div class="card h-100 shadow-sm">
+                            <div class="col-md-2 col-lg-2 mb-2">
+                                <div class="card h-80 shadow-sm">
                                     <c:choose>
                                         <c:when test="${not empty food.list_food_images}">
                                             <img src="${pageContext.request.contextPath}/foodSmartImages/product/${food.list_food_images[0].image_path}"
-                                                 class="card-img-top" style="height: 250px; object-fit: cover;" alt="${food.product_name}">
+                                                 class="card-img-top" style="height: 150px; object-fit: contain;" alt="${food.product_name}">
                                         </c:when>
                                         <c:otherwise>
                                             <img src="${pageContext.request.contextPath}/images/product_default.png"
-                                                 class="card-img-top" style="height: 250px; object-fit: cover;" alt="Không có ảnh">
+                                                 class="card-img-top" style="height: 150px; object-fit: contain;" alt="Không có ảnh">
                                         </c:otherwise>
                                     </c:choose>
                                     <div class="card-body d-flex flex-column">
@@ -129,6 +113,7 @@
         <p class="text-muted">Không có danh mục nào!</p>
     </c:if>
 </div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

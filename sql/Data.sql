@@ -47,12 +47,12 @@ insert into Products(store_id,product_name,price,stock_quantity) values
 
 
 insert into categories_stores(store_id,category_id) values
-(1,3),
-(1,4),
-(1,1),
-(2,1),
-(2,2),
-(3,1),(3,2),(3,3);
+(1,7),
+(1,8),
+(1,9),
+(2,10),
+(2,11),
+(3,12),(3,11),(3,10);
 
 INSERT INTO Product_Images (product_id, is_primary)  
 VALUES  

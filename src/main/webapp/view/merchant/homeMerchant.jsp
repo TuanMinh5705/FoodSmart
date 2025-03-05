@@ -31,12 +31,6 @@
     <c:when test="${param.page == 'manageFoods'}">
         <jsp:include page="manageFoods/manageFood.jsp"/>
     </c:when>
-    <c:when test="${param.page == 'addCategory'}">
-        <jsp:include page="manageFoods/addCategory.jsp"/>
-    </c:when>
-    <c:when test="${param.page == 'infoCategory'}">
-        <jsp:include page="manageFoods/infoCategory.jsp"/>
-    </c:when>
 
     <c:when test="${param.page == 'addFood'}">
         <jsp:include page="manageFoods/addFood.jsp"/>

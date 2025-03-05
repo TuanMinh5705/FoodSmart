@@ -46,33 +46,32 @@
         <c:out value="${not empty sessionScope.collectionCount ? sessionScope.collectionCount : 0}" />
     </span>
             </a>
-
-
             <a href="/notifications" title="Thông báo" class="text-black text-2xl">
                 <i class="fas fa-bell"></i>
             </a>
 
+            <!-- Account Section -->
             <div class="relative group">
                 <button class="flex items-center focus:outline-none">
                     <i class="fas fa-user-circle text-black text-2xl"></i>
                     <span class="ml-2 text-black text-lg">
-                        <c:out value="${sessionScope.loggedInAccount.username}" default="Đăng nhập"/>
-                    </span>
+            <c:out value="${sessionScope.loggedInAccount.username}" default="Đăng nhập"/>
+        </span>
                 </button>
                 <!-- Dropdown menu -->
-                <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-50">
+                <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-50 group-hover:block hidden">
                     <a href="/userInformation" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">
                         <i class="fas fa-user-circle"></i> Thông tin tài khoản
                     </a>
                     <a href="/order" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">
                         <i class="bi bi-clipboard-minus-fill"></i> Đơn hàng
                     </a>
-                    <a href="/order" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Đơn hàng</a>
                     <a href="javascript:void(0);" onclick="confirmLogout()" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">
                         <i class="fas fa-sign-out-alt mr-2"></i> Đăng xuất
                     </a>
                 </div>
             </div>
+
         </div>
     </div>
 </header>
