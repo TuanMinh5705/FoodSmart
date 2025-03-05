@@ -115,6 +115,7 @@
             height: 120px;
             border-radius: 50%;
             object-fit: cover;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
         .img-preview:hover {
             transform: scale(1.05);
