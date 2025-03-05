@@ -80,11 +80,17 @@
         .btn {
             border-radius: 50px;
             transition: transform 0.3s, box-shadow 0.3s;
+            border: none !important; /* Loại bỏ border */
+        }
+
+        .btn:focus,
+        .btn:active {
+            outline: none !important;
+            box-shadow: none !important;
         }
 
         .btn-primary {
             background: var(--primary-gradient);
-            border: none;
             padding: 0.65rem 2rem;
             font-weight: 600;
         }
@@ -96,7 +102,6 @@
 
         .btn-secondary {
             background: var(--secondary-gradient);
-            border: none;
             color: #fff;
             padding: 0.65rem 2rem;
             font-weight: 600;
@@ -109,7 +114,6 @@
 
         .btn-danger {
             background: var(--danger-gradient);
-            border: none;
             padding: 0.65rem 1.5rem;
             font-weight: 600;
         }
@@ -122,7 +126,7 @@
         /* Search input with icon on right */
         .search-form {
             position: relative;
-            max-width: 300px;
+            max-width: 500px; /* Tăng độ dài thanh tìm kiếm lên 500px */
         }
 
         .search-input {
@@ -181,7 +185,6 @@
             .card-header {
                 font-size: 1.5rem;
             }
-
             .btn {
                 font-size: 0.9rem;
                 padding: 0.5rem 1.5rem;
@@ -275,7 +278,7 @@
         clearTimeout(timer);
         timer = setTimeout(function() {
             document.getElementById("searchForm").submit();
-        }, 4500);
+        }, 2500);
     }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

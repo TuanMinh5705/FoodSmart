@@ -69,9 +69,19 @@
             font-size: 1.1rem;
             color: #555;
         }
-        .input-group {
-            max-width: 300px;
-            margin: 0;
+        /* CSS cho input có icon bên trong */
+        .input-with-icon {
+            position: relative;
+        }
+        .input-with-icon input {
+            padding-right: 2.5rem;
+        }
+        .input-with-icon .toggle-password {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
         }
         /* Cập nhật style cho button sử dụng gradient mới */
         .btn-primary {
@@ -119,12 +129,10 @@
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label fw-bold">Mật khẩu:</label>
-                                <div class="input-group">
+                                <div class="input-with-icon">
                                     <input id="password" type="password" name="password" class="form-control"
                                            value="${merchant.password}" readonly>
-                                    <span class="input-group-text toggle-password" style="cursor: pointer;">
-                                        <i class="fas fa-eye"></i>
-                                    </span>
+                                    <i class="fas fa-eye toggle-password"></i>
                                 </div>
                             </div>
                         </div>
@@ -161,10 +169,10 @@
         var input = $('#password');
         if (input.attr('type') === 'password') {
             input.attr('type', 'text');
-            $(this).find('i').removeClass('fa-eye').addClass('fa-eye-slash');
+            $(this).removeClass('fa-eye').addClass('fa-eye-slash');
         } else {
             input.attr('type', 'password');
-            $(this).find('i').removeClass('fa-eye-slash').addClass('fa-eye');
+            $(this).removeClass('fa-eye-slash').addClass('fa-eye');
         }
     });
 </script>
