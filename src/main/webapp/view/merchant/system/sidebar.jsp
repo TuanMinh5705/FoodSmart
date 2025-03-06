@@ -69,7 +69,7 @@
             <a class="nav-link text-white" href="/manageFoods"><i class="fas fa-utensils"></i> Quản lý món ăn</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-white" href="#"><i class="fas fa-shopping-cart"></i> Quản lý đơn hàng</a>
+            <a class="nav-link text-white" href="/manageOrder"><i class="fas fa-shopping-cart"></i> Quản lý đơn hàng</a>
         </li>
         <li class="nav-item">
             <a class="nav-link text-white" href="/manageCoupons"><i class="fas fa-tags"></i> Mã giảm giá</a>

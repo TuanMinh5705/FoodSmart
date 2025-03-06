@@ -78,17 +78,17 @@
             <h2>Cập nhật thông tin tài khoản</h2>
         </div>
         <form action="/manageStore?action=editInfoStore" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="accountID" value="${loggedInAccount.accountID}">
+            <input type="hidden" name="accountID" value="${merchant.accountID}">
             <div class="mb-3">
                 <label for="username" class="form-label">Username:</label>
                 <input type="text" class="form-control" id="username" name="username"
-                       value="${loggedInAccount.username}" required>
+                       value="${merchant.username}" required>
             </div>
             <div class="mb-3">
                 <label for="passwordInput" class="form-label">Mật khẩu:</label>
                 <div class="input-group">
                     <input type="password" class="form-control" id="passwordInput" name="password"
-                           value="${loggedInAccount.password}" required>
+                           value="${merchant.password}" required>
                     <button class="btn btn-outline-secondary" type="button" id="togglePassword">
                         <i class="fas fa-eye"></i>
                     </button>
@@ -97,12 +97,12 @@
             <div class="mb-3">
                 <label class="form-label">Ảnh đại diện:</label>
                 <div class="d-flex align-items-center">
-                    <c:if test="${not empty loggedInAccount.avtPath}">
-                        <img src="${pageContext.request.contextPath}/foodSmartImages/avatars/${loggedInAccount.avtPath}"
+                    <c:if test="${not empty merchant.avtPath}">
+                        <img src="${pageContext.request.contextPath}/foodSmartImages/avatars/${merchant.avtPath}"
                              alt="Ảnh đại diện" class="img-thumbnail me-3 avatar-preview" id="avatarPreview">
                     </c:if>
                     <div>
-                        <input type="hidden" name="currentAvtPath" value="${loggedInAccount.avtPath}">
+                        <input type="hidden" name="currentAvtPath" value="${merchant.avtPath}">
                         <input type="file" class="form-control" name="avtPath" id="avt_path">
                     </div>
                 </div>
@@ -111,12 +111,12 @@
                 <label class="form-label">Trạng thái tài khoản:</label>
                 <div class="form-check form-check-inline">
                     <input type="radio" id="active" name="status" value="active" class="form-check-input"
-                    ${loggedInAccount.active ? 'checked' : ''}>
+                    ${merchant.active ? 'checked' : ''}>
                     <label class="form-check-label" for="active">Đang hoạt động</label>
                 </div>
                 <div class="form-check form-check-inline">
                     <input type="radio" id="inactive" name="status" value="inactive" class="form-check-input"
-                    ${!loggedInAccount.active ? 'checked' : ''}>
+                    ${!merchant.active ? 'checked' : ''}>
                     <label class="form-check-label" for="inactive">Khóa</label>
                 </div>
             </div>
@@ -135,6 +135,7 @@
             const reader = new FileReader();
             reader.onload = function (e) {
                 document.getElementById("avatarPreview").src = e.target.result;
+                console.log(e.target.result);
             };
             reader.readAsDataURL(file);
         }
