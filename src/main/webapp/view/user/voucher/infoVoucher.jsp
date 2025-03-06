@@ -21,6 +21,7 @@
 <div class="coupon-container">
     <c:forEach var="coupon" items="${couponList}">
         <div class="coupon-item">
+            <h3>Tên cửa hàng: ${coupon.store_name}</h3>
             <h3>Giảm ${coupon.discount_value}%</h3>
             <p>${coupon.description}</p>
 

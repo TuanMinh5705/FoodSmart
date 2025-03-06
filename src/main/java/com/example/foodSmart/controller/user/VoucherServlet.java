@@ -37,7 +37,7 @@ public class VoucherServlet extends HttpServlet {
     }
 
     private void displayVouchers(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Coupon> couponList = couponService.getListCoupons();
+        List<Coupon> couponList = couponService.getListCoupon();
         List<Voucher> voucherList = voucherService.getListVouchers();
 
         req.setAttribute("couponList", couponList);
