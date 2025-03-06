@@ -6,13 +6,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cập nhật món ăn</title>
-    <!-- Google Fonts -->
+    <!-- Google Fonts: Poppins -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <!-- Font Awesome -->
+    <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <style>
+        /* CSS Variables cho màu sắc và giao diện */
         :root {
             --primary-color: #3498db;
             --secondary-color: #2ecc71;
@@ -25,23 +26,27 @@
             --card-shadow: rgba(44, 62, 80, 0.1);
             --hover-shadow: rgba(44, 62, 80, 0.15);
         }
+        /* Global Styles */
         body {
-            background: var(--bg-dark);
+            background: linear-gradient(135deg, var(--bg-light), var(--bg-dark));
             font-family: 'Poppins', sans-serif;
             color: var(--text-color);
             margin: 0;
             padding: 20px;
         }
+        /* Container chính */
         .custom-container {
             max-width: 1000px;
             margin: auto;
         }
+        /* Tiêu đề trang */
         h2 {
             text-align: center;
             font-weight: 700;
             margin-bottom: 2rem;
             color: var(--primary-color);
         }
+        /* Card */
         .card {
             border: none;
             border-radius: 15px;
@@ -65,6 +70,15 @@
         .card-body {
             padding: 1.5rem 2rem;
         }
+        /* Form */
+        .form-label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .form-control {
+            border-radius: 10px;
+        }
+        /* Button */
         .btn {
             border-radius: 50px;
             transition: transform 0.3s, box-shadow 0.3s;
@@ -93,20 +107,19 @@
             box-shadow: 0 6px 15px var(--hover-shadow);
             transform: translateY(-2px);
         }
-        /* Lớp mới cho nút huỷ với màu đỏ nhẹ và chữ trắng */
         .btn-cancel {
             background: linear-gradient(90deg, #ff7f7f, #ff4d4d);
             padding: 0.65rem 2rem;
             font-weight: 600;
             border-radius: 50px;
             transition: transform 0.3s, box-shadow 0.3s;
-            border: none;
             color: #fff !important;
         }
         .btn-cancel:hover {
             box-shadow: 0 6px 15px var(--hover-shadow);
             transform: translateY(-2px);
         }
+        /* Ảnh: giới hạn kích thước mỗi ảnh 100px x 100px */
         .img-thumbnail {
             border: none;
             border-radius: 10px;
@@ -114,8 +127,8 @@
             object-fit: cover;
         }
         .image-slot {
-            width: 100px;
-            height: 100px;
+            width: 50px;
+            height: 50px;
         }
     </style>
 </head>
@@ -126,7 +139,8 @@
             Cập nhật món ăn
         </header>
         <div class="card-body">
-            <form action="/manageFoods?action=updateFood" method="post" enctype="multipart/form-data">
+            <form action="/manageFoods?action=updateFood" method="post" enctype="multipart/form-data" id="updateFoodForm">
+                <!-- Thông tin món ăn -->
                 <input type="hidden" name="product_id" value="${food.product_id}">
                 <div class="mb-3">
                     <label class="form-label">Tên món ăn:</label>
@@ -154,8 +168,9 @@
                         </c:forEach>
                     </select>
                 </div>
-                <section>
-                    <h4>Danh sách ảnh:</h4>
+                <!-- Danh sách ảnh hiện có -->
+                <section class="mb-4">
+                    <h4 class="mb-3">Danh sách ảnh:</h4>
                     <div class="row g-3" id="imageContainer">
                         <c:forEach var="img" items="${food.list_food_images}" varStatus="status">
                             <div class="col-md-4">
@@ -172,8 +187,7 @@
                                                 <i class="fas fa-sync-alt"></i> Cập nhật ảnh
                                             </label>
                                             <input type="file" id="image_${img.image_id}" name="img_path_${img.image_id}" class="d-none"
-                                                   accept="image/*"
-                                                   onchange="updateImagePreview(event, 'imgPreview_${img.image_id}')">
+                                                   accept="image/*">
                                             <input type="hidden" name="currentImgPath_${img.image_id}" value="${img.image_path}">
                                         </div>
                                         <button type="button" class="btn btn-danger btn-sm mt-3"
@@ -186,16 +200,18 @@
                         </c:forEach>
                     </div>
                 </section>
-                <section class="mb-3">
+                <!-- Phần thêm ảnh mới -->
+                <section class="mb-4">
                     <label class="form-label">Thêm ảnh sản phẩm</label>
-                    <input type="file" class="d-none" name="product_images" id="productImages" multiple accept="image/*" onchange="previewImages()">
+                    <input type="file" class="d-none" name="product_images" id="productImages" multiple accept="image/*">
                     <div id="imagePreview" class="d-flex flex-wrap justify-content-center mt-2"></div>
                     <div class="text-center mt-2">
-                        <button type="button" class="btn btn-secondary" onclick="document.getElementById('productImages').click();">
+                        <button type="button" class="btn btn-secondary" id="addImagesBtn">
                             <i class="fas fa-plus"></i> Thêm ảnh
                         </button>
                     </div>
                 </section>
+                <!-- Nút xử lý -->
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary">
                         <i class="fas fa-sync-alt"></i> Cập nhật
@@ -211,47 +227,44 @@
 
 <jsp:include page="../../admin/system/modalConfirmDelete.jsp"/>
 
+<!-- Bootstrap JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    // Cập nhật preview của ảnh khi chọn file
-    function updateImagePreview(event, previewId) {
-        const input = event.target;
-        if (input.files && input.files[0]) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                document.getElementById(previewId).src = e.target.result;
-            };
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-
-    // Xem trước nhiều ảnh khi chọn thêm ảnh sản phẩm
+    // Hàm hiển thị preview cho ảnh được thêm mới
     function previewImages() {
         const preview = document.getElementById('imagePreview');
         const files = document.getElementById('productImages').files;
         preview.innerHTML = '';
         Array.from(files).forEach(file => {
             const reader = new FileReader();
-            reader.onload = function (e) {
+            reader.onload = function(e) {
                 const div = document.createElement('div');
                 div.className = 'm-1 text-center';
                 const img = document.createElement('img');
                 img.src = e.target.result;
+                // Sử dụng class image-slot để đảm bảo kích thước 100px x 100px
                 img.className = 'img-thumbnail image-slot';
                 div.appendChild(img);
+                // Nút xóa từng preview ảnh
                 const deleteBtn = document.createElement('button');
                 deleteBtn.type = 'button';
                 deleteBtn.className = 'btn btn-danger btn-sm mt-2';
                 deleteBtn.innerHTML = '<i class="fas fa-trash"></i>';
-                deleteBtn.onclick = () => div.remove();
+                deleteBtn.addEventListener('click', function() {
+                    div.remove();
+                });
                 div.appendChild(deleteBtn);
                 preview.appendChild(div);
             };
             reader.readAsDataURL(file);
         });
     }
-</script>
 
-<!-- Bootstrap JS Bundle -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    // Gán sự kiện cho các nút và input file
+    document.getElementById('addImagesBtn').addEventListener('click', function() {
+        document.getElementById('productImages').click();
+    });
+    document.getElementById('productImages').addEventListener('change', previewImages);
+</script>
 </body>
 </html>

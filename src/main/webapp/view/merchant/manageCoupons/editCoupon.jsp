@@ -112,12 +112,12 @@
         </div>
 
         <div class="d-flex justify-content-center gap-2">
-            <a href="/manageCoupons" class="btn btn-secondary" style="margin-right: 10px;"> <!-- Thêm margin -->
-                <i class="fas fa-arrow-left"></i> Quay lại
-            </a>
             <button type="submit" class="btn btn-primary">
                 <i class="fas fa-save"></i> Cập nhật Coupon
             </button>
+            <a href="/manageCoupons" class="btn btn-secondary" style="margin-right: 10px;"> <!-- Thêm margin -->
+                <i class="fas fa-arrow-left"></i> Huỷ
+            </a>
         </div>
     </form>
 </div>
@@ -145,6 +145,5 @@
         }
     });
 </script>
-
 </body>
 </html>

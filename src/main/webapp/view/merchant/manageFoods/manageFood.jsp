@@ -1,217 +1,190 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Quản lý sản phẩm cửa hàng</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome cho icon -->
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <style>
         :root {
-            --primary-color: #3498db; /* Xanh dương tươi */
-            --secondary-color: #2ecc71; /* Xanh lá mát */
-            --primary-gradient: linear-gradient(90deg, #3498db, #2980b9);
-            --secondary-gradient: linear-gradient(90deg, #2ecc71, #27ae60);
-            --danger-gradient: linear-gradient(90deg, #e74c3c, #c0392b);
-            --bg-light: #ffffff;
-            --bg-dark: #ecf0f1;  /* Màu nền sáng nhẹ */
-            --text-color: #2c3e50; /* Xám đậm */
-            --card-shadow: rgba(44, 62, 80, 0.1);
-            --hover-shadow: rgba(44, 62, 80, 0.15);
+            --bg-light: #f5f7fa;
+            --bg-dark: #c3cfe2;
         }
-
-        /* Global Styles */
         body {
-            background: var(--bg-dark);
+            background: linear-gradient(135deg, var(--bg-light), var(--bg-dark));
             font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
             margin: 0;
-            padding: 20px;
-            color: var(--text-color);
+            padding: 0;
         }
-
         .custom-container {
-            max-width: 1000px;
+            max-width: 800px;
             margin: auto;
+            padding: 2rem 1rem;
         }
-
-        h2 {
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 2rem;
-            color: var(--primary-color);
-        }
-
-        /* Card Styles */
         .card {
             border: none;
-            border-radius: 15px;
-            background: var(--bg-light);
-            box-shadow: 0 4px 20px var(--card-shadow);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            background: #fff;
+            animation: fadeInUp 1s ease;
             margin-bottom: 2rem;
-            transition: transform 0.3s ease;
         }
-
-        .card:hover {
-            transform: translateY(-3px);
-        }
-
-        /* Chỉnh sửa card-header: bỏ màu nền và hiển thị chữ đậm */
+        /* Sửa đổi: Bỏ background của tiêu đề */
         .card-header {
-            background: transparent; /* Bỏ màu nền */
-            color: var(--text-color); /* Sử dụng màu chữ mặc định */
-            padding: 1.5rem;
-            font-size: 1.75rem;
-            font-weight: 700; /* Chữ đậm */
-            border-top-left-radius: 15px;
-            border-top-right-radius: 15px;
+            background: transparent;
+            color: #000;
             text-align: center;
+            padding: 1.8rem;
+            font-size: 2rem;
+            font-weight: 700;
             position: relative;
         }
-
+        .card-header::after {
+            display: none;
+        }
         .card-body {
-            padding: 1.5rem 2rem;
+            padding: 2rem;
         }
-
-        /* Button Styles */
-        .btn {
+        .btn-sm {
+            padding: 0.35rem 0.75rem !important;
+            font-size: 0.85rem !important;
+            border-radius: 25px !important;
+        }
+        /* Các style chung cho button (xoá border) */
+        .btn-custom {
+            border: none !important;
             border-radius: 50px;
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: none !important; /* Loại bỏ border */
-        }
-
-        .btn:focus,
-        .btn:active {
-            outline: none !important;
-            box-shadow: none !important;
-        }
-
-        .btn-primary {
-            background: var(--primary-gradient);
-            padding: 0.65rem 2rem;
+            padding: 0.75rem 2.5rem;
+            font-size: 1.1rem;
             font-weight: 600;
-        }
-
-        .btn-primary:hover {
-            box-shadow: 0 6px 15px var(--hover-shadow);
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background: var(--secondary-gradient);
+            transition: transform 0.3s, box-shadow 0.3s, background 0.3s, color 0.3s;
             color: #fff;
-            padding: 0.65rem 2rem;
-            font-weight: 600;
         }
-
-        .btn-secondary:hover {
-            box-shadow: 0 6px 15px var(--hover-shadow);
-            transform: translateY(-2px);
+        /* Màu sắc cho các button */
+        .btn-primary, .btn-secondary {
+            background: linear-gradient(90deg, #2a9ffc, #1E88E5);
         }
-
+        .btn-primary:hover, .btn-secondary:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(90deg, #1E88E5, #2a9ffc);
+            box-shadow: none;
+        }
+        /* Button đỏ */
         .btn-danger {
-            background: var(--danger-gradient);
-            padding: 0.65rem 1.5rem;
-            font-weight: 600;
+            background: linear-gradient(90deg, #f67272, #f55d5d);
         }
-
         .btn-danger:hover {
-            box-shadow: 0 6px 15px var(--hover-shadow);
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            background: linear-gradient(90deg, #f55d5d, #f67272);
+            box-shadow: none;
+        }
+        /* Button xanh lá dùng cho upload (Thêm & Sửa) */
+        .btn-upload {
+            background: linear-gradient(90deg, #2ecc71, #2dc26c);
+        }
+        .btn-upload:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(90deg, #2dc26c, #2ecc71);
+            box-shadow: none;
+        }
+        /* Đảm bảo chữ và icon trong button luôn màu trắng ban đầu */
+        .btn-upload, .btn-upload * {
+            color: #fff !important;
+        }
+        /* Hover effect: Khi trỏ chuột vào nút, chữ và icon chuyển thành màu đen */
+        .btn-custom:hover,
+        .btn-custom:hover i {
+            color: #000 !important;
         }
 
-        /* Search input with icon on right */
-        .search-form {
+        .btn-upload:hover, .btn-upload:hover * {
+            color: #000 !important;
+        }
+
+        /* Input với icon */
+        .input-with-icon {
             position: relative;
-            max-width: 500px; /* Tăng độ dài thanh tìm kiếm lên 500px */
         }
-
-        .search-input {
-            padding-right: 2.5rem;
+        .input-with-icon input {
+            padding-right: 40px;
             border-radius: 50px;
-            transition: box-shadow 0.3s;
+            transition: border-color 0.3s, box-shadow 0.3s;
         }
-
-        .search-input:focus {
-            box-shadow: 0 0 8px var(--primary-color);
+        .input-with-icon input:focus {
+            border-color: #1E88E5;
+            box-shadow: 0 0 8px rgba(30, 136, 229, 0.5);
         }
-
-        .search-icon {
+        .input-with-icon .fa-search {
             position: absolute;
             top: 50%;
-            right: 0.75rem;
+            right: 15px;
             transform: translateY(-50%);
-            color: #aaa;
             cursor: pointer;
+            color: #6c757d;
+            transition: color 0.3s;
         }
-
-        /* Table styles */
-        .table {
-            background: #fff;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px var(--card-shadow);
+        .input-with-icon .fa-search:hover {
+            color: #495057;
         }
-
         .table thead {
-            background: var(--primary-gradient);
+            background: linear-gradient(90deg, #2a9ffc, #1E88E5);
             color: #fff;
         }
-
         .table th, .table td {
             vertical-align: middle;
             text-align: center;
-            padding: 0.75rem;
         }
-
-        .table tbody tr:nth-child(even) {
-            background: #f8f8f8;
+        .product-img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
         }
-
-        .table tbody tr:hover {
-            background: #f1f1f1;
-        }
-
-        .img-thumbnail {
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px var(--card-shadow);
-        }
-
-        @media (max-width: 576px) {
-            .card-header {
-                font-size: 1.5rem;
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
             }
-            .btn {
-                font-size: 0.9rem;
-                padding: 0.5rem 1.5rem;
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
     </style>
 </head>
 <body>
 <div class="container my-4 custom-container">
-    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4 gap-3">
-        <div>
-            <a href="/manageFoods?action=addFoodForm" class="btn btn-secondary">
-                <i class="fas fa-plus me-1"></i> Thêm món ăn
-            </a>
-        </div>
-        <form action="/manageFoods?action=search" method="post" class="search-form" id="searchForm">
-            <input type="text" class="form-control search-input" placeholder="Tìm kiếm" name="keyword" id="searchBox" oninput="startTimer()">
-            <i class="fas fa-search search-icon" onclick="document.getElementById('searchForm').submit();"></i>
-        </form>
-    </div>
     <div class="card">
         <div class="card-header">
-            Danh sách món ăn
+            Quản lý sản phẩm cửa hàng
         </div>
         <div class="card-body">
+            <div class="row mb-4">
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <!-- Nút Thêm món ăn sử dụng btn-upload với style tối ưu -->
+                    <a href="/manageFoods?action=addFoodForm" class="btn btn-custom btn-upload btn-sm">
+                        <i class="fas fa-plus me-2"></i> <strong>Thêm món ăn</strong>
+                    </a>
+                </div>
+                <div class="col-md-8">
+                    <form action="/manageFoods?action=search" method="post" id="searchForm">
+                        <div class="input-with-icon">
+                            <input type="text" class="form-control" placeholder="Tìm kiếm..." name="keyword" onkeyup="startTimer()">
+                            <i class="fas fa-search" onclick="document.getElementById('searchForm').submit();"></i>
+                        </div>
+                    </form>
+                </div>
+            </div>
             <div class="table-responsive">
-                <table class="table table-bordered table-hover">
+                <table class="table table-bordered table-striped table-hover">
                     <thead>
                     <tr>
                         <th>STT</th>
@@ -237,7 +210,9 @@
                                     <td>
                                         <c:forEach var="image" items="${product.list_food_images}">
                                             <c:if test="${image.is_primary}">
-                                                <img src="${pageContext.request.contextPath}/foodSmartImages/product/${image.image_path}" alt="Ảnh món ăn" class="img-thumbnail" width="80">
+                                                <img src="${pageContext.request.contextPath}/foodSmartImages/product/${image.image_path}"
+                                                     alt="Ảnh món ăn"
+                                                     class="img-thumbnail product-img">
                                             </c:if>
                                         </c:forEach>
                                     </td>
@@ -247,13 +222,18 @@
                                     <td>${product.discount}%</td>
                                     <td>
                                         <div class="d-flex justify-content-center gap-2">
-                                            <a href="/manageFoods?action=editProductForm&productID=${product.product_id}" class="btn btn-secondary btn-sm" title="Sửa">
-                                                <i class="fas fa-edit"></i>
+                                            <!-- Nút Sửa sử dụng btn-upload -->
+                                            <a href="/manageFoods?action=editProductForm&productID=${product.product_id}"
+                                               class="btn btn-custom btn-upload btn-sm" title="Sửa">
+                                                <i class="fas fa-pencil-alt"></i>
                                             </a>
-                                            <a href="/manageFoods?action=infoProductForm&productID=${product.product_id}" class="btn btn-primary btn-sm" title="Chi tiết">
-                                                <i class="fas fa-info-circle"></i>
+                                            <a href="/manageFoods?action=infoProductForm&productID=${product.product_id}"
+                                               class="btn btn-custom btn-secondary btn-sm" title="Chi tiết">
+                                                <i class="fas fa-eye"></i>
                                             </a>
-                                            <button type="button" class="btn btn-danger btn-sm" title="Xóa"
+                                            <button type="button"
+                                                    class="btn btn-custom btn-danger btn-sm"
+                                                    title="Xóa"
                                                     onclick="showDeleteModal({ id: '${product.product_id}', url: 'manageFoods', action: 'deleteFood' });">
                                                 <i class="fas fa-trash"></i>
                                             </button>
@@ -276,7 +256,7 @@
     let timer;
     function startTimer() {
         clearTimeout(timer);
-        timer = setTimeout(function() {
+        timer = setTimeout(function () {
             document.getElementById("searchForm").submit();
         }, 2500);
     }
