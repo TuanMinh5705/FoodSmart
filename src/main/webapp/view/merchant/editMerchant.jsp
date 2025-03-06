@@ -187,7 +187,7 @@
             </div>
             <div class="text-center">
                 <button type="submit" class="btn btn-primary me-4">Cập nhật</button>
-                <button type="button" class="btn-back" onclick="location.href='#'">Quay lại</button>
+                <button type="button" class="btn-back" onclick="location.href='/manageStore?action=showMerchantStore'">Quay lại</button>
             </div>
         </form>
     </div>
