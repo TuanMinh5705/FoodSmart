@@ -75,12 +75,14 @@
             font-weight: 600;
             background: linear-gradient(90deg, #2a9ffc, #1E88E5);
             border: none;
-            transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+            color: #fff;
+            transition: background 0.3s, transform 0.3s, box-shadow 0.3s, color 0.3s;
         }
         .btn-primary:hover {
             transform: translateY(-3px);
             background: linear-gradient(90deg, #1E88E5, #2a9ffc);
             box-shadow: 0 8px 20px rgba(21, 149, 255, 0.4);
+            color: #000;
         }
         .btn-back {
             background: linear-gradient(90deg, #f67272, #f55d5d);
@@ -90,12 +92,13 @@
             padding: 0.5rem 1.5rem;
             font-size: 1rem;
             font-weight: 600;
-            transition: background-color 0.3s, transform 0.3s;
+            transition: background-color 0.3s, transform 0.3s, color 0.3s;
         }
         .btn-back:hover {
             background: linear-gradient(90deg, #f55d5d, #f67272);
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(234, 177, 177, 0.8);
+            color: #000;
         }
         .btn-upload {
             border-radius: 50px;
@@ -105,12 +108,13 @@
             background: linear-gradient(90deg, #2ecc71, #2dc26c);
             color: #fff;
             border: none;
-            transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s, background 0.3s, color 0.3s;
         }
         .btn-upload:hover {
             transform: translateY(-3px);
             background: linear-gradient(90deg, #2dc26c, #2ecc71);
             box-shadow: 0 8px 20px rgba(39, 174, 96, 0.4);
+            color: #000;
         }
         /* Style cho vùng xem trước ảnh */
         #imagePreview {
