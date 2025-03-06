@@ -96,7 +96,7 @@
         <div class="col-sm-6 col-md-4">
             <div class="dashboard-card bg-pink">
                 <!-- Link stretched-link -->
-                <a href="#" class="stretched-link"></a>
+                <a href="/manageOrder" class="stretched-link"></a>
                 <div class="card-body text-center">
                     <div class="card-content">
                         <i class="fa fa-cart-shopping card-icon"></i>
@@ -104,7 +104,7 @@
                     </div>
                     <div>
                         <div class="divider"></div>
-                        <a href="#" class="detail-link">Chi tiết</a>
+                        <a href="/manageOrder" class="detail-link">Chi tiết</a>
                     </div>
                 </div>
             </div>

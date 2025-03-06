@@ -14,10 +14,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
+import javax.servlet.http.*;
 import java.io.File;
 import java.io.IOException;
 
@@ -59,6 +56,10 @@ public class ManageStore extends HttpServlet {
     }
 
     private void showMerchantStoreForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        Account account1 = (Account) session.getAttribute("loggedInAccount");
+        Account merchant = accountService.getAccount(account1.getAccountID());
+        req.setAttribute("merchant", merchant);
         req.getRequestDispatcher("view/merchant/homeMerchant.jsp?page=editMerchantStore").forward(req, resp);
 
     }
@@ -68,6 +69,7 @@ public class ManageStore extends HttpServlet {
         int merchant_id = loggedInUser.getAccountID();
         Account merchant = accountService.getAccount(merchant_id);
         req.setAttribute("merchant", merchant);
+
         req.getRequestDispatcher("view/merchant/homeMerchant.jsp?page=infoMerchantStore").forward(req, resp);
     }
 
@@ -133,49 +135,6 @@ public class ManageStore extends HttpServlet {
         resp.sendRedirect("/manageStore?action=showInfoStore");
     }
 
-//    private void editInfoStore(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-//        int store_id = Integer.parseInt(req.getParameter("store_id"));
-//        String store_name = req.getParameter("store_name");
-//        String store_address = req.getParameter("store_address");
-//        String contact_number = req.getParameter("contact_number");
-//
-//        Part fileBannerPart = req.getPart("banner_path");
-//        String banner_path = (fileBannerPart != null && fileBannerPart.getSize() > 0)
-//                ? fileBannerPart.getSubmittedFileName()
-//                : req.getParameter("current_banner_path");
-//
-//        Part fileAvatarPart = req.getPart("avt_path");
-//        String avt_path = (fileAvatarPart != null && fileAvatarPart.getSize() > 0)
-//                ? fileAvatarPart.getSubmittedFileName()
-//                : req.getParameter("current_avt_path");
-//
-//
-//        String uploadPath = getServletContext().getRealPath("/images/avatars");
-//        File uploadDir = new File(uploadPath);
-//        if (!uploadDir.exists()) {
-//            uploadDir.mkdirs();
-//        }
-//
-//        File bannerFile = new File(uploadDir, banner_path);
-//        if (!bannerFile.exists() && fileBannerPart != null && fileBannerPart.getSize() > 0) {
-//            fileBannerPart.write(bannerFile.getAbsolutePath());
-//        }
-//
-//        File avtFile = new File(uploadDir, avt_path);
-//        if (!avtFile.exists() && fileAvatarPart != null && fileAvatarPart.getSize() > 0) {
-//            fileAvatarPart.write(avtFile.getAbsolutePath());
-//        }
-//
-//        String storeTypeParam = req.getParameter("store_type");
-//        boolean store_type = Boolean.parseBoolean(storeTypeParam);
-//
-//        Merchant merchant = new Merchant(store_id, store_name, store_address, contact_number, banner_path, avt_path, store_type);
-//        boolean success = merchantService.updateMerchant(merchant);
-//        if (success) {
-//            req.getSession().setAttribute("success", "Cập nhật thông tin cửa hàng thành công!");
-//        }
-//        resp.sendRedirect("/manageStore?action=showInfoStore");
-//    }
 
     private void editMerchantStore(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         AccountService accountService = new AccountService();
@@ -199,6 +158,7 @@ public class ManageStore extends HttpServlet {
         boolean active = "active".equals(req.getParameter("status"));
         Account account = new Account(accountId, username, password, avatarPath, "Merchant", active);
         if (accountService.editAccount(account)) {
+            req.getSession().setAttribute("loggedInAccount", account);
             req.getSession().setAttribute("success", "Cập nhật thông tin người dùng thành công!");
         }
         resp.sendRedirect("/manageStore?action=showMerchantStore");

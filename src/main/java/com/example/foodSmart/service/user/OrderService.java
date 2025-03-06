@@ -77,7 +77,7 @@ public class OrderService implements IOrderService {
     @Override
     public List<Order> getOrders() {
         List<Order> orders = new ArrayList<>();
-        String sql = "SELECT * FROM Orders ORDER BY order_date DESC";
+        String sql = "SELECT * FROM Orders WHERE ORDER BY order_date DESC";
 
         try (Connection conn = ConnectDB.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
@@ -112,11 +112,15 @@ public class OrderService implements IOrderService {
         return orders;
     }
 
-    @Override
-    public List<Order> getOrdersByUser(int id) {
+    public List<Order> getOrdersByUser(String name, int id) {
         List<Order> orders = new ArrayList<>();
-        String sql = "SELECT * FROM Orders WHERE user_id = ? ORDER BY order_date DESC";
 
+
+        if (!name.matches("^[a-zA-Z_]+$")) {
+            throw new IllegalArgumentException("Invalid column name");
+        }
+
+        String sql = "SELECT * FROM Orders WHERE " + name + " = ? ORDER BY order_date DESC";
         try (Connection conn = ConnectDB.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1,id);
