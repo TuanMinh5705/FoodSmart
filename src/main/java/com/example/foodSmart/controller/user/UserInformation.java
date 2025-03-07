@@ -135,7 +135,8 @@ public class UserInformation extends HttpServlet {
         Part filePart = req.getPart("avtPath");
         String avatarPath = (filePart != null && filePart.getSize() > 0)
                 ? filePart.getSubmittedFileName() : req.getParameter("currentAvtPath");
-        String uploadPath = "C:\\foodSmartImages\\avatars";
+//        String uploadPath = "C:\\foodSmartImages\\avatars";
+        String uploadPath = getServletContext().getRealPath("/images/avatars");
         File uploadDir = new File(uploadPath);
         if (!uploadDir.exists()) uploadDir.mkdirs();
         if (filePart != null && filePart.getSize() > 0) {
