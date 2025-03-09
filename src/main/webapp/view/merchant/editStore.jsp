@@ -120,7 +120,7 @@
                             <label class="form-label"><i class="fas fa-user-circle"></i> Avatar</label>
                             <div class="text-center mb-3">
                                 <img id="avtPreview"
-                                     src="${pageContext.request.contextPath}/foodSmartImages/avatars/${store.avt_path}"
+                                     src="${pageContext.request.contextPath}/images/avatars/${store.avt_path}"
                                      alt="Avatar" class="img-fluid rounded-circle shadow img-preview"
                                      style="max-width: 120px; cursor: pointer;">
                             </div>
@@ -132,7 +132,7 @@
                             <label class="form-label"><i class="fas fa-image"></i> Banner</label>
                             <div class="text-center mb-3">
                                 <img id="bannerPreview"
-                                     src="${pageContext.request.contextPath}/foodSmartImages/avatars/${store.banner_path}"
+                                     src="${pageContext.request.contextPath}/images/avatars/${store.banner_path}"
                                      alt="Banner" class="img-fluid rounded shadow img-preview"
                                      style="max-width: 250px; cursor: pointer;">
                             </div>

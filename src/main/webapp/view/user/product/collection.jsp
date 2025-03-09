@@ -21,7 +21,7 @@
                         </td>
                         <td class="p-2 w-20">
                             <c:if test="${not empty food.list_food_images}">
-                                <img src="${pageContext.request.contextPath}/foodSmartImages/product/${food.list_food_images[0].image_path}"
+                                <img src="${pageContext.request.contextPath}/images/product/${food.list_food_images[0].image_path}"
                                      alt="${food.product_name}"
                                      class="w-64 h-64 object-contain object-center rounded mx-auto">
                             </c:if>

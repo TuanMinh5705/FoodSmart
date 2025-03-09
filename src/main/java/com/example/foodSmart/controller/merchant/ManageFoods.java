@@ -112,7 +112,7 @@ public class ManageFoods extends HttpServlet {
         List<FoodImages> foodImagesList = food.getList_food_images();
         List<FoodImages> newImageList = new ArrayList<>();
 
-        String uploadPath = "C:\\foodSmartImages\\product";
+        String uploadPath = System.getenv("uploadPath")  + File.separator + "avatars";
         new File(uploadPath).mkdirs();
 
         for (FoodImages img : foodImagesList) {
@@ -173,7 +173,7 @@ public class ManageFoods extends HttpServlet {
             int discount = Integer.parseInt(req.getParameter("discount"));
             int store_id = storeIDByLoggedInUser(req, resp);
 
-            String uploadPath = "C:\\foodSmartImages\\product";
+            String uploadPath = System.getenv("uploadPath")  + File.separator + "avatars";
             File uploadDir = new File(uploadPath);
             if (!uploadDir.exists()) {
                 uploadDir.mkdirs();

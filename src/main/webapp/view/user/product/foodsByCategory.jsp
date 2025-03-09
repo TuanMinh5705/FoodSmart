@@ -36,7 +36,7 @@
             <c:when test="${not empty storeList}">
                 <c:forEach var="store" items="${storeList}">
                     <a href="/homeUser?action=showStore&store_id=${store.store_id}" class="block border rounded-2xl p-4 shadow-lg hover:shadow-xl transition">
-                        <img src="${pageContext.request.contextPath}/foodSmartImages/avatars/${store.avt_path}"
+                        <img src="${pageContext.request.contextPath}/images/avatars/${store.avt_path}"
                              alt="Ảnh đại diện cửa hàng"
                              class="w-24 h-24 object-cover rounded-full mx-auto">
                         <p class="text-xl font-semibold text-center mt-4">${store.store_name}</p>
@@ -61,7 +61,7 @@
                     <div class="bg-white p-4 rounded relative group shadow-md" style="border: 2px solid transparent; border-image: linear-gradient(to right, #FACC15, #FB923C) 1;">
                         <div class="relative">
                             <c:if test="${not empty food.list_food_images}">
-                                <img src="${pageContext.request.contextPath}/foodSmartImages/product/${food.list_food_images[0].image_path}"
+                                <img src="${pageContext.request.contextPath}/images/product/${food.list_food_images[0].image_path}"
                                      alt="${food.product_name}"
                                      class="w-40 h-40 object-contain object-center rounded mx-auto md:w-64 md:h-64">
                             </c:if>

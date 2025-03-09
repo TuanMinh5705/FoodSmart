@@ -124,7 +124,7 @@
                 <tr data-role="${account.role}">
                     <td>${status.index + 1}</td>
                     <td>
-                        <img src="${pageContext.request.contextPath}/foodSmartImages/avatars/${account.avtPath}"
+                        <img src="${pageContext.request.contextPath}/images/avatars/${account.avtPath}"
                              alt="Avatar"
                              class="rounded-circle">
                     </td>

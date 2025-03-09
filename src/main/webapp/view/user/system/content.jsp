@@ -28,7 +28,7 @@
                          style="border: 2px solid rgba(255,190,42,0.15); border-radius: 10px;">
                         <div class="relative">
                             <c:if test="${not empty food.list_food_images}">
-                                <img src="${pageContext.request.contextPath}/foodSmartImages/product/${food.list_food_images[0].image_path}"
+                                <img src="${pageContext.request.contextPath}/images/product/${food.list_food_images[0].image_path}"
                                      alt="${food.product_name}"
                                      class="w-48 h-48 object-contain object-center rounded mx-auto">
                             </c:if>
@@ -102,7 +102,7 @@
                      style="border: 2px solid rgba(255,190,42,0.15); border-radius: 10px;">
                 <div class="relative">
                         <c:if test="${not empty food.list_food_images}">
-                            <img src="${pageContext.request.contextPath}/foodSmartImages/product/${food.list_food_images[0].image_path}"
+                            <img src="${pageContext.request.contextPath}/images/product/${food.list_food_images[0].image_path}"
                                  alt="${food.product_name}"
                                  class="w-30 h-30 object-contain object-center rounded mx-auto md:w-64 md:h-64">
                         </c:if>

@@ -135,30 +135,30 @@ public class UserInformation extends HttpServlet {
         Part filePart = req.getPart("avtPath");
         String avatarPath = (filePart != null && filePart.getSize() > 0)
                 ? filePart.getSubmittedFileName() : req.getParameter("currentAvtPath");
-//        String uploadPath = "C:\\foodSmartImages\\avatars";
-        String uploadPath = getServletContext().getRealPath("/images/avatars");
+        String uploadPath = System.getenv("uploadPath")  + File.separator + "avatars";
         File uploadDir = new File(uploadPath);
+        System.out.println(uploadDir);
         if (!uploadDir.exists()) uploadDir.mkdirs();
+        System.out.println(uploadDir);
         if (filePart != null && filePart.getSize() > 0) {
-            File file = new File(uploadPath,avatarPath);
-            if (!file.exists()){
+            File file = new File(uploadPath, avatarPath);
+            if (!file.exists()) {
                 filePart.write(uploadPath + File.separator + avatarPath);
-            };
+            }
+
+            String username = req.getParameter("username");
+            String password = req.getParameter("password");
+            boolean active = "active".equals(req.getParameter("status"));
+            Account account = new Account(accountID, username, password, avatarPath, "User", active);
+            if (accountService.editAccount(account)) {
+                req.getSession().setAttribute("loggedInAccount", account);
+                req.getSession().setAttribute("success", "Cập nhật thông tin người dùng thành công!");
+            }
+            showInfoUser(req, resp);
+
+
         }
 
-        String username = req.getParameter("username");
-        String password = req.getParameter("password");
-        boolean active = "active".equals(req.getParameter("status"));
-        Account account = new Account(accountID, username, password, avatarPath, "User", active);
-        if (accountService.editAccount(account)) {
-            req.getSession().setAttribute("loggedInAccount", account);
-            req.getSession().setAttribute("success", "Cập nhật thông tin người dùng thành công!");
-        }
-        showInfoUser(req, resp);
-
-        showInfoUser(req,resp);
 
     }
-
-
-}
+    }

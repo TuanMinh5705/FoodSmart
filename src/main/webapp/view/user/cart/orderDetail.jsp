@@ -65,7 +65,7 @@
                 <div class="d-flex align-items-center justify-content-between mb-3">
                     <div class="d-flex align-items-center">
                         <!-- Ảnh sản phẩm -->
-                        <img src="${pageContext.request.contextPath}/foodSmartImages/product/${item.avt_path}"
+                        <img src="${pageContext.request.contextPath}/images/product/${item.avt_path}"
                              alt="Sản phẩm"
                              class="rounded me-3"
                              style="width: 50px; height: 50px; object-fit: cover;" />
