@@ -16,7 +16,7 @@
     <c:forEach var="category" items="${categoryFoodList}">
         <a href="/homeUser?action=getFoodsByCategory&category_id=${category.category_id}">
             <div class="text-center space-y-2 mx-4">
-                <img src="${pageContext.request.contextPath}/foodSmartImages/product/${category.avt_path}"
+                <img src="${pageContext.request.contextPath}/images/product/${category.avt_path}"
                      alt="${category.category_name}"
                      class="mx-auto w-[80px] h-[80px] object-fit object-contain">
                 <p class="text-xl font-semibold">${category.category_name}</p>

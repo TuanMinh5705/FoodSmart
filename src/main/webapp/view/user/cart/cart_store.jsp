@@ -25,7 +25,7 @@
                 <div class="row align-items-center border-bottom py-4" id="store-${group.storeId}">
                     <!-- Logo cửa hàng -->
                     <div class="col-auto">
-                        <img src="${pageContext.request.contextPath}/foodSmartImages/avatars/${group.storeLogo}"
+                        <img src="${pageContext.request.contextPath}/images/avatars/${group.storeLogo}"
                              alt="Logo của ${group.storeName}" width="80" height="80" class="rounded-3 shadow-sm">
                     </div>
 

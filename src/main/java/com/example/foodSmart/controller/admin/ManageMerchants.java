@@ -111,7 +111,7 @@ public class ManageMerchants extends HttpServlet {
         String banner_path = (fileBannerPart != null && fileBannerPart.getSize() > 0) ? fileBannerPart.getSubmittedFileName() : req.getParameter("current_banner_path");
         Part fileAvatarPart = req.getPart("avt_path");
         String avt_path = (fileAvatarPart != null && fileAvatarPart.getSize() > 0) ? fileAvatarPart.getSubmittedFileName() : req.getParameter("current_avt_path");
-        String uploadPath = "C:\\foodSmartImages\\avatars";
+        String uploadPath = System.getenv("uploadPath")  + File.separator + "avatars";
         File uploadDir = new File(uploadPath);
         if (!uploadDir.exists()) {
             uploadDir.mkdirs();
@@ -144,7 +144,7 @@ public class ManageMerchants extends HttpServlet {
 
         String banner_path = fileBannerPart.getSubmittedFileName().toString();
         String avt_path = fileAvatarPart.getSubmittedFileName().toString();
-        String uploadPath = "C:\\foodSmartImages\\avatars";
+        String uploadPath = System.getenv("uploadPath")  + File.separator + "avatars";
         File uploadDir = new File(uploadPath);
         if (!uploadDir.exists()) {
             uploadDir.mkdirs();

@@ -25,7 +25,7 @@
                     <label class="form-label"><i class="bi bi-person-circle-fill"></i> Ảnh đại diện</label>
                     <div class="mb-3 text-center">
                         <c:if test="${not empty account.avtPath}">
-                            <img id="avatarPreview" src="${pageContext.request.contextPath}/foodSmartImages/avatars/${account.avtPath}"
+                            <img id="avatarPreview" src="${pageContext.request.contextPath}/images/avatars/${account.avtPath}"
                                  alt="Ảnh đại diện" class="img-fluid rounded-circle shadow" style="max-width: 130px; height: 130px;">
                         </c:if>
                     </div>

@@ -32,7 +32,7 @@
                     <form id="registerForm" action="/authenticate?action=register" method="POST" enctype="multipart/form-data">
                         <!-- Ảnh đại diện -->
                         <div class="form-group text-center">
-                            <img id="avatarPreview" class="avatar-preview" src="${pageContext.request.contextPath}/foodSmartImages/avatars/avt_default.jpg" alt="Ảnh đại diện">
+                            <img id="avatarPreview" class="avatar-preview" src="${pageContext.request.contextPath}/images/avatars/avt_default.jpg" alt="Ảnh đại diện">
                             <label for="avt_path">Ảnh đại diện:</label>
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" id="avt_path" name="avt_path" accept="image/*">

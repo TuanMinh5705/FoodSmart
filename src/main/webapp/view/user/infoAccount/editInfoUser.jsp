@@ -104,7 +104,7 @@
                                     <div class="d-flex flex-column align-items-center">
                                         <div class="mb-3">
                                             <c:if test="${not empty account.avtPath}">
-                                                <img src="${pageContext.request.contextPath}/foodSmartImages/avatars/${account.avtPath}"
+                                                <img src="${pageContext.request.contextPath}/images/avatars/${account.avtPath}"
                                                      alt="Ảnh đại diện" class="avatar img-thumbnail mx-auto d-block" id="avatarPreview">
                                             </c:if>
                                         </div>
