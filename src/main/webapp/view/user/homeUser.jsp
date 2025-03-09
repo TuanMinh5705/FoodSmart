@@ -57,6 +57,14 @@
         <c:when test="${param.page == 'showOrderDetail'}">
             <jsp:include page="cart/orderDetail.jsp"/>
         </c:when>
+<%--     Mã giảm giá   --%>
+        <c:when test="${param.page == 'displayVouchers'}">
+            <jsp:include page="voucher/infoVoucher.jsp"/>
+        </c:when>
+
+        <c:when test="${param.page == 'chat'}">
+            <jsp:include page="chat.jsp"/>
+        </c:when>
 
         <c:otherwise>
             <jsp:include page="system/menu.jsp" />

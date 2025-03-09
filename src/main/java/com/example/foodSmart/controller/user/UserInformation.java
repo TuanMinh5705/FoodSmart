@@ -25,12 +25,12 @@ public class UserInformation extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
         resp.setContentType("text/html;charset=UTF-8");
         String action = req.getParameter("action");
-        if (action == null) {
-            action = "";
-        }
+            if (action == null) {
+                action = "";
+            }
 
-        switch (action) {
-            default:
+            switch (action) {
+            case "showUserInformation":
                 showInfoUser(req, resp);
                 break;
             case "editUserForm":

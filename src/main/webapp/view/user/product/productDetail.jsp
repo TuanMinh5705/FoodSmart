@@ -99,10 +99,14 @@
 
                 <a href="/homeUser?action=buyNow&id=${food.product_id}"
                    class="bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 transition-transform duration-300">
-                    <i class="bi bi-bag"></i><span class="ml-2">Mua ngay</span>
+                    <i class="bi bi-bag"></i> <span class="ml-2">Mua ngay</span>
                 </a>
 
+                <a href="/chat?storeId=${store.id}" class="btn btn-primary">
+                    <i class="fas fa-comments"></i> Chat ngay
+                </a>
             </div>
+
 
             <script>
                 function getQuantity(productId) {

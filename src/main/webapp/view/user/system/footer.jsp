@@ -7,7 +7,7 @@
 <body>
 <footer class="pt-6 mt-3" style="background-color: rgb(255 237 56 / 97%);">
     <div class="container mx-auto px-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pb-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 border-b border-black pb-4">
             <!-- Thông tin liên hệ -->
             <div class="pl-6">
                 <h4 class="text-2xl font-bold mb-4">Thông tin liên hệ</h4>

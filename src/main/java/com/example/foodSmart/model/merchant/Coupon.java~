@@ -44,7 +44,7 @@ public class Coupon {
         this.description = description;
     }
 
-    public Coupon(int coupon_id, int store_id, String coupon_code, int discount_value, Timestamp start_date, Timestamp end_date, Time start_time, Time end_time, int quantity, String description, String store_name) {
+    public Coupon(int coupon_id, int store_id, String coupon_code, int discount_value, Timestamp start_date, Timestamp end_date, Time start_time, Time end_time, int quantity, String description, String storeName) {
         this.coupon_id = coupon_id;
         this.store_id = store_id;
         this.coupon_code = coupon_code;

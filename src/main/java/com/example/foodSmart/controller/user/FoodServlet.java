@@ -699,4 +699,3 @@ public class FoodServlet extends HttpServlet {
         }
     }
 }
-
