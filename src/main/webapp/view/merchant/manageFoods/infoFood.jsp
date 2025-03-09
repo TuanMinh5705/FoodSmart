@@ -53,7 +53,7 @@
         <div class="col-md-4">
             <div class="card">
                 <img id="imgPreview_${img.image_id}"
-                     src="${pageContext.request.contextPath}/foodSmartImages/product/${img.image_path}"
+                     src="${pageContext.request.contextPath}/images/product/${img.image_path}"
                      class="image-slot card-img-top" alt="Ảnh sản phẩm">
                 <div class="card-body">
                     <c:if test="${img.is_primary}">

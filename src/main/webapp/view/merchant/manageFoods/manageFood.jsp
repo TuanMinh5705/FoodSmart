@@ -234,7 +234,7 @@
                                     <td>
                                         <c:forEach var="image" items="${product.list_food_images}">
                                             <c:if test="${image.is_primary}">
-                                                <img src="${pageContext.request.contextPath}/foodSmartImages/product/${image.image_path}"
+                                                <img src="${pageContext.request.contextPath}/images/product/${image.image_path}"
                                                      alt="Ảnh món ăn" class="img-thumbnail" width="80">
                                             </c:if>
                                         </c:forEach>

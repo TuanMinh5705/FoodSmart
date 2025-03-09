@@ -44,7 +44,7 @@
                         <div class="carousel-inner">
                             <c:forEach var="img" items="${food.list_food_images}" varStatus="status">
                                 <div class="carousel-item ${status.first ? 'active' : ''}">
-                                    <img src="${pageContext.request.contextPath}/foodSmartImages/product/${img.image_path}"
+                                    <img src="${pageContext.request.contextPath}/images/product/${img.image_path}"
                                          class="d-block w-100" alt="${food.product_name}"
                                          style="height: 350px; object-fit: contain; object-position: center;">
                                 </div>

@@ -41,7 +41,7 @@
         .profile-card .card-header {
             position: relative;
             height: 180px;
-            background-image: url('${pageContext.request.contextPath}/foodSmartImages/avatars/${merchant.avtPath}');
+            background-image: url('${pageContext.request.contextPath}/images/avatars/${merchant.avtPath}');
             background-size: cover;
             background-position: center;
         }
@@ -119,7 +119,7 @@
                 <div class="card-header"></div>
                 <div class="card-body">
                     <div class="avatar-container">
-                        <img src="${pageContext.request.contextPath}/foodSmartImages/avatars/${merchant.avtPath}"
+                        <img src="${pageContext.request.contextPath}/images/avatars/${merchant.avtPath}"
                              alt="Ảnh đại diện của Merchant" class="avatar">
                     </div>
                     <div class="merchant-info mt-3">

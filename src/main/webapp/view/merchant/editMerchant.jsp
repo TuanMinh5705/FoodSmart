@@ -98,7 +98,7 @@
                 <label class="form-label">Ảnh đại diện:</label>
                 <div class="d-flex align-items-center">
                     <c:if test="${not empty merchant.avtPath}">
-                        <img src="${pageContext.request.contextPath}/foodSmartImages/avatars/${merchant.avtPath}"
+                        <img src="${pageContext.request.contextPath}/images/avatars/${merchant.avtPath}"
                              alt="Ảnh đại diện" class="img-thumbnail me-3 avatar-preview" id="avatarPreview">
                     </c:if>
                     <div>

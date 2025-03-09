@@ -17,7 +17,7 @@
                         <i class="fas fa-map-marker-alt text-2xl mr-4"></i>
                         <div>
                             <p class="font-semibold">ĐỊA CHỈ:</p>
-                            <p>Đại học thành đô</p>
+                            <p>Đại học Thành Đô</p>
                         </div>
                     </div>
                     <!-- Điện thoại -->
