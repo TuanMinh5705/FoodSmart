@@ -569,7 +569,27 @@ public class FoodServlet extends HttpServlet {
                 itemData.put("productId", cartItem.getProductId());
                 itemData.put("priceAtTime", cartItem.getPriceAtTime());
                 itemData.put("quantity", cartItem.getQuantity());
-                itemData.put("productName", "Product " + cartItem.getProductId());
+
+
+                Food food = foodService.getFoodByID(cartItem.getProductId());
+                if (food != null) {
+                    itemData.put("productName", food.getProduct_name());
+
+                    String productImage = "https://via.placeholder.com/150";
+                    List<FoodImages> foodImages = food.getList_food_images();
+                    if (foodImages != null) {
+                        for (FoodImages foodImage : foodImages) {
+                            if (foodImage.isIs_primary()) {
+                                productImage = foodImage.getImage_path();
+                                break;
+                            }
+                        }
+                    }
+                    itemData.put("productImage", productImage);
+                } else {
+                    itemData.put("productName", "Sản phẩm không xác định");
+                    itemData.put("productImage", "https://via.placeholder.com/150");
+                }
                 itemsList.add(itemData);
 
                 int currentTotal = (Integer) groupData.get("totalAmount");
@@ -586,6 +606,7 @@ public class FoodServlet extends HttpServlet {
         req.setAttribute("cartDisplayList", cartDisplayList);
         req.getRequestDispatcher("view/user/homeUser.jsp?page=cart_store").forward(req, resp);
     }
+
     private void addProductToCart(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession();
         resp.setContentType("application/json");

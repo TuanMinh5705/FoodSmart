@@ -64,18 +64,18 @@
                         <c:forEach var="item" items="${group.items}">
                             <div class="list-group-item product-item">
                                 <div class="row align-items-center">
-                                    <!-- Thông tin sản phẩm -->
-                                    <div class="col-md-6">
+                                    <div class="col-md-2">
+                                        <img src="${pageContext.request.contextPath}/images/product/${item.productImage}" alt="${item.productName}" class="img-fluid img-thumbnail" style="width: 100px; height: 100px;">
+                                    </div>
+                                    <div class="col-md-4">
                                         <h6 class="mb-1">${item.productName}</h6>
                                         <p class="mb-0 text-muted">
                                             Giá: <fmt:formatNumber pattern="#,###" value="${item.priceAtTime}"/> đ
                                         </p>
                                     </div>
-                                    <!-- Số lượng sản phẩm -->
                                     <div class="col-md-3 text-center">
                                         Số lượng: ${item.quantity}
                                     </div>
-                                    <!-- Thành tiền -->
                                     <div class="col-md-3 text-center">
                                         <p class="mb-0 fw-bold">
                                             <fmt:formatNumber pattern="#,###" value="${item.priceAtTime * item.quantity}"/> đ
@@ -84,6 +84,7 @@
                                 </div>
                             </div>
                         </c:forEach>
+
                     </div>
                 </div>
             </c:forEach>

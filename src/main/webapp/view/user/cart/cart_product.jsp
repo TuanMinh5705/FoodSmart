@@ -107,7 +107,6 @@
                             })();
 
                             function updateProductQuantity(productId, quantity) {
-                                console.log('Updating product quantity:', productId, quantity);
                                 const xhr = new XMLHttpRequest();
                                 xhr.open('POST', '/homeUser?action=updateCart', true);
                                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
