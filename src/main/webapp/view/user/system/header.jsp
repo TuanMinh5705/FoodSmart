@@ -11,7 +11,7 @@
         <!-- Left: Logo & Navigation -->
         <div class="flex items-center space-x-6">
             <a href="/homeUser">
-                <img src="${pageContext.request.contextPath}/images/logo.png" alt="Smart Food Logo" class="h-20">
+                <img src="../../../imageDefault/logo1.png" alt="Smart Food Logo" class="h-20">
             </a>
             <nav class="flex space-x-6">
                 <a href="/homeUser" class="text-black font-bold text-lg">Trang chủ</a>

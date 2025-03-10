@@ -44,6 +44,7 @@ public class ManageCoupons extends HttpServlet {
                 getCoupon(req);
                 req.getRequestDispatcher("view/merchant/homeMerchant.jsp?page=infoCoupons").forward(req, resp);
                 break;
+
             default:
                 listCoupons(req, resp);
                 break;
@@ -80,19 +81,23 @@ public class ManageCoupons extends HttpServlet {
                     throw new RuntimeException(e);
                 }
                 break;
-                case "searchCoupon":
-                    searchCoupon(req, resp);
-                    break;
+            case "searchCoupon":
+                searchCoupon(req, resp);
+                break;
+
+
 
         }
 
     }
 
+
+
     private void searchCoupon(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String keyword = req.getParameter("keyword");
         List<Coupon> couponList = couponService.getListCouponsByName(keyword);
         req.setAttribute("couponList", couponList);
-            req.getRequestDispatcher("view/merchant/homeMerchant.jsp?page=manageCoupons").forward(req, resp);
+        req.getRequestDispatcher("view/merchant/homeMerchant.jsp?page=manageCoupons").forward(req, resp);
     }
 
     private void editCoupon(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, ParseException {

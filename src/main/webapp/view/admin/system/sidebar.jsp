@@ -55,7 +55,7 @@
     <div class="text-center mb-3">
         <a href="/view/admin/homeAdmin.jsp">
 
-            <img src="../../../images/logo.png" alt="Logo" style="height: 100px;">
+            <img src="../../../imageDefault/logo1.png" alt="Logo" style="height: 100px;">
         </a>
     </div>
     <ul class="nav flex-column">

@@ -63,20 +63,24 @@
 
 <%--        Thông tin khách hàng--%>
         <c:when test="${param.page == 'infoStore'}">
-            <jsp:include page="merchantStore.jsp"/>
+            <jsp:include page="info/merchantStore.jsp"/>
         </c:when>
         <c:when test="${param.page == 'infoMerchantStore'}">
-            <jsp:include page="infoMerchant.jsp"/>
+            <jsp:include page="info/infoMerchant.jsp"/>
         </c:when>
         <c:when test="${param.page == 'editMerchantStore'}">
-            <jsp:include page="editMerchant.jsp"/>
+            <jsp:include page="info/editMerchant.jsp"/>
         </c:when>
         <c:when test="${param.page == 'editInfoStore'}">
-            <jsp:include page="editStore.jsp"/>
+            <jsp:include page="info/editStore.jsp"/>
         </c:when>
         <%--        Quan lý đơn hàng--%>
         <c:when test="${param.page == 'manageOrders'}">
             <jsp:include page="manageOrders/manageOrders.jsp"/>
+        </c:when>
+        <%--        Trò chuyện --%>
+        <c:when test="${param.page == 'chat'}">
+            <jsp:include page="chat.jsp"/>
         </c:when>
 
         <c:otherwise>
