@@ -84,7 +84,6 @@ public class Authenticate extends HttpServlet {
     }
    // Đăng kí cửa hàng
     private void registerStore(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // Lấy các giá trị từ form
         String storeName = req.getParameter("store_name");
         String storeAddress = req.getParameter("store_address");
         String contactNumber = req.getParameter("contact_number");
@@ -123,7 +122,6 @@ public class Authenticate extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
         resp.getWriter().write("{\"exists\": " + isExist + "}");
     }
-    // Đăng nhập vào hệ thống
     public void login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username");
         String password = req.getParameter("password");

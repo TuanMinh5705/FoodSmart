@@ -77,12 +77,54 @@ public class OrderService implements IOrderService {
     @Override
     public List<Order> getOrders() {
         List<Order> orders = new ArrayList<>();
-        String sql = "SELECT * FROM Orders ORDER BY order_date DESC";
+        String sql = "SELECT * FROM Orders WHERE ORDER BY order_date DESC";
 
         try (Connection conn = ConnectDB.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
 
+            while (rs.next()) {
+                int orderId = rs.getInt("order_id");
+                List<CartItem> details = getCartItems(orderId);
+                int order_id = rs.getInt("order_id");
+                int userId = rs.getInt("user_id");
+                int shipperId = rs.getInt("shipper_id");
+                Shipper shipper = carrierService.getShipper(shipperId);
+                int storeId = rs.getInt("store_id");
+                int voucherId = rs.getInt("voucher_id");
+                int couponId = rs.getInt("coupon_id");
+                String orderStatus = rs.getString("order_status");
+                Timestamp shippingDate = rs.getTimestamp("shipping_date");
+                Timestamp deliveryDate = rs.getTimestamp("delivery_date");
+                Timestamp orderDate = rs.getTimestamp("order_date");
+                String paymentMethod = rs.getString("payment_method");
+                String paymentStatus = rs.getString("payment_status");
+                int shippingInfo = rs.getInt("shipping_info");
+                AccountDetails accountDetails = accountService.getAccountDetailById(shippingInfo, userId);
+                Order order = new Order(order_id, userId, storeId, shipper, voucherId, couponId, orderStatus, shippingDate, deliveryDate, orderDate, paymentMethod, paymentStatus, accountDetails, details);
+                orders.add(order);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return orders;
+    }
+
+    public List<Order> getOrdersByUser(String name, int id) {
+        List<Order> orders = new ArrayList<>();
+
+
+        if (!name.matches("^[a-zA-Z_]+$")) {
+            throw new IllegalArgumentException("Invalid column name");
+        }
+
+        String sql = "SELECT * FROM Orders WHERE " + name + " = ? ORDER BY order_date DESC";
+        try (Connection conn = ConnectDB.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1,id);
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 int orderId = rs.getInt("order_id");
                 List<CartItem> details = getCartItems(orderId);

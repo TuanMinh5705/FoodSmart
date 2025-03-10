@@ -31,12 +31,6 @@
     <c:when test="${param.page == 'manageFoods'}">
         <jsp:include page="manageFoods/manageFood.jsp"/>
     </c:when>
-    <c:when test="${param.page == 'addCategory'}">
-        <jsp:include page="manageFoods/addCategory.jsp"/>
-    </c:when>
-    <c:when test="${param.page == 'infoCategory'}">
-        <jsp:include page="manageFoods/infoCategory.jsp"/>
-    </c:when>
 
     <c:when test="${param.page == 'addFood'}">
         <jsp:include page="manageFoods/addFood.jsp"/>
@@ -79,6 +73,10 @@
         </c:when>
         <c:when test="${param.page == 'editInfoStore'}">
             <jsp:include page="editStore.jsp"/>
+        </c:when>
+        <%--        Quan lý đơn hàng--%>
+        <c:when test="${param.page == 'manageOrders'}">
+            <jsp:include page="manageOrders/manageOrders.jsp"/>
         </c:when>
 
         <c:otherwise>

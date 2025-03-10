@@ -14,10 +14,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
+import javax.servlet.http.*;
 import java.io.File;
 import java.io.IOException;
 
@@ -59,6 +56,10 @@ public class ManageStore extends HttpServlet {
     }
 
     private void showMerchantStoreForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        Account account1 = (Account) session.getAttribute("loggedInAccount");
+        Account merchant = accountService.getAccount(account1.getAccountID());
+        req.setAttribute("merchant", merchant);
         req.getRequestDispatcher("view/merchant/homeMerchant.jsp?page=editMerchantStore").forward(req, resp);
 
     }
@@ -68,6 +69,7 @@ public class ManageStore extends HttpServlet {
         int merchant_id = loggedInUser.getAccountID();
         Account merchant = accountService.getAccount(merchant_id);
         req.setAttribute("merchant", merchant);
+
         req.getRequestDispatcher("view/merchant/homeMerchant.jsp?page=infoMerchantStore").forward(req, resp);
     }
 
@@ -133,6 +135,7 @@ public class ManageStore extends HttpServlet {
         resp.sendRedirect("/manageStore?action=showInfoStore");
     }
 
+
     private void editMerchantStore(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         AccountService accountService = new AccountService();
         Account loggedInUser = (Account) req.getSession().getAttribute("loggedInAccount");
@@ -144,7 +147,10 @@ public class ManageStore extends HttpServlet {
         File uploadDir = new File(uploadPath);
         if (!uploadDir.exists()) uploadDir.mkdirs();
         if (filePart != null && filePart.getSize() > 0) {
-            filePart.write(uploadPath + File.separator + avatarPath);
+            File file = new File(uploadDir,avatarPath);
+            if(!file.exists()) {
+                filePart.write(uploadPath + File.separator + avatarPath);
+            }
         }
 
         String username = req.getParameter("username"),
@@ -152,6 +158,7 @@ public class ManageStore extends HttpServlet {
         boolean active = "active".equals(req.getParameter("status"));
         Account account = new Account(accountId, username, password, avatarPath, "Merchant", active);
         if (accountService.editAccount(account)) {
+            req.getSession().setAttribute("loggedInAccount", account);
             req.getSession().setAttribute("success", "Cập nhật thông tin người dùng thành công!");
         }
         resp.sendRedirect("/manageStore?action=showMerchantStore");

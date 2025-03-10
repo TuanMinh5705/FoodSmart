@@ -9,10 +9,7 @@ import com.example.foodSmart.service.IAccountService;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
+import javax.servlet.http.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -32,13 +29,15 @@ public class UserInformation extends HttpServlet {
                 action = "";
             }
 
-            switch (action) {
-            case "showUserInformation":
+
+        switch (action) {
+            default:
                 showInfoUser(req, resp);
                 break;
             case "editUserForm":
                 Account account = (Account) req.getSession().getAttribute("loggedInAccount");
-                req.setAttribute("account", account);
+                Account user = accountService.getAccount(account.getAccountID());
+                req.setAttribute("account", user);
                 showEditUserForm(req, resp);
                 break;
             case "showAddressUser":
@@ -65,7 +64,6 @@ public class UserInformation extends HttpServlet {
         if (loggedInUser != null) {
             int accountId = loggedInUser.getAccountID();
             List<AccountDetails> accountDetailsList = accountService.getAccountDetails(accountId);
-
             req.setAttribute("accountDetailsList", accountDetailsList);
         }
     }
@@ -75,9 +73,7 @@ public class UserInformation extends HttpServlet {
     }
     private void showInfoUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Account loggedInUser = (Account) req.getSession().getAttribute("loggedInAccount");
-        int merchant_id = loggedInUser.getAccountID();
-        Account user = accountService.getAccount(merchant_id);
-        req.setAttribute("account", user);
+        req.setAttribute("account", loggedInUser);
         req.getRequestDispatcher("view/user/homeUser.jsp?page=infoUser").forward(req, resp);
     }
 
@@ -144,7 +140,10 @@ public class UserInformation extends HttpServlet {
         File uploadDir = new File(uploadPath);
         if (!uploadDir.exists()) uploadDir.mkdirs();
         if (filePart != null && filePart.getSize() > 0) {
-            filePart.write(uploadPath + File.separator + avatarPath);
+            File file = new File(uploadPath,avatarPath);
+            if (!file.exists()){
+                filePart.write(uploadPath + File.separator + avatarPath);
+            };
         }
 
         String username = req.getParameter("username");
@@ -152,9 +151,11 @@ public class UserInformation extends HttpServlet {
         boolean active = "active".equals(req.getParameter("status"));
         Account account = new Account(accountID, username, password, avatarPath, "User", active);
         if (accountService.editAccount(account)) {
+            req.getSession().setAttribute("loggedInAccount", account);
             req.getSession().setAttribute("success", "Cập nhật thông tin người dùng thành công!");
         }
-        showInfoUser(req,resp);
+        showInfoUser(req, resp);
+
 
     }
 

@@ -16,7 +16,7 @@ public class UploadImage extends HttpServlet {
     private static final String products_dir = "C:\\foodSmartImages\\product";
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String pathInfo = req.getPathInfo(); // Ví dụ: "/avatars/user123.jpg"
+        String pathInfo = req.getPathInfo();
         if (pathInfo == null || pathInfo.length() <= 1) {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid file path");
             return;
@@ -31,8 +31,11 @@ public class UploadImage extends HttpServlet {
 
         String baseDir;
         if ("avatars".equals(directory)) {
+//            baseDir = getServletContext().getRealPath("/images/avatars");
             baseDir = avtars_dir;
+
         } else if ("product".equals(directory)) {
+//            baseDir = getServletContext().getRealPath("/images/product");
             baseDir = products_dir;
         } else {
             resp.sendError(HttpServletResponse.SC_FORBIDDEN, "Access denied");
@@ -45,8 +48,6 @@ public class UploadImage extends HttpServlet {
         }
         resp.setContentType(getServletContext().getMimeType(filename));
         resp.setContentLength((int) file.length());
-
-        // Đọc file và gửi về client
         Files.copy(file.toPath(), resp.getOutputStream());
     }
 }
