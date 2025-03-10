@@ -1,123 +1,135 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Chi Tiết Voucher</title>
-  <!-- Thêm Bootstrap CSS -->
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Thêm Font Awesome cho icon -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <!-- Google Fonts: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Bootstrap 5.3 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <style>
+    :root {
+      --bg-light: #f5f7fa;
+      --bg-dark: #c3cfe2;
+    }
     body {
-      background-color: #f8f9fa;
+      background: linear-gradient(135deg, var(--bg-light), var(--bg-dark));
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
     }
-
-    .container {
-      background-color: white;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      padding: 30px;
+    .custom-container {
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 15px;
     }
-
-    h2 {
-      color: #4CAF50;
-      font-weight: bold;
+    .profile-card {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+      padding: 2rem 2rem 3rem;
+      animation: fadeInUp 1s ease;
     }
-
-    .form-group label {
-      font-weight: bold;
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .card-header {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .card-header h2 {
+      margin: 0;
+      color: #333;
+    }
+    .form-label {
+      font-weight: 600;
       color: #555;
     }
-
     .form-control {
-      border-radius: 8px;
+      border-radius: 50px;
       border: 1px solid #ddd;
+      padding-left: 1rem;
     }
-
     .form-control:focus {
-      border-color: #4CAF50;
-      box-shadow: 0 0 5px rgba(0, 200, 0, 0.5);
+      border-color: #607d8b;
+      box-shadow: 0 0 8px rgba(96, 125, 139, 0.2);
+    }
+    .btn-back {
+      background: linear-gradient(90deg, #f67272, #f55d5d);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 0.5rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: background 0.3s, transform 0.3s, color 0.3s;
+      text-decoration: none;
     }
 
-    .btn-secondary {
-      background-color: #6c757d;
-      border-color: #6c757d;
+    .btn-back:hover {
+      background: linear-gradient(90deg, #f55d5d, #f67272);
+      transform: translateY(-3px);
+      text-decoration: none;
+      box-shadow: 0 8px 20px rgba(234, 177, 177, 0.8);
+      color: #000; /* Khi trỏ chuột, chuyển màu chữ thành đen */
     }
 
-    .btn-secondary:hover {
-      background-color: #5a6268;
-      border-color: #545b62;
-    }
-
-    .form-group .fas {
-      color: #4CAF50;
-      margin-right: 10px;
-    }
-
-    .form-group .form-control {
-      padding-left: 30px;
-    }
   </style>
 </head>
 <body>
-
-<div class="container mt-5">
-  <h2 class="text-center">Chi Tiết Voucher <i class="fas fa-gift"></i></h2>
-
-  <!-- Form xem chi tiết voucher -->
-  <form action="/manageCoupons?action=infoCoupon&coupon_id=${coupon.coupon_id}" method="post">
-    <div class="form-group">
-      <label for="coupon_code"><i class="fas fa-barcode"></i> Mã Voucher:</label>
-      <input type="text" class="form-control" id="coupon_code" name="coupon_code" value="${coupon.coupon_code}" readonly>
+<div class="container custom-container">
+  <div class="profile-card">
+    <div class="card-header">
+      <h2>Chi Tiết Voucher <i class="fas fa-gift"></i></h2>
     </div>
-
-    <div class="form-group">
-      <label for="discount_value"><i class="fas fa-percent"></i> Giá trị giảm giá (%):</label>
-      <input type="number" class="form-control" id="discount_value" name="discount_value" value="${coupon.discount_value}" readonly>
-    </div>
-
-    <div class="form-group">
-      <label for="start_date"><i class="fas fa-calendar-alt"></i> Ngày bắt đầu:</label>
-      <input type="datetime-local" class="form-control" id="start_date" name="start_date" value="${coupon.start_date}" readonly>
-    </div>
-
-    <div class="form-group">
-      <label for="end_date"><i class="fas fa-calendar-check"></i> Ngày kết thúc:</label>
-      <input type="datetime-local" class="form-control" id="end_date" name="end_date" value="${coupon.end_date}" readonly>
-    </div>
-
-    <div class="form-group">
-      <label for="start_time"><i class="fas fa-clock"></i> Thời gian bắt đầu:</label>
-      <input type="time" class="form-control" id="start_time" name="start_time" value="${coupon.start_time}" readonly>
-    </div>
-
-    <div class="form-group">
-      <label for="end_time"><i class="fas fa-clock"></i> Thời gian kết thúc:</label>
-      <input type="time" class="form-control" id="end_time" name="end_time" value="${coupon.end_time}" readonly>
-    </div>
-
-    <div class="form-group">
-      <label for="quantity"><i class="fas fa-cogs"></i> Số lượng:</label>
-      <input type="number" class="form-control" id="quantity" name="quantity" value="${coupon.quantity}" readonly>
-    </div>
-
-    <div class="form-group">
-      <label for="description"><i class="fas fa-align-left"></i> Mô tả:</label>
-      <textarea class="form-control" id="description" name="description" rows="4" readonly>${coupon.description}</textarea>
-    </div>
-
-    <!-- Nút quay lại -->
-    <div class="form-group text-center">
-      <a href="/manageCoupons" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Quay lại</a>
-    </div>
-  </form>
+    <!-- Form hiển thị thông tin voucher (chế độ readonly) -->
+    <form action="/manageCoupons?action=infoCoupon&coupon_id=${coupon.coupon_id}" method="post">
+      <div class="mb-3">
+        <label for="coupon_code" class="form-label"><i class="fas fa-barcode"></i> Mã Voucher:</label>
+        <input type="text" class="form-control" id="coupon_code" name="coupon_code" value="${coupon.coupon_code}" readonly>
+      </div>
+      <div class="mb-3">
+        <label for="discount_value" class="form-label"><i class="fas fa-percent"></i> Giá trị giảm giá (%):</label>
+        <input type="number" class="form-control" id="discount_value" name="discount_value" value="${coupon.discount_value}" readonly>
+      </div>
+      <div class="mb-3">
+        <label for="start_date" class="form-label"><i class="fas fa-calendar-alt"></i> Ngày bắt đầu:</label>
+        <input type="date" class="form-control" id="start_date" name="start_date" value="${coupon.start_date}" readonly>
+      </div>
+      <div class="mb-3">
+        <label for="end_date" class="form-label"><i class="fas fa-calendar-check"></i> Ngày kết thúc:</label>
+        <input type="date" class="form-control" id="end_date" name="end_date" value="${coupon.end_date}" readonly>
+      </div>
+      <div class="mb-3">
+        <label for="start_time" class="form-label"><i class="fas fa-clock"></i> Thời gian bắt đầu:</label>
+        <input type="time" class="form-control" id="start_time" name="start_time" value="${coupon.start_time}" readonly>
+      </div>
+      <div class="mb-3">
+        <label for="end_time" class="form-label"><i class="fas fa-clock"></i> Thời gian kết thúc:</label>
+        <input type="time" class="form-control" id="end_time" name="end_time" value="${coupon.end_time}" readonly>
+      </div>
+      <div class="mb-3">
+        <label for="quantity" class="form-label"><i class="fas fa-cogs"></i> Số lượng:</label>
+        <input type="number" class="form-control" id="quantity" name="quantity" value="${coupon.quantity}" readonly>
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label"><i class="fas fa-align-left"></i> Mô tả:</label>
+        <textarea class="form-control" id="description" name="description" rows="4" readonly>${coupon.description}</textarea>
+      </div>
+      <div class="text-center">
+        <a href="/manageCoupons" class="btn-back">Quay lại</a>
+      </div>
+    </form>
+  </div>
 </div>
-
-<!-- Thêm Bootstrap JS và jQuery -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+<!-- Bootstrap JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -11,17 +11,14 @@
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <style>
         :root {
-            --primary-color: #6a11cb;
-            --secondary-color: #2575fc;
-            --primary-gradient: linear-gradient(90deg, #8E2DE2, #4A00E0);
             --bg-light: #f5f7fa;
             --bg-dark: #c3cfe2;
         }
 
         body {
             background: linear-gradient(135deg, var(--bg-light), var(--bg-dark));
-            font-family: 'Poppins', sans-serif;
             min-height: 100vh;
+            font-family: 'Fantasy', sans-serif;
             margin: 0;
             padding: 0;
         }
@@ -92,19 +89,21 @@
             color: #555;
         }
 
+        /* Sửa button theo màu của trang Cập nhật cửa hàng */
         .btn-primary {
             border-radius: 50px;
             padding: 0.75rem 2.5rem;
             font-size: 1.1rem;
             font-weight: 600;
-            background: var(--primary-gradient);
+            background: linear-gradient(90deg, #2196F3, #1E88E5);
             border: none;
             transition: transform 0.3s, box-shadow 0.3s;
         }
 
         .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(142, 45, 226, 0.4);
+            background: linear-gradient(90deg, #1E88E5, #2a9ffc);
+            box-shadow: 0 8px 20px rgba(21, 149, 255, 0.4);
         }
 
         @keyframes fadeInUp {
