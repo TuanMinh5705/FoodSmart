@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/chat")
-public class Chat extends HttpServlet {
+public class ChatUser extends HttpServlet {
     IMerchantService merchantService = new MerchantService();
     IFoodService foodService = new FoodService();
     @Override

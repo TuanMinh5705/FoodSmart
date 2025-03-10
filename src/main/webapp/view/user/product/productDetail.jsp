@@ -102,7 +102,7 @@
                     <i class="bi bi-bag"></i> <span class="ml-2">Mua ngay</span>
                 </a>
 
-                <a href="/chat?storeId=${store.id}" class="btn btn-primary">
+                <a href="/chat?product_id=${food.product_id}" class="btn btn-primary">
                     <i class="fas fa-comments"></i> Chat ngay
                 </a>
             </div>

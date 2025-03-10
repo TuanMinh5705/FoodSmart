@@ -26,7 +26,6 @@
             font-family: 'Poppins', sans-serif;
             min-height: 100vh;
             margin: 0;
-            padding: 20px;
             line-height: 1.6;
         }
 
@@ -183,7 +182,7 @@
 </head>
 <body>
 <div class="container my-4 custom-container">
-    <h2>Quản lý danh mục và sản phẩm</h2>
+    <h2>Quản lý sản phẩm</h2>
 
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-stretch mb-4 gap-3">
         <div class="d-flex gap-2">
@@ -203,9 +202,9 @@
     </div>
 
     <div class="card">
-        <div class="card-header">
-            Danh sách món ăn
-        </div>
+<%--        <div class="card-header">--%>
+<%--            Danh sách món ăn--%>
+<%--        </div>--%>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered table-hover">
