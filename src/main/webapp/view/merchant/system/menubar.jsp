@@ -2,7 +2,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
     <meta charset="UTF-8">
     <title>Menubar</title>
@@ -130,7 +129,9 @@
                         <c:out value="${sessionScope.loggedInAccount.username}" default="Merchant" />
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="/manageStore?action=showMerchantStore">Thông tin tài khoản</a>
+                        <a class="dropdown-item" href="/manageStore?action=showMerchantStore">
+                            <i class="fas fa-info-circle"></i> Thông tin tài khoản
+                        </a>
                         <div class="dropdown-divider"></div>
                         <!-- Nút mở modal xác nhận -->
                         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
@@ -141,7 +142,6 @@
             </ul>
         </div>
     </nav>
-
 
     <!-- Modal xác nhận đăng xuất -->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
@@ -191,10 +191,8 @@
     </script>
 </c:if>
 
-
 <!-- Script -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

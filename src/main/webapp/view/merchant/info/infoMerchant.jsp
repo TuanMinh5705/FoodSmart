@@ -13,13 +13,13 @@
         :root {
             --primary-color: #6a11cb;
             --secondary-color: #2575fc;
-            --primary-gradient: linear-gradient(90deg, #8E2DE2, #4A00E0);
+            --primary-gradient: linear-gradient(90deg, #2196F3, #1E88E5);
             --bg-light: #f5f7fa;
             --bg-dark: #c3cfe2;
         }
         body {
             background: linear-gradient(135deg, var(--bg-light), var(--bg-dark));
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Fantasy', sans-serif;
             min-height: 100vh;
             margin: 0;
             padding: 0;
@@ -38,26 +38,15 @@
             animation: fadeInUp 1s ease;
             margin-bottom: 2rem;
         }
-        .profile-card .card-header {
-            position: relative;
-            height: 180px;
-            background-image: url('${pageContext.request.contextPath}/images/avatars/${merchant.avtPath}');
-            background-size: cover;
-            background-position: center;
-        }
-        .profile-card .card-header::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.4);
+        /* Sử dụng Flexbox để xếp avatar bên trái, thông tin bên phải */
+        .profile-card .card-body {
+            display: flex;
+            align-items: center;
+            padding: 2rem;
         }
         .avatar-container {
-            position: relative;
-            text-align: center;
-            margin-top: -60px;
+            flex-shrink: 0;
+            margin-right: 2rem;
         }
         .avatar {
             width: 120px;
@@ -68,8 +57,7 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
         .merchant-info {
-            text-align: center;
-            padding-top: 1rem;
+            flex-grow: 1;
         }
         .merchant-info h3 {
             margin-bottom: 0.5rem;
@@ -81,11 +69,31 @@
             font-size: 1.1rem;
             color: #555;
         }
-        .input-group {
-            justify-content: center;
-            margin: 1rem auto;
-            max-width: 300px;
+        /* CSS cho input có icon bên trong */
+        .input-with-icon {
+            position: relative;
         }
+        .input-with-icon input {
+            padding-right: 2.5rem;
+            background-color: transparent !important; /* Bỏ màu nền */
+            border-radius: 10px !important; /* Bo góc */
+            border: 1px solid #ced4da; /* Đặt border mặc định */
+        }
+        /* Loại bỏ hiệu ứng hover và focus cho input */
+        .input-with-icon input:hover,
+        .input-with-icon input:focus {
+            background-color: transparent !important;
+            box-shadow: none !important;
+            border-color: #ced4da !important;
+        }
+        .input-with-icon .toggle-password {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+        /* Cập nhật style cho button sử dụng gradient mới */
         .btn-primary {
             border-radius: 50px;
             padding: 0.75rem 2.5rem;
@@ -97,7 +105,8 @@
         }
         .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(142, 45, 226, 0.4);
+            background: linear-gradient(90deg, #1E88E5, #2a9ffc);
+            box-shadow: 0 8px 20px rgba(21, 149, 255, 0.4);
         }
         @keyframes fadeInUp {
             from {
@@ -116,22 +125,28 @@
     <c:choose>
         <c:when test="${not empty merchant}">
             <div class="profile-card mx-auto">
-                <div class="card-header"></div>
+                <!-- Không cần phần card-header vì bỏ ảnh nền -->
                 <div class="card-body">
                     <div class="avatar-container">
                         <img src="${pageContext.request.contextPath}/images/avatars/${merchant.avtPath}"
                              alt="Ảnh đại diện của Merchant" class="avatar">
                     </div>
-                    <div class="merchant-info mt-3">
-                        <h3>${merchant.username}</h3>
-                        <div class="input-group">
-                            <input id="password" type="password" name="password" class="form-control"
-                                   value="${merchant.password}" readonly>
-                            <span class="input-group-text toggle-password" style="cursor: pointer;">
-                                <i class="fas fa-eye"></i>
-                            </span>
+                    <div class="merchant-info">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Tên tài khoản:</label>
+                                <h3>${merchant.username}</h3>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Mật khẩu:</label>
+                                <div class="input-with-icon">
+                                    <input id="password" type="password" name="password" class="form-control"
+                                           value="${merchant.password}" readonly>
+                                    <i class="fas fa-eye toggle-password"></i>
+                                </div>
+                            </div>
                         </div>
-                        <p><strong>Trạng thái: </strong>
+                        <p class="mt-3"><strong>Trạng thái: </strong>
                             <c:choose>
                                 <c:when test="${merchant.active}">
                                     <span class="badge bg-success">Hoạt động</span>
@@ -164,10 +179,10 @@
         var input = $('#password');
         if (input.attr('type') === 'password') {
             input.attr('type', 'text');
-            $(this).find('i').removeClass('fa-eye').addClass('fa-eye-slash');
+            $(this).removeClass('fa-eye').addClass('fa-eye-slash');
         } else {
             input.attr('type', 'password');
-            $(this).find('i').removeClass('fa-eye-slash').addClass('fa-eye');
+            $(this).removeClass('fa-eye-slash').addClass('fa-eye');
         }
     });
 </script>
