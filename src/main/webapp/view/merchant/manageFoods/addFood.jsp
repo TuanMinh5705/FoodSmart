@@ -44,7 +44,7 @@
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        /* Style cho header của card */
+        /* Header của card */
         .card-header {
             text-align: center;
             margin-bottom: 1.5rem;
@@ -53,7 +53,7 @@
             margin: 0;
             color: #333;
         }
-        /* Style cho nhãn và input trong form */
+        /* Nhãn và input */
         .form-label {
             font-weight: 600;
             color: #555;
@@ -76,13 +76,12 @@
             background: linear-gradient(90deg, #2a9ffc, #1E88E5);
             border: none;
             color: #fff;
-            transition: background 0.3s, transform 0.3s, box-shadow 0.3s, color 0.3s;
+            transition: background 0.3s, box-shadow 0.3s, color 0.3s;
         }
         .btn-primary:hover {
-            transform: translateY(-3px);
-            background: linear-gradient(90deg, #1E88E5, #2a9ffc);
+            background: linear-gradient(90deg, #1672c4, #2988d5);
             box-shadow: 0 8px 20px rgba(21, 149, 255, 0.4);
-            color: #000;
+            color: #fff;
         }
         .btn-back {
             background: linear-gradient(90deg, #f67272, #f55d5d);
@@ -92,13 +91,12 @@
             padding: 0.5rem 1.5rem;
             font-size: 1rem;
             font-weight: 600;
-            transition: background-color 0.3s, transform 0.3s, color 0.3s;
+            transition: background-color 0.3s, box-shadow 0.3s, color 0.3s;
         }
         .btn-back:hover {
-            background: linear-gradient(90deg, #f55d5d, #f67272);
-            transform: translateY(-3px);
+            background: linear-gradient(90deg, #d74a4a, #da5f5f);
             box-shadow: 0 8px 20px rgba(234, 177, 177, 0.8);
-            color: #000;
+            color: #fff;
         }
         .btn-upload {
             border-radius: 50px;
@@ -108,28 +106,45 @@
             background: linear-gradient(90deg, #2ecc71, #2dc26c);
             color: #fff;
             border: none;
-            transition: transform 0.3s, box-shadow 0.3s, background 0.3s, color 0.3s;
+            transition: background 0.3s, box-shadow 0.3s, color 0.3s;
         }
         .btn-upload:hover {
-            transform: translateY(-3px);
-            background: linear-gradient(90deg, #2dc26c, #2ecc71);
+            background: linear-gradient(90deg, #22a95b, #28b463);
             box-shadow: 0 8px 20px rgba(39, 174, 96, 0.4);
-            color: #000;
+            color: #fff;
+        }
+        /* Hiệu ứng phóng to chỉ cho chữ trong các nút */
+        .btn-primary .btn-text,
+        .btn-back .btn-text,
+        .btn-upload .btn-text {
+            display: inline-block;
+            transition: transform 0.3s ease-in-out;
+        }
+        .btn-primary:hover .btn-text,
+        .btn-back:hover .btn-text,
+        .btn-upload:hover .btn-text {
+            transform: scale(1.2);
         }
         /* Style cho vùng xem trước ảnh */
         #imagePreview {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 20px;
             justify-content: center;
             margin-bottom: 1rem;
         }
         #imagePreview img {
-            border-radius: 10px;
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
+            border-radius: 15px;
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            border: 1px solid #ddd;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        #imagePreview img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         }
     </style>
 </head>
@@ -144,13 +159,13 @@
             <div class="mb-3">
                 <label class="form-label">Ảnh sản phẩm</label>
                 <div id="imagePreview">
-                    <img src="https://via.placeholder.com/100" alt="Default Image">
+                    <img src="https://via.placeholder.com/120" alt="Ảnh đại diện">
                 </div>
                 <!-- Input file ẩn -->
                 <input type="file" class="d-none" name="product_images" id="productImages" multiple accept="image/*">
                 <div class="text-center">
                     <button type="button" class="btn-upload" id="uploadBtn">
-                        <i class="fas fa-plus"></i> Thêm ảnh
+                        <span class="btn-text"><i class="fas fa-plus"></i> Thêm ảnh</span>
                     </button>
                 </div>
             </div>
@@ -186,10 +201,10 @@
             <!-- Nút xử lý -->
             <div class="text-center">
                 <button type="submit" class="btn-primary me-3">
-                    <i class="fas fa-plus-circle"></i> Thêm sản phẩm
+                    <span class="btn-text"><i class="fas fa-plus-circle"></i> Thêm sản phẩm</span>
                 </button>
                 <button type="button" class="btn-back" onclick="window.location.href='/manageFoods?action=listFoodAndCategory';">
-                    <i class="fas fa-times"></i> Huỷ
+                    <span class="btn-text"><i class="fas fa-times"></i> Huỷ</span>
                 </button>
             </div>
         </form>
@@ -210,7 +225,7 @@
         const files = this.files;
         if (files.length === 0) {
             const defaultImg = document.createElement('img');
-            defaultImg.src = 'https://via.placeholder.com/100';
+            defaultImg.src = 'https://via.placeholder.com/120';
             defaultImg.alt = 'Default Image';
             preview.appendChild(defaultImg);
         } else {
