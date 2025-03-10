@@ -62,6 +62,10 @@
             <jsp:include page="voucher/infoVoucher.jsp"/>
         </c:when>
 
+        <c:when test="${param.page == 'chat'}">
+            <jsp:include page="chat.jsp"/>
+        </c:when>
+
         <c:otherwise>
             <jsp:include page="system/menu.jsp" />
             <!-- Banner -->

@@ -71,7 +71,7 @@ public class ManageUsers extends HttpServlet {
     private void addUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Part filePart = req.getPart("avatar");
         String avatarPath = filePart.getSubmittedFileName();
-        String uploadPath = "C:\\foodSmartImages\\avatars";
+        String uploadPath = System.getenv("uploadPath")  + File.separator + "avatars";
         File uploadDir = new File(uploadPath);
         if (!uploadDir.exists()) uploadDir.mkdirs();
         File uploadFile = new File(uploadPath, avatarPath);
@@ -102,7 +102,7 @@ public class ManageUsers extends HttpServlet {
         Part filePart = req.getPart("avtPath");
         String avatarPath = (filePart != null && filePart.getSize() > 0)
                 ? filePart.getSubmittedFileName() : req.getParameter("currentAvtPath");
-        String uploadPath = "C:\\foodSmartImages\\avatars";
+        String uploadPath = System.getenv("uploadPath")  + File.separator + "avatars";
         File uploadDir = new File(uploadPath);
         if (!uploadDir.exists()) uploadDir.mkdirs();
         if (filePart != null && filePart.getSize() > 0) {

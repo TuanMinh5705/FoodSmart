@@ -11,7 +11,7 @@
         <!-- Left: Logo & Navigation -->
         <div class="flex items-center space-x-6">
             <a href="/homeUser">
-                <img src="${pageContext.request.contextPath}/images/logo.png" alt="Smart Food Logo" class="h-20">
+                <img src="../../../imageDefault/logo1.png" alt="Smart Food Logo" class="h-20">
             </a>
             <nav class="flex space-x-6">
                 <a href="/homeUser" class="text-black font-bold text-lg">Trang chủ</a>
@@ -51,16 +51,16 @@
             </a>
 
             <!-- Account Section -->
-            <div class="relative group">
-                <button class="flex items-center focus:outline-none">
+            <div class="relative" id="accountDropdownContainer">
+                <button id="accountDropdownToggle" class="flex items-center focus:outline-none">
                     <i class="fas fa-user-circle text-black text-2xl"></i>
                     <span class="ml-2 text-black text-lg">
             <c:out value="${sessionScope.loggedInAccount.username}" default="Đăng nhập"/>
         </span>
                 </button>
                 <!-- Dropdown menu -->
-                <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-50 group-hover:block hidden">
-                    <a href="/userInformation" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">
+                <div id="accountDropdownMenu" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg transition-opacity duration-300 z-50 hidden">
+                    <a href="/userInformation?action=showUserInformation" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">
                         <i class="fas fa-user-circle"></i> Thông tin tài khoản
                     </a>
                     <a href="/order" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">
@@ -71,6 +71,26 @@
                     </a>
                 </div>
             </div>
+
+            <script>
+                // Lấy các phần tử cần thiết
+                const dropdownToggle = document.getElementById('accountDropdownToggle');
+                const dropdownMenu = document.getElementById('accountDropdownMenu');
+                const dropdownContainer = document.getElementById('accountDropdownContainer');
+
+                // Khi click vào button, toggle hiển thị dropdown
+                dropdownToggle.addEventListener('click', function(e) {
+                    e.stopPropagation(); // Ngăn sự kiện lan ra ngoài
+                    dropdownMenu.classList.toggle('hidden');
+                });
+
+                // Khi click ra ngoài container thì ẩn dropdown
+                document.addEventListener('click', function(e) {
+                    if (!dropdownContainer.contains(e.target)) {
+                        dropdownMenu.classList.add('hidden');
+                    }
+                });
+            </script>
 
         </div>
     </div>
@@ -124,7 +144,7 @@
         updateCollectionCount(count);
     }
 
-        function confirmLogout() {
+    function confirmLogout() {
         Swal.fire({
             title: "Bạn có chắc chắn muốn đăng xuất?",
             text: "Bạn sẽ cần đăng nhập lại để tiếp tục sử dụng dịch vụ!",

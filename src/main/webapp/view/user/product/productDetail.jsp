@@ -44,7 +44,7 @@
                         <div class="carousel-inner">
                             <c:forEach var="img" items="${food.list_food_images}" varStatus="status">
                                 <div class="carousel-item ${status.first ? 'active' : ''}">
-                                    <img src="${pageContext.request.contextPath}/foodSmartImages/product/${img.image_path}"
+                                    <img src="${pageContext.request.contextPath}/images/product/${img.image_path}"
                                          class="d-block w-100" alt="${food.product_name}"
                                          style="height: 350px; object-fit: contain; object-position: center;">
                                 </div>
@@ -99,10 +99,14 @@
 
                 <a href="/homeUser?action=buyNow&id=${food.product_id}"
                    class="bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 transition-transform duration-300">
-                    <i class="bi bi-bag"></i><span class="ml-2">Mua ngay</span>
+                    <i class="bi bi-bag"></i> <span class="ml-2">Mua ngay</span>
                 </a>
 
+                <a href="/chat?product_id=${food.product_id}" class="btn btn-primary">
+                    <i class="fas fa-comments"></i> Chat ngay
+                </a>
             </div>
+
 
             <script>
                 function getQuantity(productId) {

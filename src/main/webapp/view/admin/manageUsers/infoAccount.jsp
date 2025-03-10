@@ -35,7 +35,7 @@
     <div class="card shadow p-4">
         <div class="card-body text-center">
             <c:if test="${not empty account.avtPath}">
-                <img src="${pageContext.request.contextPath}/foodSmartImages/avatars/${account.avtPath}"
+                <img src="${pageContext.request.contextPath}/images/avatars/${account.avtPath}"
                      alt="Ảnh đại diện" class="avatar mb-3">
             </c:if>
             <div class="mb-3">

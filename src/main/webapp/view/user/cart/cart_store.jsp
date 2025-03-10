@@ -25,7 +25,7 @@
                 <div class="row align-items-center border-bottom py-4" id="store-${group.storeId}">
                     <!-- Logo cửa hàng -->
                     <div class="col-auto">
-                        <img src="${pageContext.request.contextPath}/foodSmartImages/avatars/${group.storeLogo}"
+                        <img src="${pageContext.request.contextPath}/images/avatars/${group.storeLogo}"
                              alt="Logo của ${group.storeName}" width="80" height="80" class="rounded-3 shadow-sm">
                     </div>
 
@@ -57,15 +57,43 @@
                         </button>
                     </div>
                 </div>
-            </c:forEach>
 
+                <!-- Danh sách sản phẩm của cửa hàng -->
+                <div class="mb-5">
+                    <div class="list-group">
+                        <c:forEach var="item" items="${group.items}">
+                            <div class="list-group-item product-item">
+                                <div class="row align-items-center">
+                                    <div class="col-md-2">
+                                        <img src="${pageContext.request.contextPath}/images/product/${item.productImage}" alt="${item.productName}" class="img-fluid img-thumbnail" style="width: 100px; height: 100px;">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h6 class="mb-1">${item.productName}</h6>
+                                        <p class="mb-0 text-muted">
+                                            Giá: <fmt:formatNumber pattern="#,###" value="${item.priceAtTime}"/> đ
+                                        </p>
+                                    </div>
+                                    <div class="col-md-3 text-center">
+                                        Số lượng: ${item.quantity}
+                                    </div>
+                                    <div class="col-md-3 text-center">
+                                        <p class="mb-0 fw-bold">
+                                            <fmt:formatNumber pattern="#,###" value="${item.priceAtTime * item.quantity}"/> đ
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </c:forEach>
+
+                    </div>
+                </div>
+            </c:forEach>
         </c:otherwise>
     </c:choose>
 </div>
+
 <jsp:include page="../../admin/system/modalConfirmDelete.jsp" />
 
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </body>

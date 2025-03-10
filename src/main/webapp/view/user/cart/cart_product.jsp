@@ -22,7 +22,7 @@
             <div class="flex items-center">
                 <img alt="Restaurant logo"
                      class="mr-3 w-12 h-12 object-cover rounded-full border border-gray-300"
-                     src="${pageContext.request.contextPath}/foodSmartImages/avatars/${storeData.storeLogo}"/>
+                     src="${pageContext.request.contextPath}/images/avatars/${storeData.storeLogo}"/>
                 <span class="text-2xl font-semibold text-gray-800">
                     <c:out value="${storeData.storeName}"/>
                 </span>
@@ -48,7 +48,7 @@
                     <c:forEach var="item" items="${storeData.items}" varStatus="status">
                         <tr>
                             <td class="py-4 flex items-center">
-                                <img src="${pageContext.request.contextPath}/foodSmartImages/product/${item.productImage}"
+                                <img src="${pageContext.request.contextPath}/images/product/${item.productImage}"
                                      class="mr-3 w-12 h-12 object-cover rounded border border-gray-300"
                                      alt="Ảnh sản phẩm"/>
                                 <span class="text-gray-800"><c:out value="${item.productName}"/></span>
@@ -107,7 +107,6 @@
                             })();
 
                             function updateProductQuantity(productId, quantity) {
-                                console.log('Updating product quantity:', productId, quantity);
                                 const xhr = new XMLHttpRequest();
                                 xhr.open('POST', '/homeUser?action=updateCart', true);
                                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');

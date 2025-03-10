@@ -73,7 +73,7 @@
             <div class="col-md-4">
                 <div class="card">
                     <img id="imgPreview_${img.image_id}"
-                         src="${pageContext.request.contextPath}/foodSmartImages/product/${img.image_path}"
+                         src="${pageContext.request.contextPath}/images/product/${img.image_path}"
                          class="image-slot card-img-top" alt="Ảnh món ăn">
                     <div class="card-body">
                         <label class="form-check-label">Ảnh chính:</label>

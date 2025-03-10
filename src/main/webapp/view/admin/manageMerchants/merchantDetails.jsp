@@ -45,7 +45,7 @@
                     <i class="bi bi-person-circle"></i> Avatar
                 </td>
                 <td class="text-center">
-                    <img src="${pageContext.request.contextPath}/foodSmartImages/avatars/${merchant.avt_path}"
+                    <img src="${pageContext.request.contextPath}/images/avatars/${merchant.avt_path}"
                          alt="avatar"
                          class="img-fluid rounded-circle" style="max-width: 130px; height: 130px;">
                 </td>
@@ -55,7 +55,7 @@
                     <i class="bi bi-image"></i> Banner
                 </td>
                 <td class="text-center">
-                    <img src="${pageContext.request.contextPath}/foodSmartImages/avatars/${merchant.banner_path}"
+                    <img src="${pageContext.request.contextPath}/images/avatars/${merchant.banner_path}"
                          alt="banner"
                          class="img-fluid rounded" style="max-width: 300px;">
                 </td>

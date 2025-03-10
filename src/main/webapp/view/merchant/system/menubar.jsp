@@ -18,6 +18,7 @@
             top: 0;
             left: 0;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            justify-content: flex-end;
         }
 
         /* Khoảng cách để không bị che mất nội dung */
@@ -113,7 +114,7 @@
         <div class="collapse navbar-collapse" id="navbarMain">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link icon-btn" href="#">
+                    <a class="nav-link icon-btn" href="/chatMerchant">
                         <i class="fas fa-comments"></i> Trò chuyện
                     </a>
                 </li>

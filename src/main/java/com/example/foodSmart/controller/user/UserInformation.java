@@ -25,14 +25,13 @@ public class UserInformation extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
         resp.setContentType("text/html;charset=UTF-8");
         String action = req.getParameter("action");
-            if (action == null) {
-                action = "";
-            }
+        if (action == null) {
+            action = "";
+        }
 
 
         switch (action) {
             default:
-                showInfoUser(req, resp);
                 break;
             case "editUserForm":
                 Account account = (Account) req.getSession().getAttribute("loggedInAccount");
@@ -59,6 +58,7 @@ public class UserInformation extends HttpServlet {
         req.setAttribute("address", address);
         req.getRequestDispatcher("view/user/homeUser.jsp?page=editAddressUser").forward(req, resp);
     }
+
     private void showAddressUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Account loggedInUser = (Account) req.getSession().getAttribute("loggedInAccount");
         if (loggedInUser != null) {
@@ -67,10 +67,12 @@ public class UserInformation extends HttpServlet {
             req.setAttribute("accountDetailsList", accountDetailsList);
         }
     }
+
     private void showEditUserForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("view/user/homeUser.jsp?page=editUser").forward(req, resp);
 
     }
+
     private void showInfoUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Account loggedInUser = (Account) req.getSession().getAttribute("loggedInAccount");
         req.setAttribute("account", loggedInUser);
@@ -105,6 +107,7 @@ public class UserInformation extends HttpServlet {
         accountService.deleteAccountDetails(accountDetailID);
         resp.sendRedirect("/userInformation?action=showAddressUser");
     }
+
     private void editAddressUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int accountDetailID = Integer.parseInt(req.getParameter("accountDetailID"));
         String address = req.getParameter("address");
@@ -129,6 +132,7 @@ public class UserInformation extends HttpServlet {
 
         resp.sendRedirect("/userInformation?action=showAddressUser");
     }
+
     private void editInfoUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         IAccountService accountService = new AccountService();
         Account loggedInUser = (Account) req.getSession().getAttribute("loggedInAccount");
@@ -136,28 +140,26 @@ public class UserInformation extends HttpServlet {
         Part filePart = req.getPart("avtPath");
         String avatarPath = (filePart != null && filePart.getSize() > 0)
                 ? filePart.getSubmittedFileName() : req.getParameter("currentAvtPath");
-        String uploadPath = "C:\\foodSmartImages\\avatars";
+        String uploadPath = System.getenv("uploadPath") + File.separator + "avatars";
         File uploadDir = new File(uploadPath);
+        System.out.println(uploadDir);
         if (!uploadDir.exists()) uploadDir.mkdirs();
+        System.out.println(uploadDir);
         if (filePart != null && filePart.getSize() > 0) {
-            File file = new File(uploadPath,avatarPath);
-            if (!file.exists()){
+            File file = new File(uploadPath, avatarPath);
+            if (!file.exists()) {
                 filePart.write(uploadPath + File.separator + avatarPath);
-            };
+            }
+
+            String username = req.getParameter("username");
+            String password = req.getParameter("password");
+            boolean active = "active".equals(req.getParameter("status"));
+            Account account = new Account(accountID, username, password, avatarPath, "User", active);
+            if (accountService.editAccount(account)) {
+                req.getSession().setAttribute("loggedInAccount", account);
+                req.getSession().setAttribute("success", "Cập nhật thông tin người dùng thành công!");
+            }
+            showInfoUser(req, resp);
         }
-
-        String username = req.getParameter("username");
-        String password = req.getParameter("password");
-        boolean active = "active".equals(req.getParameter("status"));
-        Account account = new Account(accountID, username, password, avatarPath, "User", active);
-        if (accountService.editAccount(account)) {
-            req.getSession().setAttribute("loggedInAccount", account);
-            req.getSession().setAttribute("success", "Cập nhật thông tin người dùng thành công!");
-        }
-        showInfoUser(req, resp);
-
-
     }
-
-
 }

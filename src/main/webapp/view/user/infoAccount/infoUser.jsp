@@ -112,7 +112,7 @@
                                 <div class="form-group text-center mb-4">
                                     <label class="form-label d-block">Ảnh đại diện</label>
                                     <c:if test="${not empty account.avtPath}">
-                                        <img src="${pageContext.request.contextPath}/foodSmartImages/avatars/${account.avtPath}"
+                                        <img src="${pageContext.request.contextPath}/images/avatars/${account.avtPath}"
                                              alt="Ảnh đại diện" class="avatar img-thumbnail mx-auto d-block" id="avatarPreview">
                                     </c:if>
                                 </div>
