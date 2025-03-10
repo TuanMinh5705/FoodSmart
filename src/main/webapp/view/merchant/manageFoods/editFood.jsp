@@ -19,7 +19,7 @@
         }
         body {
             background: linear-gradient(135deg, var(--bg-light), var(--bg-dark));
-            font-family: 'Poppins', sans-serif;
+
             min-height: 100vh;
             margin: 0;
             padding: 0;
@@ -273,11 +273,26 @@
             reader.readAsDataURL(file);
         });
     }
-    // Sự kiện kích hoạt input file
     document.getElementById('addImagesBtn').addEventListener('click', function() {
         document.getElementById('productImages').click();
     });
     document.getElementById('productImages').addEventListener('change', previewImages);
+    document.querySelectorAll('input[type="file"][id^="image_"]').forEach(function(fileInput) {
+        fileInput.addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const id = fileInput.id.split('_')[1];
+                    const imgPreview = document.getElementById('imgPreview_' + id);
+                    if (imgPreview) {
+                        imgPreview.src = e.target.result;
+                    }
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    });
 </script>
 </body>
 </html>
