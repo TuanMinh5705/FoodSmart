@@ -11,13 +11,13 @@
 </head>
 <style>
     .content {
-        margin-top: 10px;
+        margin-top: -10px;
         margin-left: 250px;
         padding: 10px;
         transition: margin-left 0.3s ease;
     }
 
-    @media (max-width: 901px) {
+    @media (max-width: 900px) {
         .content {
             margin-left: 5px;
         }
