@@ -9,7 +9,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <style>
+        .dataTables_filter {
+            display: none;
+        }
+        .dataTables_paginate .paginate_button {
+            background: #007bff;
+            color: white !important;
+            border-radius: 5px;
+            padding: 5px 10px;
+            margin: 2px;
+        }
+
+        .dataTables_paginate .paginate_button:hover {
+            background: #0056b3;
+        }
         :root {
             --bg-light: #f5f7fa;
             --bg-dark: #c3cfe2;
@@ -34,7 +50,6 @@
             animation: fadeInUp 1s ease;
             margin-bottom: 2rem;
         }
-        /* Đồng bộ header: loại bỏ background gradient */
         .card-header {
             background: transparent;
             color: #000;
@@ -81,10 +96,6 @@
             transform: translateY(-3px);
             background: linear-gradient(90deg, #2dc26c, #2ecc71);
             box-shadow: none;
-        }
-        /* CSS cho input có icon */
-        .input-with-icon {
-            position: relative;
         }
         .input-with-icon input {
             padding-right: 40px;
@@ -146,12 +157,9 @@
                     </a>
                 </div>
                 <div class="col-md-8">
-                    <form action="/manageCoupons?action=searchCoupon" method="post" id="searchForm">
-                        <div class="input-with-icon">
-                            <input type="text" class="form-control" placeholder="Tìm kiếm..." name="keyword" onkeyup="startTimer()">
-                            <i class="fas fa-search" onclick="document.getElementById('searchForm').submit();"></i>
-                        </div>
-                    </form>
+                    <div class="col-md-6 text-end">
+                        <input type="text" id="customSearchBox" class="form-control custom-search-box" placeholder="🔍 Tìm kiếm...">
+                    </div>
                 </div>
             </div>
             <div class="table-responsive">
@@ -200,6 +208,31 @@
             document.getElementById("searchForm").submit();
         }, 2500);
     }
+    $(document).ready(function () {
+        const table = $('#voucherTable').DataTable({
+            "language": {
+                "search": "Tìm kiếm:",
+                "lengthMenu": "Hiển thị _MENU_ món ăn",
+                "info": "Hiển thị _START_ đến _END_ của _TOTAL_ món ăn",
+                "infoEmpty": "Không có dữ liệu",
+                "infoFiltered": "(lọc từ _MAX_ món ăn)",
+                "zeroRecords": "Không tìm thấy kết quả nào phù hợp",
+                "emptyTable": "Không có dữ liệu trong bảng",
+                "paginate": {
+                    "first": "Đầu",
+                    "last": "Cuối",
+                    "next": "Tiếp",
+                    "previous": "Trước"
+                },
+                "loadingRecords": "Đang tải...",
+                "processing": "Đang xử lý...",
+            }
+        });
+
+        $('#customSearchBox').on('keyup', function () {
+            table.search(this.value).draw();
+        });
+    });
 </script>
 </body>
 </html>

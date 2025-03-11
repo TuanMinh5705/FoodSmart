@@ -13,11 +13,36 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 </head>
+<style>
+    .dataTables_filter {
+        display: none;
+    }
+    .dataTables_paginate .paginate_button {
+        background: #007bff;
+        color: white !important;
+        border-radius: 5px;
+        padding: 5px 10px;
+        margin: 2px;
+    }
+
+    .dataTables_paginate .paginate_button:hover {
+        background: #0056b3;
+    }
+</style>
 <body>
 
 <div>
     <h1>Quản lý đơn hàng</h1>
-
+    <div class="row mb-4">
+        <div class="col-md-4 mb-3 mb-md-0">
+            <a href="/manageFoods?action=addFoodForm" class="btn btn-custom btn-upload btn-sm">
+                <i class="fas fa-plus me-2"></i> <strong>Thêm món ăn</strong>
+            </a>
+        </div>
+        <div class="col-md-6 text-end">
+            <input type="text" id="customSearchBox" class="form-control custom-search-box" placeholder="🔍 Tìm kiếm...">
+        </div>
+    </div>
     <table id="orderTable" class="display">
         <thead>
         <tr>
@@ -51,69 +76,36 @@
 </div>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <!-- Thêm các hàng khác nếu cần -->
-        </tbody>
-    </table>
-</div>
-
 <script>
     function toggleSidebar() {
         document.getElementById("sidebar").classList.toggle("active");
     }
 
-    $(document).ready(function() {
-        $('#orderTable').DataTable({
+
+    $(document).ready(function () {
+        const table = $('#orderTable').DataTable({
             "language": {
                 "search": "Tìm kiếm:",
-                "lengthMenu": "Hiển thị _MENU_ đơn hàng",
-                "info": "Hiển thị _START_ đến _END_ của _TOTAL_ đơn hàng",
+                "lengthMenu": "Hiển thị _MENU_ món ăn",
+                "info": "Hiển thị _START_ đến _END_ của _TOTAL_ món ăn",
+                "infoEmpty": "Không có dữ liệu",
+                "infoFiltered": "(lọc từ _MAX_ món ăn)",
+                "zeroRecords": "Không tìm thấy kết quả nào phù hợp",
+                "emptyTable": "Không có dữ liệu trong bảng",
                 "paginate": {
                     "first": "Đầu",
                     "last": "Cuối",
                     "next": "Tiếp",
                     "previous": "Trước"
-                }
+                },
+                "loadingRecords": "Đang tải...",
+                "processing": "Đang xử lý...",
             }
+        });
+
+        $('#customSearchBox').on('keyup', function () {
+            table.search(this.value).draw();
         });
     });
 </script>
 
-</body>
-</html>

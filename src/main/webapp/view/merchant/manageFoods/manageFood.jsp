@@ -7,13 +7,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Quản lý sản phẩm cửa hàng</title>
-    <!-- Font Poppins -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <!-- Bootstrap CSS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome cho icon -->
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <style>
+        .dataTables_filter {
+            display: none;
+        }
+        .dataTables_paginate .paginate_button {
+            background: #007bff;
+            color: white !important;
+            border-radius: 5px;
+            padding: 5px 10px;
+            margin: 2px;
+        }
+
+        .dataTables_paginate .paginate_button:hover {
+            background: #0056b3;
+        }
+
         :root {
             --bg-light: #f5f7fa;
             --bg-dark: #c3cfe2;
@@ -38,7 +53,6 @@
             animation: fadeInUp 1s ease;
             margin-bottom: 2rem;
         }
-        /* Sửa đổi: Bỏ background của tiêu đề */
         .card-header {
             background: transparent;
             color: #000;
@@ -169,22 +183,16 @@
         <div class="card-body">
             <div class="row mb-4">
                 <div class="col-md-4 mb-3 mb-md-0">
-                    <!-- Nút Thêm món ăn sử dụng btn-upload với style tối ưu -->
                     <a href="/manageFoods?action=addFoodForm" class="btn btn-custom btn-upload btn-sm">
                         <i class="fas fa-plus me-2"></i> <strong>Thêm món ăn</strong>
                     </a>
                 </div>
-                <div class="col-md-8">
-                    <form action="/manageFoods?action=search" method="post" id="searchForm">
-                        <div class="input-with-icon">
-                            <input type="text" class="form-control" placeholder="Tìm kiếm..." name="keyword" onkeyup="startTimer()">
-                            <i class="fas fa-search" onclick="document.getElementById('searchForm').submit();"></i>
-                        </div>
-                    </form>
+                <div class="col-md-6 text-end">
+                    <input type="text" id="customSearchBox" class="form-control custom-search-box" placeholder="🔍 Tìm kiếm...">
                 </div>
             </div>
             <div class="table-responsive">
-                <table class="table table-bordered table-striped table-hover border-top">
+                <table class="table table-bordered table-striped table-hover border-top display" id="foodTable">
                 <thead>
                     <tr>
                         <th>STT</th>
@@ -252,13 +260,37 @@
 <jsp:include page="../../admin/system/modalConfirmDelete.jsp"/>
 
 <script>
-    let timer;
-    function startTimer() {
-        clearTimeout(timer);
-        timer = setTimeout(function () {
-            document.getElementById("searchForm").submit();
-        }, 2500);
+
+    function toggleSidebar() {
+        document.getElementById("sidebar").classList.toggle("active");
     }
+
+    $(document).ready(function () {
+        const table = $('#foodTable').DataTable({
+            "language": {
+                "search": "Tìm kiếm:",
+                "lengthMenu": "Hiển thị _MENU_ món ăn",
+                "info": "Hiển thị _START_ đến _END_ của _TOTAL_ món ăn",
+                "infoEmpty": "Không có dữ liệu",
+                "infoFiltered": "(lọc từ _MAX_ món ăn)",
+                "zeroRecords": "Không tìm thấy kết quả nào phù hợp",
+                "emptyTable": "Không có dữ liệu trong bảng",
+                "paginate": {
+                    "first": "Đầu",
+                    "last": "Cuối",
+                    "next": "Tiếp",
+                    "previous": "Trước"
+                },
+                "loadingRecords": "Đang tải...",
+                "processing": "Đang xử lý...",
+            }
+        });
+
+        $('#customSearchBox').on('keyup', function () {
+            table.search(this.value).draw();
+        });
+    });
+
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
