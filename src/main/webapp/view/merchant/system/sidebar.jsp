@@ -5,11 +5,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sidebar</title>
+    <title>Quản lý đơn hàng với Sidebar</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <style>
         .sidebar {
             position: fixed;
@@ -47,6 +47,11 @@
             cursor: pointer;
             z-index: 1050;
         }
+
+        .content {
+            margin-left: 260px;
+            padding: 20px;
+        }
     </style>
 </head>
 <body>
@@ -56,9 +61,7 @@
 <div class="sidebar" id="sidebar">
     <div class="text-center mb-3">
         <a href="/view/merchant/homeMerchant.jsp">
-
             <img src="../../../imageDefault/logo1.png" alt="Logo" style="height: 100px;">
-
         </a>
     </div>
     <ul class="nav flex-column">
@@ -85,11 +88,5 @@
         </li>
     </ul>
 </div>
-
-<script>
-    function toggleSidebar() {
-        document.getElementById("sidebar").classList.toggle("active");
-    }
-</script>
 </body>
 </html>
