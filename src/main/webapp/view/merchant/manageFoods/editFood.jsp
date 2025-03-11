@@ -19,7 +19,8 @@
         }
         body {
             background: linear-gradient(135deg, var(--bg-light), var(--bg-dark));
-
+            font-size: 18px;
+            font-weight: 750;
             min-height: 100vh;
             margin: 0;
             padding: 0;
@@ -33,7 +34,7 @@
         /* Card cập nhật món ăn */
         .profile-card {
             width: 100%;
-            max-width: 750px;  /* Giới hạn chiều rộng của card */
+            max-width: 750px;
             margin: 0 auto;
             background: #fff;
             border-radius: 20px;
@@ -80,10 +81,8 @@
             color: #fff;
         }
         .btn-primary:hover {
-            transform: translateY(-3px);
-            background: linear-gradient(90deg, #1E88E5, #2a9ffc);
+            background: linear-gradient(90deg, #1672c4, #2988d5);
             box-shadow: 0 8px 20px rgba(21, 149, 255, 0.4);
-            color: #000;
         }
         /* Button quay lại (.btn-back) */
         .btn-back {
@@ -97,10 +96,8 @@
             transition: background-color 0.3s, transform 0.3s, color 0.3s;
         }
         .btn-back:hover {
-            background: linear-gradient(90deg, #f55d5d, #f67272);
-            transform: translateY(-3px);
+            background: linear-gradient(90deg, #d74a4a, #da5f5f);
             box-shadow: 0 8px 20px rgba(234, 177, 177, 0.8);
-            color: #000;
         }
         /* Button thêm ảnh (.btn-upload) */
         .btn-upload {
@@ -111,27 +108,38 @@
             background: linear-gradient(90deg, #2ecc71, #29c069);
             color: #fff;
             border: none;
-            transition: transform 0.3s, box-shadow 0.3s, background 0.3s, color 0.3s;
+            transition: background 0.3s, transform 0.3s, box-shadow 0.3s, color 0.3s;
         }
         .btn-upload:hover {
-            transform: translateY(-3px);
-            background: linear-gradient(90deg, #29c069, #2ecc71);
+            background: linear-gradient(90deg, #22a95b, #28b463);
             box-shadow: 0 8px 20px rgba(39, 174, 96, 0.4);
-            color: #000;
+        }
+        /* Hiệu ứng phóng to chỉ cho chữ trong button */
+        .btn-primary .btn-text,
+        .btn-back .btn-text,
+        .btn-upload .btn-text {
+            display: inline-block;
+            transition: transform 0.3s ease-in-out;
+        }
+        .btn-primary:hover .btn-text,
+        .btn-back:hover .btn-text,
+        .btn-upload:hover .btn-text {
+            transform: scale(1.2);
         }
         /* Vùng xem trước ảnh cho ảnh mới */
         #imagePreview {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            justify-content: center;
+            object-fit: contain;
             margin-bottom: 1rem;
         }
         #imagePreview img {
             border-radius: 10px;
             width: 100px;
             height: 100px;
-            object-fit: cover;
+            border: 1px solid #ddd;
+            object-fit: contain;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
         /* Danh sách ảnh hiện có: ảnh nhỏ hơn và cách nhau 30px */
@@ -145,9 +153,38 @@
             text-align: center;
         }
         #imageContainer img {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        /* CSS cho container của ảnh có vị trí relative */
+        .img-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+        /* CSS cho icon xoá ảnh nằm ở góc trên bên phải */
+        .delete-icon {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid #ddd;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 2;
+            transition: background 0.3s, color 0.3s;
+        }
+        .delete-icon:hover {
+            background: rgb(250, 101, 101);
+        }
+        .delete-icon:hover i {
+            color: #ffffff;
         }
     </style>
 </head>
@@ -192,9 +229,16 @@
                 <div id="imageContainer">
                     <c:forEach var="img" items="${food.list_food_images}" varStatus="status">
                         <div class="image-item">
-                            <img id="imgPreview_${img.image_id}"
-                                 src="${pageContext.request.contextPath}/images/product/${img.image_path}"
-                                 class="img-thumbnail" alt="Ảnh món ăn">
+                            <!-- Container ảnh với vị trí relative -->
+                            <div class="img-wrapper">
+                                <img id="imgPreview_${img.image_id}"
+                                     src="${pageContext.request.contextPath}/images/product/${img.image_path}"
+                                     class="img-thumbnail" alt="Ảnh món ăn">
+                                <!-- Icon xoá (dấu X) nằm ở góc trên bên phải của ảnh -->
+                                <button type="button" class="delete-icon" onclick="showDeleteModal({ id: '${img.image_id}', url: 'manageFoods', action: 'deleteImage' });">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
                             <div class="mt-2">
                                 <label class="form-check-label">Ảnh chính:</label>
                                 <input type="radio" name="primary_image" value="${img.image_id}"
@@ -202,17 +246,11 @@
                             </div>
                             <div class="mt-2">
                                 <label for="image_${img.image_id}" class="btn btn-outline-success">
-                                    <i class="fas fa-sync-alt"></i> Cập nhật ảnh
+                                    <span class="btn-text"><i class="fas fa-pencil-alt"></i> Chỉnh sửa</span>
                                 </label>
                                 <input type="file" id="image_${img.image_id}" name="img_path_${img.image_id}" class="d-none"
                                        accept="image/*">
                                 <input type="hidden" name="currentImgPath_${img.image_id}" value="${img.image_path}">
-                            </div>
-                            <div class="mt-2">
-                                <button type="button" class="btn btn-danger btn-sm"
-                                        onclick="showDeleteModal({ id: '${img.image_id}', url: 'manageFoods', action: 'deleteImage' });">
-                                    <i class="fas fa-trash"></i> Xóa ảnh
-                                </button>
                             </div>
                         </div>
                     </c:forEach>
@@ -223,19 +261,18 @@
                 <input type="file" class="d-none" name="product_images" id="productImages" multiple accept="image/*">
                 <div id="imagePreview"></div>
                 <div class="text-center mt-3">
-                    <!-- Sử dụng class btn-upload cho button Thêm ảnh -->
                     <button type="button" class="btn-upload" id="addImagesBtn">
-                        <i class="fas fa-plus"></i> Thêm ảnh
+                        <span class="btn-text"><i class="fas fa-plus"></i> Thêm ảnh</span>
                     </button>
                 </div>
             </section>
             <!-- Nút xử lý -->
             <div class="text-center">
                 <button type="submit" class="btn-primary me-3">
-                    <i class="fas fa-sync-alt"></i> Cập nhật
+                    <span class="btn-text"><i class="fas fa-sync-alt"></i> Cập nhật</span>
                 </button>
                 <button type="button" class="btn-back" onclick="window.location.href='/manageFoods';">
-                    <i class="fas fa-times"></i> Huỷ
+                    <span class="btn-text"><i class="fas fa-times"></i> Huỷ</span>
                 </button>
             </div>
         </form>
@@ -247,7 +284,7 @@
 <!-- Bootstrap JS Bundle -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    // Hàm hiển thị preview cho ảnh được thêm mới
+    // Hàm hiển thị preview cho ảnh được thêm mới với icon xoá dạng icon tròn
     function previewImages() {
         const preview = document.getElementById('imagePreview');
         const files = document.getElementById('productImages').files;
@@ -255,34 +292,47 @@
         Array.from(files).forEach(file => {
             const reader = new FileReader();
             reader.onload = function(e) {
-                const div = document.createElement('div');
-                div.className = 'text-center';
+                // Tạo container với class 'img-wrapper' để có vị trí relative
+                const wrapper = document.createElement('div');
+                wrapper.className = 'img-wrapper text-center';
+
+                // Tạo thẻ img hiển thị preview
                 const img = document.createElement('img');
                 img.src = e.target.result;
-                div.appendChild(img);
-                const deleteBtn = document.createElement('button');
-                deleteBtn.type = 'button';
-                deleteBtn.className = 'btn btn-danger btn-sm mt-2';
-                deleteBtn.innerHTML = '<i class="fas fa-trash"></i>';
-                deleteBtn.addEventListener('click', function() {
-                    div.remove();
+                img.style.width = '100px';
+                img.style.height = '100px';
+                img.style.objectFit = 'cover';
+                img.style.borderRadius = '10px';
+                wrapper.appendChild(img);
+
+                // Tạo icon xoá ảnh (button với class 'delete-icon')
+                const deleteIcon = document.createElement('button');
+                deleteIcon.type = 'button';
+                deleteIcon.className = 'delete-icon';
+                deleteIcon.innerHTML = '<i class="fas fa-times"></i>';
+                deleteIcon.addEventListener('click', function() {
+                    wrapper.remove();
                 });
-                div.appendChild(deleteBtn);
-                preview.appendChild(div);
+                wrapper.appendChild(deleteIcon);
+
+                preview.appendChild(wrapper);
             };
             reader.readAsDataURL(file);
         });
     }
+    // Sự kiện kích hoạt input file
     document.getElementById('addImagesBtn').addEventListener('click', function() {
         document.getElementById('productImages').click();
     });
     document.getElementById('productImages').addEventListener('change', previewImages);
+
     document.querySelectorAll('input[type="file"][id^="image_"]').forEach(function(fileInput) {
         fileInput.addEventListener('change', function (e) {
             const file = e.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function (e) {
+                    // Lấy id từ input (ví dụ: image_123 -> 123)
                     const id = fileInput.id.split('_')[1];
                     const imgPreview = document.getElementById('imgPreview_' + id);
                     if (imgPreview) {

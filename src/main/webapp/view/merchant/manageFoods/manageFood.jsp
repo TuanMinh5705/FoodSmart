@@ -144,9 +144,9 @@
             text-align: center;
         }
         .product-img {
-            width: 50px;
-            height: 50px;
-            object-fit: cover;
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
         }
         @keyframes fadeInUp {
             from {
@@ -184,8 +184,8 @@
                 </div>
             </div>
             <div class="table-responsive">
-                <table class="table table-bordered table-striped table-hover">
-                    <thead>
+                <table class="table table-bordered table-striped table-hover border-top">
+                <thead>
                     <tr>
                         <th>STT</th>
                         <th>Ảnh chính</th>
@@ -212,7 +212,7 @@
                                             <c:if test="${image.is_primary}">
                                                 <img src="${pageContext.request.contextPath}/images/product/${image.image_path}"
                                                      alt="Ảnh món ăn"
-                                                     class="img-thumbnail product-img">
+                                                     class="product-img">
                                             </c:if>
                                         </c:forEach>
                                     </td>
