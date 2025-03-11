@@ -128,10 +128,10 @@
         }
         /* Vùng xem trước ảnh cho ảnh mới */
         #imagePreview {
+            align-items: center;
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            object-fit: contain;
             margin-bottom: 1rem;
         }
         #imagePreview img {
@@ -301,7 +301,7 @@
                 img.src = e.target.result;
                 img.style.width = '100px';
                 img.style.height = '100px';
-                img.style.objectFit = 'cover';
+                img.style.objectFit = 'contain';
                 img.style.borderRadius = '10px';
                 wrapper.appendChild(img);
 
