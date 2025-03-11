@@ -174,7 +174,6 @@
         <div class="card-header">
             <h2 class="form-label fw-bold">Cập nhật thông tin cửa hàng</h2>
         </div>
-        <!-- Phần banner và avatar kết hợp -->
 
         <form action="/manageStore?action=editMerchantStore" method="post" enctype="multipart/form-data">
         <div class="image-header">
@@ -209,7 +208,6 @@
                 <input type="text" name="contact_number" value="${store.contact_number}" class="form-control" required>
             </div>
 
-            <!-- Phần trạng thái cửa hàng -->
             <div class="mb-4 text-center">
                 <label class="form-label d-block">Trạng thái cửa hàng:</label>
                 <div class="d-flex justify-content-center">
@@ -238,7 +236,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    // Khi click vào ảnh hoặc icon pen của avatar thì mở file input
     document.getElementById("avtPreview").addEventListener("click", function () {
         document.getElementById("avt_path").click();
     });
@@ -247,7 +244,6 @@
         document.getElementById("avt_path").click();
     });
 
-    // Khi click vào ảnh hoặc icon pen của banner thì mở file input
     document.getElementById("bannerPreview").addEventListener("click", function () {
         document.getElementById("banner_path").click();
     });
@@ -256,7 +252,6 @@
         document.getElementById("banner_path").click();
     });
 
-    // Preview ảnh đại diện sau khi chọn file
     document.getElementById("avt_path").addEventListener("change", function (event) {
         const file = event.target.files[0];
         if (file) {
@@ -273,7 +268,6 @@
         }
     });
 
-    // Preview ảnh nền sau khi chọn file
     document.getElementById("banner_path").addEventListener("change", function (event) {
         const file = event.target.files[0];
         if (file) {
