@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -19,7 +20,6 @@
         }
         body {
             background: linear-gradient(135deg, var(--bg-light), var(--bg-dark));
-            font-family: 'Poppins', sans-serif;
             min-height: 100vh;
             margin: 0;
             padding: 0;
@@ -222,7 +222,6 @@
                                     <td>${product.discount}%</td>
                                     <td>
                                         <div class="d-flex justify-content-center gap-2">
-                                            <!-- Nút Sửa sử dụng btn-upload -->
                                             <a href="/manageFoods?action=editProductForm&productID=${product.product_id}"
                                                class="btn btn-custom btn-upload btn-sm" title="Sửa">
                                                 <i class="fas fa-pencil-alt"></i>
