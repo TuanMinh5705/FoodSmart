@@ -53,7 +53,7 @@
             color: #555;
         }
         .form-control {
-            border-radius: 50px;
+            border-radius: 8px;
             border: 1px solid #ddd;
             transition: border-color 0.3s;
         }
@@ -69,13 +69,12 @@
             background: linear-gradient(90deg, #2a9ffc, #1E88E5);
             border: none;
             color: #fff;
-            transition: background 0.3s, transform 0.3s, box-shadow 0.3s, color 0.3s;
+            transition: background 0.3s, box-shadow 0.3s, color 0.3s;
         }
         .btn-primary:hover {
-            transform: translateY(-3px);
-            background: linear-gradient(90deg, #1E88E5, #2a9ffc);
+            background: linear-gradient(90deg, #1672c4, #2988d5);
             box-shadow: 0 8px 20px rgba(21, 149, 255, 0.4);
-            color: #000;
+            color: #fff;
         }
         .btn-back {
             background: linear-gradient(90deg, #f67272, #f55d5d);
@@ -85,13 +84,21 @@
             padding: 0.5rem 1.5rem;
             font-size: 1rem;
             font-weight: 600;
-            transition: background-color 0.3s, transform 0.3s, color 0.3s;
+            transition: background-color 0.3s, box-shadow 0.3s, color 0.3s;
         }
         .btn-back:hover {
-            background: linear-gradient(90deg, #f55d5d, #f67272);
-            transform: translateY(-3px);
+            background: linear-gradient(90deg, #d74a4a, #da5f5f);
             box-shadow: 0 8px 20px rgba(234, 177, 177, 0.8);
-            color: #000;
+            color: #fff;
+        }
+        .btn-primary .btn-text,
+        .btn-back .btn-text {
+            display: inline-block;
+            transition: transform 0.3s ease-in-out;
+        }
+        .btn-primary:hover .btn-text,
+        .btn-back:hover .btn-text {
+            transform: scale(1.2);
         }
     </style>
 </head>
@@ -103,7 +110,6 @@
         </div>
         <form action="/manageCoupons?action=editCoupon" method="post" id="couponForm">
             <input type="hidden" name="coupon_id" value="${coupon.coupon_id}">
-
             <div class="mb-3">
                 <label for="coupon_code" class="form-label"><i class="fas fa-barcode"></i> Mã Coupon:</label>
                 <input type="text" class="form-control" id="coupon_code" name="coupon_code" value="${coupon.coupon_code}"
@@ -143,11 +149,11 @@
                 <textarea class="form-control" id="description" name="description" rows="4" placeholder="Nhập mô tả">${coupon.description}</textarea>
             </div>
             <div class="d-flex justify-content-center gap-2">
-                <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-save"></i> Cập nhật Coupon
+                <button type="submit" class="btn-primary">
+                    <span class="btn-text"><i class="fas fa-save"></i> Cập nhật Coupon</span>
                 </button>
                 <button type="button" class="btn-back" onclick="window.location.href='/manageCoupons';">
-                    <i class="fas fa-times"></i> Huỷ
+                    <span class="btn-text"><i class="fas fa-times"></i> Huỷ</span>
                 </button>
             </div>
         </form>

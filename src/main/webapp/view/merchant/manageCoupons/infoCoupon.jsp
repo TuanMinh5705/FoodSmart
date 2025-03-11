@@ -53,7 +53,7 @@
       color: #555;
     }
     .form-control {
-      border-radius: 50px;
+      border-radius: 8px;
       border: 1px solid #ddd;
       padding-left: 1rem;
     }
@@ -72,15 +72,21 @@
       transition: background 0.3s, transform 0.3s, color 0.3s;
       text-decoration: none;
     }
-
     .btn-back:hover {
       background: linear-gradient(90deg, #f55d5d, #f67272);
       transform: translateY(-3px);
       text-decoration: none;
       box-shadow: 0 8px 20px rgba(234, 177, 177, 0.8);
-      color: #000; /* Khi trỏ chuột, chuyển màu chữ thành đen */
+      color: #fff;
     }
-
+    /* Hiệu ứng phóng to chỉ cho chữ trong nút */
+    .btn-back .btn-text {
+      display: inline-block;
+      transition: transform 0.3s ease-in-out;
+    }
+    .btn-back:hover .btn-text {
+      transform: scale(1.2);
+    }
   </style>
 </head>
 <body>
@@ -124,7 +130,7 @@
         <textarea class="form-control" id="description" name="description" rows="4" readonly>${coupon.description}</textarea>
       </div>
       <div class="text-center">
-        <a href="/manageCoupons" class="btn-back">Quay lại</a>
+        <a href="/manageCoupons" class="btn-back"><span class="btn-text">Quay lại</span></a>
       </div>
     </form>
   </div>

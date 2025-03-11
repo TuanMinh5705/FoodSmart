@@ -21,10 +21,10 @@
         /* Định dạng toàn cục cho body */
         body {
             background: linear-gradient(135deg, var(--bg-light), var(--bg-dark));
-            font-family: 'Poppins', sans-serif;
             min-height: 100vh;
             margin: 0;
             padding: 0;
+            font-family: 'Poppins', sans-serif;
         }
         /* Container chứa form */
         .custom-container {
@@ -50,6 +50,8 @@
             margin-bottom: 1.5rem;
         }
         .card-header h2 {
+            font-size: 24px;
+            font-weight: bold;
             margin: 0;
             color: #333;
         }
@@ -76,13 +78,12 @@
             background: linear-gradient(90deg, #2a9ffc, #1E88E5);
             border: none;
             color: #fff;
-            transition: background 0.3s, transform 0.3s, box-shadow 0.3s, color 0.3s;
+            transition: background 0.3s, box-shadow 0.3s, color 0.3s;
         }
         .btn-primary:hover {
-            transform: translateY(-3px);
-            background: linear-gradient(90deg, #1E88E5, #2a9ffc);
+            background: linear-gradient(90deg, #1672c4, #2988d5);
             box-shadow: 0 8px 20px rgba(21, 149, 255, 0.4);
-            color: #000;
+            color: #fff;
         }
         .btn-back {
             background: linear-gradient(90deg, #f67272, #f55d5d);
@@ -92,22 +93,33 @@
             padding: 0.5rem 1.5rem;
             font-size: 1rem;
             font-weight: 600;
-            transition: background-color 0.3s, transform 0.3s, color 0.3s;
+            transition: background-color 0.3s, box-shadow 0.3s, color 0.3s;
         }
         .btn-back:hover {
-            background: linear-gradient(90deg, #f55d5d, #f67272);
-            transform: translateY(-3px);
+            background: linear-gradient(90deg, #d74a4a, #da5f5f);
             box-shadow: 0 8px 20px rgba(234, 177, 177, 0.8);
-            color: #000;
+            color: #fff;
+        }
+        /* Hiệu ứng phóng to chỉ cho chữ trong các nút */
+        .btn-primary .btn-text,
+        .btn-back .btn-text {
+            display: inline-block;
+            transition: transform 0.3s ease-in-out;
+        }
+        .btn-primary:hover .btn-text,
+        .btn-back:hover .btn-text {
+            transform: scale(1.2);
         }
     </style>
 </head>
 <body>
+
 <div class="container custom-container">
     <div class="profile-card">
         <div class="card-header">
             <h2>Thêm Voucher</h2>
         </div>
+
         <form action="/manageCoupons?action=addCoupon" method="post">
             <input type="hidden" name="store_id" value="${store_id}">
             <div class="mb-3">
@@ -168,11 +180,11 @@
                           placeholder="Nhập mô tả voucher"></textarea>
             </div>
             <div class="text-center">
-                <button type="submit" class="btn btn-primary me-3">
-                    <i class="fas fa-plus-circle"></i> Thêm Voucher
+                <button type="submit" class="btn-primary me-3">
+                    <span class="btn-text"><i class="fas fa-plus-circle"></i> Thêm Voucher</span>
                 </button>
                 <button type="button" class="btn-back" onclick="window.location.href='/manageCoupons';">
-                    <i class="fas fa-times"></i> Huỷ
+                    <span class="btn-text"><i class="fas fa-times"></i> Huỷ</span>
                 </button>
             </div>
         </form>
