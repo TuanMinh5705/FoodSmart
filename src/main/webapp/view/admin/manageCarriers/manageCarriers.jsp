@@ -46,9 +46,6 @@
 <div class="container mt-4">
     <div class="d-flex justify-content-between mb-3">
         <div>
-            <a href="/manageCarriers?action=addCarrierForm" class="btn btn-success me-2">
-                <i class="bi bi-plus-circle"></i> Thêm nhà vận chuyển
-            </a>
             <a href="/manageCarriers?action=addShipperForm" class="btn btn-success">
                 <i class="bi bi-plus-circle"></i> Thêm nhân viên vận chuyển
             </a>

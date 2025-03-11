@@ -151,16 +151,7 @@
         </div>
         <div class="card-body">
             <div class="row mb-4">
-                <div class="col-md-4 mb-3 mb-md-0">
-                    <a href="/manageCoupons?action=addCouponForm" class="btn btn-custom btn-upload btn-sm">
-                        <i class="fas fa-plus me-2"></i> Thêm mã giảm giá
-                    </a>
-                </div>
-                <div class="col-md-8">
-                    <div class="col-md-6 text-end">
                         <input type="text" id="customSearchBox" class="form-control custom-search-box" placeholder="🔍 Tìm kiếm...">
-                    </div>
-                </div>
             </div>
             <div class="table-responsive">
                 <table class="table table-bordered table-striped table-hover" id="voucherTable">

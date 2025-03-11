@@ -52,8 +52,6 @@
     </script>
 
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <a href="/manageMerchants?action=addMerchantForm" class="btn btn-success"><i class="bi bi-plus-circle"></i> Thêm cửa hàng</a>
-
         <form method="post" action="/manageMerchants?action=searchWithNameMerchant" id="searchForm">
             <div class="input-group">
                 <input name="keyword" type="text" class="form-control" placeholder="Tìm kiếm..."

@@ -18,10 +18,6 @@
     <h2 class="text-center mb-4 font-weight-bold">Quản lý danh mục sản phẩm</h2>
 
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <a href="/manageCategoryFood?action=addForm" class="btn btn-success">
-            <i class="bi bi-plus-circle"></i> Thêm danh mục sản phẩm
-        </a>
-
         <div class="flex-grow-1 d-flex" style="margin-left: 15%;">
             <form action="/manageCategoryFood?action=search" method="post" id="searchForm" class="w-50">
                 <div class="input-group">

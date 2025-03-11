@@ -8,10 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Quản lý sản phẩm cửa hàng</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <style>
         .dataTables_filter {
@@ -182,14 +181,7 @@
         </div>
         <div class="card-body">
             <div class="row mb-4">
-                <div class="col-md-4 mb-3 mb-md-0">
-                    <a href="/manageFoods?action=addFoodForm" class="btn btn-custom btn-upload btn-sm">
-                        <i class="fas fa-plus me-2"></i> <strong>Thêm món ăn</strong>
-                    </a>
-                </div>
-                <div class="col-md-6 text-end">
                     <input type="text" id="customSearchBox" class="form-control custom-search-box" placeholder="🔍 Tìm kiếm...">
-                </div>
             </div>
             <div class="table-responsive">
                 <table class="table table-bordered table-striped table-hover border-top display" id="foodTable">
