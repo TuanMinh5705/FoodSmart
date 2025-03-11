@@ -175,6 +175,8 @@
             <h2 class="form-label fw-bold">Cập nhật thông tin cửa hàng</h2>
         </div>
         <!-- Phần banner và avatar kết hợp -->
+
+        <form action="/manageStore?action=editMerchantStore" method="post" enctype="multipart/form-data">
         <div class="image-header">
             <div class="banner-container">
                 <img id="bannerPreview"
@@ -193,8 +195,6 @@
                 <input type="file" class="d-none" id="avt_path" name="avt_path">
             </div>
         </div>
-
-        <form action="/manageStore?action=editMerchantStore" method="post" enctype="multipart/form-data">
             <input type="hidden" name="store_id" value="${store.store_id}">
             <div class="mb-3">
                 <label class="form-label">Tên cửa hàng:</label>
