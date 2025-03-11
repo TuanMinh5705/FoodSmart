@@ -1,3 +1,4 @@
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +18,7 @@
                         <i class="fas fa-map-marker-alt text-2xl mr-4"></i>
                         <div>
                             <p class="font-semibold">ĐỊA CHỈ:</p>
-                            <p>Đại học thành đô</p>
+                            <p>Đại học Thành Đô</p>
                         </div>
                     </div>
                     <!-- Điện thoại -->
@@ -50,7 +51,7 @@
                         <p class="text-xl">Chính sách bảo mật</p>
                         <p class="text-xl">Quy định</p>
                     </div>
-                    <!-- Mạng xã hội -->
+                </div>!-- Mạng xã hội -->
                     <div class="flex space-x-6 mt-6">
                         <i class="fab fa-facebook text-3xl"></i>
                         <i class="fab fa-tiktok text-3xl"></i>
@@ -60,12 +61,7 @@
                 <div class="flex-1 md:ml-8">
                     <h4 class="text-2xl font-bold mb-4">Giấy phép</h4>
                     <a href="#" class="text-xl block">K15 363/GP-CODEGYM</a>
-<<<<<<< HEAD
-
-                    <img src="../../../images/footer.png" alt="Giấy phép Bộ Công Thương" class="w-52 h-auto mt-4 mx-auto" />
-=======
                     <img src="../../../imageDefault/footer.png" alt="Giấy phép Bộ Công Thương" class="w-52 h-auto mt-4" />
->>>>>>> e0aca21ee01169304f5c0488196ab69677578bee
                 </div>
             </div>
         </div>
