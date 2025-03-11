@@ -18,7 +18,6 @@
         }
         body {
             background: linear-gradient(135deg, var(--bg-light), var(--bg-dark));
-            font-family: 'Poppins', sans-serif;
             min-height: 100vh;
             margin: 0;
             padding: 0;
@@ -63,41 +62,65 @@
             margin-bottom: 1rem;
         }
         /* Style cho phần hiển thị hình ảnh */
-        .image-slot {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 10px;
-            border: 1px solid #ddd; /* Border nhạt cho ảnh */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
         #imageContainer {
             display: flex;
+            margin-top: 20px;
             flex-wrap: wrap;
             gap: 15px;
+            object-fit: contain;
             justify-content: center;
         }
         .image-item {
             text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .image-item:hover {
+            transform: translateY(-5px);
+        }
+        .image-slot {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            border-radius: 15px;
+            border: 2px solid #eee;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .image-slot:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        /* Loại bỏ border mặc định và shadow của thẻ card bên trong khung ảnh */
+        .image-item .card {
+            border: none;
+            box-shadow: none;
+            background: transparent;
         }
         /* Style cho nút Quay lại */
         .btn-back {
             background: linear-gradient(90deg, #f67272, #f55d5d);
             color: #fff;
-            text-decoration: none; /* Loại bỏ gạch chân */
+            text-decoration: none;
             border: none;
             border-radius: 50px;
             padding: 0.5rem 1.5rem;
             font-size: 1rem;
             font-weight: 600;
-            transition: background-color 0.3s, transform 0.3s, color 0.3s;
+            transition: background-color 0.3s, box-shadow 0.3s;
         }
         .btn-back:hover {
-            background: linear-gradient(90deg, #f55d5d, #f67272);
-            transform: translateY(-3px);
+            background: linear-gradient(90deg, #d74a4a, #da5f5f);
             box-shadow: 0 8px 20px rgba(234, 177, 177, 0.8);
-            color: #000; /* Khi hover chuyển chữ thành màu đen */
+            color: #ffffff;
             text-decoration: none;
+        }
+        /* Hiệu ứng phóng to cho chữ trong nút Quay lại */
+        .btn-back .btn-text {
+            display: inline-block;
+            transition: transform 0.3s ease-in-out;
+        }
+        .btn-back:hover .btn-text {
+            transform: scale(1.2);
         }
     </style>
 </head>
@@ -145,7 +168,7 @@
             </c:forEach>
         </div>
         <div class="text-center mt-3">
-            <a href="/manageFoods" class="btn-back">Quay lại</a>
+            <a href="/manageFoods" class="btn-back"><span class="btn-text">Quay lại</span></a>
         </div>
     </div>
 </div>
