@@ -1,4 +1,22 @@
 use foodsmart;
+
+CREATE TABLE IF NOT EXISTS Categories_Stores (
+    store_id INT,
+    category_id INT,
+    FOREIGN KEY (category_id) REFERENCES Categories (category_id) ON DELETE CASCADE,
+    FOREIGN KEY (store_id) REFERENCES Stores (store_id) ON DELETE CASCADE
+);
+
+DELIMITER //
+CREATE TRIGGER after_store_insert
+AFTER INSERT ON Stores
+FOR EACH ROW
+BEGIN
+    INSERT INTO Categories_Stores (store_id, category_id)
+    SELECT NEW.store_id, category_id FROM Categories;
+END;
+//
+DELIMITER ;
 DELIMITER //
 
 CREATE PROCEDURE register_account(

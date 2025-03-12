@@ -1,5 +1,6 @@
 create database FoodSmart;
 use FoodSmart;
+
 -- Bảng vai trò
 create table Roles
 (
@@ -20,11 +21,11 @@ create table `Account`
 -- Bảng địa chỉ, số điện thoại người dùng
 create table Account_Details
 (
-    account_details_id int primary key auto_increment,
-    user_id            int,
-    address            text,
-    phonenumber        varchar(255),
-    is_default         boolean default false,
+    account_details_id  int primary key auto_increment,
+    user_id     int,
+    address     text,
+    phonenumber varchar(255),
+    is_default boolean default false,
     foreign key (user_id) references `Account` (account_id) on delete cascade
 );
 -- Bảng ví điện tử người dùng
@@ -141,15 +142,14 @@ CREATE TABLE Vouchers
 -- Bảng danh mục sản phẩm 
 create table Categories
 (
-    category_id   int primary key auto_increment,
-    category_name varchar(255),
+    category_id      int primary key auto_increment,
+    category_name    varchar(255),
     `description` text,
-    avt_path      text default ('product_default.png')
+    avt_path text default ('product_default.png')
 );
 -- Bảng danh mục sản phẩm của cửa hàng 
-CREATE TABLE Categories_Stores
-(
-    store_id    INT,
+CREATE TABLE Categories_Stores (
+    store_id INT,
     category_id INT,
     FOREIGN KEY (category_id) REFERENCES Categories (category_id) on delete cascade,
     FOREIGN KEY (store_id) REFERENCES Stores (store_id) on delete cascade
@@ -166,7 +166,7 @@ create table Products
     discount       int default 0,
     foreign key (store_id) references Stores (store_id) on delete cascade
 );
--- Bảng trung gian giữa sản phẩm và danh mục 
+
 create table Products_Categories
 (
     product_id  int,
@@ -220,7 +220,6 @@ create table Orders
     payment_method   varchar(255),
     payment_status   varchar(255),
     shipping_address text,
-    shipping_phone varchar(255),
     foreign key (coupon_id) references Store_Coupons (coupon_id) on delete cascade,
     foreign key (voucher_id) references Vouchers (voucher_id) on delete cascade,
     foreign key (store_id) references Stores (store_id) on delete cascade,

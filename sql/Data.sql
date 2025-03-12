@@ -9,67 +9,119 @@ insert into `Account`(username, `password`, role_id) values ('NgocThom', 'Vy1209
        ('VanDam', 'Dam123', 1),
        ('abc', 'abc123', 3),
        ('bac', 'abc123', 3),
-       ('ade','abc123',2);
+       ('ade','abc123',2),
+       ('abc1','abc123',2),
+       ('abc2','abc123',2);
 insert into account_details(user_id,address,phonenumber,is_default) value
 (7,"nhổn","0123456789",1),
 (7,"nhổn2","0123498765",0);
 
+INSERT INTO Categories(category_name, `description`, avt_path) VALUES
+    ("Đồ ăn nhanh", "Đồ ăn nhanh", 'fast_food.png'),
+    ('Bánh mì', 'Bánh mì', 'bread.png'),
+    ('Cơm,Cơm rang', 'Cơm,Cơm rang', 'chicken_rice.png'),
+    ('Mì , bún , phở', 'Mì , bún , phở', 'noodles.png'),
+    ('Đồ tráng miệng ', 'Đồ tráng miệng ', 'chocolate_cake.png'),
+    ("Đồ uống", "Đồ uống", 'fruit.png'),
+    ('Salat', 'Các salat thơm ngon', 'salat.png'),
+    ('Kem', 'Các loại kem hấp dẫn', 'ice2.png'),
+    ('Nước đống chai', 'Nước đống chai', 'coca.png'),
+    ('Pizza', 'Các loại pizza phong cách Ý', 'pizza.png');
+
 insert into Stores(merchant_id, store_name, store_address, contact_number) values 
-(5, 'Cơm rang và phở bò Minh Khánh', '102 Tu Hoàng , Minh Khai , Bắc Từ Liêm , Hà Nội', '0123456789'),
-(5, 'Pizza Hut', '202 Đường Phan Xích Long, Quận Phú Nhuận, TP.HCM', '0945123456'),
+(7, 'Cơm rang và phở bò Minh Khánh', '102 Tu Hoàng , Minh Khai , Bắc Từ Liêm , Hà Nội', '0123456789'),
+(8, 'Pizza Hut', '202 Đường Phan Xích Long, Quận Phú Nhuận, TP.HCM', '0945123456'),
 (6, 'Lẩu Bò Ba Toa', '303 Đường Hai Bà Trưng, Đà Lạt', '0956123456');
-
-insert into Categories(category_name,`description`,avt_path) values
-("Đồ ăn nhanh","Đồ ăn nhanh",'fast_food.png'),
-('Bánh mì','Bánh mì','bread.png'),
-('Cơm,Cơm rang','Cơm,Cơm rang','chicken_rice.png'),
-('Mì , bún , phở','Mì , bún , phở','noodles.png'),
-('Đồ tráng miệng , đồ ngọt','Đồ tráng miệng , đồ ngọt','chocolate_cake.png'),
-('Đồ ăn Nhật','đồ nhật','chocolate_cake.png'),
-('Đồ ăn Hàn','Đồ ăn Hàn','noodles.png'),
-("Đồ uống","Đồ uống",'fruit.png');
-
-insert into Products(store_id,product_name,price,stock_quantity) values
-(3,'Cơm rang dưa bò',35000,20),
-(3,'Phở bò',40000,20),
-(3,'Bún chả Hà Nội',45000,30),
-(3,'Bánh cuốn nóng',30000,25),
-(3,'Pizza Margherita',180000,15),
-(3,'Pizza Xúc Xích',190000,10),
-(3,'Pizza Hải Sản',200000,12),
-(3,'Mì Ý Carbonara',120000,18),
-(3,'Lẩu bò đặc biệt',250000,8),
-(3,'Bánh mì bò né',40000,25),
-(3,'Bún bò Huế',50000,30),
-(3,'Gỏi cuốn tôm thịt',30000,40),
-(3,'Bánh Flan',20000,50),
-(3,'Trà Sữa Matcha',50000,60);
+INSERT INTO Products (store_id, product_name, price, stock_quantity) VALUES
+    (3, 'Cơm rang dưa bò', 35000, 20),
+    (3, 'Phở bò', 40000, 20),
+    (3, 'Bún chả Hà Nội', 45000, 30),
+    (3, 'Bánh cuốn nóng', 30000, 25),
+    (3, 'Pizza Margherita', 180000, 15),
+    (3, 'Pizza Xúc Xích', 190000, 10),
+    (3, 'Pizza Hải Sản', 200000, 12),
+    (3, 'Mì Ý Carbonara', 120000, 18),
+    (2, 'Lẩu bò đặc biệt', 250000, 8),
+    (2, 'Bánh mì bò né', 40000, 25),
+    (2, 'Bún bò Huế', 50000, 30),
+    (2, 'Gỏi cuốn tôm thịt', 30000, 40),
+    (2, 'Bánh Flan', 20000, 50),
+    (2, 'Trà Sữa Matcha', 50000, 60),
+    (2, 'Cà phê sữa đá', 25000, 50),
+    (1, 'Sinh tố bơ', 45000, 40),
+    (1, 'Trà đào cam sả', 55000, 45),
+    (1, 'Nước ép cam', 35000, 50),
+    (1, 'Gà rán sốt cay', 75000, 30),
+    (1, 'Khoai tây chiên', 30000, 60),
+    (1, 'Lẩu hải sản chua cay', 280000, 10);
+   
 
 
-insert into categories_stores(store_id,category_id) values
-(1,7),
-(1,8),
-(1,9),
-(2,10),
-(2,11),
-(3,12),(3,11),(3,10);
+INSERT INTO Product_Images (product_id, is_primary, image_path) VALUES  
+    (1, TRUE, 'fried_rice.png'), 
+    (1, false, 'fried_rice2.png'), 
+    (1, false, 'vegetable.png'), 
+    (2, TRUE, 'beef_pho.png'),  
+    (2, false, 'noodle soup.png'),  
+    (2, false, 'noodle soup.png'),  
+    (3, TRUE, 'bunCha.png'),  
+    (3, false, 'bunCha.png'),  
+    (3, false, 'bunCha.png'),  
+    (4, TRUE, 'taco.png'),  
+    (4, FALSE, 'spring rolls.png'),  
+    (4, FALSE, 'spring rolls1.png'),  
+    (5, TRUE, 'sausage pizza.png'),
+    (5, FALSE, 'sausage pizza1.png'),
+    (5, FALSE, 'sausage pizza2.png'),
+    (6, TRUE, 'sausage pizza.png'),
+    (6, false, 'sausage pizza1.png'),
+    (6, false, 'sausage pizza2.png'),
+    (7, true, 'seafood pizza2.png'),
+    (7, false, 'seafood pizza.png'),
+    (7, false, 'seafood pizza2.png'),
+    (8, true, 'spaghetti.png'),
+    (8, false, 'spaghetti1.png'),
+    (8, false, 'spaghetti3.png'),
+    (9, true, 'hotpot.png'),
+    (9, false, 'beef hotpot1.png'),
+    (9, false, 'beef hotpot2.png'),
+    (10, TRUE, 'doner.png'),
+    (10, false, 'chesse.png'),
+    (10, false, 'pate.png'),
+    (11, TRUE, 'bunBo.png'),
+    (11, FALSE, 'noodle soup.png'),
+    (11, FALSE, 'buncha.png'),
+    (12, true, 'spring rolls.png'),
+    (12, false, 'spring rolls1.png'),
+    (12, false, 'taco.png'),
+    (13, TRUE, 'flan.png'),
+    (13, TRUE, 'flan1.png'),
+    (13, TRUE, 'flan2.png'),
+    (14, TRUE, 'matcha.png'),
+    (14, false, 'matcha.png'),
+    (14, false, 'matcha.png'),
+    (15, true, 'coffee3.png'),
+    (15, false, 'coffee.png'),
+    (15, false, 'coffee1.png'),
+    (16, true, 'avocado_smoothie.png'),
+    (16, false, 'avocado_smoothie1.png'),
+    (16, false, 'avocado_smoothie2.png'),
+    (17, true, 'peach_tea1.png'),
+    (17, false, 'peach_tea2.png'),
+    (17, false, 'peach_tea3.png'),
+    (18, true, 'orange_juice1.png'),
+    (18, false, 'orange_juice.png'),
+    (18, false, 'orange_juice2.png'),
+    (19, true, 'fried chicken1.png'),
+    (19, false, 'fried chicken2.png'),
+    (19, false, 'fried chicken.png'),
+    (20, true, 'fried_potatoes.png'),
+    (20, true, 'fried_potatoes2.png'),
+    (20, true, 'fried_potatoes1.png'),
+    (21, false, 'hotpot.png'),
+    (21, false, 'beef hotpot.png'),
+    (21, false, 'beef hotpot1.png');
 
-INSERT INTO Product_Images (product_id, is_primary)  
-VALUES  
-(1, TRUE), 
-(2,  TRUE),  
-(3, TRUE),  
-(4, TRUE),  
-(5, TRUE),
-(6, FALSE),
-(7, FALSE),
-(8, TRUE),
-(9, FALSE),
-(10, TRUE),
-(11, TRUE),
-(12, FALSE),
-(13, TRUE),
-(14, TRUE);
 
 insert into Carriers(carrier_name, contact_phone, shipping_cost)
 values ("Be", '0867536601', 25000),
@@ -110,12 +162,3 @@ VALUES
 (2, 2, 45000, 7), -- Sản phẩm 2 bán được 7 lần trong đơn hàng 4
 (5, 2, 80000, 4), -- Sản phẩm 5 bán được 4 lần trong đơn hàng 5
 (1, 3, 50000, 6); -- Sản phẩm 1 tiếp tục bán được 6 lần trong đơn hàng 5 (bán chạy)
-insert into products_categories(product_id,category_id) value
-(1,1),
-(2,1),
-(3,1),
-(4,1),
-(5,1),
-(6,1),(7,2),
-(8,2),
-(9,2),(10,2);
