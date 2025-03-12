@@ -24,6 +24,7 @@ public class OrderService implements IOrderService {
     private static final String ADD_ORDER_QUERY = "INSERT INTO Orders (user_id, shipper_id, store_id, order_status, order_date, payment_method, payment_status, shipping_info) VALUES (?,?,?,?,?,?,?,?)";
     private static final String ADD_ORDER_PRODUCT_QUERY = "INSERT INTO Products_Orders (product_id, order_id, price_at_time, quantity) VALUES (?,?,?,?)";
 
+
     @Override
     public void addOrder(Order order) {
         int orderId = -1;
@@ -38,7 +39,7 @@ public class OrderService implements IOrderService {
                 psOrder.setString(4, order.getOrderStatus());
                 psOrder.setTimestamp(5, order.getOrderDate());
                 psOrder.setString(6, order.getPaymentMethod());
-                psOrder.setString(7, order.getPaymentStatus());
+                psOrder.setBoolean(7, order.getPaymentStatus());
                 AccountDetails accountDetails = order.getShippingInfo();
                 psOrder.setInt(8, accountDetails.getAccountDetailID());
 
@@ -98,7 +99,7 @@ public class OrderService implements IOrderService {
                 Timestamp deliveryDate = rs.getTimestamp("delivery_date");
                 Timestamp orderDate = rs.getTimestamp("order_date");
                 String paymentMethod = rs.getString("payment_method");
-                String paymentStatus = rs.getString("payment_status");
+                Boolean paymentStatus = rs.getBoolean("payment_status");
                 int shippingInfo = rs.getInt("shipping_info");
                 AccountDetails accountDetails = accountService.getAccountDetailById(shippingInfo, userId);
                 Order order = new Order(order_id, userId, storeId, shipper, voucherId, couponId, orderStatus, shippingDate, deliveryDate, orderDate, paymentMethod, paymentStatus, accountDetails, details);
@@ -140,7 +141,7 @@ public class OrderService implements IOrderService {
                 Timestamp deliveryDate = rs.getTimestamp("delivery_date");
                 Timestamp orderDate = rs.getTimestamp("order_date");
                 String paymentMethod = rs.getString("payment_method");
-                String paymentStatus = rs.getString("payment_status");
+                Boolean paymentStatus = rs.getBoolean("payment_status");
                 int shippingInfo = rs.getInt("shipping_info");
                 AccountDetails accountDetails = accountService.getAccountDetailById(shippingInfo, userId);
                 Order order = new Order(order_id, userId, storeId, shipper, voucherId, couponId, orderStatus, shippingDate, deliveryDate, orderDate, paymentMethod, paymentStatus, accountDetails, details);
@@ -152,6 +153,20 @@ public class OrderService implements IOrderService {
         }
 
         return orders;
+    }
+
+    @Override
+    public boolean updateStatus(String name,String newStatus,Boolean payment_status, int id) {
+        String sql = "UPDATE orders SET order_status = ?, " + name + " = CURRENT_TIMESTAMP, payment_status = ? WHERE order_id = ?";
+        try (Connection conn = ConnectDB.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, newStatus);
+            stmt.setBoolean(2,payment_status);
+            stmt.setInt(3, id);
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -179,7 +194,7 @@ public class OrderService implements IOrderService {
                 Timestamp deliveryDate = rs.getTimestamp("delivery_date");
                 Timestamp orderDate = rs.getTimestamp("order_date");
                 String paymentMethod = rs.getString("payment_method");
-                String paymentStatus = rs.getString("payment_status");
+                Boolean paymentStatus = rs.getBoolean("payment_status");
                 int shippingInfo = rs.getInt("shipping_info");
                 AccountDetails accountDetails = accountService.getAccountDetailById(shippingInfo, userId);
                 order = new Order(order_id, userId, storeId, shipper, voucherId, couponId, orderStatus, shippingDate, deliveryDate, orderDate, paymentMethod, paymentStatus, accountDetails, details);

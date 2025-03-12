@@ -21,14 +21,12 @@
         /* Định dạng toàn cục cho body */
         body {
             background: linear-gradient(135deg, var(--bg-light), var(--bg-dark));
-            font-family: 'Poppins', sans-serif;
             min-height: 100vh;
             margin: 0;
             padding: 0;
         }
         /* Container chứa form */
         .custom-container {
-            max-width: 600px;
             margin: 50px auto;
             padding: 15px;
         }

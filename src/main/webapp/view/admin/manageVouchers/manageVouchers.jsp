@@ -61,11 +61,6 @@
     <h2 class="text-center mb-4 font-weight-bold">Quản lý mã giảm giá</h2>
 
     <div class="row mb-3">
-        <div class="col-md-3">
-            <a href="/manageVouchers?action=addVoucherForm" class="btn btn-success">
-                <i class="bi bi-plus-circle"></i> Thêm mã giảm giá
-            </a>
-        </div>
         <div class="col-md-6">
             <form action="/manageVouchers?action=searchVouchers" method="post" id="searchForm">
                 <div class="input-group">

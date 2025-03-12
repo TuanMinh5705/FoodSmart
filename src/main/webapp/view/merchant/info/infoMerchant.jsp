@@ -19,7 +19,6 @@
         }
         body {
             background: linear-gradient(135deg, var(--bg-light), var(--bg-dark));
-            font-family: 'Fantasy', sans-serif;
             min-height: 100vh;
             margin: 0;
             padding: 0;

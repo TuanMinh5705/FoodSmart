@@ -74,12 +74,6 @@
 
     <h2 class="text-center mb-4 font-weight-bold">Quản lý người dùng</h2>
     <div class="row mb-3 align-items-center">
-        <div class="col-md-3">
-            <a href="/manageUsers?action=showAddAccountForm" class="btn btn-success">
-                <i class="bi bi-plus-circle"></i> Thêm người dùng mới
-            </a>
-        </div>
-
         <div class="col-md-6">
             <form action="/manageUsers?action=searchWithName" id="searchForm" method="post">
                 <div class="input-group" style="display: flex; align-items: center;">

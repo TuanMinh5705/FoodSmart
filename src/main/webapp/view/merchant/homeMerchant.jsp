@@ -7,7 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trang chủ cửa hàng</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 </head>
 <style>
     .content {
@@ -78,6 +82,9 @@
         <c:when test="${param.page == 'manageOrders'}">
             <jsp:include page="manageOrders/manageOrders.jsp"/>
         </c:when>
+        <c:when test="${param.page == 'orderDetail'}">
+            <jsp:include page="manageOrders/orderDetail.jsp"/>
+        </c:when>
         <%--        Trò chuyện --%>
         <c:when test="${param.page == 'chat'}">
             <jsp:include page="chat.jsp"/>
@@ -88,7 +95,5 @@
         </c:otherwise>
     </c:choose>
 </div>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

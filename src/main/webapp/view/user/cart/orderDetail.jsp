@@ -10,6 +10,46 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .order-header {
+            background: #ffffff;
+            border: 1px solid #e1e1e1;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: .25rem;
+        }
+        .order-header h4 {
+            margin: 0;
+            font-weight: 600;
+        }
+        .order-header small {
+            color: #666;
+        }
+        .table img {
+            width: 70px;
+            height: auto;
+            object-fit: contain;
+        }
+        .summary-list .d-flex {
+            justify-content: space-between;
+            margin-bottom: .5rem;
+        }
+        .summary-list .total {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        .info-box {
+            background: #ffffff;
+            border: 1px solid #e1e1e1;
+            padding: 1rem;
+            border-radius: .25rem;
+            margin-bottom: 1rem;
+        }
+    </style>
 </head>
 <body class="bg-light">
 
@@ -26,105 +66,186 @@
         </ol>
     </nav>
 
-    <!-- Thông tin đơn hàng -->
-    <div class="card mb-4">
-        <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-                <span class="text-secondary">
-                    Mã đơn hàng: #<c:out value="${order.orderId}"/>
-                </span>
-                <!-- Badge trạng thái -->
-                <span class="badge bg-primary">
-                    <c:out value="${order.orderStatus}"/>
-                </span>
-            </div>
-            <div class="text-muted">
-                <p>
-                    <i class="fas fa-calendar-day me-1"></i>
-                    Ngày đặt: <c:out value="${order.orderDate}"/>
-                </p>
-                <p>
-                    <i class="fas fa-money-bill-wave me-1"></i>
-                    Phương thức thanh toán: <c:out value="${order.paymentMethod}"/>
-                </p>
-                <p>
-                    <i class="fas fa-credit-card me-1"></i>
-                    Trạng thái thanh toán: <c:out value="${order.paymentStatus}"/>
-                </p>
+    <div class="container my-4">
+
+        <div class="order-header">
+            <div class="row">
+                <div class="col-md-8">
+                    <h4>Đơn hàng #${order.orderId}</h4>
+                     Ngày đặt:
+                        <fmt:formatDate value="${order.orderDate}" pattern="dd/MM/yyyy HH:mm:ss" />
+                        <br>
+                        <c:if test="${not empty order.shippingDate}">
+                             Ngày giao hàng:
+                                <fmt:formatDate value="${order.shippingDate}" pattern="dd/MM/yyyy HH:mm:ss" />
+                             
+                            <br>
+                        </c:if>
+                        <c:if test="${not empty order.deliveryDate}">
+                             Ngày nhận hàng:
+                                <fmt:formatDate value="${order.deliveryDate}" pattern="dd/MM/yyyy HH:mm:ss" />
+                             
+                            <br>
+                        </c:if>
+                     
+                    <br/>
+                     Trạng thái đơn hàng: <strong>${order.orderStatus}</strong> 
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <p class="mb-1">
+                        <strong>Phương thức thanh toán:</strong>
+                        <c:choose>
+                            <c:when test="${order.paymentMethod eq 'cod'}">
+                                Thanh toán khi nhận hàng
+                            </c:when>
+                            <c:when test="${order.paymentMethod eq 'bank'}">
+                                Chuyển khoản ngân hàng
+                            </c:when>
+                            <c:otherwise>
+                                ${order.paymentMethod}
+                            </c:otherwise>
+                        </c:choose>
+                    </p>
+                    <p class="mb-1">
+                        <strong>Trạng thái thanh toán: </strong>
+                        <c:choose>
+                            <c:when test="${order.paymentStatus}">
+                                <span class="text-success">Đã thanh toán</span>
+                            </c:when>
+                            <c:otherwise>
+                                <span class="text-danger">Chưa thanh toán</span>
+                            </c:otherwise>
+                        </c:choose>
+                    </p>
+
+                    <c:if test="${order.voucherId != 0}">
+                        <p class="mb-1">
+                            <strong>Mã voucher:</strong> ${order.voucherId}
+                        </p>
+                    </c:if>
+                    <c:if test="${order.couponId != 0}">
+                        <p class="mb-0">
+                            <strong>Mã coupon:</strong> ${order.couponId}
+                        </p>
+                    </c:if>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Danh sách sản phẩm -->
-    <div class="card mb-4">
-        <div class="card-body">
-            <h5 class="card-title mb-3">
-                <i class="fas fa-shopping-basket me-2"></i>Danh sách sản phẩm
-            </h5>
-            <c:forEach var="item" items="${foodList}">
-                <div class="d-flex align-items-center justify-content-between mb-3">
-                    <div class="d-flex align-items-center">
-                        <!-- Ảnh sản phẩm -->
-                        <img src="${pageContext.request.contextPath}/images/product/${item.avt_path}"
-                             alt="Sản phẩm"
-                             class="rounded me-3"
-                             style="width: 50px; height: 50px; object-fit: cover;" />
-                        <div>
-                            <!-- Tên sản phẩm -->
-                            <p class="fw-semibold mb-1">
-                                <c:out value="${item.produc_name}"/>
-                            </p>
-                            <!-- Số lượng -->
-                            <small class="text-muted">
-                                Số lượng:
-                                <fmt:formatNumber value="${item.quantity}" pattern="#,###"/>
-                            </small>
+        <c:set var="totalOfItems" value="0" scope="page" />
+        <c:forEach var="item" items="${order.cartItems}" varStatus="status">
+            <c:set var="itemTotal" value="${item.priceAtTime * item.quantity}" />
+            <c:set var="totalOfItems" value="${totalOfItems + itemTotal}" />
+        </c:forEach>
+        <c:set var="shippingFee" value="25000" scope="page"/>
+        <c:set var="discount" value="0" scope="page"/>
+        <c:set var="finalTotal" value="${totalOfItems + shippingFee - discount}" scope="page"/>
+
+        <div class="row">
+            <!-- Cột trái: Danh sách sản phẩm -->
+            <div class="col-lg-8 mb-4">
+                <div class="info-box">
+                    <h5 class="mb-3">Danh sách sản phẩm</h5>
+                    <div class="table-responsive">
+                        <table class="table table-bordered align-middle">
+                            <thead class="table-light">
+                            <tr>
+                                <th>STT</th>
+                                <th>Ảnh</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Giá</th>
+                                <th>Số lượng</th>
+                                <th>Thành tiền</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <c:forEach var="item" items="${order.cartItems}" varStatus="status">
+                                <tr>
+                                    <td>${status.index + 1}</td>
+                                    <td>
+                                        <c:forEach var="img" items="${item.food.list_food_images}">
+                                            <c:if test="${img.is_primary}">
+                                                <img src="${pageContext.request.contextPath}/images/product/${img.image_path}"
+                                                     alt="${item.food.product_name}">
+                                            </c:if>
+                                        </c:forEach>
+                                    </td>
+                                    <td>${item.food.product_name}</td>
+                                    <td>
+                                        <fmt:formatNumber value="${item.priceAtTime}" pattern="#,###" /> đ
+                                    </td>
+                                    <td>${item.quantity}</td>
+                                    <td>
+                                        <fmt:formatNumber value="${item.priceAtTime * item.quantity}" pattern="#,###" /> đ
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cột phải: Tóm tắt thanh toán -->
+            <div class="col-lg-4 mb-4">
+                <div class="info-box">
+                    <h5 class="mb-3">Tóm tắt thanh toán</h5>
+                    <div class="summary-list">
+                        <!-- Tổng tạm tính -->
+                        <div class="d-flex">
+                            <span>Tổng tạm tính:</span>
+                            <span>
+                            <fmt:formatNumber value="${totalOfItems}" pattern="#,###" /> đ
+                        </span>
+                        </div>
+                        <!-- Phí vận chuyển -->
+                        <div class="d-flex">
+                            <span>Phí vận chuyển:</span>
+                            <span>
+                            <fmt:formatNumber value="${shippingFee}" pattern="#,###" /> đ
+                        </span>
+                        </div>
+                        <!-- Giảm giá -->
+                        <c:if test="${discount > 0}">
+                            <div class="d-flex">
+                                <span>Giảm giá:</span>
+                                <span>
+                                - <fmt:formatNumber value="${discount}" pattern="#,###" /> đ
+                            </span>
+                            </div>
+                        </c:if>
+                        <hr/>
+                        <!-- Tổng cộng -->
+                        <div class="d-flex total">
+                            <span>Tổng thanh toán:</span>
+                            <span>
+                            <fmt:formatNumber value="${finalTotal}" pattern="#,###" /> đ
+                        </span>
                         </div>
                     </div>
-                    <!-- Giá = priceAtTime * quantity -->
-                    <p class="fw-bold mb-0 text-danger">
-                        <fmt:formatNumber value="${item.priceAtTime * item.quantity}" pattern="#,###"/> đ
-                    </p>
                 </div>
-                <c:set var="subTotal" value="${item.priceAtTime * item.quantity}" />
-                <c:set var="shippingFee" value="25000" />
-                <c:set var="discount" value="0" />
-            </c:forEach>
-        </div>
-    </div>
-
-    <div class="card mb-4">
-        <div class="card-body">
-            <h5 class="card-title mb-3">
-                <i class="fas fa-file-invoice-dollar me-2"></i>Tổng đơn hàng
-            </h5>
-
-            <div class="d-flex justify-content-between text-muted mb-2">
-                <span>Tổng phụ:</span>
-                <span>
-                    <fmt:formatNumber value="${subTotal}" pattern="#,###"/> đ
-                </span>
-            </div>
-            <div class="d-flex justify-content-between text-muted mb-2">
-                <span>Phí vận chuyển:</span>
-                <span>
-                    <fmt:formatNumber value="${shippingFee}" pattern="#,###"/> đ
-                </span>
-            </div>
-            <div class="d-flex justify-content-between text-muted mb-2">
-                <span>Mã giảm giá:</span>
-                <span>
-                    <fmt:formatNumber value="${discount}" pattern="#,###"/> đ
-                </span>
-            </div>
-            <hr/>
-            <div class="d-flex justify-content-between fw-bold">
-                <span>Tổng cộng:</span>
-                <span>
-                    <fmt:formatNumber value="${subTotal + shippingFee - discount}" pattern="#,###"/> đ
-                </span>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="info-box">
+                    <h5>Thông tin người nhận</h5>
+                    <p class="mb-0"><strong>Người đặt hàng:</strong> ${order.username}</p>
+                    <p class="mb-1"><strong>Số điện thoại:</strong> ${order.shippingInfo.phonenumber}</p>
+                    <p class="mb-1"><strong>Địa chỉ:</strong> ${order.shippingInfo.address}</p>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="info-box">
+                    <h5>Thông tin vận chuyển</h5>
+                    <p class="mb-1"><strong>Đối tác vận chuyển:</strong> ${order.shipper.carrier_name}</p>
+                    <p class="mb-1"><strong>Nhân viên vận chuyển:</strong> ${order.shipper.shipper_name}</p>
+                    <p class="mb-0"><strong>Số điện thoại:</strong> ${order.shipper.phonenumber}</p>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 
