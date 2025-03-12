@@ -13,6 +13,7 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/view/user/UserStore/editInfo.jsp" value="file://$PROJECT_DIR$/src/main/webapp/view/user/UserStore" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/view/user/cart/cart_product.jsp" value="file://$PROJECT_DIR$/src/main/webapp/view/user/cart" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/view/user/homeUser.jsp" value="file://$PROJECT_DIR$/src/main/webapp/view/user" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/view/user/product/foodsByCategory.jsp" value="file://$PROJECT_DIR$/src/main/webapp/view/user/product" />
       </map>
     </option>
   </component>
