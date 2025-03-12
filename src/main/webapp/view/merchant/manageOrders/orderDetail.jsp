@@ -56,23 +56,24 @@
         <div class="row">
             <div class="col-md-8">
                 <h4>Đơn hàng #${order.orderId}</h4>
-                <small>Ngày đặt:
-                    <fmt:formatDate value="${order.orderDate}" pattern="dd/MM/yyyy HH:mm" />
+                 Ngày đặt:
+                    <fmt:formatDate value="${order.orderDate}" pattern="dd/MM/yyyy HH:mm:ss" />
+                    <br>
                     <c:if test="${not empty order.shippingDate}">
-                        <small>Ngày giao hàng:
-                            <fmt:formatDate value="${order.shippingDate}" pattern="dd/MM/yyyy HH:mm" />
-                        </small>
-                        <br/>
+                         Ngày giao hàng:
+                            <fmt:formatDate value="${order.shippingDate}" pattern="dd/MM/yyyy HH:mm:ss" />
+                         
+                        <br>
                     </c:if>
                     <c:if test="${not empty order.deliveryDate}">
-                        <small>Ngày nhận hàng:
-                            <fmt:formatDate value="${order.deliveryDate}" pattern="dd/MM/yyyy HH:mm" />
-                        </small>
-                        <br/>
+                         Ngày nhận hàng:
+                            <fmt:formatDate value="${order.deliveryDate}" pattern="dd/MM/yyyy HH:mm:ss" />
+                         
+                        <br>
                     </c:if>
-                </small>
+                 
                 <br/>
-                <small>Trạng thái đơn hàng: <strong>${order.orderStatus}</strong></small>
+                 Trạng thái đơn hàng: <strong>${order.orderStatus}</strong> 
             </div>
             <div class="col-md-4 text-md-end">
                 <p class="mb-1">
@@ -90,13 +91,17 @@
                     </c:choose>
                 </p>
                 <p class="mb-1">
-                    <strong>Trạng thái thanh toán:
-                        <c:if test="${order.paymentStatus != null}">
-                            <p class="mb-1">
-                    </strong>${order.paymentStatus}
-                            </p>
-                        </c:if>
+                    <strong>Trạng thái thanh toán: </strong>
+                    <c:choose>
+                        <c:when test="${order.paymentStatus}">
+                            <span class="text-success">Đã thanh toán</span>
+                        </c:when>
+                        <c:otherwise>
+                            <span class="text-danger">Chưa thanh toán</span>
+                        </c:otherwise>
+                    </c:choose>
                 </p>
+
                 <c:if test="${order.voucherId != 0}">
                     <p class="mb-1">
                         <strong>Mã voucher:</strong> ${order.voucherId}

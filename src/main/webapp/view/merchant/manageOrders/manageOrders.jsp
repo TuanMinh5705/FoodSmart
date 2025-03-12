@@ -94,22 +94,18 @@
                     <tr>
                         <th>Mã đơn hàng</th>
                         <th>Tên người đặt</th>
-                        <th>Tên cửa hàng</th>
                         <th>Ngày đặt hàng</th>
                         <th>Phương thức thanh toán</th>
                         <th>Trạng thái đơn hàng</th>
-<%--                        <th>Tổng tiền</th>--%>
                         <th>Hành động</th>
-
                     </tr>
                     </thead>
                     <tbody>
                     <c:forEach var="order" items="${orderList}">
-                        <tr>
+                        <tr data-order-id="${order.orderId}">
                             <td>${order.orderId}</td>
                             <td>${order.username}</td>
-                            <td>${order.storeName}</td>
-                            <td><fmt:formatDate value="${order.orderDate}" pattern="dd/MM/yyyy HH:mm" /></td>
+                            <td><fmt:formatDate value="${order.orderDate}" pattern="dd/MM/yyyy HH:mm:ss" /></td>
                             <td>
                                 <c:choose>
                                     <c:when test="${order.paymentMethod eq 'cod'}">
@@ -124,11 +120,11 @@
                                 </c:choose>
                             </td>
                             <td>${order.orderStatus}</td>
-<%--                            <td>${order.totalAmount}</td>--%>
                             <td>
                                 <div class="d-flex justify-content-center gap-2">
-                                    <a href="#" title="Chỉnh sửa">
-                                        <i class="fas fa-pencil-alt"></i>
+                                    <a href="javascript:void(0);" title="Cập nhật trạng thái"
+                                       onclick="openUpdateModal('${order.orderId}', '${order.orderStatus}')">
+                                        <i class="fas fa-sync-alt"></i>
                                     </a>
                                     <a href="/manageOrder?action=showOrderDetail&id=${order.orderId}" class="btn btn-custom btn-secondary btn-sm" title="Chi tiết">
                                         <i class="fas fa-eye"></i>
@@ -139,11 +135,43 @@
                     </c:forEach>
                     </tbody>
 
+
+
                 </table>
             </div>
         </div>
     </div>
 </div>
+<!-- Popup Modal cập nhật trạng thái -->
+<div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered"><!-- Thêm class modal-dialog-centered -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="statusModalLabel">Cập nhật trạng thái đơn hàng</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+            </div>
+            <div class="modal-body">
+                <form id="updateStatusForm" action="/manageOrder" method="POST">
+                    <input type="hidden" id="orderIdInput" name="orderId">
+                    <div class="mb-3">
+                        <label for="orderStatusSelect" class="form-label">Chọn trạng thái</label>
+                        <select id="orderStatusSelect" name="status" class="form-select">
+                            <option value="Chờ xác nhận">Chờ xác nhận</option>
+                            <option value="Đang giao">Đang giao</option>
+                            <option value="Hoàn thành">Hoàn thành</option>
+                            <option value="Đã hủy">Đã hủy</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" onclick="submitUpdate()">Cập nhật</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script>
     $(document).ready(function () {
@@ -170,6 +198,77 @@
             table.search(this.value).draw();
         });
     });
+
+    const statusOrder = {
+        'Chờ xác nhận': 1,
+        'Đang giao': 2,
+        'Hoàn thành': 3,
+        'Đã hủy': 4
+    };
+
+    function openUpdateModal(orderId, currentStatus) {
+        if (currentStatus === "Đã hủy") {
+            alert("Đơn hàng đã hủy, không thể cập nhật trạng thái!");
+            return;
+        }
+
+        document.getElementById("orderIdInput").value = orderId;
+        let statusSelect = document.getElementById("orderStatusSelect");
+        for (let option of statusSelect.options) {
+            option.disabled = false;
+        }
+
+        let currentStatusOrder = statusOrder[currentStatus];
+        for (let option of statusSelect.options) {
+            if (statusOrder[option.value] < currentStatusOrder) {
+                option.disabled = true;
+            }
+        }
+        statusSelect.value = currentStatus;
+        var statusModal = new bootstrap.Modal(document.getElementById('statusModal'));
+        statusModal.show();
+    }
+
+    function showNotification(message, type) {
+        Swal.fire({
+            toast: true,
+            position: 'top',
+            icon: type,
+            title: message,
+            showConfirmButton: false,
+            timer: 2500,
+            timerProgressBar: true
+        });
+    }
+
+    function submitUpdate() {
+        var formData = $("#updateStatusForm").serialize();
+        $.ajax({
+            url: "manageOrder",
+            type: "POST",
+            data: formData,
+            dataType: "json",
+            success: function(response) {
+                if (response.status === "success") {
+                    showNotification("Cập nhật trạng thái thành công!", "success");
+                    $("#statusModal").modal("hide");
+                    const orderId = $("#orderIdInput").val();
+                    const newStatus = $("#orderStatusSelect").val();
+                    var row = $("tr[data-order-id='" + orderId + "']");
+                    row.find("td").eq(5).text(newStatus);
+                } else {
+                    showNotification("Cập nhật không thành công: " + response.message, "error");
+                }
+            },
+            error: function(xhr, status, error) {
+                showNotification("Có lỗi xảy ra: " + error, "error");
+            }
+        });
+    }
+
+
+
+
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -7,6 +7,8 @@ import com.example.foodSmart.model.merchant.Food;
 import com.example.foodSmart.model.merchant.FoodImages;
 import com.example.foodSmart.model.user.CartItem;
 import com.example.foodSmart.model.user.Order;
+import com.example.foodSmart.service.AccountService;
+import com.example.foodSmart.service.IAccountService;
 import com.example.foodSmart.service.admin.IMerchantService;
 import com.example.foodSmart.service.admin.MerchantService;
 import com.example.foodSmart.service.merchant.FoodService;
@@ -31,6 +33,7 @@ public class OrderServlet extends HttpServlet {
     IOrderService orderService = new OrderService();
     IMerchantService merchantService = new MerchantService();
     IFoodService foodService = new FoodService();
+    IAccountService accountService = new AccountService();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
@@ -51,51 +54,20 @@ public class OrderServlet extends HttpServlet {
         }
     }
     private void showOrderDetail(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String orderIdParam = req.getParameter("id");
-        if (orderIdParam == null || orderIdParam.isEmpty()) {
-            resp.sendRedirect("/homeUser");
-            return;
+        int id = Integer.parseInt(req.getParameter("id"));
+        Order order = orderService.getOrder(id);
+        Account orderAccount = accountService.getAccount(order.getUserId());
+        order.setUsername(orderAccount.getUsername());
+        Merchant orderMerchant = merchantService.getMerchantById(order.getStoreId());
+        order.setStoreName(orderMerchant.getStore_name());
+        for (CartItem item : order.getCartItems()) {
+            Food food = foodService.getFoodByID(item.getProductId());
+            item.setFood(food);
         }
-
-        try {
-            int orderId = Integer.parseInt(orderIdParam);
-            Order order = orderService.getOrder(orderId);
-            if (order == null) {
-                resp.sendRedirect("/homeUser");
-                return;
-            }
-            List<Map<String, Object>> orderDetails = new ArrayList<>();
-
-            for (CartItem cartItem : order.getCartItems()) {
-                Food food = foodService.getFoodByID(cartItem.getProductId());
-                if (food != null) {
-                    Map<String, Object> detail = new HashMap<>();
-                    detail.put("productName", food.getProduct_name());
-                    detail.put("priceAtTime", cartItem.getPriceAtTime());
-                    detail.put("quantity", cartItem.getQuantity());
-                    String primaryImage = "../../../image/product_default.png";
-                    if (food.getList_food_images() != null) {
-                        for (FoodImages fi : food.getList_food_images()) {
-                            if (fi.isIs_primary()) {
-                                primaryImage = fi.getImage_path();
-                                break;
-                            }
-                        }
-                    }
-                    detail.put("productImage", primaryImage);
-
-                    orderDetails.add(detail);
-                }
-            }
-
-            req.setAttribute("order", order);
-            req.setAttribute("foodList", orderDetails);
-            req.getRequestDispatcher("view/user/homeUser.jsp?page=showOrderDetail").forward(req, resp);
-
-        } catch (NumberFormatException e) {
-            resp.sendRedirect("/homeUser");
-        }
+        req.setAttribute("order", order);
+        req.getRequestDispatcher("view/user/homeUser.jsp?page=showOrderDetail").forward(req, resp);
     }
+
 
     private void showOrder(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
