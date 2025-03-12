@@ -1,10 +1,13 @@
 package com.example.foodSmart.model.user;
 
+import com.example.foodSmart.model.merchant.Food;
+
 public class CartItem {
     private int storeId;
     private int productId;
     private int priceAtTime;
     private int quantity;
+    private Food food;
 
     public CartItem() {
     }
@@ -19,6 +22,14 @@ public class CartItem {
         this.productId = productId;
         this.priceAtTime = priceAtTime;
         this.quantity = quantity;
+    }
+
+    public Food getFood() {
+        return food;
+    }
+
+    public void setFood(Food food) {
+        this.food = food;
     }
 
     public int getPriceAtTime() {

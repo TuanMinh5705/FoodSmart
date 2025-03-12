@@ -27,7 +27,6 @@
         }
         /* Container chứa form */
         .custom-container {
-            max-width: 600px;
             margin: 50px auto;
             padding: 15px;
         }

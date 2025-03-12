@@ -82,6 +82,9 @@
         <c:when test="${param.page == 'manageOrders'}">
             <jsp:include page="manageOrders/manageOrders.jsp"/>
         </c:when>
+        <c:when test="${param.page == 'orderDetail'}">
+            <jsp:include page="manageOrders/orderDetail.jsp"/>
+        </c:when>
         <%--        Trò chuyện --%>
         <c:when test="${param.page == 'chat'}">
             <jsp:include page="chat.jsp"/>
