@@ -162,3 +162,22 @@
     }
 
 </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<c:if test="${empty sessionScope.loggedInAccount}">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            Swal.fire({
+                title: "Bạn chưa đăng nhập!",
+                text: "Vui lòng đăng nhập để tiếp tục.",
+                icon: "warning",
+                confirmButtonText: "Đăng nhập ngay",
+                allowOutsideClick: false
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "/authenticate?action=loginForm";
+                }
+            });
+        });
+    </script>
+</c:if>

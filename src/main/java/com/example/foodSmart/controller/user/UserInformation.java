@@ -32,6 +32,7 @@ public class UserInformation extends HttpServlet {
 
         switch (action) {
             default:
+                showInfoUser(req,resp);
                 break;
             case "editUserForm":
                 Account account = (Account) req.getSession().getAttribute("loggedInAccount");

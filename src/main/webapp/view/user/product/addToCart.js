@@ -60,15 +60,16 @@ function updateCollectionButton(productId, added) {
         const icon = button.querySelector("i");
         if (icon) {
             if (added) {
-                icon.classList.replace('bi-heart', 'bi-heart-fill');
+                icon.classList.replace('bi-bookmark-heart', 'bi-bookmark-heart-fill');
                 icon.classList.add('text-danger');
             } else {
-                icon.classList.replace('bi-heart-fill', 'bi-heart');
+                icon.classList.replace('bi-bookmark-heart-fill', 'bi-bookmark-heart');
                 icon.classList.remove('text-danger');
             }
         }
     }
 }
+
 
 function showNotification(message, type) {
     Swal.fire({

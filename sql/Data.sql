@@ -10,8 +10,8 @@ insert into `Account`(username, `password`, role_id) values ('NgocThom', 'Vy1209
        ('abc', 'abc123', 3),
        ('bac', 'abc123', 3),
        ('ade','abc123',2),
-       ('abc1','abc123',2),
-       ('abc2','abc123',2);
+       ('abc1','abc123',3),
+       ('abc2','abc123',3);
 insert into account_details(user_id,address,phonenumber,is_default) value
 (7,"nhổn","0123456789",1),
 (7,"nhổn2","0123498765",0);
@@ -41,12 +41,12 @@ INSERT INTO Products (store_id, product_name, price, stock_quantity) VALUES
     (3, 'Pizza Xúc Xích', 190000, 10),
     (3, 'Pizza Hải Sản', 200000, 12),
     (3, 'Mì Ý Carbonara', 120000, 18),
-    (2, 'Lẩu bò đặc biệt', 250000, 8),
-    (2, 'Bánh mì bò né', 40000, 25),
-    (2, 'Bún bò Huế', 50000, 30),
-    (2, 'Gỏi cuốn tôm thịt', 30000, 40),
-    (2, 'Bánh Flan', 20000, 50),
-    (2, 'Trà Sữa Matcha', 50000, 60),
+    (3, 'Lẩu bò đặc biệt', 250000, 8),
+    (3, 'Bánh mì bò né', 40000, 25),
+    (3, 'Bún bò Huế', 50000, 30),
+    (3, 'Gỏi cuốn tôm thịt', 30000, 40),
+    (3, 'Bánh Flan', 20000, 50),
+    (3, 'Trà Sữa Matcha', 50000, 60),
     (2, 'Cà phê sữa đá', 25000, 50),
     (1, 'Sinh tố bơ', 45000, 40),
     (1, 'Trà đào cam sả', 55000, 45),
@@ -95,8 +95,8 @@ INSERT INTO Product_Images (product_id, is_primary, image_path) VALUES
     (12, false, 'spring rolls1.png'),
     (12, false, 'taco.png'),
     (13, TRUE, 'flan.png'),
-    (13, TRUE, 'flan1.png'),
-    (13, TRUE, 'flan2.png'),
+    (13, false, 'flan1.png'),
+    (13, false, 'flan2.png'),
     (14, TRUE, 'matcha.png'),
     (14, false, 'matcha.png'),
     (14, false, 'matcha.png'),
@@ -142,23 +142,3 @@ INSERT INTO Store_Coupons (store_id, coupon_code, discount_value, start_date, en
 (3, 'S0001', 10, '2025-05-01 00:00:00', '2025-05-10 00:00:00', '09:00:00', '21:00:00', 50, "Mã giảm giá 10% cho cửa hàng 3"),
 (3, 'S0002', 15, '2025-06-01 00:00:00', '2025-06-15 00:00:00', '10:00:00', '22:00:00', 40, "Mã giảm giá 15% áp dụng cho cửa hàng 3"),
 (3, 'S0003', 20, '2025-07-01 00:00:00', '2025-07-20 00:00:00', '11:00:00', '23:00:00', 30, "Mã giảm giá 20% từ 11:00 đến 23:00");
-
-use foodsmart;
-INSERT INTO Orders (user_id, shipper_id, store_id, voucher_id, coupon_id, order_status, shipping_date, delivery_date, order_date, payment_method, payment_status, shipping_address) 
-VALUES 
-(7, 1, 1, NULL, NULL, 'Completed', '2024-02-15 10:00:00', '2024-02-16 15:00:00', '2024-02-14 08:00:00', 'Credit Card', 'Paid', '123 Đường ABC, Hà Nội'),
-(7, 2, 2, NULL, NULL, 'Completed', '2024-02-18 14:00:00', '2024-02-19 18:00:00', '2024-02-17 09:30:00', 'COD', 'Paid', '456 Đường XYZ, TP.HCM'),
-(7, 1, 1, NULL, NULL, 'Completed', '2024-02-20 09:00:00', '2024-02-21 12:00:00', '2024-02-19 07:45:00', 'Credit Card', 'Paid', '789 Đường DEF, Đà Nẵng'),
-(7, 2, 3, NULL, NULL, 'Completed', '2024-02-22 11:00:00', '2024-02-23 14:30:00', '2024-02-21 10:00:00', 'COD', 'Paid', '101 Đường MNO, Cần Thơ'),
-(7, 1, 2, NULL, NULL, 'Completed', '2024-02-25 16:00:00', '2024-02-26 20:00:00', '2024-02-24 13:15:00', 'Credit Card', 'Paid', '112 Đường PQR, Hải Phòng');
-
-INSERT INTO Products_Orders (product_id, order_id, price_at_time, quantity) 
-VALUES 
-(1, 1, 50000, 5), -- Sản phẩm 1 bán được 5 lần trong đơn hàng 1
-(2, 1, 45000, 3), -- Sản phẩm 2 bán được 3 lần trong đơn hàng 1
-(1, 2, 50000, 10), -- Sản phẩm 1 bán được 10 lần trong đơn hàng 2 (bán chạy)
-(3, 2, 70000, 2), -- Sản phẩm 3 bán được 2 lần trong đơn hàng 2
-(4, 2, 60000, 1), -- Sản phẩm 4 bán được 1 lần trong đơn hàng 3
-(2, 2, 45000, 7), -- Sản phẩm 2 bán được 7 lần trong đơn hàng 4
-(5, 2, 80000, 4), -- Sản phẩm 5 bán được 4 lần trong đơn hàng 5
-(1, 3, 50000, 6); -- Sản phẩm 1 tiếp tục bán được 6 lần trong đơn hàng 5 (bán chạy)
