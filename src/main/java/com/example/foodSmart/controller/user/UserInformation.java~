@@ -121,6 +121,7 @@ public class UserInformation extends HttpServlet {
     }
 
     private void addAddressUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // Lấy thông tin tài khoản đăng nhập
         Account loggedInUser = (Account) req.getSession().getAttribute("loggedInAccount");
 
         int accountId = loggedInUser.getAccountID();
