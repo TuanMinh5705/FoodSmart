@@ -10,8 +10,12 @@ public class ConnectDB {
 //  private static final String PASSWORD = System.getenv("DB_PASSWORD");
 
       private static final String USER = "root";
-      private static final String PASSWORD = "linhnhi234";
+<<<<<<< HEAD
 
+      private static final String PASSWORD = "linhnhi234";
+=======
+      private static final String PASSWORD = "1209";
+>>>>>>> ae3353eef6aa6b9b3a5517977f14ba967223aea5
 
 
 

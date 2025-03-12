@@ -51,7 +51,7 @@
                         <p class="text-xl">Chính sách bảo mật</p>
                         <p class="text-xl">Quy định</p>
                     </div>
-                    <!-- Mạng xã hội -->
+                </div>!-- Mạng xã hội -->
                     <div class="flex space-x-6 mt-6">
                         <i class="fab fa-facebook text-3xl"></i>
                         <i class="fab fa-tiktok text-3xl"></i>
