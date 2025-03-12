@@ -15,7 +15,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="/userInformation?action=showAddressUser" class="nav-link">
+            <a href="/userInformation?action=showAddAddressForm" class="nav-link">
                 <i class="fas fa-map-marker-alt"></i> Thêm địa chỉ giao hàng
             </a>
         </li>
@@ -75,4 +75,5 @@
         background: #e74c3c !important;  /* Đỏ mềm mại */
         color: #ffffff !important;
     }
+
 </style>

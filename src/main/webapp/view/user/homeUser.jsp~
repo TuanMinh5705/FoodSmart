@@ -29,7 +29,7 @@
             <jsp:include page="infoAccount/editAddressUser.jsp"/>
         </c:when>
         <c:when test="${param.page == 'addAddressUser'}">
-            <jsp:include page="infoAccount/addAddressUser.jsp"/>
+            <jsp:include page="infoAccount/AddAddressUser.jsp"/>
         </c:when>
 <%--Chi tiết sản phẩm --%>
         <c:when test="${param.page == 'productDetail'}">
