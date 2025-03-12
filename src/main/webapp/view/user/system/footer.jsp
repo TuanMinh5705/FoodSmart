@@ -1,8 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Footer</title>
+    <!-- Link Tailwind CSS (nếu chưa có) -->
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
 <footer class="bg-yellow-400 pt-6 mt-3">
@@ -17,7 +19,7 @@
                         <i class="fas fa-map-marker-alt text-2xl mr-4"></i>
                         <div>
                             <p class="font-semibold">ĐỊA CHỈ:</p>
-                            <p>Đại học thành đô</p>
+                            <p>Đại học Thành Đô</p>
                         </div>
                     </div>
                     <!-- Điện thoại -->
@@ -52,10 +54,19 @@
                     </div>
                     <!-- Mạng xã hội -->
                     <div class="flex space-x-6 mt-6">
-                        <i class="fab fa-facebook text-3xl"></i>
-                        <i class="fab fa-tiktok text-3xl"></i>
-                        <i class="fab fa-youtube text-3xl"></i>
+                        <div class="flex space-x-6 mt-6">
+                            <a href="#" class="transition-colors duration-300 hover:text-blue-700">
+                                <i class="fab fa-facebook text-3xl text-blue-600"></i>
+                            </a>
+                            <a href="#" class="transition-colors duration-300 hover:text-black-700">
+                                <i class="fab fa-tiktok text-3xl"></i>
+                            </a>
+                            <a href="#" class="transition-colors duration-300 hover:text-red-700">
+                                <i class="fab fa-youtube text-3xl text-red-600"></i>
+                            </a>
+                        </div>
                     </div>
+
                 </div>
                 <div class="flex-1 md:ml-8">
                     <h4 class="text-2xl font-bold mb-4">Giấy phép</h4>
@@ -64,10 +75,10 @@
                 </div>
             </div>
         </div>
-        <!-- Phần bản quyền -->
-        <div class="text-center mt-4 border-t-4 border-black pt-2 bg-blue-500">
-            <p class="text-xl text-white">Bản quyền &copy; 2025 SmartFood</p>
-        </div>
+    </div>
+    <!-- Phần bản quyền được đưa ra ngoài container để full width -->
+    <div class="w-full text-center mt-4 pt-2 bg-blue-500">
+        <p class="text-xl text-white">Bản quyền &copy; 2025 SmartFood</p>
     </div>
 </footer>
 </body>

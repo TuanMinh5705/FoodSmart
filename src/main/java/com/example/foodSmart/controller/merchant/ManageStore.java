@@ -44,16 +44,13 @@ public class ManageStore extends HttpServlet {
             case "editMerchantStoreForm":
                 showMerchantStoreForm(req, resp);
                 break;
-                case "editInfoStoreForm":
-                    showInfoStore(req,resp);
-                showInfoStoreForm(req, resp);
+            case "editInfoStoreForm":
+                showInfoStore(req,resp);
+                req.getRequestDispatcher("view/merchant/homeMerchant.jsp?page=editInfoStore").forward(req, resp);
                 break;
         }
     }
 
-    private void showInfoStoreForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("view/merchant/homeMerchant.jsp?page=editInfoStore").forward(req, resp);
-    }
 
     private void showMerchantStoreForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();

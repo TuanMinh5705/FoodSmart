@@ -82,7 +82,7 @@
                         <li>DỊCH VỤ GIAO HÀNG TẬN NƠI</li>
                     </ul>
                     <div class="mt-4 flex space-x-4">
-                        <p class="bg-gray-800 p-2 rounded">Bạn muốn đăng ký bán hàng trên SmartFood ?</p>
+                        <p class="p-2 rounded">Bạn muốn đăng ký mua bán hàng trên SmartFood?</p>
                         <a href="/authenticate?action=showFormRegisterStore"><button class="bg-blue-500 text-white p-2 rounded">Đăng ký ngay</button></a>
                     </div>
                 </div>
