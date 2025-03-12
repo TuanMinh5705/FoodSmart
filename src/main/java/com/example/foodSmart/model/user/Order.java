@@ -9,7 +9,9 @@ import java.util.List;
 public class Order {
     private int orderId;
     private int userId;
+    private String username;
     private int storeId;
+    private String storeName;
     private Shipper shipper;
     private int voucherId;
     private int couponId;
@@ -18,15 +20,16 @@ public class Order {
     private Timestamp deliveryDate;
     private Timestamp orderDate;
     private String paymentMethod;
-    private String paymentStatus;
+    private Boolean paymentStatus;
     private AccountDetails shippingInfo;
     private List<CartItem> cartItems;
 
     public Order() {
     }
 
+
     public Order(int orderId, int userId, int storeId, Shipper shipper, int voucherId, int couponId, String orderStatus,
-                 Timestamp shippingDate, Timestamp deliveryDate, Timestamp orderDate, String paymentMethod, String paymentStatus, AccountDetails shippingInfo, List<CartItem> cartItems) {
+                 Timestamp shippingDate, Timestamp deliveryDate, Timestamp orderDate, String paymentMethod, Boolean paymentStatus, AccountDetails shippingInfo, List<CartItem> cartItems) {
         this.orderId = orderId;
         this.userId = userId;
         this.storeId = storeId;
@@ -131,11 +134,11 @@ public class Order {
         this.paymentMethod = paymentMethod;
     }
 
-    public String getPaymentStatus() {
+    public Boolean getPaymentStatus() {
         return paymentStatus;
     }
 
-    public void setPaymentStatus(String paymentStatus) {
+    public void setPaymentStatus(Boolean paymentStatus) {
         this.paymentStatus = paymentStatus;
     }
 
@@ -153,6 +156,22 @@ public class Order {
 
     public void setCartItems(List<CartItem> cartItems) {
         this.cartItems = cartItems;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
     }
 
     @Override

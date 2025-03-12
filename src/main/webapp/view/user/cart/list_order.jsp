@@ -20,10 +20,10 @@
 
     <div class="btn-group mb-3">
         <a href="?status=all" class="btn ${empty selectedStatus || selectedStatus == 'all' ? 'btn-success' : 'btn-outline-success'}">Tất cả</a>
-        <a href="?status=pending" class="btn ${selectedStatus == 'pending' ? 'btn-success' : 'btn-outline-secondary'}">Chờ xác nhận</a>
-        <a href="?status=shipping" class="btn ${selectedStatus == 'shipping' ? 'btn-success' : 'btn-outline-secondary'}">Đang giao</a>
-        <a href="?status=completed" class="btn ${selectedStatus == 'completed' ? 'btn-success' : 'btn-outline-secondary'}">Đã hoàn thành</a>
-        <a href="?status=canceled" class="btn ${selectedStatus == 'canceled' ? 'btn-success' : 'btn-outline-secondary'}">Đã hủy</a>
+        <a href="?status=Chờ xác nhận" class="btn ${selectedStatus == 'Chờ xác nhận' ? 'btn-success' : 'btn-outline-secondary'}">Chờ xác nhận</a>
+        <a href="?status=Đang giao" class="btn ${selectedStatus == 'Đang giao' ? 'btn-success' : 'btn-outline-secondary'}">Đang giao</a>
+        <a href="?status=Hoàn thành" class="btn ${selectedStatus == 'Hoàn thành' ? 'btn-success' : 'btn-outline-secondary'}">Đã hoàn thành</a>
+        <a href="?status=Đã hủy" class="btn ${selectedStatus == 'Đã hủy' ? 'btn-success' : 'btn-outline-secondary'}">Đã hủy</a>
     </div>
 
     <c:forEach var="order" items="${orders}">
@@ -43,12 +43,12 @@
                         <span class="text-muted">
                             <fmt:formatDate value="${order.orderDate}" pattern="dd/MM/yyyy, HH:mm:ss"/>
                         </span>
-                        <span class="badge bg-${order.orderStatus == 'shipping' ? 'info' : (order.orderStatus == 'completed' ? 'success' : (order.orderStatus == 'canceled' ? 'danger' : 'secondary'))}">
+                        <span class="badge bg-${order.orderStatus == 'Đang giao' ? 'info' : (order.orderStatus == 'Hoàn thành' ? 'success' : (order.orderStatus == 'Đã hủy' ? 'danger' : 'secondary'))}">
                             <c:choose>
-                                <c:when test="${order.orderStatus == 'pending'}">Chờ xác nhận</c:when>
-                                <c:when test="${order.orderStatus == 'shipping'}">Đang Giao</c:when>
-                                <c:when test="${order.orderStatus == 'completed'}">Hoàn Thành</c:when>
-                                <c:when test="${order.orderStatus == 'canceled'}">Đã Hủy</c:when>
+                                <c:when test="${order.orderStatus == 'Chờ xác nhận'}">Chờ xác nhận</c:when>
+                                <c:when test="${order.orderStatus == 'Đang giao'}">Đang giao</c:when>
+                                <c:when test="${order.orderStatus == 'Hoàn thành'}">Hoàn thành</c:when>
+                                <c:when test="${order.orderStatus == 'Đã hủy'}">Đã hủy</c:when>
                                 <c:otherwise>Không Xác Định</c:otherwise>
                             </c:choose>
                         </span>
@@ -59,16 +59,16 @@
                         <div>
                             <h5 class="card-title mb-1">${merchantMap[order.orderId].store_name}</h5>
                             <p class="text-muted mb-1">
-                                    ${fn:length(order.cartItems)} phần - <strong><fmt:formatNumber value="${totalPrice}" pattern="#,##0"/> đ</strong>
+                                    ${fn:length(order.cartItems)} phần  <strong><fmt:formatNumber value="${totalPrice}" pattern="#,##0"/> đ</strong>
                             </p>
                             <a href="/order?action=showOrderDetail&id=${order.orderId}" class="text-primary">Xem chi tiết đơn hàng</a>
                         </div>
                     </div>
                     <div class="d-flex justify-content-end mt-3">
-                        <c:if test="${order.orderStatus == 'shipping'}">
+                        <c:if test="${order.orderStatus == 'Đang giao'}">
                             <button class="btn btn-primary me-2">Theo dõi</button>
                         </c:if>
-                        <c:if test="${order.orderStatus == 'completed'}">
+                        <c:if test="${order.orderStatus == 'Hoàn thành'}">
                             <button class="btn btn-success">Đặt lại</button>
                         </c:if>
                     </div>

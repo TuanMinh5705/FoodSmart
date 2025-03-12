@@ -11,4 +11,5 @@ public interface IOrderService {
     Order getOrder(int id);
     List<Order> getOrders();
     List<Order> getOrdersByUser(String name,int id);
+    boolean updateStatus(String name , String newStatus, Boolean payment_status, int id);
 }
