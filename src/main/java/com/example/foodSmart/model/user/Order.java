@@ -20,7 +20,7 @@ public class Order {
     private Timestamp deliveryDate;
     private Timestamp orderDate;
     private String paymentMethod;
-    private Boolean paymentStatus;
+    private  boolean paymentStatus;
     private AccountDetails shippingInfo;
     private List<CartItem> cartItems;
 
@@ -29,7 +29,7 @@ public class Order {
 
 
     public Order(int orderId, int userId, int storeId, Shipper shipper, int voucherId, int couponId, String orderStatus,
-                 Timestamp shippingDate, Timestamp deliveryDate, Timestamp orderDate, String paymentMethod, Boolean paymentStatus, AccountDetails shippingInfo, List<CartItem> cartItems) {
+                 Timestamp shippingDate, Timestamp deliveryDate, Timestamp orderDate, String paymentMethod,  boolean paymentStatus, AccountDetails shippingInfo, List<CartItem> cartItems) {
         this.orderId = orderId;
         this.userId = userId;
         this.storeId = storeId;
@@ -134,11 +134,11 @@ public class Order {
         this.paymentMethod = paymentMethod;
     }
 
-    public Boolean getPaymentStatus() {
+    public  boolean getPaymentStatus() {
         return paymentStatus;
     }
 
-    public void setPaymentStatus(Boolean paymentStatus) {
+    public void setPaymentStatus( boolean paymentStatus) {
         this.paymentStatus = paymentStatus;
     }
 
