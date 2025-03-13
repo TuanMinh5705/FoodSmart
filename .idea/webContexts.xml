@@ -10,6 +10,7 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/view/merchant/editStore.jsp" value="file://$PROJECT_DIR$/src/main/webapp/view/merchant" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/view/merchant/manageFoods/editFood.jsp" value="file://$PROJECT_DIR$/src/main/webapp/view/merchant/manageFoods" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/view/merchant/manageFoods/infoFood.jsp" value="file://$PROJECT_DIR$/src/main/webapp/view/merchant/manageFoods" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/view/merchant/statistical/statistical.jsp" value="file://$PROJECT_DIR$/src/main/webapp/view/merchant/statistical" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/view/user/UserStore/editInfo.jsp" value="file://$PROJECT_DIR$/src/main/webapp/view/user/UserStore" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/view/user/cart/cart_product.jsp" value="file://$PROJECT_DIR$/src/main/webapp/view/user/cart" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/view/user/homeUser.jsp" value="file://$PROJECT_DIR$/src/main/webapp/view/user" />
