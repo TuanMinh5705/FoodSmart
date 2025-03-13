@@ -1,5 +1,83 @@
 use foodsmart;
 
+
+DELIMITER //
+CREATE PROCEDURE Get_Merchant_Stats(IN merchantID INT)
+BEGIN
+    -- Tổng đơn hàng & tổng doanh thu
+    SELECT 
+        COUNT(o.order_id) AS total_orders,
+        COALESCE(SUM(i.total_amount), 0) AS total_revenue
+    FROM Orders o
+    LEFT JOIN Invoices i ON o.order_id = i.order_id
+    WHERE o.store_id IN (SELECT store_id FROM Stores WHERE merchant_id = merchantID);
+
+    -- Top 5 sản phẩm bán chạy
+    SELECT 
+        p.product_name,
+        SUM(po.quantity) AS total_sold
+    FROM Products p
+    JOIN Products_Orders po ON p.product_id = po.product_id
+    WHERE p.store_id IN (SELECT store_id FROM Stores WHERE merchant_id = merchantID)
+    GROUP BY p.product_id, p.product_name
+    ORDER BY total_sold DESC
+    LIMIT 5;
+
+    -- Doanh thu chi tiết theo tuần (từng ngày trong tuần)
+    SELECT 
+        d.day,
+        COALESCE(SUM(i.total_amount), 0) AS revenue
+    FROM (
+        SELECT CURDATE() - INTERVAL (n - 1) DAY AS day
+        FROM (SELECT 0 AS n UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6) numbers
+    ) d
+    LEFT JOIN Orders o ON DATE(o.order_date) = d.day 
+        AND o.store_id IN (SELECT store_id FROM Stores WHERE merchant_id = merchantID)
+    LEFT JOIN Invoices i ON o.order_id = i.order_id
+    WHERE WEEK(d.day) = WEEK(CURRENT_DATE)
+    GROUP BY d.day
+    ORDER BY d.day ASC;
+
+    -- Doanh thu chi tiết theo tháng (từng ngày trong tháng, linh hoạt theo số ngày thực tế của tháng)
+    SELECT 
+        d.day,
+        COALESCE(SUM(i.total_amount), 0) AS revenue
+    FROM (
+        SELECT DATE_ADD(DATE_SUB(LAST_DAY(CURRENT_DATE), INTERVAL DAY(LAST_DAY(CURRENT_DATE)) - 1 DAY), INTERVAL (n - 1) DAY) AS day
+        FROM (
+            SELECT 1 AS n UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 
+            UNION SELECT 8 UNION SELECT 9 UNION SELECT 10 UNION SELECT 11 UNION SELECT 12 UNION SELECT 13 
+            UNION SELECT 14 UNION SELECT 15 UNION SELECT 16 UNION SELECT 17 UNION SELECT 18 UNION SELECT 19 
+            UNION SELECT 20 UNION SELECT 21 UNION SELECT 22 UNION SELECT 23 UNION SELECT 24 UNION SELECT 25 
+            UNION SELECT 26 UNION SELECT 27 UNION SELECT 28 UNION SELECT 29 UNION SELECT 30 UNION SELECT 31
+        ) days
+        WHERE n <= DAY(LAST_DAY(CURRENT_DATE))  -- Chỉ lấy đúng số ngày của tháng hiện tại
+    ) d
+    LEFT JOIN Orders o ON DATE(o.order_date) = d.day 
+        AND o.store_id IN (SELECT store_id FROM Stores WHERE merchant_id = merchantID)
+    LEFT JOIN Invoices i ON o.order_id = i.order_id
+    WHERE MONTH(d.day) = MONTH(CURRENT_DATE)
+    GROUP BY d.day
+    ORDER BY d.day ASC;
+
+   -- Doanh thu chi tiết theo năm (từng tháng trong năm, luôn có đủ 12 tháng)
+SELECT 
+    d.month,
+    COALESCE(SUM(i.total_amount), 0) AS revenue
+FROM (
+    SELECT 1 AS month UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 
+    UNION SELECT 7 UNION SELECT 8 UNION SELECT 9 UNION SELECT 10 UNION SELECT 11 UNION SELECT 12
+) d
+LEFT JOIN Orders o ON MONTH(o.order_date) = d.month 
+    AND o.store_id IN (SELECT store_id FROM Stores WHERE merchant_id = merchantID)
+    AND YEAR(o.order_date) = YEAR(CURRENT_DATE)
+LEFT JOIN Invoices i ON o.order_id = i.order_id
+GROUP BY d.month
+ORDER BY d.month ASC;
+END //
+DELIMITER ;
+
+
 CREATE TABLE IF NOT EXISTS Categories_Stores (
     store_id INT,
     category_id INT,
