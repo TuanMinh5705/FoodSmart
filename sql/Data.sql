@@ -29,7 +29,7 @@ INSERT INTO Categories(category_name, `description`, avt_path) VALUES
     ('Pizza', 'Các loại pizza phong cách Ý', 'pizza.png');
 
 insert into Stores(merchant_id, store_name, store_address, contact_number) values 
-(7, 'Cơm rang và phở bò Minh Khánh', '102 Tu Hoàng , Minh Khai , Bắc Từ Liêm , Hà Nội', '0123456789'),
+(9, 'Cơm rang và phở bò Minh Khánh', '102 Tu Hoàng , Minh Khai , Bắc Từ Liêm , Hà Nội', '0123456789'),
 (8, 'Pizza Hut', '202 Đường Phan Xích Long, Quận Phú Nhuận, TP.HCM', '0945123456'),
 (6, 'Lẩu Bò Ba Toa', '303 Đường Hai Bà Trưng, Đà Lạt', '0956123456');
 INSERT INTO Products (store_id, product_name, price, stock_quantity) VALUES

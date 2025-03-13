@@ -1,5 +1,6 @@
 package com.example.foodSmart.controller.merchant;
 
+import com.example.foodSmart.model.Account;
 import com.example.foodSmart.service.user.IOrderService;
 import com.example.foodSmart.service.user.OrderService;
 
@@ -8,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Map;
 
@@ -32,10 +34,9 @@ public class Statistical extends HttpServlet {
     }
 
     private void showStatistical(HttpServletRequest req, HttpServletResponse resp) {
-        int merchantId = 9;
-
+        Account loggedInUser = (Account) req.getSession().getAttribute("loggedInAccount");
         try {
-            Map<String, Object> stats = orderService.getMerchantStatistics(merchantId);
+            Map<String, Object> stats = orderService.getMerchantStatistics(loggedInUser.getAccountID());
 
             for (Map.Entry<String, Object> entry : stats.entrySet()) {
                 req.setAttribute(entry.getKey(), entry.getValue());

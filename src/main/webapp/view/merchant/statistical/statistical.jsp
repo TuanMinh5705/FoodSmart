@@ -50,16 +50,6 @@
             font-size: 1.5rem;
             font-weight: bold;
         }
-        .stat-change {
-            font-size: 0.9rem;
-            margin-bottom: 5px;
-        }
-        .text-success {
-            color: #28a745;
-        }
-        .text-danger {
-            color: #dc3545;
-        }
         .stat-link {
             font-size: 0.9rem;
             color: #007bff;
@@ -100,7 +90,7 @@
         .low    { background: #2196F3; height: 40px; }
         /* Tooltip khi di chuột vào */
         .product-bar:hover::after {
-            content: attr(data-units) " đơn hàng";
+            content: attr(data-units) " sản phẩm";
             position: absolute;
             top: -28px;
             left: 50%;
@@ -162,38 +152,47 @@
                     <c:choose>
                         <c:when test="${status.index == 0}">
                             <c:set var="barClass" value="gold" />
+                            <c:set var="extraPadding" value="0px" />
                         </c:when>
                         <c:when test="${status.index == 1}">
                             <c:set var="barClass" value="silver" />
+                            <c:set var="extraPadding" value="0px" />
                         </c:when>
                         <c:when test="${status.index == 2}">
                             <c:set var="barClass" value="bronze" />
+                            <c:set var="extraPadding" value="0px" />
                         </c:when>
                         <c:when test="${status.index == 3}">
                             <c:set var="barClass" value="normal" />
+                            <c:set var="extraPadding" value="25px" />
                         </c:when>
                         <c:otherwise>
                             <c:set var="barClass" value="low" />
+                            <c:set var="extraPadding" value="25px" />
                         </c:otherwise>
                     </c:choose>
                     <div class="product-item">
-                        <span class="product-label">
-                            <c:if test="${status.index == 0}">
-                                <i class="fas fa-crown" style="color: gold;"></i>
-                            </c:if>
-                            <c:if test="${status.index == 1}">
-                                <i class="fas fa-crown" style="color: silver;"></i>
-                            </c:if>
-                            <c:if test="${status.index == 2}">
-                                <i class="fas fa-crown" style="color: #cd7f32;"></i>
-                            </c:if>
-                            ${product}
-                        </span>
-                        <div class="product-bar ${barClass}" data-units="${sold}" style="width: ${100 - status.index * 20}%;">
+            <span class="product-label" style="padding-left: ${extraPadding};">
+                <c:if test="${status.index == 0}">
+                    <i class="fas fa-crown" style="color: gold;"></i>
+                </c:if>
+                <c:if test="${status.index == 1}">
+                    <i class="fas fa-crown" style="color: silver;"></i>
+                </c:if>
+                <c:if test="${status.index == 2}">
+                    <i class="fas fa-crown" style="color: #cd7f32;"></i>
+                </c:if>
+                ${product}
+            </span>
+                        <div class="product-bar ${barClass}" data-units="${sold}" style="width: ${100 - status.index * 20}%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
+                                ${sold} sản phẩm
                         </div>
                     </div>
                 </c:forEach>
             </div>
+
+
+
         </div>
     </div>
 
