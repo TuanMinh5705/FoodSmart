@@ -8,12 +8,11 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
-    <!-- Script -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <style>
-        /* Navbar cố định */
         .navbar {
             width: 100%;
             z-index: 1030;
@@ -23,13 +22,10 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             justify-content: flex-end;
         }
-
-        /* Khoảng cách để không bị che mất nội dung */
         .content {
             margin-top: 20px;
         }
 
-        /* Căn giữa modal */
         .modal-dialog-centered {
             display: flex;
             align-items: center;
@@ -37,14 +33,12 @@
             min-height: 100vh;
         }
 
-        /* Tùy chỉnh modal đẹp hơn */
         .custom-modal .modal-content {
             border-radius: 16px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             border: none;
         }
 
-        /* Header gradient */
         .custom-modal .modal-header {
             background: linear-gradient(135deg, #4e73df, #6f42c1);
             color: white;
@@ -53,14 +47,12 @@
             padding: 20px;
         }
 
-        /* Body căn giữa nội dung */
         .custom-modal .modal-body {
             padding: 30px;
             text-align: center;
             font-size: 18px;
         }
 
-        /* Footer nền nhạt, nút căn giữa */
         .custom-modal .modal-footer {
             background-color: #f7f7f7;
             padding: 20px;
@@ -68,7 +60,6 @@
             justify-content: center;
         }
 
-        /* Nút hành động */
         .btn-cancel, .btn-logout {
             font-size: 1rem;
             min-width: 110px;
@@ -105,7 +96,6 @@
 
 <body>
 
-<!-- Kiểm tra nếu có người đăng nhập -->
 <c:if test="${not empty sessionScope.loggedInAccount}">
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -194,6 +184,16 @@
         });
     </script>
 </c:if>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('.dropdown-toggle').dropdown();
+    });
+</script>
+
 
 </body>
 </html>

@@ -74,6 +74,13 @@
                 transform: translateY(0);
             }
         }
+
+        .custom-search-box {
+            display: block;
+            margin: 0 auto;
+            width: 400px !important;
+        }
+
     </style>
 </head>
 <body>
@@ -119,23 +126,23 @@
                                     </c:otherwise>
                                 </c:choose>
                             </td>
-                            <td>${order.orderStatus}</td>
+                            <td class="status-text">${order.orderStatus}</td>
                             <td>
                                 <div class="d-flex justify-content-center gap-2">
                                     <a href="javascript:void(0);" title="Cập nhật trạng thái"
                                        onclick="openUpdateModal('${order.orderId}', '${order.orderStatus}')">
                                         <i class="fas fa-sync-alt"></i>
                                     </a>
-                                    <a href="/manageOrder?action=showOrderDetail&id=${order.orderId}" class="btn btn-custom btn-secondary btn-sm" title="Chi tiết">
+                                    <a href="/manageOrder?action=showOrderDetail&id=${order.orderId}"
+                                       class="btn btn-custom btn-secondary btn-sm" title="Chi tiết">
                                         <i class="fas fa-eye"></i>
                                     </a>
                                 </div>
                             </td>
+
                         </tr>
                     </c:forEach>
                     </tbody>
-
-
 
                 </table>
             </div>
@@ -255,7 +262,7 @@
                     const orderId = $("#orderIdInput").val();
                     const newStatus = $("#orderStatusSelect").val();
                     var row = $("tr[data-order-id='" + orderId + "']");
-                    row.find("td").eq(5).text(newStatus);
+                    row.find(".status-text").text(newStatus);
                 } else {
                     showNotification("Cập nhật không thành công: " + response.message, "error");
                 }

@@ -20,11 +20,6 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        /* Khoảng cách để không bị che mất nội dung */
-        .content {
-            margin-top: 80px;
-        }
-
         /* Căn giữa modal */
         .modal-dialog-centered {
             display: flex;

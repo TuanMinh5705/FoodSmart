@@ -87,7 +87,7 @@ public class ManageOrders extends HttpServlet {
         resp.setContentType("application/json;charset=UTF-8");
         int orderId = Integer.parseInt(req.getParameter("orderId"));
         String newStatus = req.getParameter("status");
-
+        Order order = orderService.getOrder(orderId);
         PrintWriter out = resp.getWriter();
         if (orderId == 0 || newStatus == null) {
             out.write("{\"status\":\"error\",\"message\":\"Invalid Request\"}");
@@ -98,7 +98,7 @@ public class ManageOrders extends HttpServlet {
         switch (newStatus) {
             case "Đang giao":
             case "Đã hủy" :
-                success = orderService.updateStatus("shipping_date", newStatus,false, orderId);
+                success = orderService.updateStatus("shipping_date", newStatus,order.getPaymentStatus(), orderId);
                 break;
             case "Hoàn thành":
                 success = orderService.updateStatus("delivery_date", newStatus,true, orderId);

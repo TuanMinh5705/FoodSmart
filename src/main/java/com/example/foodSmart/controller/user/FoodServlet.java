@@ -152,6 +152,9 @@ public class FoodServlet extends HttpServlet {
                 resp.sendRedirect("/homeUser");
                 return;
             }
+
+            int discountedPrice = food.getPrice() * (1 - food.getDiscount() / 100);
+
             HttpSession session = req.getSession();
             List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
             if (cart == null) {
@@ -166,7 +169,7 @@ public class FoodServlet extends HttpServlet {
                 }
             }
             if (!found) {
-                cart.add(new CartItem(food.getStore_id(), productId, food.getPrice(), quantity));
+                cart.add(new CartItem(food.getStore_id(), productId, discountedPrice, quantity));
             }
             Merchant merchant = merchantService.getMerchantById(food.getStore_id());
             Map<String, Object> storeData = new HashMap<>();
@@ -180,7 +183,8 @@ public class FoodServlet extends HttpServlet {
             Map<String, Object> itemData = new HashMap<>();
             itemData.put("productId", food.getProduct_id());
             itemData.put("productName", food.getProduct_name());
-            itemData.put("priceAtTime", food.getPrice());
+            // Sử dụng giá đã giảm cho priceAtTime
+            itemData.put("priceAtTime", discountedPrice);
             itemData.put("quantity", quantity);
             String primaryImage = "defaultProduct.png";
             if (food.getList_food_images() != null) {
@@ -194,7 +198,8 @@ public class FoodServlet extends HttpServlet {
             itemData.put("productImage", primaryImage);
 
             items.add(itemData);
-            int totalAmount = food.getPrice() * quantity;
+            // Tính tổng tiền dựa theo giá đã giảm
+            double totalAmount = discountedPrice * quantity;
 
             storeData.put("items", items);
             storeData.put("totalAmount", totalAmount);
@@ -206,6 +211,7 @@ public class FoodServlet extends HttpServlet {
             resp.sendRedirect("/homeUser");
         }
     }
+
 
     private void paymentOrder(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession();
@@ -220,6 +226,9 @@ public class FoodServlet extends HttpServlet {
         String paymentMethod = req.getParameter("payment");
         order.setShippingInfo(accountDetails);
         order.setPaymentMethod(paymentMethod);
+        if(paymentMethod.equals("bank")){
+            order.setPaymentStatus(true);
+        }
 
         for (CartItem item : order.getCartItems()) {
             Food product = foodService.getFoodByID(item.getProductId());
@@ -490,7 +499,6 @@ public class FoodServlet extends HttpServlet {
         order.setCouponId(0);
         order.setShippingInfo(null);
         order.setPaymentMethod(null);
-        order.setPaymentStatus(null);
         order.setShippingDate(null);
         order.setDeliveryDate(null);
 

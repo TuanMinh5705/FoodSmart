@@ -16,7 +16,7 @@
     <c:choose>
         <c:when test="${empty cartDisplayList}">
             <div class="d-flex flex-column align-items-center justify-content-center" style="height: 70vh;">
-                <img src="../../../images/cart_emty.png" style="width: 45rem; height: 25rem;" alt="Giỏ hàng trống">
+                <img src="../../../imageDefault/cart_empty.png" style="width: 45rem; height: 25rem;" alt="Giỏ hàng trống">
                 <p class="text-center text-muted fs-3">Giỏ hàng của bạn đang trống.</p>
             </div>
         </c:when>

@@ -99,7 +99,7 @@ public class OrderService implements IOrderService {
                 Timestamp deliveryDate = rs.getTimestamp("delivery_date");
                 Timestamp orderDate = rs.getTimestamp("order_date");
                 String paymentMethod = rs.getString("payment_method");
-                Boolean paymentStatus = rs.getBoolean("payment_status");
+                boolean paymentStatus = rs.getBoolean("payment_status");
                 int shippingInfo = rs.getInt("shipping_info");
                 AccountDetails accountDetails = accountService.getAccountDetailById(shippingInfo, userId);
                 Order order = new Order(order_id, userId, storeId, shipper, voucherId, couponId, orderStatus, shippingDate, deliveryDate, orderDate, paymentMethod, paymentStatus, accountDetails, details);
@@ -206,7 +206,6 @@ public class OrderService implements IOrderService {
         return order;
     }
 
-    // Phương thức lấy danh sách chi tiết đơn hàng từ bảng Products_Orders
     private List<CartItem> getCartItems(int orderId) {
         List<CartItem> details = new ArrayList<>();
         String sql = "SELECT * FROM Products_Orders WHERE order_id = ?";
