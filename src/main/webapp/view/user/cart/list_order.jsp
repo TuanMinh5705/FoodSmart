@@ -69,7 +69,12 @@
                             <button class="btn btn-primary me-2">Theo dõi</button>
                         </c:if>
                         <c:if test="${order.orderStatus == 'Hoàn thành'}">
-                            <button class="btn btn-success">Đặt lại</button>
+                            <button class="btn btn-danger complaint-btn mr-4">
+                                <i class="bi bi-exclamation-triangle-fill"></i> Khiếu nại
+                            </button>
+                            <button class="btn btn-success" onclick="buyNow('${order.orderId}')">
+                                Đặt lại
+                            </button>
                         </c:if>
                     </div>
                 </div>
@@ -78,4 +83,11 @@
     </c:forEach>
 </div>
 </body>
+<script>
+    function buyNow(orderId) {
+        window.location.href = "/homeUser?action=buyNow&orderId=" + orderId;
+    }
+</script>
+
+
 </html>

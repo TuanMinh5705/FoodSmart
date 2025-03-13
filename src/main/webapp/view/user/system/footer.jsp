@@ -53,10 +53,10 @@
                     </div>
                     <!-- Mạng xã hội -->
                     <div class="flex space-x-6 mt-6">
-                        <i class="fab fa-facebook text-3xl" style="color: #1877F2;"></i>
-                        <i class="fab fa-tiktok text-3xl" style="color: #000000;"></i>
-                        <i class="fab fa-youtube text-3xl" style="color: #FF0000;"></i>
-                        <i class="fab fa-instagram text-3xl" style="color: #E1306C;"></i>
+                        <i class="fab fa-facebook text-4xl" style="color: #1877F2;"></i>
+                        <i class="fab fa-tiktok text-4xl" style="color: #000000;"></i>
+                        <i class="fab fa-youtube text-4xl" style="color: #FF0000;"></i>
+                        <i class="fab fa-instagram text-4xl" style="color: #E1306C;"></i>
                     </div>
                 </div>
                 <div class="flex-1 md:ml-8 flex flex-col items-center text-center">

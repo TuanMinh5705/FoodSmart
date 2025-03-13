@@ -67,8 +67,6 @@ public class OrderServlet extends HttpServlet {
         req.setAttribute("order", order);
         req.getRequestDispatcher("view/user/homeUser.jsp?page=showOrderDetail").forward(req, resp);
     }
-
-
     private void showOrder(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         Account loggedInUser = (Account) req.getSession().getAttribute("loggedInAccount");
