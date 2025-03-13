@@ -79,12 +79,66 @@ public class FoodServlet extends HttpServlet {
             case "buyNow" :
                 buyNow(req,resp);
                 break;
+            case "record" :
+                record(req,resp);
+                break;
             default:
                 showListFood(req, resp);
                 break;
         }
     }
+    private void record(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        try {
+            HttpSession session = req.getSession();
+            String orderIdStr = req.getParameter("orderId");
 
+            if (orderIdStr == null) {
+                resp.sendRedirect("/homeUser");
+                return;
+            }
+
+            int orderId = Integer.parseInt(orderIdStr);
+            Order order = orderService.getOrder(orderId);
+            if (order == null) {
+                resp.sendRedirect("/homeUser");
+                return;
+            }
+
+            List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
+            if (cart == null) {
+                cart = new ArrayList<>();
+            }
+
+            for (CartItem orderItem : order.getCartItems()) {
+                Food food = foodService.getFoodByID(orderItem.getProductId());
+                if (food == null) continue;
+
+                int discountedPrice = food.getPrice() * (1 - food.getDiscount() / 100);
+                boolean found = false;
+
+                for (CartItem cartItem : cart) {
+                    if (cartItem.getProductId() == orderItem.getProductId()) {
+                        cartItem.setQuantity(cartItem.getQuantity() + orderItem.getQuantity());
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found) {
+                    cart.add(new CartItem(food.getStore_id(), orderItem.getProductId(), discountedPrice, orderItem.getQuantity()));
+                }
+            }
+
+            session.setAttribute("cart", cart);
+            session.setAttribute("cartCount", cart.size());
+
+            req.getRequestDispatcher("/homeUser?action=showCartProduct&storeId=" + order.getStoreId()).forward(req,resp);
+        } catch (NumberFormatException e) {
+            resp.sendRedirect("/homeUser");
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
 
@@ -145,145 +199,71 @@ public class FoodServlet extends HttpServlet {
         }
     }
     private void buyNow(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        // Kiểm tra nếu có tham số "orderId" -> thực hiện đặt lại (reorder)
-        String orderIdStr = req.getParameter("orderId");
-        if (orderIdStr != null) {
-            try {
-                int orderId = Integer.parseInt(orderIdStr);
-                Order order = orderService.getOrder(orderId);
-                if (order == null) {
-                    resp.sendRedirect("/homeUser");
-                    return;
-                }
-                // Lấy giỏ hàng hiện tại, nếu chưa có thì khởi tạo mới
-                List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
-                if (cart == null) {
-                    cart = new ArrayList<>();
-                }
-                // Thêm các sản phẩm từ đơn hàng vào giỏ hàng (có thể cộng dồn nếu đã tồn tại)
-                for (CartItem orderItem : order.getCartItems()) {
-                    boolean found = false;
-                    for (CartItem cartItem : cart) {
-                        if (cartItem.getProductId() == orderItem.getProductId()) {
-                            cartItem.setQuantity(cartItem.getQuantity() + orderItem.getQuantity());
-                            found = true;
-                            break;
-                        }
-                    }
-                    if (!found) {
-                        cart.add(orderItem);
-                    }
-                }
-                session.setAttribute("cart", cart);
-                session.setAttribute("cartCount", cart.size());
-
-                // Xây dựng dữ liệu cửa hàng từ thông tin của đơn hàng
-                Map<String, Object> storeData = new HashMap<>();
-                storeData.put("storeId", order.getStoreId());
-                storeData.put("storeName", order.getStoreName());
-                Merchant merchant = merchantService.getMerchantById(order.getStoreId());
-                storeData.put("storeLogo", (merchant != null && merchant.getAvt_path() != null)
-                        ? merchant.getAvt_path()
-                        : "defaultStoreLogo.png");
-
-                // Tạo danh sách các mục sản phẩm trong đơn hàng
-                List<Map<String, Object>> items = new ArrayList<>();
-                double totalAmount = 0;
-                for (CartItem item : order.getCartItems()) {
-                    Map<String, Object> itemData = new HashMap<>();
-                    Food food = foodService.getFoodByID(item.getProductId());
-                    if (food != null) {
-                        itemData.put("productId", food.getProduct_id());
-                        itemData.put("productName", food.getProduct_name());
-                        itemData.put("priceAtTime", item.getPriceAtTime());
-                        itemData.put("quantity", item.getQuantity());
-                        String primaryImage = "defaultProduct.png";
-                        if (food.getList_food_images() != null) {
-                            for (FoodImages img : food.getList_food_images()) {
-                                if (img.isIs_primary()) {
-                                    primaryImage = img.getImage_path();
-                                    break;
-                                }
-                            }
-                        }
-                        itemData.put("productImage", primaryImage);
-                        items.add(itemData);
-                        totalAmount += item.getPriceAtTime() * item.getQuantity();
-                    }
-                }
-                storeData.put("items", items);
-                storeData.put("totalAmount", totalAmount);
-                req.setAttribute("storeData", storeData);
-                req.getRequestDispatcher("view/user/homeUser.jsp?page=showCartProduct").forward(req, resp);
-                return;
-            } catch (NumberFormatException e) {
+        try {
+            int productId = Integer.parseInt(req.getParameter("id"));
+            int quantity = 1;
+            Food food = foodService.getFoodByID(productId);
+            if (food == null) {
                 resp.sendRedirect("/homeUser");
                 return;
             }
-        } else {
-            try {
-                int productId = Integer.parseInt(req.getParameter("id"));
-                int quantity = 1;
-                Food food = foodService.getFoodByID(productId);
-                if (food == null) {
-                    resp.sendRedirect("/homeUser");
-                    return;
-                }
-                int discountedPrice = food.getPrice() * (1 - food.getDiscount() / 100);
 
-                List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
-                if (cart == null) {
-                    cart = new ArrayList<>();
+            int discountedPrice = food.getPrice() * (1 - food.getDiscount() / 100);
+
+            HttpSession session = req.getSession();
+            List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
+            if (cart == null) {
+                cart = new ArrayList<>();
+            }
+            boolean found = false;
+            for (CartItem item : cart) {
+                if (item.getProductId() == productId) {
+                    item.setQuantity(item.getQuantity() + quantity);
+                    found = true;
+                    break;
                 }
-                boolean found = false;
-                for (CartItem item : cart) {
-                    if (item.getProductId() == productId) {
-                        item.setQuantity(item.getQuantity() + quantity);
-                        found = true;
+            }
+            if (!found) {
+                cart.add(new CartItem(food.getStore_id(), productId, discountedPrice, quantity));
+            }
+            Merchant merchant = merchantService.getMerchantById(food.getStore_id());
+            Map<String, Object> storeData = new HashMap<>();
+            storeData.put("storeId", food.getStore_id());
+            storeData.put("storeName", (merchant != null) ? merchant.getStore_name() : "Không xác định");
+            storeData.put("storeLogo",
+                    (merchant != null && merchant.getAvt_path() != null)
+                            ? merchant.getAvt_path()
+                            : "defaultStoreLogo.png");
+            List<Map<String, Object>> items = new ArrayList<>();
+            Map<String, Object> itemData = new HashMap<>();
+            itemData.put("productId", food.getProduct_id());
+            itemData.put("productName", food.getProduct_name());
+            // Sử dụng giá đã giảm cho priceAtTime
+            itemData.put("priceAtTime", discountedPrice);
+            itemData.put("quantity", quantity);
+            String primaryImage = "defaultProduct.png";
+            if (food.getList_food_images() != null) {
+                for (FoodImages img : food.getList_food_images()) {
+                    if (img.isIs_primary()) {
+                        primaryImage = img.getImage_path();
                         break;
                     }
                 }
-                if (!found) {
-                    cart.add(new CartItem(food.getStore_id(), productId, discountedPrice, quantity));
-                }
-
-                Merchant merchant = merchantService.getMerchantById(food.getStore_id());
-                Map<String, Object> storeData = new HashMap<>();
-                storeData.put("storeId", food.getStore_id());
-                storeData.put("storeName", (merchant != null) ? merchant.getStore_name() : "Không xác định");
-                storeData.put("storeLogo", (merchant != null && merchant.getAvt_path() != null)
-                        ? merchant.getAvt_path()
-                        : "defaultStoreLogo.png");
-
-                List<Map<String, Object>> items = new ArrayList<>();
-                Map<String, Object> itemData = new HashMap<>();
-                itemData.put("productId", food.getProduct_id());
-                itemData.put("productName", food.getProduct_name());
-                itemData.put("priceAtTime", discountedPrice);
-                itemData.put("quantity", quantity);
-                String primaryImage = "defaultProduct.png";
-                if (food.getList_food_images() != null) {
-                    for (FoodImages img : food.getList_food_images()) {
-                        if (img.isIs_primary()) {
-                            primaryImage = img.getImage_path();
-                            break;
-                        }
-                    }
-                }
-                itemData.put("productImage", primaryImage);
-                items.add(itemData);
-                double totalAmount = discountedPrice * quantity;
-                storeData.put("items", items);
-                storeData.put("totalAmount", totalAmount);
-
-                req.setAttribute("storeData", storeData);
-                session.setAttribute("cart", cart);
-                session.setAttribute("cartCount", cart.size());
-                req.getRequestDispatcher("view/user/homeUser.jsp?page=showCartProduct").forward(req, resp);
-            } catch (NumberFormatException e) {
-                resp.sendRedirect("/homeUser");
             }
+            itemData.put("productImage", primaryImage);
+
+            items.add(itemData);
+            // Tính tổng tiền dựa theo giá đã giảm
+            double totalAmount = discountedPrice * quantity;
+
+            storeData.put("items", items);
+            storeData.put("totalAmount", totalAmount);
+            req.setAttribute("storeData", storeData);
+            session.setAttribute("cart", cart);
+            session.setAttribute("cartCount", cart.size());
+            req.getRequestDispatcher("view/user/homeUser.jsp?page=showCartProduct").forward(req, resp);
+        } catch (NumberFormatException e) {
+            resp.sendRedirect("/homeUser");
         }
     }
 
@@ -323,6 +303,7 @@ public class FoodServlet extends HttpServlet {
         }
         session.setAttribute("cart", cart);
         session.setAttribute("cartCount", cart != null ? cart.size() : 0);
+            req.getSession().setAttribute("success", "Đặt hàng thành công!");
         resp.sendRedirect("/homeUser");
 
     }
@@ -433,7 +414,6 @@ public class FoodServlet extends HttpServlet {
             resp.getWriter().write("error");
         }
     }
-
     private void showStore(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int store_id = Integer.parseInt(req.getParameter("store_id"));
         Merchant merchant = merchantService.getMerchantById(store_id);
@@ -457,7 +437,6 @@ public class FoodServlet extends HttpServlet {
         req.setAttribute("storeCategories", categoryList);
         req.getRequestDispatcher("view/user/homeUser.jsp?page=showStore").forward(req, resp);
     }
-
     private void showCartProduct(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");

@@ -10,6 +10,34 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body class="font-sans">
+<!-- Nhúng thư viện SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    function showNotification(message, type) {
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: type,
+            title: message,
+            showConfirmButton: false,
+            timer: 2500,
+            timerProgressBar: true
+        });
+    }
+    <c:if test="${not empty sessionScope.success}">
+    showNotification("${sessionScope.success}", "success");
+    <c:remove var="success" scope="session"/>
+    </c:if>
+
+    <c:if test="${not empty sessionScope.error}">
+    showNotification("${sessionScope.error}", "error");
+    <c:remove var="error" scope="session"/>
+    </c:if>
+</script>
+
+
+
 <!-- Header -->
 <jsp:include page="system/header.jsp"></jsp:include>
 
@@ -65,6 +93,10 @@
         <c:when test="${param.page == 'chat'}">
             <jsp:include page="chat.jsp"/>
         </c:when>
+        <c:when test="${param.page == 'showComplaint'}">
+            <jsp:include page="complaint.jsp"/>
+        </c:when>
+
 
 
         <c:otherwise>

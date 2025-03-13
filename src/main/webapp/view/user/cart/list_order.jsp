@@ -35,7 +35,8 @@
             </c:forEach>
 
             <c:set var="shippingFee" value="25000" />
-            <c:set var="totalPrice" value="${totalPrice + shippingFee}" />
+            <c:set var="discount" value="10000" />
+            <c:set var="totalPrice" value="${totalPrice + shippingFee - discount}" />
 
             <div class="card mb-3 shadow-sm">
                 <div class="card-body">
@@ -69,7 +70,7 @@
                             <button class="btn btn-primary me-2">Theo dõi</button>
                         </c:if>
                         <c:if test="${order.orderStatus == 'Hoàn thành'}">
-                            <button class="btn btn-danger complaint-btn mr-4">
+                            <button class="btn btn-danger complaint-btn mr-4" onclick="complaint('${order.orderId}')">
                                 <i class="bi bi-exclamation-triangle-fill"></i> Khiếu nại
                             </button>
                             <button class="btn btn-success" onclick="buyNow('${order.orderId}')">
@@ -82,10 +83,44 @@
         </c:if>
     </c:forEach>
 </div>
+<!-- Nhúng thư viện SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    function showNotification(message, type) {
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: type,
+            title: message,
+            showConfirmButton: false,
+            timer: 2500,
+            timerProgressBar: true
+        });
+    }
+
+    // Kiểm tra nếu có thông báo từ session
+    <c:if test="${not empty sessionScope.success}">
+    showNotification("${sessionScope.success}", "success");
+    <c:remove var="success" scope="session"/>
+    </c:if>
+
+    <c:if test="${not empty sessionScope.error}">
+    showNotification("${sessionScope.error}", "error");
+    <c:remove var="error" scope="session"/>
+    </c:if>
+</script>
+
+
 </body>
+
+
 <script>
     function buyNow(orderId) {
-        window.location.href = "/homeUser?action=buyNow&orderId=" + orderId;
+        window.location.href = "/homeUser?action=record&orderId=" + orderId;
+    }
+    function complaint(orderId){
+        window.location.href = "/order?action=showComplaint&orderId=" + orderId;
     }
 </script>
 

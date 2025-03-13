@@ -108,7 +108,7 @@ public class ManageOrders extends HttpServlet {
                     total += cartItem.getPriceAtTime() * cartItem.getQuantity();
                 }
                 int shippingCost = 25000;
-                int discount = 0;
+                int discount = 10000;
                 orderService.addInvoices(orderId,total + shippingCost - discount);
                 break;
         }

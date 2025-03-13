@@ -6,6 +6,7 @@ import com.example.foodSmart.model.admin.Merchant;
 import com.example.foodSmart.model.merchant.Food;
 import com.example.foodSmart.model.merchant.FoodImages;
 import com.example.foodSmart.model.user.CartItem;
+import com.example.foodSmart.model.user.Complaint;
 import com.example.foodSmart.model.user.Order;
 import com.example.foodSmart.service.AccountService;
 import com.example.foodSmart.service.IAccountService;
@@ -48,11 +49,38 @@ public class OrderServlet extends HttpServlet {
             case "showOrderDetail" :
                 showOrderDetail(req,resp);
                 break;
+            case "showComplaint" :
+                showComplaint(req,resp);
+                break;
+
             default:
                 showOrder(req,resp);
                 break;
         }
     }
+
+    private void showComplaint(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int orderId = Integer.parseInt(req.getParameter("orderId"));
+        Order order = orderService.getOrder(orderId);
+        Account orderAccount = accountService.getAccount(order.getUserId());
+        order.setUsername(orderAccount.getUsername());
+        Merchant orderMerchant = merchantService.getMerchantById(order.getStoreId());
+        order.setStoreName(orderMerchant.getStore_name());
+        int total = 0;
+        for (CartItem item : order.getCartItems()) {
+            Food food = foodService.getFoodByID(item.getProductId());
+            item.setFood(food);
+            total += item.getQuantity()*item.getPriceAtTime();
+        }
+        int shippingCost = 25000;
+        int discount = 10000;
+        req.setAttribute("total",total + shippingCost - discount);
+        req.setAttribute("order", order);
+        Complaint complaint = orderService.getComplaint(orderId);
+        req.setAttribute("complaint", complaint);
+        req.getRequestDispatcher("view/user/homeUser.jsp?page=showComplaint").forward(req, resp);
+    }
+
     private void showOrderDetail(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
         Order order = orderService.getOrder(id);
@@ -80,7 +108,38 @@ public class OrderServlet extends HttpServlet {
 
         req.setAttribute("orders", allOrders);
         req.setAttribute("merchantMap", merchantMap);
-        req.getRequestDispatcher("view/user/homeUser.jsp?page=showOrder")
-                .forward(req, resp);
+        req.getRequestDispatcher("view/user/homeUser.jsp?page=showOrder").forward(req, resp);
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/html;charset=UTF-8");
+        String action = req.getParameter("action");
+        if (action == null) {
+            action = "";
+        }
+
+        switch (action) {
+            case "complaint" :
+                complaint(req,resp);
+                break;
+        }
+    }
+    private void complaint(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        int orderId = Integer.parseInt(req.getParameter("orderId"));
+        String complaint = req.getParameter("complaint");
+        Complaint complaint1 = new Complaint(complaint, orderId);
+        boolean success = orderService.addComplaints(complaint1);
+
+        if (success) {
+            req.getSession().setAttribute("success", "Khiếu nại thành công!");
+        } else {
+            req.getSession().setAttribute("error", "Khiếu nại thất bại. Vui lòng thử lại!");
+        }
+
+        resp.sendRedirect(req.getContextPath() + "/order?action=showOrders");
+    }
+
 }
