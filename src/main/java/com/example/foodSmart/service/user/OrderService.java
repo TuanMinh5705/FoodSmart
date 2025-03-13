@@ -14,7 +14,9 @@ import com.example.foodSmart.util.ConnectDB;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class OrderService implements IOrderService {
     ICarrierService carrierService = new CarrierService();
@@ -168,6 +170,110 @@ public class OrderService implements IOrderService {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public void addInvoices(int order_id, int total) {
+        String sql = "INSERT INTO Invoices (order_id, payment_date, total_amount) VALUES (?, CURRENT_TIMESTAMP, ?)";
+
+        try (Connection conn = ConnectDB.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, order_id);
+            ps.setInt(2, total);
+
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error adding invoice: " + e.getMessage(), e);
+        }
+    }
+
+
+@Override
+        public Map<String, Object> getMerchantStatistics(int merchantId) {
+            Map<String, Object> result = new HashMap<>();
+
+            int totalOrders = 0;
+            double totalRevenue = 0;
+            List<String> topProducts = new ArrayList<>();
+            List<Integer> topSales = new ArrayList<>();
+            List<String> weeklyDays = new ArrayList<>();
+            List<Double> weeklyRevenue = new ArrayList<>();
+            List<String> monthlyDays = new ArrayList<>();
+            List<Double> monthlyRevenue = new ArrayList<>();
+            List<String> yearlyMonths = new ArrayList<>();
+            List<Double> yearlyRevenue = new ArrayList<>();
+
+            try {
+                Connection conn = ConnectDB.getConnection();
+                CallableStatement stmt = conn.prepareCall("{CALL Get_Merchant_Stats(?)}");
+                stmt.setInt(1, merchantId);
+                boolean hasResults = stmt.execute();
+
+                if (hasResults) {
+                    ResultSet rs = stmt.getResultSet();
+                    if (rs.next()) {
+                        totalOrders = rs.getInt("total_orders");
+                        totalRevenue = rs.getDouble("total_revenue");
+                    }
+                    rs.close();
+                }
+
+                if (stmt.getMoreResults()) {
+                    ResultSet rs = stmt.getResultSet();
+                    while (rs.next()) {
+                        topProducts.add(rs.getString("product_name"));
+                        topSales.add(rs.getInt("total_sold"));
+                    }
+                    rs.close();
+                }
+
+                if (stmt.getMoreResults()) {
+                    ResultSet rs = stmt.getResultSet();
+                    while (rs.next()) {
+                        weeklyDays.add(rs.getString("day"));
+                        weeklyRevenue.add(rs.getDouble("revenue"));
+                    }
+                    rs.close();
+                }
+
+                if (stmt.getMoreResults()) {
+                    ResultSet rs = stmt.getResultSet();
+                    while (rs.next()) {
+                        monthlyDays.add(rs.getString("day"));
+                        monthlyRevenue.add(rs.getDouble("revenue"));
+                    }
+                    rs.close();
+                }
+
+                if (stmt.getMoreResults()) {
+                    ResultSet rs = stmt.getResultSet();
+                    while (rs.next()) {
+                        yearlyMonths.add("Tháng " + rs.getString("month"));
+                        yearlyRevenue.add(rs.getDouble("revenue"));
+                    }
+                    rs.close();
+                }
+
+                stmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            // Đưa tất cả dữ liệu vào Map
+            result.put("totalOrders", totalOrders);
+            result.put("totalRevenue", totalRevenue);
+            result.put("topProducts", topProducts);
+            result.put("topSales", topSales);
+            result.put("weeklyDays", weeklyDays);
+            result.put("weeklyRevenue", weeklyRevenue);
+            result.put("monthlyDays", monthlyDays);
+            result.put("monthlyRevenue", monthlyRevenue);
+            result.put("yearlyMonths", yearlyMonths);
+            result.put("yearlyRevenue", yearlyRevenue);
+
+            return result;
+        }
+
 
     @Override
     public Order getOrder(int id) {
