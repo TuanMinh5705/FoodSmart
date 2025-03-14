@@ -91,17 +91,22 @@
                                     updateProductQuantity(${item.productId}, quantity);
                                 };
 
-                                increaseBtn.addEventListener('click', () => {
+                                increaseBtn.addEventListener('click', (event) => {
+                                    event.preventDefault();
+                                    event.stopPropagation();
                                     quantityInput.value = parseInt(quantityInput.value) + 1;
                                     updateTotal();
                                 });
 
-                                decreaseBtn.addEventListener('click', () => {
+                                decreaseBtn.addEventListener('click', (event) => {
+                                    event.preventDefault();
+                                    event.stopPropagation();
                                     if (parseInt(quantityInput.value) > 1) {
                                         quantityInput.value = parseInt(quantityInput.value) - 1;
                                         updateTotal();
                                     }
                                 });
+
 
                                 quantityInput.addEventListener('input', updateTotal);
                             })();
