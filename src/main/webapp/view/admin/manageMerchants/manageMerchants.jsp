@@ -13,31 +13,51 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 1200px;
+        }
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
         .table th, .table td {
             vertical-align: middle;
         }
-        .swal2-popup {
-            font-size: 10px;
-        }
-        /* Style cho input tìm kiếm có icon */
+        /* Cải tiến giao diện cho input tìm kiếm có icon */
         .input-with-icon {
             position: relative;
+        }
+        .input-with-icon input {
+            padding-right: 40px;
         }
         .input-with-icon i {
             position: absolute;
             top: 50%;
-            right: 10px;
+            right: 15px;
             transform: translateY(-50%);
             cursor: pointer;
-            color: #0d6efd;
+            color: #007bff;
+            transition: color 0.3s;
+        }
+        .input-with-icon i:hover {
+            color: #0056b3;
+        }
+        /* Tăng kích thước font cho SweetAlert2 */
+        .swal2-popup {
+            font-size: 1rem;
         }
     </style>
 </head>
 
-<body class="bg-light">
+<body>
 <div class="container mt-4">
-    <h2 class="text-center mb-4 font-weight-bold">Quản lý cửa hàng</h2>
+    <h2 class="text-center mb-4 fw-bold">Quản lý cửa hàng</h2>
 
+    <!-- Alert thông báo thành công hoặc lỗi -->
     <script>
         <c:if test="${not empty success}">
         Swal.fire({
@@ -64,9 +84,9 @@
         </c:if>
     </script>
 
-    <div class="d-flex justify-content-between align-items-center mb-3">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-3">
         <!-- Search Form -->
-        <form method="post" action="/manageMerchants?action=searchWithNameMerchant" id="searchForm">
+        <form method="post" action="/manageMerchants?action=searchWithNameMerchant" id="searchForm" class="mb-2 mb-md-0">
             <div class="input-with-icon">
                 <input name="keyword" type="text" class="form-control" placeholder="Tìm kiếm..."
                        value="${searchKeyword}" onkeyup="startTimer()">
@@ -75,7 +95,7 @@
         </form>
 
         <!-- Filter Form -->
-        <form method="get" action="/manageMerchants" id="filterForm" class="d-flex align-items-center me-2">
+        <form method="get" action="/manageMerchants" id="filterForm" class="d-flex align-items-center">
             <input type="hidden" name="status" id="status">
             <button type="button" class="btn btn-outline-secondary dropdown-toggle" id="filterDropdown"
                     data-bs-toggle="dropdown" aria-expanded="false">
@@ -89,52 +109,54 @@
         </form>
     </div>
 
-    <div class="card shadow rounded">
+    <div class="card">
         <div class="card-body">
-            <table class="table table-hover table-bordered table-striped text-center align-middle">
-                <thead class="table-dark">
-                <tr>
-                    <th>STT</th>
-                    <th>Ảnh đại diện</th>
-                    <th>Tên cửa hàng</th>
-                    <th>Địa chỉ</th>
-                    <th>Số điện thoại</th>
-                    <th>Hành động</th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:choose>
-                    <c:when test="${empty merchantsList}">
-                        <tr>
-                            <td colspan="6" class="text-danger fw-bold">Không có kết quả nào được tìm thấy!</td>
-                        </tr>
-                    </c:when>
-                    <c:otherwise>
-                        <c:forEach var="merchant" items="${merchantsList}" varStatus="status">
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered table-striped text-center align-middle mb-0">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>STT</th>
+                        <th>Ảnh đại diện</th>
+                        <th>Tên cửa hàng</th>
+                        <th>Địa chỉ</th>
+                        <th>Số điện thoại</th>
+                        <th>Hành động</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:choose>
+                        <c:when test="${empty merchantsList}">
                             <tr>
-                                <td>${status.index + 1}</td>
-                                <td>
-                                    <img src="${pageContext.request.contextPath}/images/avatars/${merchant.avt_path}"
-                                         alt="avatar" class="rounded-circle"
-                                         style="width: 50px; height: 50px; object-fit: cover;">
-                                </td>
-                                <td>${merchant.store_name}</td>
-                                <td>${merchant.store_address}</td>
-                                <td>${merchant.contact_number}</td>
-                                <td>
-                                    <a href="/manageMerchants?action=updateMerchantForm&store_id=${merchant.store_id}" class="btn btn-warning btn-sm" title="Chỉnh sửa">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </a>
-                                    <a href="/manageMerchants?action=detail&store_id=${merchant.store_id}" class="btn btn-info btn-sm" title="Chi tiết">
-                                        <i class="bi bi-info-circle"></i>
-                                    </a>
-                                </td>
+                                <td colspan="6" class="text-danger fw-bold">Không có kết quả nào được tìm thấy!</td>
                             </tr>
-                        </c:forEach>
-                    </c:otherwise>
-                </c:choose>
-                </tbody>
-            </table>
+                        </c:when>
+                        <c:otherwise>
+                            <c:forEach var="merchant" items="${merchantsList}" varStatus="status">
+                                <tr>
+                                    <td>${status.index + 1}</td>
+                                    <td>
+                                        <img src="${pageContext.request.contextPath}/images/avatars/${merchant.avt_path}"
+                                             alt="avatar" class="rounded-circle"
+                                             style="width: 50px; height: 50px; object-fit: cover;">
+                                    </td>
+                                    <td>${merchant.store_name}</td>
+                                    <td>${merchant.store_address}</td>
+                                    <td>${merchant.contact_number}</td>
+                                    <td>
+                                        <a href="/manageMerchants?action=updateMerchantForm&store_id=${merchant.store_id}" class="btn btn-warning btn-sm" title="Chỉnh sửa">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </a>
+                                        <a href="/manageMerchants?action=detail&store_id=${merchant.store_id}" class="btn btn-info btn-sm" title="Chi tiết">
+                                            <i class="bi bi-info-circle"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </c:otherwise>
+                    </c:choose>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
@@ -157,6 +179,5 @@
         submitForm();
     }
 </script>
-
 </body>
 </html>
