@@ -19,7 +19,7 @@
     <div class="card shadow p-4">
         <form action="/manageCategoryFood?action=add" method="post" enctype="multipart/form-data">
             <div class="mb-3 text-center">
-                <img id="avatarPreview" class="img-fluid rounded-circle border d-none" src="#" style="max-height: 100px;">
+                <img id="avatarPreview" class="img-fluid rounded-circle border d-none object-fit-contain" src="#" style="max-height: 100px;">
                 <input type="file" class="form-control mt-2" id="avatar" name="avatar" accept="image/*" onchange="previewImage(event, 'avatarPreview')">
             </div>
 

@@ -113,7 +113,7 @@
                                     <label class="form-label d-block">Ảnh đại diện</label>
                                     <c:if test="${not empty account.avtPath}">
                                         <img src="${pageContext.request.contextPath}/images/avatars/${account.avtPath}"
-                                             alt="Ảnh đại diện" class="avatar img-thumbnail mx-auto d-block" id="avatarPreview">
+                                             alt="Ảnh đại diện" class="avatar img-thumbnail mx-auto d-block object-fit-contain" id="avatarPreview">
                                     </c:if>
                                 </div>
                                 <!-- Tên đăng nhập -->

@@ -50,13 +50,13 @@
             <div class="mb-3">
                 <label class="form-label">Banner</label>
                 <input type="file" class="form-control" name="banner_path" id="bannerInput" onchange="previewImage(event, 'bannerPreview')">
-                <img id="bannerPreview" src="#" class="img-fluid mt-2 d-none" style="max-height: 200px;">
+                <img id="bannerPreview" src="#" class="img-fluid mt-2 d-none object-fit-contain" style="max-height: 200px;">
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Avatar</label>
                 <input type="file" class="form-control" name="avt_path" id="avatarInput" onchange="previewImage(event, 'avatarPreview')">
-                <img id="avatarPreview" src="#" class="img-fluid mt-2 d-none" style="max-height: 100px; border-radius: 50%;">
+                <img id="avatarPreview" src="#" class="img-fluid mt-2 d-none object-fit-contain" style="max-height: 100px; border-radius: 50%;">
             </div>
 
             <div class="d-flex justify-content-center gap-3 mt-4">

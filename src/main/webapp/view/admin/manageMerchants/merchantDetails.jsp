@@ -47,7 +47,7 @@
                 <td class="text-center">
                     <img src="${pageContext.request.contextPath}/images/avatars/${merchant.avt_path}"
                          alt="avatar"
-                         class="img-fluid rounded-circle" style="max-width: 130px; height: 130px;">
+                         class="img-fluid rounded-circle object-fit-contain" style="max-width: 130px; height: 130px;">
                 </td>
             </tr>
             <tr>
@@ -57,7 +57,7 @@
                 <td class="text-center">
                     <img src="${pageContext.request.contextPath}/images/avatars/${merchant.banner_path}"
                          alt="banner"
-                         class="img-fluid rounded" style="max-width: 300px;">
+                         class="img-fluid rounded object-fit-contain" style="max-width: 300px;">
                 </td>
             </tr>
             <tr>

@@ -3,7 +3,6 @@ package com.example.foodSmart.service.user;
 import com.example.foodSmart.model.user.Complaint;
 import com.example.foodSmart.model.user.Order;
 
-import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +16,6 @@ public interface IOrderService {
     void addInvoices(int order_id,int total);
     Map<String, Object> getMerchantStatistics(int merchantId);
     boolean addComplaints(Complaint complaint);
-    boolean updateComplaints(Complaint complaint);
+    boolean updateComplaints(int id , String feedback);
     Complaint getComplaint(int order_id);
 }

@@ -19,7 +19,7 @@
         .avatar-preview {
             width: 150px;
             height: 150px;
-            object-fit: cover;
+            object-fit: contain;
             border-radius: 50%;
             border: 1px solid #ddd;
             display: block;

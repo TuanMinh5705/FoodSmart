@@ -56,7 +56,7 @@
                     </div>
                     <div class="d-flex align-items-center mt-3">
                         <img src="${pageContext.request.contextPath}/images/avatars/${merchantMap[order.orderId].avt_path}"
-                             alt="Store Icon" class="me-3 rounded-circle" width="60" height="60">
+                             alt="Store Icon" class="me-3 rounded-circle object-fit-contain" width="60" height="60">
                         <div>
                             <h5 class="card-title mb-1">${merchantMap[order.orderId].store_name}</h5>
                             <p class="text-muted mb-1">

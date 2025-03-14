@@ -291,13 +291,13 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public boolean updateComplaints(Complaint complaint) {
+    public boolean updateComplaints(int id, String feedback) {
         String sql = "UPDATE User_Complaint SET feedback = ?, status = ? WHERE complaint_id = ?";
         try (Connection conn = ConnectDB.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, complaint.getFeedback());
+            stmt.setString(1, feedback);
             stmt.setBoolean(2, true);
-            stmt.setInt(3, complaint.getComplaint_id());
+            stmt.setInt(3, id);
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();

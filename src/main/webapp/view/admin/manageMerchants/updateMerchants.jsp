@@ -31,7 +31,7 @@
                 <div class="mb-3 text-center">
                     <div class="mb-2">
                         <img id="avtPreview" src="${pageContext.request.contextPath}/images/avatars/${merchant.avt_path}" alt="avatar"
-                             class="img-fluid rounded-circle shadow" style="max-width: 130px; height: 130px">
+                             class="img-fluid rounded-circle shadow object-fit-contain" style="max-width: 130px; height: 130px">
                     </div>
                     <input type="hidden" value="${merchant.avt_path}" name="current_avt_path">
                     <div class="custom-file">
@@ -47,7 +47,7 @@
                     <div class="mb-2">
                         <!-- Thêm id="bannerPreview" để update ảnh -->
                         <img id="bannerPreview" src="${pageContext.request.contextPath}/images/avatars/${merchant.banner_path}" alt="banner" class="img-fluid rounded shadow"
-                             style="max-width: 250px;">
+                             style="max-width: 250px; object-fit: contain">
                     </div>
                     <input type="hidden" value="${merchant.banner_path}" name="current_banner_path">
                     <div class="custom-file">

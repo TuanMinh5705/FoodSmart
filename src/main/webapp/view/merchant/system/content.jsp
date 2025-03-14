@@ -168,7 +168,7 @@
         <div class="col-sm-6 col-md-4">
             <div class="dashboard-card bg-yellow">
                 <!-- Link stretched-link -->
-                <a href="#" class="stretched-link"></a>
+                <a href="/manageComplaint" class="stretched-link"></a>
                 <div class="card-body text-center">
                     <div class="card-content">
                         <i class="fa fa-exclamation-circle card-icon"></i>
@@ -176,7 +176,7 @@
                     </div>
                     <div>
                         <div class="divider"></div>
-                        <a href="#" class="detail-link">Chi tiết</a>
+                        <a href="/manageComplaint" class="detail-link">Chi tiết</a>
                     </div>
                 </div>
             </div>

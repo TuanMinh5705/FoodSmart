@@ -55,7 +55,7 @@
     <div class="order-header">
         <div class="row">
             <div class="col-md-8">
-                <h4>Đơn hàng #${order.orderId}</h4>
+                <h4>Đơn hàng #DH${order.orderId}</h4>
                  Ngày đặt:
                     <fmt:formatDate value="${order.orderDate}" pattern="dd/MM/yyyy HH:mm:ss" />
                     <br>

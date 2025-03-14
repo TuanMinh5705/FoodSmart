@@ -103,7 +103,7 @@
                     <tbody>
                     <c:forEach var="order" items="${orderList}">
                         <tr data-order-id="${order.orderId}">
-                            <td>${order.orderId}</td>
+                            <td>DH${order.orderId}</td>
                             <td>${order.username}</td>
                             <td><fmt:formatDate value="${order.orderDate}" pattern="dd/MM/yyyy HH:mm:ss" /></td>
                             <td>

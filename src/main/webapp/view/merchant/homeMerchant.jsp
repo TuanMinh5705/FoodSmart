@@ -92,7 +92,12 @@
         <c:when test="${param.page == 'statistical'}">
             <jsp:include page="statistical/statistical.jsp"/>
         </c:when>
-
+        <c:when test="${param.page == 'manageComplaint'}">
+            <jsp:include page="manageComplaint/manageComplaint.jsp"/>
+        </c:when>
+        <c:when test="${param.page == 'complaintDetail'}">
+            <jsp:include page="manageComplaint/complaintDetail.jsp"/>
+        </c:when>
         <c:otherwise>
             <jsp:include page="system/content.jsp"/>
         </c:otherwise>

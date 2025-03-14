@@ -166,7 +166,7 @@
                                         <c:forEach var="img" items="${item.food.list_food_images}">
                                             <c:if test="${img.is_primary}">
                                                 <img src="${pageContext.request.contextPath}/images/product/${img.image_path}"
-                                                     alt="${item.food.product_name}">
+                                                     alt="${item.food.product_name}" >
                                             </c:if>
                                         </c:forEach>
                                     </td>

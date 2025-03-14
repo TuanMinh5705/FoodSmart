@@ -21,7 +21,7 @@
         <div class="flex items-center justify-between mb-6 bg-white p-4 rounded shadow">
             <div class="flex items-center">
                 <img alt="Restaurant logo"
-                     class="mr-3 w-12 h-12 object-cover rounded-full border border-gray-300"
+                     class="mr-3 w-12 h-12 object-contain rounded-full border border-gray-300"
                      src="${pageContext.request.contextPath}/images/avatars/${storeData.storeLogo}"/>
                 <span class="text-2xl font-semibold text-gray-800">
                     <c:out value="${storeData.storeName}"/>

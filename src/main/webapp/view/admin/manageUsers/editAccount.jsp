@@ -26,7 +26,7 @@
                     <div class="mb-3 text-center">
                         <c:if test="${not empty account.avtPath}">
                             <img id="avatarPreview" src="${pageContext.request.contextPath}/images/avatars/${account.avtPath}"
-                                 alt="Ảnh đại diện" class="img-fluid rounded-circle shadow" style="max-width: 130px; height: 130px;">
+                                 alt="Ảnh đại diện" class="img-fluid rounded-circle shadow object-fit-contain" style="max-width: 130px; height: 130px;">
                         </c:if>
                     </div>
                     <input type="hidden" name="currentAvtPath" value="${account.avtPath}">

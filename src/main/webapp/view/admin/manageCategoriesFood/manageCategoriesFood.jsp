@@ -49,7 +49,7 @@
                         <td>${status.index + 1}</td>
                         <td>
                             <img src="${pageContext.request.contextPath}/images/product/${category.avt_path}"
-                                 alt="Ảnh danh mục" class="img-thumbnail" width="80">
+                                 alt="Ảnh danh mục" class="img-thumbnail object-fit-contain" width="80">
                         </td>
                         <td>${category.category_name}</td>
                         <td>${category.description}</td>

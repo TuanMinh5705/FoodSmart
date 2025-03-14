@@ -15,7 +15,7 @@
     </div>
     <c:choose>
         <c:when test="${empty cartDisplayList}">
-            <div class="d-flex flex-column align-items-center justify-content-center" style="height: 70vh;">
+            <div class="d-flex flex-column align-items-center justify-content-center object-fit-contain" style="height: 70vh;">
                 <img src="../../../imageDefault/cart_empty.png" style="width: 45rem; height: 25rem;" alt="Giỏ hàng trống">
                 <p class="text-center text-muted fs-3">Giỏ hàng của bạn đang trống.</p>
             </div>
@@ -26,7 +26,7 @@
                     <!-- Logo cửa hàng -->
                     <div class="col-auto">
                         <img src="${pageContext.request.contextPath}/images/avatars/${group.storeLogo}"
-                             alt="Logo của ${group.storeName}" width="80" height="80" class="rounded-3 shadow-sm">
+                             alt="Logo của ${group.storeName}" width="80" height="80" class="rounded-3 shadow-sm object-fit-contain">
                     </div>
 
                     <!-- Thông tin cửa hàng -->
@@ -65,7 +65,7 @@
                             <div class="list-group-item product-item">
                                 <div class="row align-items-center">
                                     <div class="col-md-2">
-                                        <img src="${pageContext.request.contextPath}/images/product/${item.productImage}" alt="${item.productName}" class="img-fluid img-thumbnail" style="width: 100px; height: 100px;">
+                                        <img src="${pageContext.request.contextPath}/images/product/${item.productImage}" alt="${item.productName}" class="img-fluid img-thumbnail object-fit-contain" style="width: 100px; height: 100px;">
                                     </div>
                                     <div class="col-md-4">
                                         <h6 class="mb-1">${item.productName}</h6>
