@@ -10,34 +10,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body class="font-sans">
-<!-- Nhúng thư viện SweetAlert2 -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-<script>
-    function showNotification(message, type) {
-        Swal.fire({
-            toast: true,
-            position: 'top-end',
-            icon: type,
-            title: message,
-            showConfirmButton: false,
-            timer: 2500,
-            timerProgressBar: true
-        });
-    }
-    <c:if test="${not empty sessionScope.success}">
-    showNotification("${sessionScope.success}", "success");
-    <c:remove var="success" scope="session"/>
-    </c:if>
-
-    <c:if test="${not empty sessionScope.error}">
-    showNotification("${sessionScope.error}", "error");
-    <c:remove var="error" scope="session"/>
-    </c:if>
-</script>
-
-
-
 <!-- Header -->
 <jsp:include page="system/header.jsp"></jsp:include>
 
@@ -57,7 +29,7 @@
             <jsp:include page="infoAccount/editAddressUser.jsp"/>
         </c:when>
         <c:when test="${param.page == 'addAddressUser'}">
-            <jsp:include page="infoAccount/addAddressUser.jsp"/>
+            <jsp:include page="infoAccount/AddAddressUser.jsp"/>
         </c:when>
 <%--Chi tiết sản phẩm --%>
         <c:when test="${param.page == 'productDetail'}">
@@ -97,11 +69,6 @@
         <c:when test="${param.page == 'chat'}">
             <jsp:include page="chat.jsp"/>
         </c:when>
-        <c:when test="${param.page == 'showComplaint'}">
-            <jsp:include page="complaint.jsp"/>
-        </c:when>
-
-
 
         <c:otherwise>
             <jsp:include page="system/menu.jsp" />
@@ -119,7 +86,7 @@
                         <li>DỊCH VỤ GIAO HÀNG TẬN NƠI</li>
                     </ul>
                     <div class="mt-4 flex space-x-4">
-                        <p class="p-2 rounded">Bạn muốn đăng ký mua bán hàng trên SmartFood?</p>
+                        <p class="bg-gray-800 p-2 rounded">Bạn muốn đăng ký bán hàng trên SmartFood ?</p>
                         <a href="/authenticate?action=showFormRegisterStore"><button class="bg-blue-500 text-white p-2 rounded">Đăng ký ngay</button></a>
                     </div>
                 </div>

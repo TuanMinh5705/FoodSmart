@@ -11,6 +11,22 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        .input-with-icon {
+            position: relative;
+        }
+        .input-with-icon input {
+            padding-right: 40px;
+        }
+        .input-with-icon .search-icon {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #0d6efd;
+        }
+    </style>
 </head>
 
 <body class="bg-light">
@@ -20,12 +36,9 @@
     <div class="d-flex justify-content-between align-items-center mb-3">
         <div class="flex-grow-1 d-flex" style="margin-left: 15%;">
             <form action="/manageCategoryFood?action=search" method="post" id="searchForm" class="w-50">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Tìm kiếm..." name="keyword"
-                           onkeyup="startTimer()">
-                    <button class="btn btn-primary" type="submit" title="Tìm kiếm">
-                        <i class="fas fa-search"></i>
-                    </button>
+                <div class="input-with-icon">
+                    <input type="text" class="form-control" placeholder="Tìm kiếm..." name="keyword" onkeyup="startTimer()">
+                    <i class="bi bi-search search-icon" onclick="document.getElementById('searchForm').submit()"></i>
                 </div>
             </form>
         </div>
@@ -49,7 +62,7 @@
                         <td>${status.index + 1}</td>
                         <td>
                             <img src="${pageContext.request.contextPath}/images/product/${category.avt_path}"
-                                 alt="Ảnh danh mục" class="img-thumbnail" width="80">
+                                 alt="Ảnh danh mục" class="img-thumbnail object-fit-contain" width="80">
                         </td>
                         <td>${category.category_name}</td>
                         <td>${category.description}</td>
@@ -73,7 +86,6 @@
 
 <script>
     let timer;
-
     function startTimer() {
         clearTimeout(timer);
         timer = setTimeout(function () {

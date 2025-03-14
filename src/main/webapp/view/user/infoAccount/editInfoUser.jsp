@@ -83,12 +83,10 @@
 </head>
 <body>
 <div class="container-fluid">
-    <div class="row">
-        <!-- Sidebar bên trái -->
+    <div class="column">
         <div class="col-md-3">
             <jsp:include page="sidebarUser.jsp"/>
         </div>
-        <!-- Nội dung chỉnh sửa thông tin bên phải -->
         <div class="col-md-9">
             <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
                 <div class="col-12 col-lg-8">
@@ -105,7 +103,7 @@
                                         <div class="mb-3">
                                             <c:if test="${not empty account.avtPath}">
                                                 <img src="${pageContext.request.contextPath}/images/avatars/${account.avtPath}"
-                                                     alt="Ảnh đại diện" class="avatar img-thumbnail mx-auto d-block" id="avatarPreview">
+                                                     alt="Ảnh đại diện" class="avatar img-thumbnail mx-auto d-block object-fit-contain" id="avatarPreview">
                                             </c:if>
                                         </div>
                                         <div>

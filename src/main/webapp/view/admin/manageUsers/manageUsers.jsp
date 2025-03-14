@@ -21,25 +21,33 @@
             text-align: center;
             vertical-align: middle;
         }
-
         .table td,
         .table th {
             text-align: center;
             vertical-align: middle;
         }
-
         .table img.rounded-circle {
             width: 80px;
             height: 80px;
-            object-fit: cover;
+            object-fit: contain;
         }
-
         .action-buttons .btn {
             margin-right: 0.5rem;
         }
-
         .action-buttons .btn:last-child {
             margin-right: 0;
+        }
+        /* Để input không bị che bởi icon tìm kiếm */
+        .input-with-icon input {
+            padding-right: 40px;
+        }
+        .input-with-icon .search-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #0d6efd;
         }
     </style>
 </head>
@@ -49,8 +57,6 @@
         <script>
             Swal.fire({
                 position: 'top-end',
-                icon: 'success',
-                title: '${success}',
                 showConfirmButton: false,
                 timer: 2000,
                 width: '300px'
@@ -76,14 +82,10 @@
     <div class="row mb-3 align-items-center">
         <div class="col-md-6">
             <form action="/manageUsers?action=searchWithName" id="searchForm" method="post">
-                <div class="input-group" style="display: flex; align-items: center;">
+                <div class="position-relative input-with-icon">
                     <input type="text" class="form-control" placeholder="Nhập từ khóa tìm kiếm" id="searchInput"
-                           name="keyword" oninput="startTimer()"
-                           style="height: 40px; border-top-right-radius: 0; border-bottom-right-radius: 0;">
-                    <button class="btn btn-primary" type="submit" id="searchBtn"
-                            style="height: 40px; border-top-left-radius: 0; border-bottom-left-radius: 0;">
-                        <i class="fas fa-search"></i>
-                    </button>
+                           name="keyword" oninput="startTimer()" style="height: 40px;">
+                    <i class="bi bi-search search-icon" onclick="document.getElementById('searchForm').submit()"></i>
                 </div>
             </form>
         </div>
@@ -177,7 +179,6 @@
     });
 
     let timer;
-
     function startTimer() {
         clearTimeout(timer);
         timer = setTimeout(function () {

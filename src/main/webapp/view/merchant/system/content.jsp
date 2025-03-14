@@ -39,7 +39,16 @@
         .card-icon {
             font-size: 40px;
             margin-bottom: 10px;
+            /* Không đặt màu chung để cho phép các icon có màu riêng */
         }
+        /* Các lớp icon với màu sắc riêng biệt */
+        .icon-food { color: #6a1b9a; }       /* Màu tím đậm cho Quản lý món ăn */
+        .icon-order { color: #c2185b; }      /* Màu hồng đậm cho Quản lý đơn hàng */
+        .icon-statistical { color: #1565c0; }  /* Màu xanh đậm cho Thống kê doanh số */
+        .icon-coupon { color: #e65100; }      /* Màu cam đậm cho Mã giảm giá */
+        .icon-store { color: #2e7d32; }       /* Màu xanh lá đậm cho Thông tin cửa hàng */
+        .icon-complaint { color: #c62828; }   /* Màu đỏ đậm cho Xử lý khiếu nại */
+
         .card-title {
             font-size: 20px;
             font-weight: bold;
@@ -81,7 +90,7 @@
                 <a href="/manageFoods" class="stretched-link"></a>
                 <div class="card-body text-center">
                     <div class="card-content">
-                        <i class="fa fa-utensils card-icon"></i>
+                        <i class="fa fa-utensils card-icon icon-food"></i>
                         <div class="card-title">Quản lý món ăn</div>
                     </div>
                     <div>
@@ -99,7 +108,7 @@
                 <a href="/manageOrder" class="stretched-link"></a>
                 <div class="card-body text-center">
                     <div class="card-content">
-                        <i class="fa fa-cart-shopping card-icon"></i>
+                        <i class="fa fa-cart-shopping card-icon icon-order"></i>
                         <div class="card-title">Quản lý đơn hàng</div>
                     </div>
                     <div>
@@ -117,7 +126,7 @@
                 <a href="/statistical" class="stretched-link"></a>
                 <div class="card-body text-center">
                     <div class="card-content">
-                        <i class="fa fa-chart-line card-icon"></i>
+                        <i class="fa fa-chart-line card-icon icon-statistical"></i>
                         <div class="card-title">Thống kê doanh số</div>
                     </div>
                     <div>
@@ -135,7 +144,7 @@
                 <a href="/manageCoupons" class="stretched-link"></a>
                 <div class="card-body text-center">
                     <div class="card-content">
-                        <i class="fa fa-tags card-icon"></i>
+                        <i class="fa fa-tags card-icon icon-coupon"></i>
                         <div class="card-title">Mã giảm giá</div>
                     </div>
                     <div>
@@ -153,7 +162,7 @@
                 <a href="/manageStore?action=showInfoStore" class="stretched-link"></a>
                 <div class="card-body text-center">
                     <div class="card-content">
-                        <i class="fa fa-store card-icon"></i>
+                        <i class="fa fa-store card-icon icon-store"></i>
                         <div class="card-title">Thông tin cửa hàng</div>
                     </div>
                     <div>
@@ -168,15 +177,15 @@
         <div class="col-sm-6 col-md-4">
             <div class="dashboard-card bg-yellow">
                 <!-- Link stretched-link -->
-                <a href="#" class="stretched-link"></a>
+                <a href="/manageComplaint" class="stretched-link"></a>
                 <div class="card-body text-center">
                     <div class="card-content">
-                        <i class="fa fa-exclamation-circle card-icon"></i>
+                        <i class="fa fa-exclamation-circle card-icon icon-complaint"></i>
                         <div class="card-title">Xử lý khiếu nại</div>
                     </div>
                     <div>
                         <div class="divider"></div>
-                        <a href="#" class="detail-link">Chi tiết</a>
+                        <a href="/manageComplaint" class="detail-link">Chi tiết</a>
                     </div>
                 </div>
             </div>

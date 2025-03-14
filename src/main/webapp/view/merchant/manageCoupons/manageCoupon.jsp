@@ -141,6 +141,13 @@
         .btn-secondary:hover i {
             color: #000;
         }
+        .custom-search-box {
+            width: 400px !important;
+            display: block;
+            margin: 0 auto;
+        }
+
+
     </style>
 </head>
 <body>

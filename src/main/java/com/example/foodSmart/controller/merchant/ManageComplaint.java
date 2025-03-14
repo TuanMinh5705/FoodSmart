@@ -4,6 +4,7 @@ import com.example.foodSmart.model.Account;
 import com.example.foodSmart.model.admin.Merchant;
 import com.example.foodSmart.model.merchant.Food;
 import com.example.foodSmart.model.user.CartItem;
+import com.example.foodSmart.model.user.Complaint;
 import com.example.foodSmart.model.user.Order;
 import com.example.foodSmart.service.AccountService;
 import com.example.foodSmart.service.IAccountService;
@@ -20,16 +21,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/manageOrder")
-public class ManageOrders extends HttpServlet {
+@WebServlet("/manageComplaint")
+public class ManageComplaint extends HttpServlet {
     IOrderService orderService = new OrderService();
-    IAccountService accountService = new AccountService();
     IMerchantService merchantService = new MerchantService();
+    IAccountService accountService = new AccountService();
     IFoodService foodService = new FoodService();
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
@@ -41,84 +41,72 @@ public class ManageOrders extends HttpServlet {
             action = "";
         }
         switch (action) {
-            case "showOrderDetail":
-                showOrderDetail(req, resp);
+            case "showComplaintDetail":
+                showComplaintDetail(req,resp);
                 break;
             default:
-                showListOrder(req, resp);
+                showComplaint(req,resp);
                 break;
         }
     }
 
-    private void showOrderDetail(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int id = Integer.parseInt(req.getParameter("id"));
-        Order order = orderService.getOrder(id);
+    private void showComplaintDetail(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int orderId = Integer.parseInt(req.getParameter("orderId"));
+        Order order = orderService.getOrder(orderId);
         Account orderAccount = accountService.getAccount(order.getUserId());
         order.setUsername(orderAccount.getUsername());
         Merchant orderMerchant = merchantService.getMerchantById(order.getStoreId());
         order.setStoreName(orderMerchant.getStore_name());
+        int total = 0;
         for (CartItem item : order.getCartItems()) {
             Food food = foodService.getFoodByID(item.getProductId());
             item.setFood(food);
+            total += item.getQuantity()*item.getPriceAtTime();
         }
+        int shippingCost = 25000;
+        int discount = 10000;
+        req.setAttribute("total",total + shippingCost - discount);
         req.setAttribute("order", order);
-        req.getRequestDispatcher("view/merchant/homeMerchant.jsp?page=orderDetail").forward(req, resp);
+        Complaint complaint = orderService.getComplaint(orderId);
+        req.setAttribute("complaint", complaint);
+        req.setAttribute("customer", orderAccount);
+        req.getRequestDispatcher("view/merchant/homeMerchant.jsp?page=complaintDetail").forward(req, resp);
     }
 
-    private void showListOrder(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    private void showComplaint(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Account loggedInUser = (Account) req.getSession().getAttribute("loggedInAccount");
         int accountId = loggedInUser.getAccountID();
         Merchant merchant = merchantService.getMerchantByMerchantId(accountId);
         List<Order> orderList = orderService.getOrdersByUser("store_id", merchant.getStore_id());
+        List<Complaint> complaintList = new ArrayList<>();
 
         for (Order order : orderList) {
-            Account orderAccount = accountService.getAccount(order.getUserId());
-            order.setUsername(orderAccount.getUsername());
-            Merchant orderMerchant = merchantService.getMerchantById(order.getStoreId());
-            order.setStoreName(orderMerchant.getStore_name());
+            Complaint complaint = orderService.getComplaint(order.getOrderId());
+            if (complaint.getComplaint_id() > 0) {
+                complaintList.add(complaint);
+            }
         }
-        req.setAttribute("orderList", orderList);
-        req.getRequestDispatcher("view/merchant/homeMerchant.jsp?page=manageOrders").forward(req, resp);
+
+        req.setAttribute("complaintList", complaintList);
+        req.getRequestDispatcher("view/merchant/homeMerchant.jsp?page=manageComplaint").forward(req, resp);
     }
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
-        resp.setContentType("application/json;charset=UTF-8");
-        int orderId = Integer.parseInt(req.getParameter("orderId"));
-        String newStatus = req.getParameter("status");
-        Order order = orderService.getOrder(orderId);
-        PrintWriter out = resp.getWriter();
-        if (orderId == 0 || newStatus == null) {
-            out.write("{\"status\":\"error\",\"message\":\"Invalid Request\"}");
-            out.flush();
-            return;
+        resp.setContentType("text/html;charset=UTF-8");
+
+        String action = req.getParameter("action");
+        if (action == null) {
+            action = "";
         }
-        boolean success = false;
-        switch (newStatus) {
-            case "Đang giao":
-            case "Đã hủy" :
-                success = orderService.updateStatus("shipping_date", newStatus,order.getPaymentStatus(), orderId);
-                break;
-            case "Hoàn thành":
-                success = orderService.updateStatus("delivery_date", newStatus,true, orderId);
-                int total = 0;
-                List<CartItem> cartItems = order.getCartItems();
-                for (CartItem cartItem : cartItems) {
-                    total += cartItem.getPriceAtTime() * cartItem.getQuantity();
-                }
-                int shippingCost = 25000;
-                int discount = 10000;
-                orderService.addInvoices(orderId,total + shippingCost - discount);
+        switch (action) {
+            case "feedback" :
+                String feedback = req.getParameter("feedback");
+                int orderId = Integer.parseInt(req.getParameter("orderId"));
+                orderService.updateComplaints(orderId,feedback);
                 break;
         }
-
-        if (success) {
-            out.write("{\"status\":\"success\",\"message\":\"Cập nhật đơn hàng thành công\"}");
-        } else {
-            out.write("{\"status\":\"error\",\"message\":\"Có lỗi khi xử lý\"}");
-        }
-        out.flush();
-
     }
 }

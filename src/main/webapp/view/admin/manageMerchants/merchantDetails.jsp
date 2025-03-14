@@ -10,10 +10,53 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-
+    <style>
+        .profile-card {
+            max-width: 500px;
+            margin: 20px auto;
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+        .profile-banner {
+            position: relative;
+            height: 200px;
+        }
+        .banner-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ảnh banner sử dụng object-fit: contain */
+        }
+        .profile-avatar {
+            position: absolute;
+            left: 50%;
+            bottom: -50px;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 5px solid #fff;
+            object-fit: cover;
+            box-shadow: 0 0 8px rgba(0,0,0,0.15);
+        }
+        .profile-body {
+            margin-top: 60px;
+            padding: 20px;
+        }
+        .profile-info h3 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #333;
+        }
+        .profile-info p {
+            margin: 0.2rem 0;
+            color: #555;
+        }
+    </style>
 </head>
 <body class="bg-light">
-
 <div class="container mt-5">
     <h2 class="text-center mb-4">
         <i class="fas fa-info-circle"></i> Chi tiết cửa hàng
@@ -47,7 +90,7 @@
                 <td class="text-center">
                     <img src="${pageContext.request.contextPath}/images/avatars/${merchant.avt_path}"
                          alt="avatar"
-                         class="img-fluid rounded-circle" style="max-width: 130px; height: 130px;">
+                         class="img-fluid rounded-circle object-fit-contain" style="max-width: 130px; height: 130px;">
                 </td>
             </tr>
             <tr>
@@ -57,7 +100,7 @@
                 <td class="text-center">
                     <img src="${pageContext.request.contextPath}/images/avatars/${merchant.banner_path}"
                          alt="banner"
-                         class="img-fluid rounded" style="max-width: 300px;">
+                         class="img-fluid rounded object-fit-contain" style="max-width: 300px;">
                 </td>
             </tr>
             <tr>

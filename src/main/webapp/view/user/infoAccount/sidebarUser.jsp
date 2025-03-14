@@ -1,32 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- Sidebar Tài khoản -->
-<div class="sidebar">
-    <h4 class="text-center mb-4">Tài khoản</h4>
-    <ul class="nav flex-column">
-        <li class="nav-item">
-            <a href="/userInformation?action=showUserInformation" class="nav-link">
-                <i class="fas fa-user-circle"></i> Thông tin tài khoản
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="/userInformation?action=showAddressUser" class="nav-link">
-                <i class="fas fa-map-marker-alt"></i> Địa chỉ giao hàng
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="/userInformation" class="nav-link">
-                <i class="fas fa-wallet"></i> Ví điện tử
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="/authenticate?action=logout" class="nav-link text-danger">
-                <i class="fas fa-sign-out-alt"></i> Đăng xuất
-            </a>
-        </li>
-    </ul>
-</div>
-
 <!-- CSS cho Sidebar -->
 <style>
     .sidebar {
@@ -70,4 +44,36 @@
         background: #e74c3c !important;  /* Đỏ mềm mại */
         color: #ffffff !important;
     }
+
 </style>
+<div class="sidebar">
+    <h4 class="text-center mb-4">Tài khoản</h4>
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a href="/userInformation?action=showUserInformation" class="nav-link">
+                <i class="fas fa-user-circle"></i> Thông tin tài khoản
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="/userInformation?action=showAddressUser" class="nav-link">
+                <i class="fas fa-map-marker-alt"></i> Địa chỉ giao hàng
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="/userInformation?action=showAddAddressForm" class="nav-link">
+                <i class="fas fa-map-marker-alt"></i> Thêm địa chỉ giao hàng
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="/userInformation" class="nav-link">
+                <i class="fas fa-wallet"></i> Ví điện tử
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="/authenticate?action=logout" class="nav-link text-danger">
+                <i class="fas fa-sign-out-alt"></i> Đăng xuất
+            </a>
+        </li>
+    </ul>
+</div>
+

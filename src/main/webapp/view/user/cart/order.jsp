@@ -30,19 +30,22 @@
                     <div class="border rounded p-4 bg-gray-100" id="addressList">
                         <c:forEach var="ad" items="${accountDetails}">
                             <div class="flex justify-between items-center p-3 mb-2 border rounded bg-white" data-id="${ad.accountDetailID}">
-                                <div class="flex items-start">
-                                    <input type="radio" name="address" value="${ad.accountDetailID}" class="mr-2" required>
+                                <div class="flex items-center">
+                                    <input type="radio" name="address" value="${ad.accountDetailID}" class="mr-2 mt-1" required>
                                     <div>
-                                        <c:if test="${ad.isDefault}">
-                                            <div class="text-sm text-blue-500">Địa chỉ mặc định</div>
-                                        </c:if>
-                                        <div class="font-bold">
-                                            Tên người nhận: <c:out value="${sessionScope.loggedInAccount.username}"/>
+                                        <div class="flex items-center">
+                                            <div class="font-bold mr-2">
+                                                Tên người nhận: <c:out value="${sessionScope.loggedInAccount.username}"/>
+                                            </div>
+                                            <c:if test="${ad.isDefault}">
+                                                <div class="text-sm text-blue-500">(Địa chỉ mặc định)</div>
+                                            </c:if>
                                         </div>
                                         <div class="text-sm text-gray-600">Số điện thoại: <c:out value="${ad.phonenumber}"/></div>
                                         <div class="text-sm text-gray-600">Địa chỉ: <c:out value="${ad.address}"/></div>
                                     </div>
                                 </div>
+
                                 <!-- Thêm các data attribute để lưu thông tin hiện có -->
                                 <button type="button"
                                         class="editAddressBtn text-blue-500 hover:text-blue-700 flex items-center"
@@ -59,7 +62,7 @@
                 <div class="mb-4">
                     <h2 class="text-lg font-bold">Phương thức thanh toán</h2>
                     <label class="flex items-center mb-2">
-                        <input type="radio" name="payment" value="cod" class="mr-2" checked>
+                        <input type="radio" name="payment" value="cod" class="mr-2 mt-1" checked>
                         Thanh toán khi nhận hàng
                     </label>
                     <label class="flex items-center">

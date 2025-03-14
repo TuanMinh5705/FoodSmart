@@ -15,7 +15,7 @@
 </head>
 <style>
     .content {
-        margin-top: -10px;
+
         margin-left: 250px;
         padding: 10px;
         transition: margin-left 0.3s ease;
@@ -30,7 +30,7 @@
 <body>
 <jsp:include page="system/menubar.jsp"/>
 <jsp:include page="system/sidebar.jsp"/>
-<div class="content">
+<div class="content" style=" margin-top: auto">
     <c:choose>
     <c:when test="${param.page == 'manageFoods'}">
         <jsp:include page="manageFoods/manageFood.jsp"/>
@@ -92,7 +92,12 @@
         <c:when test="${param.page == 'statistical'}">
             <jsp:include page="statistical/statistical.jsp"/>
         </c:when>
-
+        <c:when test="${param.page == 'manageComplaint'}">
+            <jsp:include page="manageComplaint/manageComplaint.jsp"/>
+        </c:when>
+        <c:when test="${param.page == 'complaintDetail'}">
+            <jsp:include page="manageComplaint/complaintDetail.jsp"/>
+        </c:when>
         <c:otherwise>
             <jsp:include page="system/content.jsp"/>
         </c:otherwise>

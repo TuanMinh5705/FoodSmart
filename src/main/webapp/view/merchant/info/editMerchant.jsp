@@ -113,7 +113,7 @@
             width: 120px;
             height: 120px;
             border-radius: 50%;
-            object-fit: cover;
+            object-fit: contain;
         }
         .img-preview:hover {
             transform: scale(1.05);

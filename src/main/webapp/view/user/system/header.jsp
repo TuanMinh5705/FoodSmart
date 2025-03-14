@@ -35,15 +35,16 @@
             <a href="/homeUser?action=showCartStore" title="Giỏ hàng" class="relative text-black text-2xl">
                 <i class="fas fa-shopping-cart"></i>
                 <span id="cartCount" class="absolute -top-1 -right-3 bg-red-500 text-white text-sm rounded-full px-2">
-        <c:out value="${not empty sessionScope.cartCount ? sessionScope.cartCount : 0}" />
-    </span>
+                <c:out value="${not empty sessionScope.cartCount ? sessionScope.cartCount : 0}"/>
+                </span>
             </a>
 
 
             <a href="/homeUser?action=showCollection" title="Bộ sưu tập" class="relative text-black text-2xl">
                 <i class="fas fa-heart"></i>
-                <span id="collectionCount" class="absolute -top-1 -right-3 bg-red-500 text-white text-sm rounded-full px-2">
-        <c:out value="${not empty sessionScope.collectionCount ? sessionScope.collectionCount : 0}" />
+                <span id="collectionCount"
+                      class="absolute -top-1 -right-3 bg-red-500 text-white text-sm rounded-full px-2">
+        <c:out value="${not empty sessionScope.collectionCount ? sessionScope.collectionCount : 0}"/>
     </span>
             </a>
             <a href="/notifications" title="Thông báo" class="text-black text-2xl">
@@ -59,14 +60,17 @@
         </span>
                 </button>
                 <!-- Dropdown menu -->
-                <div id="accountDropdownMenu" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg transition-opacity duration-300 z-50 hidden">
-                    <a href="/userInformation?action=showUserInformation" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">
+                <div id="accountDropdownMenu"
+                     class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg transition-opacity duration-300 z-50 hidden">
+                    <a href="/userInformation?action=showUserInformation"
+                       class="block px-4 py-2 text-gray-800 hover:bg-gray-200">
                         <i class="fas fa-user-circle"></i> Thông tin tài khoản
                     </a>
                     <a href="/order" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">
                         <i class="bi bi-clipboard-minus-fill"></i> Đơn hàng
                     </a>
-                    <a href="javascript:void(0);" onclick="confirmLogout()" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">
+                    <a href="javascript:void(0);" onclick="confirmLogout()"
+                       class="block px-4 py-2 text-gray-800 hover:bg-gray-200">
                         <i class="fas fa-sign-out-alt mr-2"></i> Đăng xuất
                     </a>
                 </div>
@@ -79,13 +83,13 @@
                 const dropdownContainer = document.getElementById('accountDropdownContainer');
 
                 // Khi click vào button, toggle hiển thị dropdown
-                dropdownToggle.addEventListener('click', function(e) {
+                dropdownToggle.addEventListener('click', function (e) {
                     e.stopPropagation(); // Ngăn sự kiện lan ra ngoài
                     dropdownMenu.classList.toggle('hidden');
                 });
 
                 // Khi click ra ngoài container thì ẩn dropdown
-                document.addEventListener('click', function(e) {
+                document.addEventListener('click', function (e) {
                     if (!dropdownContainer.contains(e.target)) {
                         dropdownMenu.classList.add('hidden');
                     }

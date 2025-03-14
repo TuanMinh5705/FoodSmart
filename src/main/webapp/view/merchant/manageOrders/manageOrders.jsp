@@ -74,6 +74,13 @@
                 transform: translateY(0);
             }
         }
+
+        .custom-search-box {
+            display: block;
+            margin: 0 auto;
+            width: 400px !important;
+        }
+
     </style>
 </head>
 <body>
@@ -103,7 +110,7 @@
                     <tbody>
                     <c:forEach var="order" items="${orderList}">
                         <tr data-order-id="${order.orderId}">
-                            <td>${order.orderId}</td>
+                            <td>DH${order.orderId}</td>
                             <td>${order.username}</td>
                             <td><fmt:formatDate value="${order.orderDate}" pattern="dd/MM/yyyy HH:mm:ss" /></td>
                             <td>
@@ -159,7 +166,7 @@
                             <option value="Chờ xác nhận">Chờ xác nhận</option>
                             <option value="Đang giao">Đang giao</option>
                             <option value="Hoàn thành">Hoàn thành</option>
-                            <option value="Đã hủy">Đã hủy</option>
+                            <option value="Đã hủy">Hủy đon</option>
                         </select>
                     </div>
                 </form>

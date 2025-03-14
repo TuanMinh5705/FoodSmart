@@ -13,7 +13,7 @@
         .avatar {
             width: 150px;
             height: 150px;
-            object-fit: cover;
+            object-fit: contain;
             border-radius: 50%;
             margin: 0 auto;
         }
