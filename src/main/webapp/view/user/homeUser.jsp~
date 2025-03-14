@@ -29,7 +29,7 @@
             <jsp:include page="infoAccount/editAddressUser.jsp"/>
         </c:when>
         <c:when test="${param.page == 'addAddressUser'}">
-            <jsp:include page="infoAccount/addAddressUser.jsp"/>
+            <jsp:include page="infoAccount/AddAddressUser.jsp"/>
         </c:when>
 <%--Chi tiết sản phẩm --%>
         <c:when test="${param.page == 'productDetail'}">
@@ -70,7 +70,6 @@
             <jsp:include page="chat.jsp"/>
         </c:when>
 
-
         <c:otherwise>
             <jsp:include page="system/menu.jsp" />
             <!-- Banner -->
@@ -87,7 +86,7 @@
                         <li>DỊCH VỤ GIAO HÀNG TẬN NƠI</li>
                     </ul>
                     <div class="mt-4 flex space-x-4">
-                        <p class="p-2 rounded">Bạn muốn đăng ký mua bán hàng trên SmartFood?</p>
+                        <p class="bg-gray-800 p-2 rounded">Bạn muốn đăng ký bán hàng trên SmartFood ?</p>
                         <a href="/authenticate?action=showFormRegisterStore"><button class="bg-blue-500 text-white p-2 rounded">Đăng ký ngay</button></a>
                     </div>
                 </div>

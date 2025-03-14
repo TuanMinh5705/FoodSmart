@@ -57,8 +57,6 @@
         <script>
             Swal.fire({
                 position: 'top-end',
-                icon: 'success',
-                title: '${success}',
                 showConfirmButton: false,
                 timer: 2000,
                 width: '300px'

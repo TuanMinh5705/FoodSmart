@@ -15,6 +15,11 @@
             </a>
         </li>
         <li class="nav-item">
+            <a href="/userInformation?action=showAddAddressForm" class="nav-link">
+                <i class="fas fa-map-marker-alt"></i> Thêm địa chỉ giao hàng
+            </a>
+        </li>
+        <li class="nav-item">
             <a href="/userInformation" class="nav-link">
                 <i class="fas fa-wallet"></i> Ví điện tử
             </a>
@@ -70,4 +75,5 @@
         background: #e74c3c !important;  /* Đỏ mềm mại */
         color: #ffffff !important;
     }
+
 </style>

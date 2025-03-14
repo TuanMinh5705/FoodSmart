@@ -20,6 +20,7 @@ public class UserInformation extends HttpServlet {
     IAccountService accountService = new AccountService();
 
     @Override
+
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
@@ -28,8 +29,6 @@ public class UserInformation extends HttpServlet {
         if (action == null) {
             action = "";
         }
-
-
         switch (action) {
             default:
                 showInfoUser(req,resp);
@@ -47,8 +46,16 @@ public class UserInformation extends HttpServlet {
             case "editAddressForm":
                 showEditAddressForm(req, resp);
                 break;
+            case "showAddAddressForm":
+                showAddAddressForm(req, resp);
+                break;
+
 
         }
+    }
+
+    private void showAddAddressForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("view/user/homeUser.jsp?page=addAddressUser").forward(req, resp);
     }
 
     private void showEditAddressForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -100,8 +107,36 @@ public class UserInformation extends HttpServlet {
             case "deleteAddress":
                 deleteAddressUser(req, resp);
                 break;
+            case "addAddress":
+                addAddressUser(req, resp);
+                break;
         }
     }
+
+    private void addAddressUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Account loggedInUser = (Account) req.getSession().getAttribute("loggedInAccount");
+
+        int accountId = loggedInUser.getAccountID();
+        String address = req.getParameter("address");
+        String phonenumber = req.getParameter("phonenumber");
+        boolean isDefault = "on".equals(req.getParameter("isDefault"));
+
+        if (isDefault) {
+            accountService.resetDefaultAddress(accountId);
+        }
+
+        AccountDetails newAddress = new AccountDetails(accountId, 0, address, phonenumber, isDefault);
+        boolean result = accountService.addAccountDetails(newAddress);
+
+        if (result) {
+            req.getSession().setAttribute("success", "Thêm địa chỉ thành công!");
+        } else {
+            req.getSession().setAttribute("error", "Thêm địa chỉ thất bại!");
+        }
+
+        resp.sendRedirect("/userInformation?action=showAddressUser");
+    }
+
 
     private void deleteAddressUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int accountDetailID = Integer.parseInt(req.getParameter("id"));
@@ -162,5 +197,9 @@ public class UserInformation extends HttpServlet {
             }
             showInfoUser(req, resp);
         }
+
+        showInfoUser(req, resp);
+        req.getRequestDispatcher("/view/user/homeUser.jsp?page=infoUser").forward(req, resp);
+
     }
 }
