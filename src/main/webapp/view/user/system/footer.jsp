@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +6,7 @@
 </head>
 <body>
 <footer class="bg-yellow-400 pt-6 mt-3">
-        <div class="w-full">
+    <div class="w-full">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pb-4">
             <!-- Thông tin liên hệ -->
             <div class="pl-6">
@@ -53,11 +52,20 @@
                     </div>
                     <!-- Mạng xã hội -->
                     <div class="flex space-x-6 mt-6">
-                        <i class="fab fa-facebook text-4xl" style="color: #1877F2;"></i>
-                        <i class="fab fa-tiktok text-4xl" style="color: #000000;"></i>
-                        <i class="fab fa-youtube text-4xl" style="color: #FF0000;"></i>
-                        <i class="fab fa-instagram text-4xl" style="color: #E1306C;"></i>
+                        <a href="#" class="transition-colors duration-300 hover:text-blue-700">
+                            <i class="fab fa-facebook text-4xl" style="color: #1877F2;"></i>
+                        </a>
+                        <a href="#" class="transition-colors duration-300 hover:text-black-700">
+                            <i class="fab fa-tiktok text-4xl" style="color: #000000;"></i>
+                        </a>
+                        <a href="#" class="transition-colors duration-300 hover:text-red-700">
+                            <i class="fab fa-youtube text-4xl" style="color: #FF0000;"></i>
+                        </a>
+                        <a href="#" class="transition-colors duration-300 hover:text-red-700">
+                            <i class="fab fa-instagram text-4xl" style="color: #E1306C;"></i>
+                        </a>
                     </div>
+
                 </div>
                 <div class="flex-1 md:ml-8 flex flex-col items-center text-center">
                     <h4 class="text-2xl font-bold mb-4">Giấy phép</h4>

@@ -145,6 +145,7 @@
             color: #6c757d;
             transition: color 0.3s;
         }
+
         .input-with-icon .fa-search:hover {
             color: #495057;
         }
@@ -171,6 +172,13 @@
                 transform: translateY(0);
             }
         }
+
+        .custom-search-box {
+            display: block;
+            margin: 0 auto;
+            width: 400px !important;
+        }
+
     </style>
 </head>
 <body>

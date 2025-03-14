@@ -155,7 +155,7 @@
         <form action="/manageFoods?action=addFood" method="post" enctype="multipart/form-data">
             <!-- Phần chọn ảnh sản phẩm -->
             <div class="mb-3">
-                <label class="form-label">Ảnh sản phẩm</label>
+                <label class="form-label">Ảnh món ăn</label>
                 <div id="imagePreview">
                     <img src="https://via.placeholder.com/120" alt="Ảnh đại diện">
                 </div>

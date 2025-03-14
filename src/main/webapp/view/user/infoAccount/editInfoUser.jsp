@@ -83,12 +83,10 @@
 </head>
 <body>
 <div class="container-fluid">
-    <div class="row">
-        <!-- Sidebar bên trái -->
+    <div class="column">
         <div class="col-md-3">
             <jsp:include page="sidebarUser.jsp"/>
         </div>
-        <!-- Nội dung chỉnh sửa thông tin bên phải -->
         <div class="col-md-9">
             <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
                 <div class="col-12 col-lg-8">

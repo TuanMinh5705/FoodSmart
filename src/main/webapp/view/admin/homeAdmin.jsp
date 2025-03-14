@@ -26,7 +26,7 @@
 <jsp:include page="system/menubar.jsp" />
 <jsp:include page="system/sidebar.jsp" />
 
-<div class="content" style="margin-top: 20px">
+<div class="content" style="margin-top: auto">
 
     <c:choose>
         <c:when test="${param.page == 'home'}">
@@ -112,13 +112,14 @@
         <c:when test="${param.page == 'editShippers'}">
             <jsp:include page="manageCarriers/editShipper.jsp"/>
         </c:when>
+
         <c:when test="${param.page == 'infoShippers'}">
             <jsp:include page="manageCarriers/infoShipper.jsp"/>
         </c:when>
+
         <c:when test="${param.page == 'addShippers'}">
             <jsp:include page="manageCarriers/addShipper.jsp"/>
         </c:when>
-
 
         <c:when test="${param.page == 'revenueStatistics'}">
             <jsp:include page="revenueStatistics.jsp"/>

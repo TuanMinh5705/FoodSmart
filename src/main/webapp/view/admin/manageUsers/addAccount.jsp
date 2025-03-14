@@ -38,10 +38,10 @@
                         <!-- Ảnh đại diện -->
                         <div class="mb-3 text-center">
                             <img id="avatarPreview" class="avatar-preview" src="https://via.placeholder.com/150" alt="Ảnh đại diện">
-                            <label for="avatar" class="form-label d-block">
+                            <button type="button" class="btn btn-primary mt-2" onclick="document.getElementById('avatar').click()">
                                 <i class="fas fa-image"></i> Chọn ảnh đại diện
-                            </label>
-                            <input type="file" class="form-control" id="avatar" name="avatar" accept="image/*">
+                            </button>
+                            <input type="file" class="form-control" id="avatar" name="avatar" accept="image/*" style="display: none;">
                         </div>
 
                         <!-- Tên đăng nhập -->
@@ -115,7 +115,6 @@
                             <button type="submit" class="btn btn-success">
                                 <i class="bi bi-check-circle"></i> Thêm người dùng
                             </button>
-
                             <a href="/manageUsers" class="btn btn-danger">
                                 <i class="bi bi-x-circle"></i> Huỷ
                             </a>

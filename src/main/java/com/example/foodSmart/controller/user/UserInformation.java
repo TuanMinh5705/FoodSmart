@@ -49,8 +49,6 @@ public class UserInformation extends HttpServlet {
             case "showAddAddressForm":
                 showAddAddressForm(req, resp);
                 break;
-
-
         }
     }
 
@@ -97,7 +95,6 @@ public class UserInformation extends HttpServlet {
             action = "";
         }
         switch (action) {
-
             case "editInfoUser":
                 editInfoUser(req, resp);
                 break;

@@ -107,7 +107,7 @@
                                 <td>${status.index + 1}</td>
                                 <td>
                                     <img src="${pageContext.request.contextPath}/images/avatars/${merchant.avt_path}"
-                                         alt="avatar" class="rounded-circle object-fit-contain"
+                                         alt="avatar" class="rounded-circle"
                                          style="width: 50px; height: 50px; object-fit: cover;">
                                 </td>
                                 <td>${merchant.store_name}</td>

@@ -27,6 +27,18 @@
         .action-buttons .btn:last-child {
             margin-right: 0;
         }
+        /* Style cho icon tìm kiếm bên trong input */
+        .input-with-icon {
+            position: relative;
+        }
+        .input-with-icon i {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #0d6efd;
+        }
     </style>
 </head>
 <body>
@@ -63,13 +75,9 @@
     <div class="row mb-3">
         <div class="col-md-6">
             <form action="/manageVouchers?action=searchVouchers" method="post" id="searchForm">
-                <div class="input-group">
+                <div class="input-with-icon">
                     <input type="text" class="form-control" placeholder="Tìm kiếm..." name="keyword" onkeyup="startTimer()">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="submit" title="Tìm kiếm">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
+                    <i class="bi bi-search" title="Tìm kiếm" onclick="document.getElementById('searchForm').submit();"></i>
                 </div>
             </form>
         </div>
@@ -114,7 +122,6 @@
 
     function startTimer() {
         clearTimeout(timer);
-
         timer = setTimeout(function() {
             document.getElementById("searchForm").submit();
         }, 4500);

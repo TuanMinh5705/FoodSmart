@@ -74,6 +74,13 @@
                 transform: translateY(0);
             }
         }
+
+        .custom-search-box {
+            display: block;
+            margin: 0 auto;
+            width: 400px !important;
+        }
+
     </style>
 </head>
 <body>
