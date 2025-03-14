@@ -74,8 +74,8 @@ create table User_Complaint
     feedback     text,
     `status`     boolean default false,
     created_at   timestamp,
-    user_id      int,
-    foreign key (user_id) references `Account` (account_id) on delete cascade
+    order_id int,
+    foreign key (order_id) references `Orders` (order_id) on delete cascade
 );
 -- Bảng trò chuyện 
 create table Conversation

@@ -43,6 +43,8 @@
     }
 
     document.getElementById('cancelDeleteBtn').addEventListener('click', function () {
+        event.preventDefault();
+        event.stopPropagation();
         if (modalInstance) {
             modalInstance.hide();
         }
@@ -54,6 +56,8 @@
     });
 
     document.getElementById('confirmDeleteModal').addEventListener('hidden.bs.modal', function () {
+        event.preventDefault();
+        event.stopPropagation();
         currentDeleteId = null;
         currentDeleteUrl = null;
         currentDeleteAction = null;
