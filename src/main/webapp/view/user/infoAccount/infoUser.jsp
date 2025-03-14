@@ -6,21 +6,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thông tin Tài Khoản</title>
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600&display=swap" rel="stylesheet">
-    <!-- CSS chung -->
     <style>
-        /* Tổng thể */
         body {
             background: #ecf0f1;
             font-family: 'Poppins', sans-serif;
             color: #2c3e50;
         }
-        /* Card hiển thị thông tin tài khoản */
+
         .card {
             border: none;
             border-radius: 15px;
@@ -50,13 +45,7 @@
             font-weight: 600;
             margin-bottom: 5px;
         }
-        .toggle-password-btn {
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-        .toggle-password-btn:hover {
-            color: #2980b9;
-        }
+
         .btn-primary {
             background-color: #2980b9;
             border: none;
@@ -67,7 +56,7 @@
         .btn-primary:hover {
             background-color: #2471a3;
         }
-        /* Hiển thị thông tin theo hàng ngang */
+
         .inline-field {
             display: flex;
             align-items: center;
@@ -78,7 +67,7 @@
             margin-bottom: 0;
         }
         .inline-field span,
-        .inline-field .input-group {
+        .inline-field
             flex-grow: 1;
         }
         .badge-success {
@@ -94,11 +83,10 @@
 <body>
 <div class="container-fluid">
     <div class="row">
-        <!-- Sidebar (include file) -->
         <div class="col-md-3 d-none d-md-block">
             <jsp:include page="sidebarUser.jsp" />
         </div>
-        <!-- Nội dung chính -->
+
         <div class="col-md-9">
             <div class="container my-5">
                 <div class="row justify-content-center">
@@ -121,19 +109,6 @@
                                     <label class="form-label">Tên đăng nhập:</label>
                                     <span>${account.username}</span>
                                 </div>
-                                <!-- Mật khẩu với toggle -->
-                                <div class="inline-field">
-                                    <label class="form-label">Mật khẩu:</label>
-                                    <div class="input-group" style="max-width: 300px;">
-                                        <input type="password" class="form-control" id="passwordInput"
-                                               name="password" value="${account.password}" readonly>
-                                        <div class="input-group-append">
-                        <span class="input-group-text toggle-password-btn" id="togglePassword">
-                          <i class="fas fa-eye"></i>
-                        </span>
-                                        </div>
-                                    </div>
-                                </div>
                                 <!-- Trạng thái tài khoản -->
                                 <div class="form-group mb-4">
                                     <label class="form-label">Trạng thái</label>
@@ -155,14 +130,11 @@
                 </div>
             </div>
         </div>
-        <!-- End Nội dung chính -->
     </div>
 </div>
-<!-- jQuery và Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 <script>
-    // Toggle hiển thị mật khẩu
     document.getElementById("togglePassword").addEventListener("click", function () {
         var passwordInput = document.getElementById("passwordInput");
         var icon = this.querySelector("i");

@@ -55,6 +55,7 @@
                     </div>
                     <!-- Mạng xã hội -->
                     <div class="flex space-x-6 mt-6">
+<<<<<<< HEAD
                         <div class="flex space-x-6 mt-6">
                             <a href="#" class="transition-colors duration-300 hover:text-blue-700">
                                 <i class="fab fa-facebook text-3xl text-blue-600"></i>
@@ -66,6 +67,12 @@
                                 <i class="fab fa-youtube text-3xl text-red-600"></i>
                             </a>
                         </div>
+=======
+                        <i class="fab fa-facebook text-3xl" style="color: #1877F2;"></i>
+                        <i class="fab fa-tiktok text-3xl" style="color: #000000;"></i>
+                        <i class="fab fa-youtube text-3xl" style="color: #FF0000;"></i>
+                        <i class="fab fa-instagram text-3xl" style="color: #E1306C;"></i>
+>>>>>>> c7f1aca7096ea03cb08b2b23494a6f0e07289f12
                     </div>
 
                 </div>

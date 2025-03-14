@@ -114,7 +114,7 @@
         <div class="col-sm-6 col-md-4">
             <div class="dashboard-card bg-blue">
                 <!-- Link stretched-link -->
-                <a href="#" class="stretched-link"></a>
+                <a href="/statistical" class="stretched-link"></a>
                 <div class="card-body text-center">
                     <div class="card-content">
                         <i class="fa fa-chart-line card-icon"></i>
@@ -122,7 +122,7 @@
                     </div>
                     <div>
                         <div class="divider"></div>
-                        <a href="#" class="detail-link">Chi tiết</a>
+                        <a href="/statistical" class="detail-link">Chi tiết</a>
                     </div>
                 </div>
             </div>

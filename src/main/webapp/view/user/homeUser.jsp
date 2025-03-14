@@ -66,6 +66,7 @@
             <jsp:include page="chat.jsp"/>
         </c:when>
 
+
         <c:otherwise>
             <jsp:include page="system/menu.jsp" />
             <!-- Banner -->

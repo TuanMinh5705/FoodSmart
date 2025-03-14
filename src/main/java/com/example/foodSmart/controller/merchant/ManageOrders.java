@@ -102,6 +102,14 @@ public class ManageOrders extends HttpServlet {
                 break;
             case "Hoàn thành":
                 success = orderService.updateStatus("delivery_date", newStatus,true, orderId);
+                int total = 0;
+                List<CartItem> cartItems = order.getCartItems();
+                for (CartItem cartItem : cartItems) {
+                    total += cartItem.getPriceAtTime() * cartItem.getQuantity();
+                }
+                int shippingCost = 25000;
+                int discount = 0;
+                orderService.addInvoices(orderId,total + shippingCost - discount);
                 break;
         }
 
