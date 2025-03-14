@@ -6,21 +6,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thông tin Tài Khoản</title>
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600&display=swap" rel="stylesheet">
+    <!-- CSS chung -->
     <style>
         body {
             background: #ecf0f1;
             font-family: 'Poppins', sans-serif;
             color: #2c3e50;
         }
-
         .card {
-            border: none;
-            border-radius: 15px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-            margin-top: 30px;
             background: #ffffff;
         }
         .card-header {
@@ -37,15 +37,13 @@
         .avatar {
             width: 130px;
             height: 130px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid #2980b9;
+            border-radius: 50% !important;
+            object-fit: contain;
         }
         .form-label {
             font-weight: 600;
             margin-bottom: 5px;
         }
-
         .btn-primary {
             background-color: #2980b9;
             border: none;
@@ -56,7 +54,6 @@
         .btn-primary:hover {
             background-color: #2471a3;
         }
-
         .inline-field {
             display: flex;
             align-items: center;
@@ -67,7 +64,7 @@
             margin-bottom: 0;
         }
         .inline-field span,
-        .inline-field
+        .inline-field .input-group {
             flex-grow: 1;
         }
         .badge-success {
@@ -78,15 +75,21 @@
             background-color: #95a5a6;
             color: #ffffff;
         }
+
+        a {
+            text-decoration: none !important;
+        }
+
     </style>
 </head>
 <body>
 <div class="container-fluid">
     <div class="row">
+        <!-- Sidebar (include file) -->
         <div class="col-md-3 d-none d-md-block">
             <jsp:include page="sidebarUser.jsp" />
         </div>
-
+        <!-- Nội dung chính -->
         <div class="col-md-9">
             <div class="container my-5">
                 <div class="row justify-content-center">
@@ -113,12 +116,14 @@
                                 <div class="form-group mb-4">
                                     <label class="form-label">Trạng thái</label>
                                     <div>
-                                        <c:if test="${account.active}">
-                                            <span class="badge badge-success">Đang hoạt động</span>
-                                        </c:if>
-                                        <c:if test="${!account.active}">
-                                            <span class="badge badge-secondary">Không hoạt động</span>
-                                        </c:if>
+                                        <c:choose>
+                                            <c:when test="${account.active}">
+                                                <span class="badge badge-success">Đang hoạt động</span>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <span class="badge badge-secondary">Không hoạt động</span>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </div>
                                 </div>
                                 <div class="text-center">
@@ -130,24 +135,11 @@
                 </div>
             </div>
         </div>
+        <!-- End Nội dung chính -->
     </div>
 </div>
+<!-- jQuery và Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-<script>
-    document.getElementById("togglePassword").addEventListener("click", function () {
-        var passwordInput = document.getElementById("passwordInput");
-        var icon = this.querySelector("i");
-        if (passwordInput.type === "password") {
-            passwordInput.type = "text";
-            icon.classList.remove("fa-eye");
-            icon.classList.add("fa-eye-slash");
-        } else {
-            passwordInput.type = "password";
-            icon.classList.remove("fa-eye-slash");
-            icon.classList.add("fa-eye");
-        }
-    });
-</script>
 </body>
 </html>

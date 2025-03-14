@@ -3,6 +3,7 @@ package com.example.foodSmart.service.user;
 import com.example.foodSmart.model.AccountDetails;
 import com.example.foodSmart.model.admin.Shipper;
 import com.example.foodSmart.model.user.CartItem;
+import com.example.foodSmart.model.user.Complaint;
 import com.example.foodSmart.model.user.Order;
 import com.example.foodSmart.service.AccountService;
 import com.example.foodSmart.service.IAccountService;
@@ -273,6 +274,61 @@ public class OrderService implements IOrderService {
 
             return result;
         }
+
+    @Override
+    public boolean addComplaints(Complaint complaint) {
+        String sql = "INSERT INTO User_Complaint (content, created_at, order_id) VALUES (?, ?, ?)";
+        try (Connection conn = ConnectDB.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, complaint.getComplaint_content());
+            stmt.setTimestamp(2, new Timestamp(System.currentTimeMillis()));
+            stmt.setInt(3, complaint.getOrder_id());
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean updateComplaints(Complaint complaint) {
+        String sql = "UPDATE User_Complaint SET feedback = ?, status = ? WHERE complaint_id = ?";
+        try (Connection conn = ConnectDB.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, complaint.getFeedback());
+            stmt.setBoolean(2, true);
+            stmt.setInt(3, complaint.getComplaint_id());
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public Complaint getComplaint(int order_id) {
+        String sql = "SELECT * FROM User_Complaint WHERE order_id = ?";
+
+        try (Connection connection = ConnectDB.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, order_id);
+            ResultSet rs = ps.executeQuery();
+            Complaint complaint = new Complaint();
+            if (rs.next()) {
+
+                complaint.complaint_id = rs.getInt("complaint_id");
+                complaint.complaint_content = rs.getString("content");
+                complaint.feedback = rs.getString("feedback");
+                complaint.complaint_status = rs.getBoolean("status");
+                complaint.created_at = rs.getTimestamp("created_at");
+                complaint.order_id = rs.getInt("order_id");
+            }
+            return complaint;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 
     @Override

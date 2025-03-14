@@ -91,17 +91,22 @@
                                     updateProductQuantity(${item.productId}, quantity);
                                 };
 
-                                increaseBtn.addEventListener('click', () => {
+                                increaseBtn.addEventListener('click', (event) => {
+                                    event.preventDefault();
+                                    event.stopPropagation();
                                     quantityInput.value = parseInt(quantityInput.value) + 1;
                                     updateTotal();
                                 });
 
-                                decreaseBtn.addEventListener('click', () => {
+                                decreaseBtn.addEventListener('click', (event) => {
+                                    event.preventDefault();
+                                    event.stopPropagation();
                                     if (parseInt(quantityInput.value) > 1) {
                                         quantityInput.value = parseInt(quantityInput.value) - 1;
                                         updateTotal();
                                     }
                                 });
+
 
                                 quantityInput.addEventListener('input', updateTotal);
                             })();
@@ -133,14 +138,22 @@
                     <span id="shipping">25.000 đ</span>
                 </div>
                 <div class="mb-4 text-sm text-gray-500">(Bao gồm phí giao hàng và phí xử lý đơn hàng)</div>
-                <div class="mb-4">
-                    <label class="block mb-1 text-gray-700">Tôi có mã giảm giá :</label>
+                <div class="mb-3">
+                    <label class="block mb-1 text-sm text-gray-700 font-medium">Mã giảm giá:</label>
                     <div class="flex">
-                        <input class="border border-gray-300 rounded-l px-2 py-1 w-full focus:outline-none"
-                               type="text"/>
-                        <button class="px-4 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded-r">Áp dụng</button>
+                        <input
+                                type="text"
+                                class="border border-gray-300 rounded-l px-2 py-1 text-sm w-40 focus:outline-none focus:ring-1 focus:ring-blue-400"
+                                placeholder="Nhập mã..."
+                        />
+                        <button
+                                class="px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium rounded-r transition duration-200"
+                        >
+                            Áp dụng
+                        </button>
                     </div>
                 </div>
+
                 <div class="mb-2 flex justify-between text-gray-700">
                     <span>Mã giảm giá 1 :</span>
                     <span id="discount1">-5.000 đ</span>

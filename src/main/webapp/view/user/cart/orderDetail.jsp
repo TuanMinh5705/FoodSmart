@@ -138,7 +138,7 @@
             <c:set var="totalOfItems" value="${totalOfItems + itemTotal}" />
         </c:forEach>
         <c:set var="shippingFee" value="25000" scope="page"/>
-        <c:set var="discount" value="0" scope="page"/>
+        <c:set var="discount" value="10000" scope="page"/>
         <c:set var="finalTotal" value="${totalOfItems + shippingFee - discount}" scope="page"/>
 
         <div class="row">
