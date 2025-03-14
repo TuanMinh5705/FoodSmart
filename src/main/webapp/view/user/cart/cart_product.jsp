@@ -168,7 +168,7 @@
                 </div>
 
                 <button type="submit"
-                        class="w-full px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-md font-semibold transition-colors duration-200 shadow-md">
+                        class="w-full px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md font-semibold transition-colors duration-200 shadow-md">
                     Tiến hành đặt hàng
                 </button>
             </div>

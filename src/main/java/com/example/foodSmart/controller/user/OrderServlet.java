@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -52,11 +53,20 @@ public class OrderServlet extends HttpServlet {
             case "showComplaint" :
                 showComplaint(req,resp);
                 break;
+            case "cancelOrder" :
+                cancelOrder(req,resp);
+                break;
 
             default:
                 showOrder(req,resp);
                 break;
         }
+    }
+
+    private void cancelOrder(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        int orderId = Integer.parseInt(req.getParameter("orderId"));
+        orderService.updateStatus("shipping_date", "Đã hủy",false, orderId);
+        showOrder(req,resp);
     }
 
     private void showComplaint(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
