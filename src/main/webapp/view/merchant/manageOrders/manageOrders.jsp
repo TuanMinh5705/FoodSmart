@@ -14,8 +14,6 @@
     <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-
     <style>
         .dataTables_filter {
             display: none;
@@ -40,7 +38,9 @@
             margin: 0;
             padding: 0;
         }
+        /* Cập nhật max-width thành 1200px để bảng rộng hơn */
         .custom-container {
+            max-width: 1200px;
             margin: auto;
             padding: 2rem 1rem;
         }
@@ -60,9 +60,58 @@
             padding: 1.8rem;
             font-size: 2rem;
             font-weight: 700;
+            position: relative;
+        }
+        .card-header::after {
+            display: none;
         }
         .card-body {
             padding: 2rem;
+        }
+        .btn-sm {
+            padding: 0.35rem 0.75rem !important;
+            font-size: 0.85rem !important;
+            border-radius: 25px !important;
+        }
+        /* Đồng bộ button */
+        .btn-custom {
+            border: none !important;
+            border-radius: 50px;
+            padding: 0.75rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+            color: #fff;
+        }
+        .btn-primary, .btn-secondary {
+            background: linear-gradient(90deg, #2a9ffc, #1E88E5);
+        }
+        .btn-primary:hover, .btn-secondary:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(90deg, #1E88E5, #2a9ffc);
+            box-shadow: none;
+        }
+        .btn-upload {
+            background: linear-gradient(90deg, #2ecc71, #2dc26c);
+        }
+        .btn-upload:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(90deg, #2dc26c, #2ecc71);
+            box-shadow: none;
+        }
+        /* Đồng bộ table header */
+        .table thead {
+            background: linear-gradient(90deg, #2a9ffc, #1E88E5);
+            color: #fff;
+        }
+        .table th, .table td {
+            vertical-align: middle;
+            text-align: center;
+        }
+        .custom-search-box {
+            width: 400px !important;
+            display: block;
+            margin: 0 auto;
         }
         @keyframes fadeInUp {
             from {
@@ -74,13 +123,6 @@
                 transform: translateY(0);
             }
         }
-
-        .custom-search-box {
-            display: block;
-            margin: 0 auto;
-            width: 400px !important;
-        }
-
     </style>
 </head>
 <body>
@@ -110,7 +152,7 @@
                     <tbody>
                     <c:forEach var="order" items="${orderList}">
                         <tr data-order-id="${order.orderId}">
-                            <td>${order.orderId}</td>
+                            <td>DH${order.orderId}</td>
                             <td>${order.username}</td>
                             <td><fmt:formatDate value="${order.orderDate}" pattern="dd/MM/yyyy HH:mm:ss" /></td>
                             <td>
@@ -129,9 +171,10 @@
                             <td class="status-text">${order.orderStatus}</td>
                             <td>
                                 <div class="d-flex justify-content-center gap-2">
-                                    <a href="javascript:void(0);" title="Cập nhật trạng thái"
+                                    <!-- Dùng btn-upload cho nút cập nhật -->
+                                    <a href="javascript:void(0);" class="btn btn-custom btn-upload btn-sm" title="Cập nhật trạng thái"
                                        onclick="openUpdateModal('${order.orderId}', '${order.orderStatus}')">
-                                        <i class="fas fa-sync-alt"></i>
+                                        <i class="fas fa-pencil-alt"></i>
                                     </a>
                                     <a href="/manageOrder?action=showOrderDetail&id=${order.orderId}"
                                        class="btn btn-custom btn-secondary btn-sm" title="Chi tiết">
@@ -139,22 +182,23 @@
                                     </a>
                                 </div>
                             </td>
-
                         </tr>
                     </c:forEach>
                     </tbody>
-
                 </table>
             </div>
         </div>
     </div>
 </div>
+
 <!-- Popup Modal cập nhật trạng thái -->
 <div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered"><!-- Thêm class modal-dialog-centered -->
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="statusModalLabel">Cập nhật trạng thái đơn hàng</h5>
+                <h4 class="modal-title" id="statusModalLabel">
+                    <i class="fas fa-pencil-alt me-2"></i>Cập nhật trạng thái đơn hàng
+                </h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
             </div>
             <div class="modal-body">
@@ -172,13 +216,16 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-primary" onclick="submitUpdate()">Cập nhật</button>
+                <button type="button" class="btn btn-custom btn-success btn-sm" onclick="submitUpdate()">
+                    <i class="fas fa-check me-2"></i>Cập nhật
+                </button>
+                <button type="button" class="btn btn-custom btn-danger btn-sm" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-2"></i>Huỷ
+                </button>
             </div>
         </div>
     </div>
 </div>
-
 
 <script>
     $(document).ready(function () {
@@ -218,13 +265,11 @@
             alert("Đơn hàng đã hủy, không thể cập nhật trạng thái!");
             return;
         }
-
         document.getElementById("orderIdInput").value = orderId;
         let statusSelect = document.getElementById("orderStatusSelect");
         for (let option of statusSelect.options) {
             option.disabled = false;
         }
-
         let currentStatusOrder = statusOrder[currentStatus];
         for (let option of statusSelect.options) {
             if (statusOrder[option.value] < currentStatusOrder) {
@@ -272,10 +317,6 @@
             }
         });
     }
-
-
-
-
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
