@@ -52,7 +52,7 @@
       color: #555;
     }
     .form-control {
-      border-radius: 50px;
+      border-radius: 8px;
       border: 1px solid #ddd;
       padding-left: 1rem;
     }
@@ -64,7 +64,7 @@
       background: linear-gradient(90deg, #f67272, #f55d5d);
       color: #fff;
       border: none;
-      border-radius: 50px;
+      border-radius: 8px;
       padding: 0.5rem 1.5rem;
       font-size: 1rem;
       font-weight: 600;
