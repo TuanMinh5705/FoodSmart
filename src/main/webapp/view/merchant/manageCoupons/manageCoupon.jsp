@@ -73,7 +73,7 @@
         /* Các style chung cho button (đồng bộ giao diện) */
         .btn-custom {
             border: none !important;
-            border-radius: 50px;
+            border-radius: 8px;
             padding: 0.75rem 2.5rem;
             font-size: 1.1rem;
             font-weight: 600;
@@ -99,7 +99,7 @@
         }
         .input-with-icon input {
             padding-right: 40px;
-            border-radius: 50px;
+            border-radius: 8px;
             transition: border-color 0.3s, box-shadow 0.3s;
         }
         .input-with-icon input:focus {
