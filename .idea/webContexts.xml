@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebContextManager">
+    <option name="state">
+      <map>
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/view/admin/homeAdmin.jsp" value="file://$PROJECT_DIR$/src/main/webapp/view/admin" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/view/admin/manageUsers.jsp" value="file://$PROJECT_DIR$/src/main/webapp/view/admin" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/view/admin/manageUsers/manageUsers.jsp" value="file://$PROJECT_DIR$/src/main/webapp/view/admin/manageUsers" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/view/authenticate/register.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/view/merchant/editStore.jsp" value="file://$PROJECT_DIR$/src/main/webapp/view/merchant" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/view/merchant/manageFoods/editFood.jsp" value="file://$PROJECT_DIR$/src/main/webapp/view/merchant/manageFoods" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/view/merchant/manageFoods/infoFood.jsp" value="file://$PROJECT_DIR$/src/main/webapp/view/merchant/manageFoods" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/view/merchant/statistical/statistical.jsp" value="file://$PROJECT_DIR$/src/main/webapp/view/merchant/statistical" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/view/user/UserStore/editInfo.jsp" value="file://$PROJECT_DIR$/src/main/webapp/view/user/UserStore" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/view/user/cart/cart_product.jsp" value="file://$PROJECT_DIR$/src/main/webapp/view/user/cart" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/view/user/homeUser.jsp" value="file://$PROJECT_DIR$/src/main/webapp/view/user" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/view/user/product/foodsByCategory.jsp" value="file://$PROJECT_DIR$/src/main/webapp/view/user/product" />
+      </map>
+    </option>
+  </component>
+</project>
