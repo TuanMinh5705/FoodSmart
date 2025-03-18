@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Chi tiết sản phẩm</title>
+    <title>Chi tiết món ăn</title>
     <!-- Google Fonts: Poppins -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Bootstrap CSS -->
@@ -128,7 +128,7 @@
 <div class="container custom-container">
     <div class="detail-card">
         <div class="card-header">
-            <h2>Chi tiết sản phẩm</h2>
+            <h2>Chi tiết món ăn</h2>
         </div>
         <div class="detail-info">
             <label class="form-label">Tên món ăn:</label>

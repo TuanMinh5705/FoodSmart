@@ -136,14 +136,6 @@
                                 <label class="form-label fw-bold">Tên tài khoản:</label>
                                 <h3>${merchant.username}</h3>
                             </div>
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold">Mật khẩu:</label>
-                                <div class="input-with-icon">
-                                    <input id="password" type="password" name="password" class="form-control"
-                                           value="${merchant.password}" readonly>
-                                    <i class="fas fa-eye toggle-password"></i>
-                                </div>
-                            </div>
                         </div>
                         <p class="mt-3"><strong>Trạng thái: </strong>
                             <c:choose>
