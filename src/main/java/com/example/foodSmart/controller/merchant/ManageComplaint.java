@@ -1,6 +1,7 @@
 package com.example.foodSmart.controller.merchant;
 
 import com.example.foodSmart.model.Account;
+import com.example.foodSmart.model.Notification;
 import com.example.foodSmart.model.admin.Merchant;
 import com.example.foodSmart.model.merchant.Food;
 import com.example.foodSmart.model.user.CartItem;
@@ -8,6 +9,7 @@ import com.example.foodSmart.model.user.Complaint;
 import com.example.foodSmart.model.user.Order;
 import com.example.foodSmart.service.AccountService;
 import com.example.foodSmart.service.IAccountService;
+import com.example.foodSmart.service.NotificationDAO;
 import com.example.foodSmart.service.admin.IMerchantService;
 import com.example.foodSmart.service.admin.MerchantService;
 import com.example.foodSmart.service.merchant.FoodService;
@@ -30,6 +32,8 @@ public class ManageComplaint extends HttpServlet {
     IMerchantService merchantService = new MerchantService();
     IAccountService accountService = new AccountService();
     IFoodService foodService = new FoodService();
+
+    NotificationDAO notificationDAO = new NotificationDAO();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
@@ -105,6 +109,9 @@ public class ManageComplaint extends HttpServlet {
             case "feedback" :
                 String feedback = req.getParameter("feedback");
                 int orderId = Integer.parseInt(req.getParameter("orderId"));
+                Order order = orderService.getOrder(orderId);
+                Account account1 = accountService.getAccount(order.getUserId());
+                notificationDAO.insertNotification(new Notification("Trả lời khiếu nại", "feedbackComplaint", account1));
                 orderService.updateComplaints(orderId,feedback);
                 break;
         }
