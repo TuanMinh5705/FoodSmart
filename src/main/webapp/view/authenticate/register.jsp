@@ -4,15 +4,19 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng kí</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
-
-        #suggestions {
-            max-height: 200px;
-            overflow-y: auto;
+        .avatar-preview {
+            display: block;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 15px;
+            border: 3px solid #007bff;
         }
     </style>
 </head>
@@ -20,24 +24,19 @@
 <div class="container my-5">
     <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">
-
             <div class="card shadow">
                 <div class="card-header bg-primary text-white">
-                    <h3 class="mb-0">Đăng kí</h3>
+                    <h2 class="mb-0 text-center">Đăng kí</h2>
                 </div>
                 <div class="card-body">
-                    <form action="/authenticate?action=register" method="POST" enctype="multipart/form-data">
-
-                        <div class="form-group">
+                    <form id="registerForm" action="/authenticate?action=register" method="POST" enctype="multipart/form-data">
+                        <!-- Ảnh đại diện -->
+                        <div class="form-group text-center">
+                            <img id="avatarPreview" class="avatar-preview" src="${pageContext.request.contextPath}/images/avatars/avt_default.jpg" alt="Ảnh đại diện">
                             <label for="avt_path">Ảnh đại diện:</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-image"></i></span>
-                                </div>
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="avt_path" name="avt_path" accept="image/*">
-                                    <label class="custom-file-label" for="avt_path">Chọn ảnh</label>
-                                </div>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="avt_path" name="avt_path" accept="image/*">
+                                <label class="custom-file-label" for="avt_path">Chọn ảnh</label>
                             </div>
                         </div>
 
@@ -54,154 +53,118 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="password">Mật khẩu:</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                        <!-- Mật khẩu -->
+                        <div id="passwordFields">
+                            <div class="form-group">
+                                <label for="password">Mật khẩu:</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                    </div>
+                                    <input id="password" type="password" name="password" class="form-control"
+                                           pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$" placeholder="Nhập mật khẩu..."
+                                           title="Mật khẩu phải có 6-12 ký tự, chứa ít nhất một chữ cái và một số" required>
                                 </div>
-                                <input id="password" type="password" name="password" class="form-control"
-                                       pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$" placeholder="Nhập mật khẩu..."
-                                       title="Mật khẩu phải có 6-12 ký tự, chứa ít nhất một chữ cái và một số"
-                                       required>
-                                <div class="input-group-append">
-                  <span class="input-group-text toggle-password">
-                    <i class="fas fa-eye"></i>
-                  </span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="re_password">Nhập lại mật khẩu:</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                    </div>
+                                    <input id="re_password" type="password" name="re_password" class="form-control"
+                                           placeholder="Nhập lại mật khẩu..." required>
                                 </div>
                             </div>
                         </div>
 
+                        <!-- Số điện thoại -->
                         <div class="form-group">
-                            <label for="re_password">Nhập lại mật khẩu:</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                                </div>
-                                <input id="re_password" type="password" name="re_password" class="form-control"
-                                       placeholder="Nhập lại mật khẩu..." required>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="phone">Số điện thoại:</label>
+                            <label for="phone">Số điện thoại (tùy chọn):</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                 </div>
-                                <input id="phone" type="tel" name="phonenumber" class="form-control" placeholder="Nhập số điện thoại..."
-                                       pattern="[0-9]{10,11}" title="Số điện thoại phải có 10 hoặc 11 chữ số" required>
+                                <input id="phone" type="tel" name="phonenumber" class="form-control"
+                                       placeholder="Nhập số điện thoại..." pattern="[0-9]{10,11}"
+                                       title="Số điện thoại phải có 10 hoặc 11 chữ số">
                             </div>
                         </div>
 
+                        <!-- Địa chỉ -->
                         <div class="form-group">
-                            <label for="address">Địa chỉ:</label>
-                            <div class="dropdown">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                                    </div>
-                                    <textarea id="address" name="address" class="form-control" placeholder="Nhập địa chỉ..." required></textarea>
+                            <label for="address">Địa chỉ (tùy chọn):</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-home"></i></span>
                                 </div>
-                                <div id="suggestions" class="dropdown-menu w-100"></div>
+                                <textarea id="address" name="address" class="form-control" placeholder="Nhập địa chỉ..."></textarea>
                             </div>
                         </div>
-                        <c:if test="${not empty error}">
-                            <div class="alert alert-danger" role="alert">${error}</div>
-                        </c:if>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary btn-block">Đăng kí</button>
-                        </div>
+
+                        <!-- Nút đăng ký -->
+                        <button type="submit" class="btn btn-primary btn-block">Đăng kí</button>
                     </form>
-                    <div class="text-center">
+
+                    <div class="text-center mt-3">
                         <p>Bạn đã có tài khoản? <a href="/authenticate?action=loginForm">Đăng nhập</a></p>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
 
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
-
 <script>
-
-    $('.custom-file-input').on('change', function() {
-        var fileName = $(this).val().split('\\').pop();
-        $(this).siblings('.custom-file-label').addClass("selected").html(fileName);
+    // Xử lý preview ảnh đại diện
+    document.getElementById("avt_path").addEventListener("change", function (event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById("avatarPreview").src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
     });
 
-
-    const password = document.getElementById('password');
-    const rePassword = document.getElementById('re_password');
-    function validatePassword() {
-        if (password.value !== rePassword.value) {
-            rePassword.setCustomValidity("Mật khẩu nhập lại không khớp");
-        } else {
-            rePassword.setCustomValidity("");
-        }
-    }
-    rePassword.addEventListener('input', validatePassword);
-    password.addEventListener('input', validatePassword);
-
-    const addressInput = document.getElementById('address');
-    const suggestionsContainer = document.getElementById('suggestions');
-    let debounceTimeout = null;
-    addressInput.addEventListener('input', function () {
-        const query = this.value.trim();
-        if (query.length < 3) {
-            suggestionsContainer.innerHTML = "";
-            suggestionsContainer.classList.remove('show');
-            return;
-        }
-        if (debounceTimeout) clearTimeout(debounceTimeout);
-        debounceTimeout = setTimeout(() => {
-            fetch(`https://nominatim.openstreetmap.org/search?q=\${encodeURIComponent(query)}&format=json&addressdetails=1`)
+    // Kiểm tra username bằng AJAX khi blur
+    document.getElementById("username").addEventListener("blur", function() {
+        const username = this.value;
+        if (username.length >= 3) {
+            fetch('/authenticate?action=checkUsername&username=' + encodeURIComponent(username))
                 .then(response => response.json())
                 .then(data => {
-                    suggestionsContainer.innerHTML = "";
-                    if (data.length > 0) {
-                        data.forEach(item => {
-                            const a = document.createElement("a");
-                            a.classList.add("dropdown-item");
-                            a.href = "#";
-                            a.textContent = item.display_name;
-                            a.addEventListener("click", (e) => {
-                                e.preventDefault();
-                                addressInput.value = item.display_name;
-                                suggestionsContainer.innerHTML = "";
-                                suggestionsContainer.classList.remove('show');
-                            });
-                            suggestionsContainer.appendChild(a);
+                    const usernameInput = document.getElementById("username");
+                    if (data.exists) {
+                        Swal.fire({
+                            toast: true,
+                            position: 'top-end',
+                            icon: 'error',
+                            title: 'Tên đăng nhập đã tồn tại.',
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
                         });
-                        suggestionsContainer.classList.add('show');
+                        document.getElementById("passwordFields").style.display = 'none';
+                        usernameInput.classList.add("is-invalid");
+                        usernameInput.focus();
                     } else {
-                        suggestionsContainer.classList.remove('show');
+                        document.getElementById("passwordFields").style.display = 'block';
+                        usernameInput.classList.remove("is-invalid");
                     }
                 })
-                .catch(error => console.error("Lỗi khi gọi Nominatim API:", error));
-        }, 300);
-    });
-    document.addEventListener('click', function (e) {
-        if (e.target !== addressInput && !suggestionsContainer.contains(e.target)) {
-            suggestionsContainer.innerHTML = "";
-            suggestionsContainer.classList.remove('show');
-        }
-    });
-
-    $(document).on('click', '.toggle-password', function() {
-        var input = $('#password');
-        if (input.attr('type') === 'password') {
-            input.attr('type', 'text');
-            $(this).find('i').removeClass('fa-eye').addClass('fa-eye-slash');
-        } else {
-            input.attr('type', 'password');
-            $(this).find('i').removeClass('fa-eye-slash').addClass('fa-eye');
+                .catch(error => console.error("Lỗi fetch:", error));
         }
     });
 </script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

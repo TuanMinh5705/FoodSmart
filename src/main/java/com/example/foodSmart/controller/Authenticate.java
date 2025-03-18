@@ -2,13 +2,17 @@ package com.example.foodSmart.controller;
 
 import com.example.foodSmart.model.Account;
 import com.example.foodSmart.model.AccountDetails;
+import com.example.foodSmart.model.admin.Merchant;
 import com.example.foodSmart.service.AccountService;
 import com.example.foodSmart.service.IAccountService;
+import com.example.foodSmart.service.admin.IMerchantService;
+import com.example.foodSmart.service.admin.MerchantService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
+import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 
@@ -16,6 +20,7 @@ import java.util.Random;
 @MultipartConfig
 public class Authenticate extends HttpServlet {
     IAccountService accountService = new AccountService();
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
@@ -27,13 +32,16 @@ public class Authenticate extends HttpServlet {
         }
         switch (action) {
             case "login":
-                login(req,resp);
+                login(req, resp);
                 break;
             case "register":
                 register(req, resp);
                 break;
             case "resetPassword":
                 resetPassword(req, resp);
+                break;
+            case "registerStore" :
+                registerStore(req, resp);
                 break;
         }
     }
@@ -50,64 +58,108 @@ public class Authenticate extends HttpServlet {
             case "forgetPasswordForm":
                 String captcha = generateCaptcha();
                 req.getSession().setAttribute("captcha", captcha);
-                req.setAttribute("captchaText", captcha);
                 req.getRequestDispatcher("view/authenticate/forgetPassword.jsp").forward(req, resp);
                 break;
-                case "registerForm":
-                    resp.sendRedirect("view/authenticate/register.jsp");
-                    break;
+            case "registerForm":
+                resp.sendRedirect("view/authenticate/register.jsp");
+                break;
             case "loginForm":
                 resp.sendRedirect("view/authenticate/login.jsp");
                 break;
-            case "logout" :
+            case "logout":
                 HttpSession session = req.getSession(false);
                 if (session != null) {
                     session.removeAttribute("loggedInAccount");
                 }
                 resp.sendRedirect("view/authenticate/login.jsp");
                 break;
+            case "showFormRegisterStore" :
+                resp.sendRedirect("/view/authenticate/registerStore.jsp");
+                break;
+            case "checkUsername":
+                checkUsername(req, resp);
+                break;
+
         }
     }
+   // Đăng kí cửa hàng
+    private void registerStore(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String storeName = req.getParameter("store_name");
+        String storeAddress = req.getParameter("store_address");
+        String contactNumber = req.getParameter("contact_number");
+        int merchantId = Integer.parseInt(req.getParameter("merchant_id"));
 
-    // Đăng nhập vào hệ thống
+        Part fileBannerPart = req.getPart("banner_path");
+        Part fileAvatarPart = req.getPart("avt_path");
+
+        String banner_path = fileBannerPart.getSubmittedFileName().toString();
+        String avt_path = fileAvatarPart.getSubmittedFileName().toString();
+        String uploadPath = System.getenv("uploadPath")  + File.separator + "avatars";
+        File uploadDir = new File(uploadPath);
+        if (!uploadDir.exists()) {
+            uploadDir.mkdirs();
+        }
+        File uploadBanner = new File(uploadPath,banner_path);
+        File uploadAvatar = new File(uploadPath,avt_path);
+        if (!uploadAvatar.exists()) {
+            fileAvatarPart.write(uploadPath + File.separator + avt_path);
+        }
+        if(!uploadBanner.exists()) {
+            fileBannerPart.write(uploadPath + File.separator + banner_path);
+        }
+
+        Merchant merchant = new Merchant("test",merchantId,storeName,storeAddress,contactNumber,banner_path,avt_path,true);
+        IMerchantService merchantService = new MerchantService();
+        merchantService.addMerchant(merchant);
+        req.getSession().setAttribute("success", "Đăng ký thành công . Chờ xác nhận!");
+        resp.sendRedirect("/view/user/homeUser.jsp");
+    }
+    private void checkUsername(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String username = req.getParameter("username");
+        boolean isExist = accountService.checkUsername(username);
+
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        resp.getWriter().write("{\"exists\": " + isExist + "}");
+    }
     public void login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
 
-        Account account = accountService.authenticateLogin(username, password);
+        Account account = accountService.authenticateLogin(username);
 
-        if (account != null) {
+        if (account != null && account.getPassword().equals(password)) {
             HttpSession session = req.getSession();
             session.setAttribute("loggedInAccount", account);
 
             if (!account.isActive()) {
-                req.setAttribute("error", "Tài khoản đã bị khóa");
-                req.getRequestDispatcher("view/authenticate/login.jsp").forward(req, resp);
+                session.setAttribute("error", "Tài khoản đã bị khóa");
+                resp.sendRedirect("/authenticate?action=loginForm");
                 return;
             }
+
             String role = account.getRole();
             switch (role) {
                 case "Admin":
-                    req.getRequestDispatcher("view/admin/homeAdmin.jsp").forward(req, resp);
+                    resp.sendRedirect("view/admin/homeAdmin.jsp");
                     break;
                 case "User":
-                    req.getRequestDispatcher("view/user/homeUser.jsp").forward(req, resp);
+                    resp.sendRedirect("/homeUser");
                     break;
                 case "Merchant":
-                    req.getRequestDispatcher("view/merchant/homeMerchant.jsp").forward(req, resp);
+                    resp.sendRedirect("view/merchant/homeMerchant.jsp");
                     break;
                 default:
-                    req.setAttribute("error", "Vai trò không xác định");
-                    req.getRequestDispatcher("view/authenticate/login.jsp").forward(req, resp);
+                    session.setAttribute("error", "Vai trò không xác định");
+                    resp.sendRedirect("/authenticate?action=loginForm");
                     break;
             }
         } else {
-            req.setAttribute("error", "Username hoặc password không đúng");
-            req.getRequestDispatcher("view/authenticate/login.jsp").forward(req, resp);
+            req.getSession().setAttribute("error", "Username hoặc password không đúng");
+            resp.sendRedirect("/authenticate?action=loginForm");
         }
     }
-
-    // Đăng kí tài khoản
+    // Đăng ký tài khoản
     private void register(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Part filePart = req.getPart("avt_path");
         String avatarPath = filePart.getSubmittedFileName();
@@ -115,37 +167,37 @@ public class Authenticate extends HttpServlet {
         String password = req.getParameter("password");
         String phonenumber = req.getParameter("phonenumber");
         String address = req.getParameter("address");
+
         if (!accountService.checkUsername(username)) {
             AccountDetails accountDetails = new AccountDetails(address, phonenumber);
-            Account account = new Account(username, password, avatarPath,"User");
+            Account account = new Account(username, password, avatarPath, "User");
             accountService.authenticateRegister(account, accountDetails);
-            req.setAttribute("success", "Đăng kí thành công . Vui lòng đăng nhập lại");
-            req.getRequestDispatcher("view/authenticate/login.jsp").forward(req, resp);
+            req.getSession().setAttribute("success", "Đăng kí thành công !");
+            resp.sendRedirect("/authenticate?action=loginForm");
         } else {
-            req.setAttribute("error", "Tài khỏan đã tồn tại");
-            req.getRequestDispatcher("view/authenticate/register.jsp").forward(req, resp);
+            req.getSession().setAttribute("error", "Tài khoản đã tồn tại");
+            resp.sendRedirect("/authenticate?action=registerForm");
         }
     }
-
     // Quên mật khẩu
     private void resetPassword(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String userCaptcha = req.getParameter("captchaInput");
         String username = req.getParameter("username");
         HttpSession session = req.getSession();
         String sessionCaptcha = (String) session.getAttribute("captcha");
+
         if (accountService.checkUsername(username)) {
             if (sessionCaptcha == null || !sessionCaptcha.equals(userCaptcha)) {
-                req.setAttribute("error", "Mã xác minh không đúng , vui lòng thử lại.");
-                req.getRequestDispatcher("/view/authenticate/forgetPassword.jsp").forward(req, resp);
+                session.setAttribute("error", "Mã xác minh không đúng, vui lòng thử lại.");
+                resp.sendRedirect("/authenticate?action=forgetPasswordForm");
             } else {
                 String newPassword = req.getParameter("newPassword");
                 accountService.resetPassword(newPassword, username);
-                req.setAttribute("success", "Cập nhật mật khẩu thành công . Vui lòng đăng nhập lại!!!");
-                req.getRequestDispatcher("/view/authenticate/login.jsp").forward(req, resp);
+                session.setAttribute("success", "Cập nhật mật khẩu thành công. Vui lòng đăng nhập lại!!!");
+                resp.sendRedirect("/authenticate?action=loginForm");
             }
         }
     }
-
     private String generateCaptcha() {
         int length = 6;
         String chars = "ABCDEFGHJKLMabcdefghjklm0123456789";
@@ -159,4 +211,3 @@ public class Authenticate extends HttpServlet {
         return captcha.toString();
     }
 }
-

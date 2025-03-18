@@ -11,15 +11,15 @@
     <meta charset="UTF-8">
     <title>Thêm người dùng</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- FontAwesome CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         .avatar-preview {
             width: 150px;
             height: 150px;
-            object-fit: cover;
+            object-fit: contain;
             border-radius: 50%;
             border: 1px solid #ddd;
             display: block;
@@ -28,20 +28,20 @@
     </style>
 </head>
 <body>
+<h2 class="mb-4 text-center"><i class="bi bi-plus-circle-fill"></i> Thêm người dùng</h2>
 <div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <h2 class="mb-4 text-center">Thêm người dùng</h2>
             <div class="card shadow">
                 <div class="card-body">
                     <form action="/manageUsers?action=addUser" method="post" enctype="multipart/form-data">
                         <!-- Ảnh đại diện -->
                         <div class="mb-3 text-center">
                             <img id="avatarPreview" class="avatar-preview" src="https://via.placeholder.com/150" alt="Ảnh đại diện">
-                            <label for="avatar" class="form-label d-block">
+                            <button type="button" class="btn btn-primary mt-2" onclick="document.getElementById('avatar').click()">
                                 <i class="fas fa-image"></i> Chọn ảnh đại diện
-                            </label>
-                            <input type="file" class="form-control" id="avatar" name="avatar" accept="image/*">
+                            </button>
+                            <input type="file" class="form-control" id="avatar" name="avatar" accept="image/*" style="display: none;">
                         </div>
 
                         <!-- Tên đăng nhập -->
@@ -111,20 +111,20 @@
                         </div>
 
                         <!-- Nút submit -->
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-plus"></i> Thêm người dùng
+                        <div class="d-flex justify-content-center gap-2">
+                            <button type="submit" class="btn btn-success">
+                                <i class="bi bi-check-circle"></i> Thêm người dùng
                             </button>
+                            <a href="/manageUsers" class="btn btn-danger">
+                                <i class="bi bi-x-circle"></i> Huỷ
+                            </a>
                         </div>
                     </form>
-                </div> <!-- End card-body -->
-            </div> <!-- End card -->
-        </div> <!-- End col-md-8 -->
-    </div> <!-- End row -->
-</div> <!-- End container -->
-
-<!-- Bootstrap 5 JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     // Hiển thị ảnh đại diện khi chọn file
     document.getElementById("avatar").addEventListener("change", function(event) {

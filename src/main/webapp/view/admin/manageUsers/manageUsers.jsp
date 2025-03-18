@@ -6,63 +6,86 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản lý người dùng</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
-
-        /* Tùy chỉnh tiêu đề bảng */
         .table thead th {
             background-color: #343a40;
             color: #fff;
             text-align: center;
             vertical-align: middle;
         }
-
-        /* Căn giữa nội dung cột */
         .table td,
         .table th {
             text-align: center;
             vertical-align: middle;
         }
-
-        /* Giữ ảnh ở kích thước cố định, cắt nếu cần */
         .table img.rounded-circle {
             width: 80px;
             height: 80px;
-            object-fit: cover;
+            object-fit: contain;
         }
-
-        /* Khoảng cách giữa các nút hành động */
         .action-buttons .btn {
             margin-right: 0.5rem;
         }
         .action-buttons .btn:last-child {
             margin-right: 0;
         }
+        /* Để input không bị che bởi icon tìm kiếm */
+        .input-with-icon input {
+            padding-right: 40px;
+        }
+        .input-with-icon .search-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #0d6efd;
+        }
     </style>
 </head>
 <body>
 <div class="container my-4">
-    <h2 class="text-center mb-4">Quản lý người dùng</h2>
+    <c:if test="${not empty success}">
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 2000,
+                width: '300px'
+            });
+        </script>
+        <% session.removeAttribute("success"); %>
+    </c:if>
+    <c:if test="${not empty error}">
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: '${error}',
+                showConfirmButton: false,
+                timer: 2000,
+                width: '300px'
+            });
+        </script>
+        <% session.removeAttribute("error"); %>
+    </c:if>
 
-    <!-- Thanh công cụ: Nút Thêm, Tìm kiếm và Bộ lọc -->
-
+    <h2 class="text-center mb-4 font-weight-bold">Quản lý người dùng</h2>
     <div class="row mb-3 align-items-center">
-        <div class="col-md-3">
-            <a href="/manageUsers?action=showAddAccountForm" class="btn btn-success w-100">
-                <i class="fas fa-user-plus"></i> Thêm người dùng mới
-            </a>
-        </div>
-
         <div class="col-md-6">
             <form action="/manageUsers?action=searchWithName" id="searchForm" method="post">
-                <div class="input-group" style="display: flex; align-items: center;">
-                    <input type="text" class="form-control" placeholder="Nhập từ khóa tìm kiếm" id="searchInput" name="keyword" oninput="startTimer()"
-                           style="height: 40px; border-top-right-radius: 0; border-bottom-right-radius: 0;">
-                    <button class="btn btn-primary" type="submit" id="searchBtn"
-                            style="height: 40px; border-top-left-radius: 0; border-bottom-left-radius: 0;">
-                        <i class="fas fa-search"></i>
-                    </button>
+                <div class="position-relative input-with-icon">
+                    <input type="text" class="form-control" placeholder="Nhập từ khóa tìm kiếm" id="searchInput"
+                           name="keyword" oninput="startTimer()" style="height: 40px;">
+                    <i class="bi bi-search search-icon" onclick="document.getElementById('searchForm').submit()"></i>
                 </div>
             </form>
         </div>
@@ -78,19 +101,17 @@
                 </select>
             </div>
         </div>
-
     </div>
 
-    <!-- Bảng danh sách người dùng -->
     <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover">
             <thead>
             <tr>
-                <th>#</th>
+                <th>STT</th>
                 <th>Ảnh đại diện</th>
                 <th>Tên đăng nhập</th>
-                <th>Mật khẩu</th>
                 <th>Vai trò</th>
+                <th>Trạng thái</th>
                 <th>Hành động</th>
             </tr>
             </thead>
@@ -99,12 +120,22 @@
                 <tr data-role="${account.role}">
                     <td>${status.index + 1}</td>
                     <td>
-                        <img src="/images/avatars/${account.avtPath}"
+                        <img src="${pageContext.request.contextPath}/images/avatars/${account.avtPath}"
                              alt="Avatar"
                              class="rounded-circle">
                     </td>
                     <td>
                             ${account.username}
+                    </td>
+                    <td>
+                        <c:choose>
+                            <c:when test="${account.role eq 'Admin'}">Quản trị viên</c:when>
+                            <c:when test="${account.role eq 'Merchant'}">Chủ cửa hàng</c:when>
+                            <c:when test="${account.role eq 'User'}">Người dùng</c:when>
+                            <c:otherwise>Chưa xác định</c:otherwise>
+                        </c:choose>
+                    </td>
+                    <td>
                         <c:choose>
                             <c:when test="${account.active}">
                                 <i class="fas fa-check-circle" style="color: green;" title="Đang hoạt động"></i>
@@ -114,44 +145,29 @@
                             </c:otherwise>
                         </c:choose>
                     </td>
-
-                    <td>*******</td>
-                    <td>
-                        <c:choose>
-                            <c:when test="${account.role eq 'Admin'}">Quản trị viên</c:when>
-                            <c:when test="${account.role eq 'Merchant'}">Chủ cửa hàng</c:when>
-                            <c:when test="${account.role eq 'User'}">Người dùng</c:when>
-                            <c:otherwise>Chưa xác định</c:otherwise>
-                        </c:choose>
-                    </td>
-
                     <td>
                         <div class="action-buttons d-inline-flex">
-                            <a href="/manageUsers?action=showInfoForm&accountID=${account.accountID}" class="btn btn-secondary btn-sm" title="Chi tiết">
-                                <i class="fas fa-eye"></i>
-                            </a>
                             <a href="/manageUsers?action=editForm&accountID=${account.accountID}"
-                               class="btn btn-primary btn-sm" title="Chỉnh sửa">
-                                <i class="fas fa-pencil-alt"></i>
+                               class="btn btn-warning btn-sm" title="Chỉnh sửa">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a href="/manageUsers?action=showInfoForm&accountID=${account.accountID}"
+                               class="btn btn-info btn-sm" title="Chi tiết">
+                                <i class="bi bi-info-circle"></i>
                             </a>
                         </div>
                     </td>
                 </tr>
             </c:forEach>
             </tbody>
-
         </table>
     </div>
-
 </div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 <script>
     document.getElementById("roleFilter").addEventListener("change", function () {
         let selectedRole = this.value;
         let rows = document.querySelectorAll("tbody tr");
-
         rows.forEach(row => {
             let role = row.getAttribute("data-role");
             if (selectedRole === "all" || role === selectedRole) {
@@ -163,13 +179,11 @@
     });
 
     let timer;
-
     function startTimer() {
         clearTimeout(timer);
-
-        timer = setTimeout(function() {
+        timer = setTimeout(function () {
             document.getElementById("searchForm").submit();
-        }, 4500);
+        }, 2500);
     }
 </script>
 </body>

@@ -4,10 +4,12 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản lý mã giảm giá</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         .table thead th {
             background-color: #343a40;
@@ -25,37 +27,66 @@
         .action-buttons .btn:last-child {
             margin-right: 0;
         }
+        /* Style cho icon tìm kiếm bên trong input */
+        .input-with-icon {
+            position: relative;
+        }
+        .input-with-icon i {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #0d6efd;
+        }
     </style>
 </head>
 <body>
+<c:if test="${not empty success}">
+    <script>
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: '${success}',
+            showConfirmButton: false,
+            timer: 2000,
+            width: '300px'
+        });
+    </script>
+    <% session.removeAttribute("success"); %>
+</c:if>
+<c:if test="${not empty error}">
+    <script>
+        Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: '${error}',
+            showConfirmButton: false,
+            timer: 2000,
+            width: '300px'
+        });
+    </script>
+    <% session.removeAttribute("error"); %>
+</c:if>
+
 <div class="container my-4">
-    <h2 class="text-center mb-4">Quản lý mã giảm giá</h2>
+    <h2 class="text-center mb-4 font-weight-bold">Quản lý mã giảm giá</h2>
 
     <div class="row mb-3">
-        <div class="col-md-3">
-            <a href="/manageVouchers?action=addVoucherForm" class="btn btn-success w-100">
-                <i class="fas fa-plus"></i> Thêm mã giảm giá
-            </a>
-        </div>
         <div class="col-md-6">
             <form action="/manageVouchers?action=searchVouchers" method="post" id="searchForm">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Tìm kiếm mã giảm giá" name="keyword" onkeyup="startTimer()">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="submit">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
+                <div class="input-with-icon">
+                    <input type="text" class="form-control" placeholder="Tìm kiếm..." name="keyword" onkeyup="startTimer()">
+                    <i class="bi bi-search" title="Tìm kiếm" onclick="document.getElementById('searchForm').submit();"></i>
                 </div>
             </form>
         </div>
     </div>
-
     <div class="table-responsive">
-        <table class="table table-bordered table-striped table-hover" id="voucherTable">
-            <thead>
+        <table class="table table-hover table-bordered table-striped text-center align-middle">
+            <thead class="table-dark">
             <tr>
-                <th>#</th>
+                <th>STT</th>
                 <th>Mã giảm giá</th>
                 <th>Giá trị (%)</th>
                 <th>Số lượng</th>
@@ -71,11 +102,11 @@
                     <td>${voucher.quantity}</td>
                     <td>
                         <div class="action-buttons d-inline-flex">
-                            <a href="/manageVouchers?action=editVoucherForm&voucherID=${voucher.voucher_id}" class="btn btn-primary btn-sm" title="Chỉnh sửa">
-                                <i class="fas fa-pencil-alt"></i>
+                            <a href="/manageVouchers?action=editVoucherForm&voucherID=${voucher.voucher_id}" class="btn btn-warning btn-sm" title="Chỉnh sửa">
+                                <i class="bi bi-pencil-square"></i>
                             </a>
-                            <a href="/manageVouchers?action=infoVoucherForm&voucherID=${voucher.voucher_id}" class="btn btn-secondary btn-sm" title="Chi tiết">
-                                <i class="fas fa-eye"></i>
+                            <a href="/manageVouchers?action=infoVoucherForm&voucherID=${voucher.voucher_id}" class="btn btn-info btn-sm" title="Chi tiết">
+                                <i class="bi bi-info-circle"></i>
                             </a>
                         </div>
                     </td>
@@ -86,19 +117,15 @@
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 <script>
     let timer;
 
     function startTimer() {
         clearTimeout(timer);
-
         timer = setTimeout(function() {
             document.getElementById("searchForm").submit();
         }, 4500);
     }
 </script>
-
 </body>
 </html>

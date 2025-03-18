@@ -1,5 +1,6 @@
 package com.example.foodSmart.model;
 
+import com.example.foodSmart.model.merchant.Food;
 import java.util.List;
 
 public class Account {
@@ -10,6 +11,9 @@ public class Account {
     private String role;
     private boolean active;
     private List<AccountDetails> accountDetails;
+
+    // Thêm trường favoriteFoods để lưu danh sách món ăn yêu thích
+    private List<Food> favoriteFoods;
 
     public Account() {
     }
@@ -24,7 +28,7 @@ public class Account {
         this.accountDetails = accountDetails;
     }
 
-    public Account(String username, String password, String avtPath,String role) {
+    public Account(String username, String password, String avtPath, String role) {
         this.username = username;
         this.password = password;
         this.avtPath = avtPath;
@@ -96,16 +100,26 @@ public class Account {
         this.username = username;
     }
 
+    // Getter và Setter cho favoriteFoods
+    public List<Food> getFavoriteFoods() {
+        return favoriteFoods;
+    }
+
+    public void setFavoriteFoods(List<Food> favoriteFoods) {
+        this.favoriteFoods = favoriteFoods;
+    }
+
     @Override
     public String toString() {
         return "Account{" +
-                "accountDetails=" + accountDetails +
-                ", accountID=" + accountID +
+                "accountID=" + accountID +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", avtPath='" + avtPath + '\'' +
                 ", role='" + role + '\'' +
                 ", active=" + active +
+                ", accountDetails=" + accountDetails +
+                ", favoriteFoods=" + favoriteFoods +
                 '}';
     }
 }
