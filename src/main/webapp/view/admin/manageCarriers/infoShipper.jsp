@@ -11,7 +11,7 @@
 <body class="bg-light">
 <div class="container mt-5">
     <h2 class="text-center mb-4">
-        <i class="fas fa-info-circle"></i> Chi tiết nhân viên vận chuyển
+        <i class="fas fa-info-circle"></i> Chi tiết
     </h2>
     <div class="card shadow p-4">
         <table class="table table-bordered">
