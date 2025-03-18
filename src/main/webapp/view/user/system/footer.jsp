@@ -75,7 +75,7 @@
             </div>
         </div>
         <!-- Phần bản quyền -->
-        <div class="text-center mt-4 pt-2 bg-blue-500">
+        <div class="text-center mt-4 pt-2 bg-gray-500">
             <p class="text-xl text-white">Bản quyền &copy; 2025 SmartFood</p>
         </div>
     </div>

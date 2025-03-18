@@ -145,7 +145,6 @@
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                     <a class="dropdown-item" href="#">Thông tin tài khoản</a>
                     <div class="dropdown-divider"></div>
-                    <!-- Mở modal xác nhận -->
                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Đăng xuất</a>
                 </div>
             </li>

@@ -122,7 +122,7 @@
         <li class="nav-item">
             <a class="nav-link" href="#"><i class="bi bi-truck"></i> Đối tác vận chuyển</a>
             <ul class="submenu">
-                <li><a class="nav-link" href="/manageCarriers?action=addCarrierForm"> Thêm đối tác vận chuyển<i class="fas fa-chevron-down float-right"></i></a></li>
+                <li><a class="nav-link" href="/manageCarriers?action=addCarrierForm"> Thêm đối tác vận chuyển</a></li>
                 <li><a class="nav-link" href="/manageCarriers"> Danh sách đối tác vận chuyển</a></li>
             </ul>
         </li>

@@ -96,6 +96,14 @@ create table Conversation_Account
     foreign key (receiver_id) references `Account` (account_id) on delete cascade,
     foreign key (conversation_id) references Conversation (conversation_id) on delete cascade
 );
+-- Bảng đăng ký cửa hàng 
+create table Register_Store (
+ register_id int primary key auto_increment,
+ user_id int,
+ documents text,
+ contract text,
+  foreign key (user_id) references `Account` (account_id) on delete cascade
+);
 -- Bảng cửa hàng 
 create table Stores
 (

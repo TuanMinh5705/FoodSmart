@@ -14,8 +14,23 @@
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Thêm FontAwesome để sử dụng icon nếu cần -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        .table thead th {
+            background-color: #343a40;
+            color: #fff;
+            text-align: center;
+            vertical-align: middle;
+        }
+        .table td,
+        .table th {
+            text-align: center;
+            vertical-align: middle;
+        }
+    </style>
 </head>
-<body>
+<body class="bg-light">
 <c:if test="${not empty success}">
     <script>
         Swal.fire({
@@ -24,7 +39,7 @@
             title: '${success}',
             showConfirmButton: false,
             timer: 2000,
-            width: '300px'
+            width: '400px'
         });
     </script>
     <% session.removeAttribute("success"); %>
@@ -37,23 +52,24 @@
             title: '${error}',
             showConfirmButton: false,
             timer: 2000,
-            width: '300px'
+            width: '400px'
         });
     </script>
     <% session.removeAttribute("error"); %>
 </c:if>
-<h2 class="text-center mb-4 font-weight-bold">Quản lý Vận Chuyển</h2>
+
 <div class="container mt-4">
-    <div class="d-flex justify-content-between mb-3">
+    <h2 class="text-center mb-4 font-weight-bold">Quản lý Vận Chuyển</h2>
+    <div class="d-flex justify-content-between align-items-center mb-3">
         <div>
             <a href="/manageCarriers?action=addShipperForm" class="btn btn-success">
                 <i class="bi bi-plus-circle"></i> Thêm nhân viên vận chuyển
             </a>
         </div>
         <div class="d-flex align-items-center">
-            <label for="filterSelect" class="me-2">Bộ lọc :</label>
+            <label for="filterSelect" class="me-2">Bộ lọc:</label>
             <select id="filterSelect" class="form-select" style="width: 200px;">
-                <option value="all"><i class="bi bi-filter"></i> Tất cả</option>
+                <option value="all">Tất cả</option>
                 <c:forEach var="carrier" items="${carriersList}">
                     <option value="${carrier.carrier_name}">${carrier.carrier_name}</option>
                 </c:forEach>
@@ -62,75 +78,86 @@
     </div>
 
     <h4 class="text-primary">Danh sách Nhà Vận Chuyển</h4>
-    <table id="carrierTable" class="table table-bordered table-hover">
-        <thead class="table-dark">
-        <tr>
-            <th>STT</th>
-            <th>Tên Nhà Vận Chuyển</th>
-            <th>Số Điện Thoại</th>
-            <th>Phí Vận Chuyển</th>
-            <th>Hành động</th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach var="carrier" items="${carriersList}" varStatus="status">
-            <tr data-carrier="${carrier.carrier_name}">
-                <td>${status.index+1}</td>
-                <td>${carrier.carrier_name}</td>
-                <td>${carrier.contact_phone}</td>
-                <td><fmt:formatNumber value="${carrier.shipping_cost}" pattern="#,###"/>đ</td>
-                <td class="text-center">
-                    <a href="/manageCarriers?action=editCarrierForm&id=${carrier.carrier_id}"
-                       class="btn btn-warning btn-sm" title="Chỉnh sửa">
-                        <i class="bi bi-pencil-square"></i>
-                    </a>
-                    <a href="/manageCarriers?action=infoCarrierForm&id=${carrier.carrier_id}"
-                       class="btn btn-info btn-sm" title="Chi tiết">
-                        <i class="bi bi-info-circle"></i>
-                    </a>
-                </td>
-            </tr>
-        </c:forEach>
-        </tbody>
-    </table>
+    <div class="card shadow rounded mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="carrierTable" class="table table-bordered table-striped table-hover">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>STT</th>
+                        <th>Tên Nhà Vận Chuyển</th>
+                        <th>Số Điện Thoại</th>
+                        <th>Phí Vận Chuyển</th>
+                        <th>Hành động</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach var="carrier" items="${carriersList}" varStatus="status">
+                        <tr data-carrier="${carrier.carrier_name}">
+                            <td>${status.index+1}</td>
+                            <td>${carrier.carrier_name}</td>
+                            <td>${carrier.contact_phone}</td>
+                            <td><fmt:formatNumber value="${carrier.shipping_cost}" pattern="#,###"/>đ</td>
+                            <td class="text-center">
+                                <a href="/manageCarriers?action=editCarrierForm&id=${carrier.carrier_id}"
+                                   class="btn btn-warning btn-sm" title="Chỉnh sửa">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                                <a href="/manageCarriers?action=infoCarrierForm&id=${carrier.carrier_id}"
+                                   class="btn btn-info btn-sm" title="Chi tiết">
+                                    <i class="bi bi-info-circle"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
-    <hr>
     <h4 class="text-primary">Danh sách nhân viên vận chuyển</h4>
-    <table id="shipperTable" class="table table-bordered table-hover">
-        <thead class="table-dark">
-        <tr>
-            <th>STT</th>
-            <th>Tên Nhân Viên</th>
-            <th>Số Điện Thoại</th>
-            <th>Nhà Vận Chuyển</th>
-            <th>Hành động</th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach var="shipper" items="${shippersList}" varStatus="status">
-            <tr data-carrier="${shipper.carrier_name}">
-                <td>${status.index+1}</td>
-                <td>${shipper.shipper_name}</td>
-                <td>${shipper.phonenumber}</td>
-                <td>${shipper.carrier_name}</td>
-                <td class="text-center">
-                    <a href="/manageCarriers?action=editShipperForm&id=${shipper.shipper_id}"
-                       class="btn btn-warning btn-sm" title="Chỉnh sửa">
-                        <i class="bi bi-pencil-square"></i>
-                    </a>
-                    <a href="/manageCarriers?action=infoShipperForm&id=${shipper.shipper_id}"
-                       class="btn btn-info btn-sm" title="Chi tiết">
-                        <i class="bi bi-info-circle"></i>
-                    </a>
-                </td>
-            </tr>
-        </c:forEach>
-        </tbody>
-    </table>
+    <div class="card shadow rounded">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="shipperTable" class="table table-bordered table-striped table-hover">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>STT</th>
+                        <th>Tên Nhân Viên</th>
+                        <th>Số Điện Thoại</th>
+                        <th>Nhà Vận Chuyển</th>
+                        <th>Hành động</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach var="shipper" items="${shippersList}" varStatus="status">
+                        <tr data-carrier="${shipper.carrier_name}">
+                            <td>${status.index+1}</td>
+                            <td>${shipper.shipper_name}</td>
+                            <td>${shipper.phonenumber}</td>
+                            <td>${shipper.carrier_name}</td>
+                            <td class="text-center">
+                                <a href="/manageCarriers?action=editShipperForm&id=${shipper.shipper_id}"
+                                   class="btn btn-warning btn-sm" title="Chỉnh sửa">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                                <a href="/manageCarriers?action=infoShipperForm&id=${shipper.shipper_id}"
+                                   class="btn btn-info btn-sm" title="Chi tiết">
+                                    <i class="bi bi-info-circle"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
-    // Gộp chung xử lý lọc cho cả 2 bảng
+    // Xử lý lọc chung cho cả 2 bảng
     document.getElementById("filterSelect").addEventListener("change", function () {
         let selectedCarrier = this.value;
         document.querySelectorAll("#carrierTable tbody tr, #shipperTable tbody tr").forEach(row => {
