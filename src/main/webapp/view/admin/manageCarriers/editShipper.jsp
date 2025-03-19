@@ -20,7 +20,7 @@
 <body class="bg-light">
 <div class="container mt-5">
     <h2 class="text-center mb-4">
-        <i class="fas fa-edit"></i> Sửa Nhân Viên Vận Chuyển
+        <i class="fas fa-edit"></i> Chỉnh sửa nhân viên vận chuyển
     </h2>
     <div class="card shadow p-4">
         <form action="manageCarriers?action=editShipper" method="post">
@@ -59,7 +59,7 @@
                 </div>
             </div>
 
-            <div class="d-flex justify-content-center gap-3 mt-4">\
+            <div class="d-flex justify-content-center gap-3 mt-4">
                 <button type="submit" class="btn btn-success">
                     <i class="fas fa-save"></i> Lưu thay đổi
                 </button>

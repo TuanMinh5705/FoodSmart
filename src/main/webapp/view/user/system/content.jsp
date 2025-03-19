@@ -207,9 +207,6 @@
             </c:forEach>
         </div>
     </div>
-
-
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 </div>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

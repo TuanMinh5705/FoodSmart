@@ -5,7 +5,7 @@
     <title>Footer</title>
 </head>
 <body>
-<footer class="bg-yellow-400 pt-6 mt-3">
+<footer style="background-color: rgb(255 237 56 / 97%);" class="pt-6 mt-3">
     <div class="w-full">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pb-4">
             <!-- Thông tin liên hệ -->
@@ -75,9 +75,10 @@
             </div>
         </div>
         <!-- Phần bản quyền -->
-        <div class="text-center mt-4 pt-2 bg-blue-500">
+        <div class="text-center mt-4 pt-2 bg-gray-400">
             <p class="text-xl text-white">Bản quyền &copy; 2025 SmartFood</p>
         </div>
+
     </div>
 </footer>
 </body>
