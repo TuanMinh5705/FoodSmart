@@ -102,7 +102,7 @@
             color: #fff;
             text-decoration: none;
             border: none;
-            border-radius: 50px;
+            border-radius: 8px;
             padding: 0.5rem 1.5rem;
             font-size: 1rem;
             font-weight: 600;

@@ -60,7 +60,7 @@
         }
         .form-control,
         .form-select {
-            border-radius: 50px;
+            border-radius: 8px;
             border: 1px solid #ddd;
             transition: border-color 0.3s;
         }
@@ -71,7 +71,7 @@
         }
         /* Button chính (.btn-primary) */
         .btn-primary {
-            border-radius: 50px;
+            border-radius: 8px;
             padding: 0.5rem 1.5rem;
             font-size: 1rem;
             font-weight: 600;
@@ -89,7 +89,7 @@
             background: linear-gradient(90deg, #f67272, #f55d5d);
             color: #fff;
             border: none;
-            border-radius: 50px;
+            border-radius: 8px;
             padding: 0.5rem 1.5rem;
             font-size: 1rem;
             font-weight: 600;
@@ -101,7 +101,7 @@
         }
         /* Button thêm ảnh (.btn-upload) */
         .btn-upload {
-            border-radius: 50px;
+            border-radius: 8px;
             padding: 0.5rem 1.5rem;
             font-size: 1rem;
             font-weight: 600;

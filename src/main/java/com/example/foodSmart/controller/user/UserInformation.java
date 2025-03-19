@@ -195,8 +195,5 @@ public class UserInformation extends HttpServlet {
             showInfoUser(req, resp);
         }
 
-        showInfoUser(req, resp);
-        req.getRequestDispatcher("/view/user/homeUser.jsp?page=infoUser").forward(req, resp);
-
     }
 }

@@ -17,6 +17,8 @@
     <h1 class="mb-3">Đơn hàng của bạn</h1>
 
     <c:set var="selectedStatus" value="${param.status}" />
+    <!-- Khởi tạo biến đếm đơn hàng phù hợp -->
+    <c:set var="orderCount" value="0" />
 
     <div class="btn-group mb-3">
         <a href="?status=all" class="btn ${empty selectedStatus || selectedStatus == 'all' ? 'btn-success' : 'btn-outline-success'}">Tất cả</a>
@@ -26,37 +28,41 @@
         <a href="?status=Đã hủy" class="btn ${selectedStatus == 'Đã hủy' ? 'btn-success' : 'btn-outline-secondary'}">Đã hủy</a>
     </div>
 
+    <!-- Lặp qua các đơn hàng -->
     <c:forEach var="order" items="${orders}">
         <c:if test="${empty selectedStatus || selectedStatus == 'all' || order.orderStatus == selectedStatus}">
-            <c:set var="totalPrice" value="0" />
+            <!-- Tăng biến đếm đơn hàng phù hợp -->
+            <c:set var="orderCount" value="${orderCount + 1}" />
 
+            <!-- Tính toán tổng tiền của đơn hàng -->
+            <c:set var="totalPrice" value="0" />
             <c:forEach var="item" items="${order.cartItems}">
                 <c:set var="totalPrice" value="${totalPrice + (item.priceAtTime * item.quantity)}" />
             </c:forEach>
-
             <c:set var="shippingFee" value="25000" />
             <c:set var="discount" value="10000" />
             <c:set var="totalPrice" value="${totalPrice + shippingFee - discount}" />
 
+            <!-- Hiển thị thông tin đơn hàng -->
             <div class="card mb-3 shadow-sm">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
-                        <span class="text-muted">
-                            <fmt:formatDate value="${order.orderDate}" pattern="dd/MM/yyyy, HH:mm:ss"/>
-                        </span>
+                    <span class="text-muted">
+                        <fmt:formatDate value="${order.orderDate}" pattern="dd/MM/yyyy, HH:mm:ss"/>
+                    </span>
                         <span class="badge bg-${order.orderStatus == 'Đang giao' ? 'info' : (order.orderStatus == 'Hoàn thành' ? 'success' : (order.orderStatus == 'Đã hủy' ? 'danger' : 'secondary'))}">
-                            <c:choose>
-                                <c:when test="${order.orderStatus == 'Chờ xác nhận'}">Chờ xác nhận</c:when>
-                                <c:when test="${order.orderStatus == 'Đang giao'}">Đang giao</c:when>
-                                <c:when test="${order.orderStatus == 'Hoàn thành'}">Hoàn thành</c:when>
-                                <c:when test="${order.orderStatus == 'Đã hủy'}">Đã hủy</c:when>
-                                <c:otherwise>Không Xác Định</c:otherwise>
-                            </c:choose>
-                        </span>
+                        <c:choose>
+                            <c:when test="${order.orderStatus == 'Chờ xác nhận'}">Chờ xác nhận</c:when>
+                            <c:when test="${order.orderStatus == 'Đang giao'}">Đang giao</c:when>
+                            <c:when test="${order.orderStatus == 'Hoàn thành'}">Hoàn thành</c:when>
+                            <c:when test="${order.orderStatus == 'Đã hủy'}">Đã hủy</c:when>
+                            <c:otherwise>Không Xác Định</c:otherwise>
+                        </c:choose>
+                    </span>
                     </div>
                     <div class="d-flex align-items-center mt-3">
                         <img src="${pageContext.request.contextPath}/images/avatars/${merchantMap[order.orderId].avt_path}"
-                             alt="Store Icon" class="me-3 rounded-circle" width="60" height="60">
+                             alt="Store Icon" class="me-3 rounded-circle object-fit-contain" width="60" height="60">
                         <div>
                             <h5 class="card-title mb-1">${merchantMap[order.orderId].store_name}</h5>
                             <p class="text-muted mb-1">
@@ -68,6 +74,9 @@
                     <div class="d-flex justify-content-end mt-3">
                         <c:if test="${order.orderStatus == 'Đang giao'}">
                             <button class="btn btn-primary me-2">Theo dõi</button>
+                        </c:if>
+                        <c:if test="${order.orderStatus == 'Chờ xác nhận'}">
+                            <button class="btn btn-danger me-2" onclick="cancelOrder('${order.orderId}')">Huỷ đơn</button>
                         </c:if>
                         <c:if test="${order.orderStatus == 'Hoàn thành'}">
                             <button class="btn btn-danger complaint-btn mr-4" onclick="complaint('${order.orderId}')">
@@ -82,6 +91,12 @@
             </div>
         </c:if>
     </c:forEach>
+
+    <!-- Nếu không có đơn hàng nào phù hợp, hiển thị thông báo -->
+    <c:if test="${orderCount == 0}">
+        <div class="alert alert-info">Không có đơn hàng nào</div>
+    </c:if>
+
 </div>
 <!-- Nhúng thư viện SweetAlert2 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -121,6 +136,9 @@
     }
     function complaint(orderId){
         window.location.href = "/order?action=showComplaint&orderId=" + orderId;
+    }
+    function cancelOrder(orderId){
+        window.location.href = "/order?action=cancelOrder&orderId=" + orderId;
     }
 </script>
 

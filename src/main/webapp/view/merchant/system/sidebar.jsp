@@ -113,7 +113,7 @@
             <a class="nav-link" href="/manageStore?action=showInfoStore"><i class="fas fa-store"></i> Thông tin cửa hàng</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#"><i class="fas fa-exclamation-circle"></i> Xử lý khiếu nại</a>
+            <a class="nav-link" href="/manageComplaint"><i class="fas fa-exclamation-circle"></i> Xử lý khiếu nại</a>
         </li>
     </ul>
 </div>

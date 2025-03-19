@@ -52,7 +52,7 @@
         }
         /* Cập nhật CSS cho button giống trang Thông tin cửa hàng */
         .btn-primary {
-            border-radius: 50px;
+            border-radius: 8px;
             padding: 0.75rem 2.5rem;
             font-size: 1.1rem;
             font-weight: 600;

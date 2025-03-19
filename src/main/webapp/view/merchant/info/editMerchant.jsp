@@ -52,11 +52,11 @@
             color: #555;
         }
         .form-control {
-            border-radius: 50px;
+            border-radius: 8px;
         }
         /* Buttons */
         .btn-primary {
-            border-radius: 50px;
+            border-radius: 8px;
             padding: 0.75rem 2.5rem;
             font-size: 1.1rem;
             font-weight: 600;
@@ -73,7 +73,7 @@
             background: linear-gradient(90deg, #f67272, #f55d5d);
             color: #fff;
             border: none;
-            border-radius: 50px;
+            border-radius: 8px;
             padding: 0.75rem 2.5rem;
             font-size: 1.1rem;
             font-weight: 600;

@@ -13,7 +13,7 @@
         .avatar {
             width: 200px;
             height: 200px;
-            object-fit: cover;
+            object-fit: contain;
             border-radius: 10px;
             border: 1px solid #ddd;
             display: block;
