@@ -153,12 +153,12 @@
                     Bạn có chắc chắn muốn đăng xuất không?
                 </div>
                 <div class="modal-footer">
-                    <a href="/authenticate?action=logout" class="btn btn-logout">
-                        <i class="fas fa-sign-out-alt"></i> Đăng xuất
-                    </a>
                     <button type="button" class="btn btn-cancel" data-dismiss="modal">
                         ❌ Hủy
                     </button>
+                    <a href="/authenticate?action=logout" class="btn btn-logout">
+                        <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                    </a>
                 </div>
             </div>
         </div>
@@ -193,7 +193,5 @@
         $('.dropdown-toggle').dropdown();
     });
 </script>
-
-
 </body>
 </html>
