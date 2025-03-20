@@ -112,20 +112,19 @@
                                     <label class="form-label">Tên đăng nhập:</label>
                                     <span>${account.username}</span>
                                 </div>
-                                <!-- Trạng thái tài khoản -->
-                                <div class="form-group mb-4">
-                                    <label class="form-label">Trạng thái</label>
-                                    <div>
-                                        <c:choose>
-                                            <c:when test="${account.active}">
-                                                <span class="badge badge-success">Đang hoạt động</span>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <span class="badge badge-secondary">Không hoạt động</span>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </div>
+
+                                <div class="form-group mb-4 d-flex align-items-center">
+                                    <label class="form-label mr-3">Trạng thái:</label>
+                                    <c:choose>
+                                        <c:when test="${account.active}">
+                                            <span class="badge badge-success">Đang hoạt động</span>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <span class="badge badge-secondary">Không hoạt động</span>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </div>
+
                                 <div class="text-center">
                                     <a href="/userInformation?action=editUserForm" class="btn btn-primary">Chỉnh sửa</a>
                                 </div>

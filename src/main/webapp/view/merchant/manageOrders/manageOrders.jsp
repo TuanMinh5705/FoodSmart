@@ -233,7 +233,7 @@
             "language": {
                 "search": "Tìm kiếm:",
                 "lengthMenu": "Hiển thị _MENU_ đơn hàng",
-                "info": "Hiển thị _START_ đến _END_ của _TOTAL_ đơn hàng",
+                "info": "Hiển thị _START_ đến _END_ đơn hàng",
                 "infoEmpty": "Không có dữ liệu",
                 "infoFiltered": "(lọc từ _MAX_ đơn hàng)",
                 "zeroRecords": "Không tìm thấy kết quả nào phù hợp",

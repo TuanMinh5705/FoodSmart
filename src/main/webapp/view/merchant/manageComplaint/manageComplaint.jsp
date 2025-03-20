@@ -106,7 +106,7 @@
             "language": {
                 "lengthMenu": "Hiển thị _MENU_ mục",
                 "zeroRecords": "Không tìm thấy dữ liệu",
-                "info": "Hiển thị _START_ đến _END_ của _TOTAL_ mục",
+                "info": "Hiển thị _START_ đến _END_  mục",
                 "infoEmpty": "Không có dữ liệu",
                 "infoFiltered": "(lọc từ _MAX_ tổng số mục)",
                 "search": "Tìm kiếm:",
