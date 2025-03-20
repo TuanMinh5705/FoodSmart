@@ -9,11 +9,28 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        /* Container cho ảnh với vị trí relative */
+        .img-container {
+            position: relative;
+            display: inline-block;
+        }
+        /* Icon pen được đặt ở góc trên bên phải của ảnh */
+        .img-container .edit-icon {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(199, 199, 210, 0.8);
+            border: 1px solid #dad9d9;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body class="bg-light">
 <div class="container mt-4">
     <h2 class="text-center mb-4">
-        <i class="fas fa-edit"></i> Cập nhật thông tin người dùng
+        <i class="fas fa-edit"></i> Cập nhật thông tin tài khoản
     </h2>
     <div class="card shadow">
         <div class="card-body">
@@ -24,16 +41,22 @@
                 <div class="mb-3">
                     <label class="form-label"><i class="bi bi-person-circle-fill"></i> Ảnh đại diện</label>
                     <div class="mb-3 text-center">
-                        <c:if test="${not empty account.avtPath}">
-                            <img id="avatarPreview" src="${pageContext.request.contextPath}/images/avatars/${account.avtPath}"
-                                 alt="Ảnh đại diện" class="img-fluid rounded-circle shadow object-fit-contain" style="max-width: 130px; height: 130px;">
-                        </c:if>
+                        <!-- Sử dụng container với class img-container -->
+                        <div class="img-container">
+                            <c:if test="${not empty account.avtPath}">
+                                <img id="avatarPreview" src="${pageContext.request.contextPath}/images/avatars/${account.avtPath}"
+                                     alt="Ảnh đại diện" class="img-fluid rounded-circle shadow" style="max-width: 130px; height: 130px;">
+                            </c:if>
+                            <!-- Nút chỉnh sửa với icon pen -->
+                            <button type="button" class="btn btn-sm btn-light edit-icon"
+                                    onclick="document.getElementById('avt_path').click()">
+                                <i class="bi bi-pen"></i>
+                            </button>
+                        </div>
                     </div>
                     <input type="hidden" name="currentAvtPath" value="${account.avtPath}">
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="avt_path" name="avtPath" style="max-width: 400px;">
-                        <label class="custom-file-label" for="avt_path">${account.avtPath}</label>
-                    </div>
+                    <!-- File input ẩn -->
+                    <input type="file" class="d-none" id="avt_path" name="avtPath" accept="image/*">
                 </div>
 
                 <!-- Tên đăng nhập -->
@@ -158,17 +181,17 @@
         </div>
     </div>
 </div>
+<jsp:include page="../system/modalConfirmDelete.jsp"></jsp:include>
 
 <!-- Script: Bootstrap Bundle & các chức năng JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         // Cập nhật preview cho file input
         function updateFilePreview(input, previewId) {
-            const label = input.nextElementSibling;
             if (input.files.length > 0) {
                 const file = input.files[0];
-                label.textContent = file.name;
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     document.getElementById(previewId).src = e.target.result;

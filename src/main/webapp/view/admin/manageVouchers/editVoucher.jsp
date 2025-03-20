@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Sửa Thông Tin Voucher</title>
+    <title>Sửa mã giảm giá</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 </head>
@@ -12,7 +12,7 @@
 
 <div class="container mt-4">
     <h2 class="text-center mb-4">
-        <i class="bi bi-gift"></i> Sửa Thông Tin Voucher
+        <i class="bi bi-gift"></i> Sửa mã giảm giá
     </h2>
 
     <div class="card shadow">
@@ -21,7 +21,7 @@
                 <input type="hidden" name="voucher_id" value="${voucher.voucher_id}">
 
                 <div class="mb-3">
-                    <label class="form-label"><i class="bi bi-upc-scan"></i> Mã Voucher</label>
+                    <label class="form-label"><i class="bi bi-upc-scan"></i> Mã giảm giá</label>
                     <input type="text" class="form-control" name="voucher_code" value="${voucher.voucher_code}"
                            required pattern="^[A-Za-z][0-9]{4,10}$"
                            title="Mã voucher phải bắt đầu bằng chữ cái, theo sau là 4-10 số.">
@@ -33,14 +33,28 @@
                            min="1" max="100" required>
                 </div>
 
-                <div class="mb-3">
-                    <label class="form-label"><i class="bi bi-calendar"></i> Ngày bắt đầu</label>
-                    <input type="datetime-local" class="form-control" name="start_date" value="${voucher.start_date}" required>
+                <!-- Ngày bắt đầu -->
+                <div class="form-group">
+                    <label for="start_date"><i class="fas fa-calendar-alt"></i> Ngày bắt đầu:</label>
+                    <input type="date" class="form-control" id="start_date" name="start_date" value="${voucher.start_date}" required>
                 </div>
 
-                <div class="mb-3">
-                    <label class="form-label"><i class="bi bi-calendar-check"></i> Ngày kết thúc</label>
-                    <input type="datetime-local" class="form-control" name="end_date" value="${voucher.end_date}" required>
+                <!-- Ngày kết thúc -->
+                <div class="form-group">
+                    <label for="end_date"><i class="fas fa-calendar-check"></i> Ngày kết thúc:</label>
+                    <input type="date" class="form-control" id="end_date" name="end_date" value="${voucher.end_date}" required>
+                </div>
+
+                <!-- Thời gian bắt đầu -->
+                <div class="form-group">
+                    <label for="start_time"><i class="fas fa-clock"></i> Thời gian bắt đầu:</label>
+                    <input type="time" class="form-control" id="start_time" name="start_time" value="${voucher.start_time}" required>
+                </div>
+
+                <!-- Thời gian kết thúc -->
+                <div class="form-group">
+                    <label for="end_time"><i class="fas fa-clock"></i> Thời gian kết thúc:</label>
+                    <input type="time" class="form-control" id="end_time" name="end_time" value="${voucher.end_time}" required>
                 </div>
 
                 <div class="mb-3">

@@ -9,15 +9,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-100 flex flex-col min-h-screen">
 <header class="p-4 bg-white shadow">
     <h2 class="text-xl font-bold text-orange-500">SẢN PHẨM YÊU THÍCH ❤️</h2>
 </header>
-<main class="p-4">
+<main class="flex-grow flex items-center justify-center py-16">
     <div class="container mx-auto">
         <c:choose>
             <c:when test="${not empty foodList}">
-                <!-- Responsive: 1 cột trên mobile, 2 trên sm, 3 trên md, và 5 trên lg trở lên -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
                     <c:forEach var="food" items="${foodList}">
                         <div class="bg-white shadow rounded-lg overflow-hidden flex flex-col">
@@ -32,7 +31,6 @@
                                          alt="Không có ảnh"
                                          class="w-full h-36 object-contain">
                                 </c:if>
-                                <!-- Đã loại bỏ checkbox -->
                             </div>
                             <div class="p-2 flex flex-col flex-grow">
                                 <h3 class="font-medium text-base mb-1">${food.product_name}</h3>
@@ -60,11 +58,11 @@
         </c:choose>
     </div>
 </main>
+<jsp:include page="../../admin/system/modalConfirmDelete.jsp" />
 <script>
     function addToCart(productId, price) {
         alert('Đã thêm sản phẩm ' + productId + ' vào giỏ hàng với giá ' + price + 'đ');
     }
 </script>
-<jsp:include page="../../admin/system/modalConfirmDelete.jsp" />
 </body>
 </html>

@@ -12,7 +12,7 @@
 <body class="bg-light">
 <div class="container mt-5">
     <h2 class="text-center mb-4">
-        <i class="bi bi-plus-circle-fill"></i> Thêm Nhân Viên Vận Chuyển
+        <i class="bi bi-plus-circle-fill"></i> Thêm nhân viên vận chuyển
     </h2>
     <div class="card shadow p-4">
         <form action="manageCarriers?action=addShipper" method="post">

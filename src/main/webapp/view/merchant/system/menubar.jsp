@@ -193,7 +193,5 @@
         $('.dropdown-toggle').dropdown();
     });
 </script>
-
-
 </body>
 </html>

@@ -211,7 +211,7 @@
             "language": {
                 "search": "Tìm kiếm:",
                 "lengthMenu": "Hiển thị _MENU_ món ăn",
-                "info": "Hiển thị _START_ đến _END_ của _TOTAL_ món ăn",
+                "info": "Hiển thị _START_ đến _END_ mã giảm giá",
                 "infoEmpty": "Không có dữ liệu",
                 "infoFiltered": "(lọc từ _MAX_ món ăn)",
                 "zeroRecords": "Không tìm thấy kết quả nào phù hợp",

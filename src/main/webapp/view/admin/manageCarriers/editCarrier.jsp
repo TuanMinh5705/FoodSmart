@@ -12,7 +12,7 @@
 <body class="bg-light">
 <div class="container mt-5">
     <h2 class="text-center mb-4">
-        <i class="fas fa-edit"></i> Cập nhật thông tin đối tác vận chuyển
+        <i class="fas fa-edit"></i> Chỉnh sửa thông tin đối tác vận chuyển
     </h2>
     <div class="card shadow p-4">
         <form action="manageCarriers?action=editCarrier" method="post">

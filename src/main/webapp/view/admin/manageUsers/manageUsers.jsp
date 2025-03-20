@@ -78,7 +78,7 @@
         <% session.removeAttribute("error"); %>
     </c:if>
 
-    <h2 class="text-center mb-4 font-weight-bold">Quản lý người dùng</h2>
+    <h2 class="text-center mb-4 font-weight-bold">Quản lý tài khoản</h2>
     <div class="row mb-3 align-items-center">
         <div class="col-md-6">
             <form action="/manageUsers?action=searchWithName" id="searchForm" method="post">

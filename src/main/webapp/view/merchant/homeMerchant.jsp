@@ -15,7 +15,6 @@
 </head>
 <style>
     .content {
-
         margin-left: 250px;
         padding: 10px;
         transition: margin-left 0.3s ease;
@@ -30,7 +29,7 @@
 <body>
 <jsp:include page="system/menubar.jsp"/>
 <jsp:include page="system/sidebar.jsp"/>
-<div class="content" style=" margin-top: auto">
+<div class="content" style="margin-top: auto">
     <c:choose>
     <c:when test="${param.page == 'manageFoods'}">
         <jsp:include page="manageFoods/manageFood.jsp"/>

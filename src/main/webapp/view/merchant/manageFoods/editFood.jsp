@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cập nhật món ăn</title>
+    <title>Chỉnh sửa món ăn</title>
     <!-- Google Fonts: Poppins -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Bootstrap CSS -->
@@ -192,7 +192,7 @@
 <div class="container custom-container">
     <div class="profile-card">
         <div class="card-header">
-            <h2>Cập nhật món ăn</h2>
+            <h2>Chỉnh sửa món ăn</h2>
         </div>
         <form action="/manageFoods?action=updateFood" method="post" enctype="multipart/form-data" id="updateFoodForm">
             <!-- Thông tin món ăn -->
