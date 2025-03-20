@@ -11,13 +11,13 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
-<h2 class="text-center mb-4"><i class="fas fa-info-circle"></i> Chi Tiết Voucher</h2>
+<h2 class="text-center mb-4"><i class="fas fa-info-circle"></i> Chi tiết mã giảm giá</h2>
 
 <div class="container mt-5 p-4 shadow rounded bg-light">
     <form action="/manageVouchers" method="post">
         <div class="row">
             <div class="col-md-6 mb-3">
-                <label for="voucher_code" class="form-label"><i class="bi bi-upc"></i> Mã Voucher:</label>
+                <label for="voucher_code" class="form-label"><i class="bi bi-upc"></i> Mã giảm giá:</label>
                 <input type="text" class="form-control" id="voucher_code" name="voucher_code" value="${voucher.voucher_code}" readonly>
             </div>
             <div class="col-md-6 mb-3">

@@ -12,6 +12,20 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
+        /* Có thể giữ lại hoặc thay đổi theo thiết kế mong muốn */
+        .img-container {
+            position: relative;
+            display: inline-block;
+        }
+        .img-container .edit-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(199, 199, 210, 0.8);
+            border: 1px solid #dad9d9;
+            border-radius: 100%;
+            cursor: pointer;
+        }
         .avatar-preview {
             width: 150px;
             height: 150px;
@@ -33,16 +47,18 @@
             <div class="card shadow">
                 <div class="card-body">
                     <form action="/manageCategoryFood?action=edit" method="post" enctype="multipart/form-data">
-
                         <input type="hidden" name="category_id" value="${category.category_id}">
                         <div class="mb-3 text-center">
-                            <img id="avatarPreview" class="avatar-preview"
-                                 src="${pageContext.request.contextPath}/images/product/${category.avt_path}"
-                                 alt="Ảnh danh mục">
-                            <label for="avatar" class="form-label d-block">
-                                <i class="fas fa-image"></i> Chọn ảnh danh mục (nếu muốn thay đổi)
-                            </label>
-                            <input type="file" class="form-control" id="avatar" name="avt_path" accept="image/*">
+                            <!-- Sử dụng container giống trang cập nhật cửa hàng -->
+                            <div class="img-container">
+                                <img id="avatarPreview" class="avatar-preview"
+                                     src="${pageContext.request.contextPath}/images/product/${category.avt_path}"
+                                     alt="Ảnh danh mục">
+                                <button type="button" class="btn btn-sm btn-light edit-icon" onclick="document.getElementById('avatar').click()">
+                                    <i class="bi bi-pen"></i>
+                                </button>
+                            </div>
+                            <input type="file" class="d-none" id="avatar" name="avt_path" accept="image/*">
                             <input type="hidden" name="currentAvtPath" value="${category.avt_path}">
                         </div>
 
