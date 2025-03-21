@@ -107,12 +107,7 @@
         <div class="collapse navbar-collapse" id="navbarMain">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link icon-btn" href="/chatMerchant">
-                        <i class="fas fa-comments"></i> Trò chuyện
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link icon-btn" href="#">
+                    <a class="nav-link icon-btn" href="/notifications">
                         <i class="fas fa-bell"></i> Thông báo
                     </a>
                 </li>
@@ -153,12 +148,12 @@
                     Bạn có chắc chắn muốn đăng xuất không?
                 </div>
                 <div class="modal-footer">
-                    <a href="/authenticate?action=logout" class="btn btn-logout">
-                        <i class="fas fa-sign-out-alt"></i> Đăng xuất
-                    </a>
                     <button type="button" class="btn btn-cancel" data-dismiss="modal">
                         ❌ Hủy
                     </button>
+                    <a href="/authenticate?action=logout" class="btn btn-logout">
+                        <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                    </a>
                 </div>
             </div>
         </div>
@@ -193,7 +188,5 @@
         $('.dropdown-toggle').dropdown();
     });
 </script>
-
-
 </body>
 </html>

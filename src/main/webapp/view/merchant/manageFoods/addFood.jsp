@@ -185,7 +185,7 @@
             <!-- Giảm giá (%) -->
             <div class="mb-3">
                 <label class="form-label">Giảm giá (%)</label>
-                <input type="number" class="form-control" name="discount" min="0" max="100">
+                <input type="number" class="form-control" name="discount" value="0" min="0" max="100">
             </div>
             <!-- Danh mục -->
             <div class="mb-3">

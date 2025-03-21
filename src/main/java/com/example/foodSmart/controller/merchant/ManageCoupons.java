@@ -1,7 +1,11 @@
 package com.example.foodSmart.controller.merchant;
 
+import com.example.foodSmart.model.Account;
+import com.example.foodSmart.model.admin.Merchant;
 import com.example.foodSmart.model.admin.Voucher;
 import com.example.foodSmart.model.merchant.Coupon;
+import com.example.foodSmart.service.admin.IMerchantService;
+import com.example.foodSmart.service.admin.MerchantService;
 import com.example.foodSmart.service.merchant.CouponService;
 import com.example.foodSmart.service.merchant.ICouponSerice;
 import jdk.internal.access.JavaNetHttpCookieAccess;
@@ -11,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -21,6 +26,7 @@ import java.util.List;
 @WebServlet("/manageCoupons")
 public class ManageCoupons extends HttpServlet {
     ICouponSerice couponService = new CouponService();
+    IMerchantService merchantService = new MerchantService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -31,7 +37,6 @@ public class ManageCoupons extends HttpServlet {
         if (action == null) {
             action = "";
         }
-        List<Coupon> couponList = couponService.getListCoupons();
         switch (action) {
             case "addCouponForm":
                 req.getRequestDispatcher("view/merchant/homeMerchant.jsp?page=addCoupons").forward(req, resp);
@@ -141,7 +146,10 @@ public class ManageCoupons extends HttpServlet {
 
     private void listCoupons(HttpServletRequest req, HttpServletResponse resp) {
         try {
-            List<Coupon> couponList = couponService.getListCoupons();
+            HttpSession session = req.getSession();
+            Account account1 = (Account) session.getAttribute("loggedInAccount");
+            Merchant merchant = merchantService.getMerchantByMerchantId(account1.getAccountID());
+            List<Coupon> couponList = couponService.getListCoupons(merchant.getStore_id());
             req.setAttribute("couponList", couponList);
             req.getRequestDispatcher("view/merchant/homeMerchant.jsp?page=manageCoupons").forward(req, resp);
         } catch (ServletException | IOException e) {

@@ -2,6 +2,7 @@ package com.example.foodSmart.controller.user;
 
 import com.example.foodSmart.model.Account;
 import com.example.foodSmart.model.AccountDetails;
+import com.example.foodSmart.model.Notification;
 import com.example.foodSmart.model.admin.Merchant;
 import com.example.foodSmart.model.merchant.Food;
 import com.example.foodSmart.model.merchant.FoodImages;
@@ -10,6 +11,7 @@ import com.example.foodSmart.model.user.Complaint;
 import com.example.foodSmart.model.user.Order;
 import com.example.foodSmart.service.AccountService;
 import com.example.foodSmart.service.IAccountService;
+import com.example.foodSmart.service.NotificationDAO;
 import com.example.foodSmart.service.admin.IMerchantService;
 import com.example.foodSmart.service.admin.MerchantService;
 import com.example.foodSmart.service.merchant.FoodService;
@@ -36,6 +38,7 @@ public class OrderServlet extends HttpServlet {
     IMerchantService merchantService = new MerchantService();
     IFoodService foodService = new FoodService();
     IAccountService accountService = new AccountService();
+    NotificationDAO notificationDAO = new NotificationDAO();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
@@ -139,12 +142,15 @@ public class OrderServlet extends HttpServlet {
     }
     private void complaint(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         int orderId = Integer.parseInt(req.getParameter("orderId"));
+        Order order = orderService.getOrder(orderId);
+        Account account1 = accountService.getAccount(merchantService.getMerchantById(order.getStoreId()).getMerchant_id());
         String complaint = req.getParameter("complaint");
         Complaint complaint1 = new Complaint(complaint, orderId);
         boolean success = orderService.addComplaints(complaint1);
 
         if (success) {
             req.getSession().setAttribute("success", "Khiếu nại thành công!");
+            notificationDAO.insertNotification(new Notification("Khiếu nại mới", "complaint", account1));
         } else {
             req.getSession().setAttribute("error", "Khiếu nại thất bại. Vui lòng thử lại!");
         }

@@ -9,6 +9,17 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        function toggleSidebar() {
+            document.getElementById("sidebar").classList.toggle("active");
+        }
+
+        $(document).ready(function() {
+            $(".nav-item > .nav-link").click(function() {
+                $(this).parent().toggleClass("active");
+            });
+        });
+    </script>
     <style>
         .sidebar {
             position: fixed;
@@ -98,6 +109,7 @@
         <li class="nav-item">
             <a class="nav-link" href="#"><i class="bi bi-shop-window"></i> Cửa hàng <i class="fas fa-chevron-down float-right"></i></a>
             <ul class="submenu">
+                <li><a class="nav-link" href="/manageMerchants?action=approveRegistration"> Duyệt cửa hàng</a></li>
                 <li><a class="nav-link" href="/manageMerchants?action=addMerchantForm"> Thêm cửa hàng</a></li>
                 <li><a class="nav-link" href="/manageMerchants"> Danh sách cửa hàng</a></li>
             </ul>
@@ -117,12 +129,12 @@
             </ul>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/view/admin/homeAdmin.jsp?page=manageOrders"><i class="bi bi-clipboard-minus"></i> Quản lý đơn hàng</a>
+            <a class="nav-link" href="/orderAdmin"><i class="bi bi-clipboard-minus"></i> Quản lý đơn hàng</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#"><i class="bi bi-truck"></i> Đối tác vận chuyển</a>
             <ul class="submenu">
-                <li><a class="nav-link" href="/manageCarriers?action=addCarrierForm"> Thêm đối tác vận chuyển<i class="fas fa-chevron-down float-right"></i></a></li>
+                <li><a class="nav-link" href="/manageCarriers?action=addCarrierForm"> Thêm đối tác vận chuyển</a></li>
                 <li><a class="nav-link" href="/manageCarriers"> Danh sách đối tác vận chuyển</a></li>
             </ul>
         </li>
@@ -135,16 +147,5 @@
     </ul>
 </div>
 
-<script>
-    function toggleSidebar() {
-        document.getElementById("sidebar").classList.toggle("active");
-    }
-
-    $(document).ready(function() {
-        $(".nav-item > .nav-link").click(function() {
-            $(this).parent().toggleClass("active");
-        });
-    });
-</script>
 </body>
 </html>

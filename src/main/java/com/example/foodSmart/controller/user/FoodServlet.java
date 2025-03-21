@@ -2,6 +2,7 @@ package com.example.foodSmart.controller.user;
 
 import com.example.foodSmart.model.Account;
 import com.example.foodSmart.model.AccountDetails;
+import com.example.foodSmart.model.Notification;
 import com.example.foodSmart.model.admin.CategoryFood;
 import com.example.foodSmart.model.admin.Merchant;
 import com.example.foodSmart.model.merchant.Food;
@@ -10,12 +11,14 @@ import com.example.foodSmart.model.user.CartItem;
 import com.example.foodSmart.model.user.Order;
 import com.example.foodSmart.service.AccountService;
 import com.example.foodSmart.service.IAccountService;
+import com.example.foodSmart.service.NotificationDAO;
 import com.example.foodSmart.service.admin.CategoryFoodService;
 import com.example.foodSmart.service.admin.ICategoryFoodService;
 import com.example.foodSmart.service.admin.IMerchantService;
 import com.example.foodSmart.service.admin.MerchantService;
 import com.example.foodSmart.service.merchant.FoodService;
 import com.example.foodSmart.service.merchant.IFoodService;
+import com.example.foodSmart.service.merchant.StoreService;
 import com.example.foodSmart.service.user.IOrderService;
 import com.example.foodSmart.service.user.IProductService;
 import com.example.foodSmart.service.user.OrderService;
@@ -40,6 +43,7 @@ public class FoodServlet extends HttpServlet {
     IAccountService accountService = new AccountService();
     IOrderService orderService = new OrderService();
     IMerchantService merchantService = new MerchantService();
+    NotificationDAO notificationDAO = new NotificationDAO();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -303,9 +307,10 @@ public class FoodServlet extends HttpServlet {
         }
         session.setAttribute("cart", cart);
         session.setAttribute("cartCount", cart != null ? cart.size() : 0);
-            req.getSession().setAttribute("success", "Đặt hàng thành công!");
+        req.getSession().setAttribute("success", "Đặt hàng thành công!");
+        Account account1 = accountService.getAccount(merchantService.getMerchantById(order.getStoreId()).getMerchant_id());
+        notificationDAO.insertNotification(new Notification("Đơn hàng mới", "order", account1));
         resp.sendRedirect("/homeUser");
-
     }
 
     private void removeCollection(HttpServletRequest req, HttpServletResponse resp) throws IOException {

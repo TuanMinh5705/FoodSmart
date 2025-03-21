@@ -6,12 +6,10 @@ import com.example.foodSmart.model.merchant.Coupon;
 import java.util.List;
 
 public interface ICouponSerice {
-    List<Coupon> getListCoupons();
+    List<Coupon> getListCoupons(int store_id);
     void addCoupon(Coupon coupon);
     void updateCoupon(Coupon coupon);
     Coupon getCouponById(int couponId);
     List<Coupon> getListCoupon();
-
-
     List<Coupon> getListCouponsByName(String keyword);
 }

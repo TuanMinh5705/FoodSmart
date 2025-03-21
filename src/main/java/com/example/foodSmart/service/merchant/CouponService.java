@@ -8,14 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CouponService implements ICouponSerice {
-    private static final String LIST_COUPONS_QUERY = "SELECT * FROM store_coupons order by coupon_id desc";
+    private static final String LIST_COUPONS_QUERY = "SELECT * FROM store_coupons order by coupon_id where store_id = ? desc";
     private static final String ADD_COUPON_QUERY = "INSERT INTO store_coupons (store_id, coupon_code, discount_value, start_date, end_date, start_time, end_time, quantity, description) VALUES (?,?,?,?,?,?,?,?,?)";
     private static final String EDIT_COUPON_QUERY = "UPDATE store_coupons SET store_id = ?, coupon_code = ?, discount_value = ?, start_date = ?, end_date = ?, start_time = ?, end_time = ?, quantity = ?, description = ? WHERE coupon_id = ?";
     private static final String COUPON_BY_ID_QUERY = "SELECT * FROM store_coupons where coupon_id = ?";
     private static final String COUPON_BY_NAME_QUERY = "SELECT * FROM store_coupons where coupon_code LIKE ?";
     private static final String GET_COUPON_BY_STORE_NAME = "SELECT c.coupon_id, c.discount_value, c.description, c.store_id, s.store_name " +
                     "FROM Store_Coupons c " +
-                    "JOIN stores s ON c.store_id = s.store_id";
+                    "JOIN stores s ON c.store_id = s.store_id ";
 
     public List<Coupon> getListCoupon() {
         List<Coupon> coupons = new ArrayList<>();
@@ -42,14 +42,14 @@ public class CouponService implements ICouponSerice {
 
 
     @Override
-    public List<Coupon> getListCoupons() {
+    public List<Coupon> getListCoupons(int store_id) {
         List<Coupon> coupons = new ArrayList<>();
         try (Connection conn = ConnectDB.getConnection();
              PreparedStatement pstm = conn.prepareStatement(LIST_COUPONS_QUERY)) {
+            pstm.setInt(1,store_id);
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
                 int coupon_id = rs.getInt(1);
-                int store_id = rs.getInt(2);
                 String coupon_code = rs.getString(3);
                 int discount_value = rs.getInt(4);
                 Timestamp start_date = rs.getTimestamp(5);

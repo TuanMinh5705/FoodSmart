@@ -270,7 +270,7 @@
             "language": {
                 "search": "Tìm kiếm:",
                 "lengthMenu": "Hiển thị _MENU_ món ăn",
-                "info": "Hiển thị _START_ đến _END_ của _TOTAL_ món ăn",
+                "info": "Hiển thị _START_ đến _END_ món ăn",
                 "infoEmpty": "Không có dữ liệu",
                 "infoFiltered": "(lọc từ _MAX_ món ăn)",
                 "zeroRecords": "Không tìm thấy kết quả nào phù hợp",
@@ -290,7 +290,6 @@
             table.search(this.value).draw();
         });
     });
-
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

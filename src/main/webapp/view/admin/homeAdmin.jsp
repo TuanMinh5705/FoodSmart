@@ -32,10 +32,19 @@
         <c:when test="${param.page == 'home'}">
             <jsp:include page="system/content.jsp"/>
         </c:when>
+        <c:when test="${param.page == 'manageOrders'}">
+            <jsp:include page="manageOrders.jsp"/>
+        </c:when>
+        <c:when test="${param.page == 'orderDetail'}">
+            <jsp:include page="../merchant/manageOrders/orderDetail.jsp"/>
+        </c:when>
       
         <%--        quản lý cua hang--%>
         <c:when test="${param.page == 'manageMerchants'}">
             <jsp:include page="manageMerchants/manageMerchants.jsp"/>
+        </c:when>
+        <c:when test="${param.page == 'approveRegistration'}">
+            <jsp:include page="manageMerchants/approveRegistration.jsp"/>
         </c:when>
         <c:when test="${param.page == 'addMerchants'}">
             <jsp:include page="manageMerchants/addMerchants.jsp"/>
@@ -131,7 +140,7 @@
             <jsp:include page="account.jsp"/>
         </c:when>
         <c:when test="${param.page == 'notification'}">
-            <jsp:include page="notification.jsp"/>
+            <jsp:include page="../notification.jsp"/>
         </c:when>
 
         <c:otherwise>

@@ -118,7 +118,9 @@ public class ManageUsers extends HttpServlet {
         boolean active = "active".equals(req.getParameter("status"));
         Account account = new Account(accountID, username, password, avatarPath, role, active);
         if (accountService.editAccount(account)) {
-            req.getSession().setAttribute("success", "Cập nhật thông tin người dùng thành công!");
+            req.setAttribute("success", "Cập nhật thông tin người dùng thành công!");
+        } else {
+            req.setAttribute("error", "Cập nhật thất bại. Vui lòng thử lại!");
         }
 
         String[] accountDetailIDs = req.getParameterValues("accountDetailsID");

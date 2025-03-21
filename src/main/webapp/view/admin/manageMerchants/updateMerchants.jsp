@@ -7,6 +7,23 @@
     <title>Cập nhật cửa hàng</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <style>
+        /* Container cho ảnh có vị trí relative */
+        .img-container {
+            position: relative;
+            display: inline-block;
+        }
+        /* Icon pen được đặt ở góc trên bên phải của ảnh */
+        .img-container .edit-icon {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(199, 199, 210, 0.8);
+            border: 1px solid #dad9d9;
+            border-radius: 100%;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body class="bg-light">
 
@@ -22,47 +39,45 @@
                 <div class="mb-3">
                     <label class="form-label"><i class="fas fa-store-alt"></i> Tên cửa hàng</label>
                     <input type="text" class="form-control" value="${merchant.store_name}" name="store_name" required
-                           pattern=".*\S.*"
-                           title="Tên cửa hàng không được để trống" minlength="2">
+                           pattern=".*\S.*" title="Tên cửa hàng không được để trống" minlength="2">
                 </div>
 
                 <!-- Avatar -->
-                <label class="form-label"><i class="fas fa-user-circle"></i> Avatar</label>
                 <div class="mb-3 text-center">
-                    <div class="mb-2">
-                        <img id="avtPreview" src="${pageContext.request.contextPath}/images/avatars/${merchant.avt_path}" alt="avatar"
-                             class="img-fluid rounded-circle shadow" style="max-width: 130px; height: 130px">
+                    <label class="form-label"><i class="fas fa-user-circle"></i> Avatar</label>
+                    <!-- Container chứa ảnh avatar với icon pen -->
+                    <div class="img-container mb-2">
+                        <img id="avtPreview" src="${pageContext.request.contextPath}/images/avatars/${merchant.avt_path}"
+                             alt="avatar" class="img-fluid rounded-circle shadow" style="max-width: 130px; height: 130px;">
+                        <button type="button" class="btn btn-sm btn-light edit-icon" onclick="document.getElementById('avt_path').click()">
+                            <i class="bi bi-pen"></i>
+                        </button>
                     </div>
                     <input type="hidden" value="${merchant.avt_path}" name="current_avt_path">
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="avt_path" name="avt_path"
-                               style="max-width: 400px;">
-                        <label class="custom-file-label" for="avt_path">${merchant.avt_path}</label>
-                    </div>
+                    <!-- File input ẩn -->
+                    <input type="file" class="d-none" id="avt_path" name="avt_path">
                 </div>
 
                 <!-- Banner -->
-                <label class="form-label"><i class="fas fa-image"></i> Banner</label>
                 <div class="mb-3 text-center">
-                    <div class="mb-2">
-                        <!-- Thêm id="bannerPreview" để update ảnh -->
-                        <img id="bannerPreview" src="${pageContext.request.contextPath}/images/avatars/${merchant.banner_path}" alt="banner" class="img-fluid rounded shadow"
-                             style="max-width: 250px;">
+                    <label class="form-label"><i class="fas fa-image"></i> Banner</label>
+                    <!-- Container chứa ảnh banner với icon pen -->
+                    <div class="img-container mb-2">
+                        <img id="bannerPreview" src="${pageContext.request.contextPath}/images/avatars/${merchant.banner_path}"
+                             alt="banner" class="img-fluid rounded shadow" style="max-width: 250px;">
+                        <button type="button" class="btn btn-sm btn-light edit-icon" onclick="document.getElementById('banner_path').click()">
+                            <i class="bi bi-pen"></i>
+                        </button>
                     </div>
                     <input type="hidden" value="${merchant.banner_path}" name="current_banner_path">
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="banner_path" name="banner_path"
-                               style="max-width: 400px;">
-                        <label class="custom-file-label" for="banner_path">${merchant.banner_path}</label>
-                    </div>
+                    <!-- File input ẩn -->
+                    <input type="file" class="d-none" id="banner_path" name="banner_path">
                 </div>
-
 
                 <div class="mb-3">
                     <label class="form-label"><i class="fas fa-map-marker-alt"></i> Địa chỉ</label>
                     <input type="text" class="form-control" value="${merchant.store_address}" name="store_address"
-                           required pattern=".*\S.*"
-                           title="Địa chỉ không được để trống" minlength="2">
+                           required pattern=".*\S.*" title="Địa chỉ không được để trống" minlength="2">
                 </div>
 
                 <div class="mb-3">
@@ -104,14 +119,14 @@
         </div>
     </div>
 </div>
+
+<!-- Bootstrap Bundle JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         function updateFilePreview(input, previewId) {
-            const label = input.nextElementSibling;
             if (input.files.length > 0) {
                 const file = input.files[0];
-                label.textContent = file.name;
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     document.getElementById(previewId).src = e.target.result;
@@ -119,16 +134,13 @@
                 reader.readAsDataURL(file);
             }
         }
-
-        document.getElementById("banner_path").addEventListener("change", function () {
-            updateFilePreview(this, 'bannerPreview');
-        });
-
         document.getElementById("avt_path").addEventListener("change", function () {
             updateFilePreview(this, 'avtPreview');
         });
+        document.getElementById("banner_path").addEventListener("change", function () {
+            updateFilePreview(this, 'bannerPreview');
+        });
     });
 </script>
-
 </body>
 </html>

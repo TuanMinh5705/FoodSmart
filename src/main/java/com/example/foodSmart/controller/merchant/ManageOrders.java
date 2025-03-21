@@ -1,12 +1,14 @@
 package com.example.foodSmart.controller.merchant;
 
 import com.example.foodSmart.model.Account;
+import com.example.foodSmart.model.Notification;
 import com.example.foodSmart.model.admin.Merchant;
 import com.example.foodSmart.model.merchant.Food;
 import com.example.foodSmart.model.user.CartItem;
 import com.example.foodSmart.model.user.Order;
 import com.example.foodSmart.service.AccountService;
 import com.example.foodSmart.service.IAccountService;
+import com.example.foodSmart.service.NotificationDAO;
 import com.example.foodSmart.service.admin.IMerchantService;
 import com.example.foodSmart.service.admin.MerchantService;
 import com.example.foodSmart.service.merchant.FoodService;
@@ -29,7 +31,7 @@ public class ManageOrders extends HttpServlet {
     IAccountService accountService = new AccountService();
     IMerchantService merchantService = new MerchantService();
     IFoodService foodService = new FoodService();
-
+NotificationDAO notificationDAO = new NotificationDAO();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
@@ -97,8 +99,12 @@ public class ManageOrders extends HttpServlet {
         boolean success = false;
         switch (newStatus) {
             case "Đang giao":
+                success = orderService.updateStatus("shipping_date", newStatus,order.getPaymentStatus(), orderId);
+                notificationDAO.insertNotification(new Notification("Đơn hàng đang giao.", "orderAccepted", accountService.getAccount(order.getUserId())));
+                break;
             case "Đã hủy" :
                 success = orderService.updateStatus("shipping_date", newStatus,order.getPaymentStatus(), orderId);
+                notificationDAO.insertNotification(new Notification("Đơn hàng bị hủy.", "canceledOrder", accountService.getAccount(order.getUserId())));
                 break;
             case "Hoàn thành":
                 success = orderService.updateStatus("delivery_date", newStatus,true, orderId);
@@ -109,6 +115,7 @@ public class ManageOrders extends HttpServlet {
                 }
                 int shippingCost = 25000;
                 int discount = 10000;
+                notificationDAO.insertNotification(new Notification("Đơn hàng đã đến.", "orderDone", accountService.getAccount(order.getUserId())));
                 orderService.addInvoices(orderId,total + shippingCost - discount);
                 break;
         }

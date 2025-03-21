@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- Sidebar Tài khoản -->
 <!-- CSS cho Sidebar -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <style>
     .sidebar {
         padding: 30px 20px;
@@ -61,14 +62,10 @@
         </li>
         <li class="nav-item">
             <a href="/userInformation?action=showAddAddressForm" class="nav-link">
-                <i class="fas fa-map-marker-alt"></i> Thêm địa chỉ giao hàng
+                <i class="fas fa-plus-square"></i> Thêm địa chỉ giao hàng
             </a>
         </li>
-        <li class="nav-item">
-            <a href="/userInformation" class="nav-link">
-                <i class="fas fa-wallet"></i> Ví điện tử
-            </a>
-        </li>
+
         <li class="nav-item">
             <a href="/authenticate?action=logout" class="nav-link text-danger">
                 <i class="fas fa-sign-out-alt"></i> Đăng xuất

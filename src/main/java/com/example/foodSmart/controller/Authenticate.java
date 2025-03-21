@@ -87,7 +87,9 @@ public class Authenticate extends HttpServlet {
         String storeName = req.getParameter("store_name");
         String storeAddress = req.getParameter("store_address");
         String contactNumber = req.getParameter("contact_number");
-        int merchantId = Integer.parseInt(req.getParameter("merchant_id"));
+        HttpSession session = req.getSession();
+        Account account1 = (Account) session.getAttribute("loggedInAccount");
+        int merchantId = account1.getAccountID();
 
         Part fileBannerPart = req.getPart("banner_path");
         Part fileAvatarPart = req.getPart("avt_path");
@@ -108,7 +110,7 @@ public class Authenticate extends HttpServlet {
             fileBannerPart.write(uploadPath + File.separator + banner_path);
         }
 
-        Merchant merchant = new Merchant("test",merchantId,storeName,storeAddress,contactNumber,banner_path,avt_path,true);
+        Merchant merchant = new Merchant("test",merchantId,storeName,storeAddress,contactNumber,banner_path,avt_path,false);
         IMerchantService merchantService = new MerchantService();
         merchantService.addMerchant(merchant);
         req.getSession().setAttribute("success", "Đăng ký thành công . Chờ xác nhận!");
