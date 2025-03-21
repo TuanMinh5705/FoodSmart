@@ -15,11 +15,23 @@ import java.util.List;
 @WebServlet("/notifications")
 public class Notification extends HttpServlet {
     NotificationDAO notificationDAO = new NotificationDAO();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         Account account = (Account) session.getAttribute("loggedInAccount");
-        List<com.example.foodSmart.model.Notification> notifications =  notificationDAO.selectAllNotification(account.getAccountID());
-        System.out.println(notifications);
+
+        if (account != null) {
+            List<com.example.foodSmart.model.Notification> notifications = notificationDAO.selectAllNotification(account.getAccountID());
+            req.setAttribute("notifications", notifications);
+            if(account.getRole().equals("Merchant")) {
+                req.getRequestDispatcher("view/merchant/homeMerchant.jsp?page=notification").forward(req, resp);
+            }else {
+                req.getRequestDispatcher("view/user/homeUser.jsp?page=notification").forward(req, resp);
+            }
+        } else {
+            resp.sendRedirect("login.jsp");
+        }
     }
 }
+

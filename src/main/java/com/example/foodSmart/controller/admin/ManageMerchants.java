@@ -1,6 +1,9 @@
 package com.example.foodSmart.controller.admin;
 
+import com.example.foodSmart.model.Account;
 import com.example.foodSmart.model.admin.Merchant;
+import com.example.foodSmart.service.AccountService;
+import com.example.foodSmart.service.IAccountService;
 import com.example.foodSmart.service.admin.IMerchantService;
 import com.example.foodSmart.service.admin.MerchantService;
 
@@ -19,6 +22,7 @@ import java.util.List;
 @MultipartConfig
 public class ManageMerchants extends HttpServlet {
     IMerchantService merchantService = new MerchantService();
+    IAccountService accountService = new AccountService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -42,10 +46,27 @@ public class ManageMerchants extends HttpServlet {
             case "detail":
                 showMerchantDetails(req, resp);
                 break;
+            case "approveRegistration" :
+                List<Merchant> merchants = merchantService.getMerchantsByType(false);
+                req.setAttribute("merchants", merchants);
+                req.getRequestDispatcher("view/admin/homeAdmin.jsp?page=approveRegistration").forward(req, resp);
+                break;
+
             default:
                 listMerchant(req, resp);
                 break;
         }
+    }
+
+    private void approveRegistration(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int store_id = Integer.parseInt(req.getParameter("store_id"));
+        Merchant merchant = merchantService.getMerchantById(store_id);
+        merchant.setStore_type(true);
+        Account account = accountService.getAccount(merchant.getMerchant_id());
+        account.setRole("Merchant");
+        accountService.editAccount(account);
+        merchantService.updateMerchant(merchant);
+        req.getRequestDispatcher("view/admin/homeAdmin.jsp?page=approveRegistration").forward(req, resp);
     }
 
     private void showMerchantDetails(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -82,6 +103,12 @@ public class ManageMerchants extends HttpServlet {
             action = "";
         }
         switch (action) {
+            case "approve":
+                approveRegistration(req, resp);
+                break;
+            case "reject":
+                reject(req, resp);
+                break;
             case "addMerchant":
                 addMerchant(req, resp);
                 break;
@@ -92,6 +119,12 @@ public class ManageMerchants extends HttpServlet {
                 searchMerchant(req, resp);
                 break;
         }
+    }
+
+    private void reject(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int store_id = Integer.parseInt(req.getParameter("store_id"));
+        merchantService.deleteMerchant(store_id);
+        req.getRequestDispatcher("view/admin/homeAdmin.jsp?page=approveRegistration").forward(req, resp);
     }
 
     private void searchMerchant(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

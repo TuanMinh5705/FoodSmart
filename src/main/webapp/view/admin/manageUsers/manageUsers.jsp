@@ -57,13 +57,15 @@
         <script>
             Swal.fire({
                 position: 'top-end',
+                icon: 'success',
+                title: '${success}',
                 showConfirmButton: false,
                 timer: 2000,
                 width: '300px'
             });
         </script>
-        <% session.removeAttribute("success"); %>
     </c:if>
+
     <c:if test="${not empty error}">
         <script>
             Swal.fire({
@@ -75,9 +77,7 @@
                 width: '300px'
             });
         </script>
-        <% session.removeAttribute("error"); %>
     </c:if>
-
     <h2 class="text-center mb-4 font-weight-bold">Quản lý tài khoản</h2>
     <div class="row mb-3 align-items-center">
         <div class="col-md-6">
@@ -116,50 +116,58 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="account" items="${accountList}" varStatus="status">
-                <tr data-role="${account.role}">
-                    <td>${status.index + 1}</td>
-                    <td>
-                        <img src="${pageContext.request.contextPath}/images/avatars/${account.avtPath}"
-                             alt="Avatar"
-                             class="rounded-circle">
-                    </td>
-                    <td>
-                            ${account.username}
-                    </td>
-                    <td>
-                        <c:choose>
-                            <c:when test="${account.role eq 'Admin'}">Quản trị viên</c:when>
-                            <c:when test="${account.role eq 'Merchant'}">Chủ cửa hàng</c:when>
-                            <c:when test="${account.role eq 'User'}">Người dùng</c:when>
-                            <c:otherwise>Chưa xác định</c:otherwise>
-                        </c:choose>
-                    </td>
-                    <td>
-                        <c:choose>
-                            <c:when test="${account.active}">
-                                <i class="fas fa-check-circle" style="color: green;" title="Đang hoạt động"></i>
-                            </c:when>
-                            <c:otherwise>
-                                <i class="fas fa-times-circle" style="color: red;" title="Đã bị khóa"></i>
-                            </c:otherwise>
-                        </c:choose>
-                    </td>
-                    <td>
-                        <div class="action-buttons d-inline-flex">
-                            <a href="/manageUsers?action=editForm&accountID=${account.accountID}"
-                               class="btn btn-warning btn-sm" title="Chỉnh sửa">
-                                <i class="bi bi-pencil-square"></i>
-                            </a>
-                            <a href="/manageUsers?action=showInfoForm&accountID=${account.accountID}"
-                               class="btn btn-info btn-sm" title="Chi tiết">
-                                <i class="bi bi-info-circle"></i>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-            </c:forEach>
+            <c:choose>
+                <c:when test="${not empty accountList}">
+                    <c:forEach var="account" items="${accountList}" varStatus="status">
+                        <tr data-role="${account.role}">
+                            <td>${status.index + 1}</td>
+                            <td>
+                                <img src="${pageContext.request.contextPath}/images/avatars/${account.avtPath}"
+                                     alt="Avatar"
+                                     class="rounded-circle">
+                            </td>
+                            <td>${account.username}</td>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${account.role eq 'Admin'}">Quản trị viên</c:when>
+                                    <c:when test="${account.role eq 'Merchant'}">Chủ cửa hàng</c:when>
+                                    <c:when test="${account.role eq 'User'}">Người dùng</c:when>
+                                    <c:otherwise>Chưa xác định</c:otherwise>
+                                </c:choose>
+                            </td>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${account.active}">
+                                        <i class="fas fa-check-circle" style="color: green;" title="Đang hoạt động"></i>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <i class="fas fa-times-circle" style="color: red;" title="Đã bị khóa"></i>
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
+                            <td>
+                                <div class="action-buttons d-inline-flex">
+                                    <a href="/manageUsers?action=editForm&accountID=${account.accountID}"
+                                       class="btn btn-warning btn-sm" title="Chỉnh sửa">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                    <a href="/manageUsers?action=showInfoForm&accountID=${account.accountID}"
+                                       class="btn btn-info btn-sm" title="Chi tiết">
+                                        <i class="bi bi-info-circle"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </c:when>
+                <c:otherwise>
+                    <tr>
+                        <td colspan="6" class="text-center text-muted">Không có tài khoản nào</td>
+                    </tr>
+                </c:otherwise>
+            </c:choose>
             </tbody>
+
         </table>
     </div>
 </div>

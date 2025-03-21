@@ -115,9 +115,6 @@
         <li class="nav-item">
             <a class="nav-link" href="/manageComplaint"><i class="fas fa-exclamation-circle"></i> Xử lý khiếu nại</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/notifications">Thông báo</a>
-        </li>
     </ul>
 </div>
 

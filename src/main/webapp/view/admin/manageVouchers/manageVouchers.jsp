@@ -94,25 +94,35 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="voucher" items="${voucherList}" varStatus="status">
-                <tr>
-                    <td>${status.index + 1}</td>
-                    <td>${voucher.voucher_code}</td>
-                    <td>${voucher.discount_value}%</td>
-                    <td>${voucher.quantity}</td>
-                    <td>
-                        <div class="action-buttons d-inline-flex">
-                            <a href="/manageVouchers?action=editVoucherForm&voucherID=${voucher.voucher_id}" class="btn btn-warning btn-sm" title="Chỉnh sửa">
-                                <i class="bi bi-pencil-square"></i>
-                            </a>
-                            <a href="/manageVouchers?action=infoVoucherForm&voucherID=${voucher.voucher_id}" class="btn btn-info btn-sm" title="Chi tiết">
-                                <i class="bi bi-info-circle"></i>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-            </c:forEach>
+            <c:choose>
+                <c:when test="${not empty voucherList}">
+                    <c:forEach var="voucher" items="${voucherList}" varStatus="status">
+                        <tr>
+                            <td>${status.index + 1}</td>
+                            <td>${voucher.voucher_code}</td>
+                            <td>${voucher.discount_value}%</td>
+                            <td>${voucher.quantity}</td>
+                            <td>
+                                <div class="action-buttons d-inline-flex">
+                                    <a href="/manageVouchers?action=editVoucherForm&voucherID=${voucher.voucher_id}" class="btn btn-warning btn-sm" title="Chỉnh sửa">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                    <a href="/manageVouchers?action=infoVoucherForm&voucherID=${voucher.voucher_id}" class="btn btn-info btn-sm" title="Chi tiết">
+                                        <i class="bi bi-info-circle"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </c:when>
+                <c:otherwise>
+                    <tr>
+                        <td colspan="5" class="text-center text-muted">Không có mã giảm giá nào</td>
+                    </tr>
+                </c:otherwise>
+            </c:choose>
             </tbody>
+
         </table>
     </div>
 </div>

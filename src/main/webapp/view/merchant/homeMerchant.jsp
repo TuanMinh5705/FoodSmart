@@ -97,7 +97,11 @@
         <c:when test="${param.page == 'complaintDetail'}">
             <jsp:include page="manageComplaint/complaintDetail.jsp"/>
         </c:when>
+        <c:when test="${param.page == 'notification'}">
+            <jsp:include page="../notification.jsp"/>
+        </c:when>
         <c:otherwise>
+            <h1 style="text-align: center; margin-bottom: 50px">Chào mừng đến với trang quản lý của cửa hàng</h1>
             <jsp:include page="system/content.jsp"/>
         </c:otherwise>
     </c:choose>

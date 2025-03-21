@@ -36,13 +36,13 @@
                 <!-- Ngày bắt đầu -->
                 <div class="form-group">
                     <label for="start_date"><i class="fas fa-calendar-alt"></i> Ngày bắt đầu:</label>
-                    <input type="date" class="form-control" id="start_date" name="start_date" value="${voucher.start_date}" required>
+                    <input type="datetime-local" class="form-control" id="start_date" name="start_date" value="${voucher.start_date}" required>
                 </div>
 
                 <!-- Ngày kết thúc -->
                 <div class="form-group">
                     <label for="end_date"><i class="fas fa-calendar-check"></i> Ngày kết thúc:</label>
-                    <input type="date" class="form-control" id="end_date" name="end_date" value="${voucher.end_date}" required>
+                    <input type="datetime-local" class="form-control" id="end_date" name="end_date" value="${voucher.end_date}" required>
                 </div>
 
                 <!-- Thời gian bắt đầu -->

@@ -9,7 +9,7 @@ public class ConnectDB {
 //  private static final String USER = System.getenv("DB_USERNAME") ;
 //  private static final String PASSWORD = System.getenv("DB_PASSWORD");
       private static final String USER = "root";
-      private static final String PASSWORD = "Mot2ba4nam";
+      private static final String PASSWORD = "1209";
 
 
     public static Connection getConnection() {

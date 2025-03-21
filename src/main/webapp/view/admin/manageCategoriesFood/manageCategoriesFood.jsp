@@ -27,7 +27,6 @@
             cursor: pointer;
             color: #0d6efd;
         }
-        /* Class để cố định kích thước hình ảnh */
         .img-fixed {
             width: 80px;
             height: 80px;
@@ -69,28 +68,38 @@
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="category" items="${categoryFoodList}" varStatus="status">
-                    <tr>
-                        <td>${status.index + 1}</td>
-                        <td>
-                            <img src="${pageContext.request.contextPath}/images/product/${category.avt_path}"
-                                 alt="Ảnh danh mục" class="img-thumbnail object-fit-contain" width="80">
-                        </td>
-                        <td>${category.category_name}</td>
-                        <td>${category.description}</td>
-                        <td>
-                            <a href="/manageCategoryFood?action=editForm&categoryID=${category.category_id}"
-                               class="btn btn-warning btn-sm" title="Chỉnh sửa">
-                                <i class="bi bi-pencil-square"></i>
-                            </a>
-                            <a href="/manageCategoryFood?action=infoForm&categoryID=${category.category_id}"
-                               class="btn btn-info btn-sm" title="Chi tiết">
-                                <i class="bi bi-info-circle"></i>
-                            </a>
-                        </td>
-                    </tr>
-                </c:forEach>
+                <c:choose>
+                    <c:when test="${not empty categoryFoodList}">
+                        <c:forEach var="category" items="${categoryFoodList}" varStatus="status">
+                            <tr>
+                                <td>${status.index + 1}</td>
+                                <td>
+                                    <img src="${pageContext.request.contextPath}/images/product/${category.avt_path}"
+                                         alt="Ảnh danh mục" class="img-thumbnail img-fixed" width="80">
+                                </td>
+                                <td>${category.category_name}</td>
+                                <td>${category.description}</td>
+                                <td>
+                                    <a href="/manageCategoryFood?action=editForm&categoryID=${category.category_id}"
+                                       class="btn btn-warning btn-sm" title="Chỉnh sửa">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                    <a href="/manageCategoryFood?action=infoForm&categoryID=${category.category_id}"
+                                       class="btn btn-info btn-sm" title="Chi tiết">
+                                        <i class="bi bi-info-circle"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </c:when>
+                    <c:otherwise>
+                        <tr>
+                            <td colspan="5" class="text-center text-muted">Không có danh mục sản phẩm nào</td>
+                        </tr>
+                    </c:otherwise>
+                </c:choose>
                 </tbody>
+
             </table>
         </div>
     </div>

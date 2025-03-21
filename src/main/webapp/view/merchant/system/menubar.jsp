@@ -107,12 +107,7 @@
         <div class="collapse navbar-collapse" id="navbarMain">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link icon-btn" href="/chatMerchant">
-                        <i class="fas fa-comments"></i> Trò chuyện
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link icon-btn" href="#">
+                    <a class="nav-link icon-btn" href="/notifications">
                         <i class="fas fa-bell"></i> Thông báo
                     </a>
                 </li>

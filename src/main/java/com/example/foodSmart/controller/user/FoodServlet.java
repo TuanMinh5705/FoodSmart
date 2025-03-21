@@ -309,7 +309,7 @@ public class FoodServlet extends HttpServlet {
         session.setAttribute("cartCount", cart != null ? cart.size() : 0);
         req.getSession().setAttribute("success", "Đặt hàng thành công!");
         Account account1 = accountService.getAccount(merchantService.getMerchantById(order.getStoreId()).getMerchant_id());
-        notificationDAO.insertNotification(new Notification("Đặt hàng thành công", "order", account1));
+        notificationDAO.insertNotification(new Notification("Đơn hàng mới", "order", account1));
         resp.sendRedirect("/homeUser");
     }
 

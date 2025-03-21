@@ -29,11 +29,11 @@
                 <form action="/userInformation?action=addAddress" method="post">
                     <div class="mb-3">
                         <label class="form-label">Địa chỉ:</label>
-                        <input type="text" name="address" class="form-control" required>
+                        <input type="text" name="address" placeholder="Nhập địa chỉ " class="form-control" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Số điện thoại:</label>
-                        <input type="number" name="phonenumber" class="form-control" required>
+                        <input type="number" name="phonenumber" placeholder="Nhập số điện thoại " class="form-control" required>
                     </div>
                     <button type="submit" class="btn btn-primary w-100">Thêm Địa Chỉ</button>
                 </form>

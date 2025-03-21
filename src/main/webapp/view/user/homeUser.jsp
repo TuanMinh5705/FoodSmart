@@ -100,6 +100,9 @@
         <c:when test="${param.page == 'showComplaint'}">
             <jsp:include page="complaint.jsp"/>
         </c:when>
+        <c:when test="${param.page == 'notification'}">
+            <jsp:include page="../notification.jsp"/>
+        </c:when>
 
 
 

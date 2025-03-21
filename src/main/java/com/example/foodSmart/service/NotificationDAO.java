@@ -47,7 +47,7 @@ public class NotificationDAO implements INotificationDAO {
             preparedStatement.setString(1, notification.getMessage());
             preparedStatement.setString(2, notification.getType());
             preparedStatement.setBoolean(3, notification.isStatus());
-            preparedStatement.setTimestamp(4, notification.getCreateAt());
+            preparedStatement.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
             preparedStatement.setInt(5, notification.getAccount().getAccountID());
 
             int row = preparedStatement.executeUpdate();

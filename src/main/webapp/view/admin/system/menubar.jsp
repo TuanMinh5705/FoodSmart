@@ -128,11 +128,6 @@
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
                 <a class="nav-link icon-btn" href="#">
-                    <i class="fas fa-comments"></i> Trò chuyện
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link icon-btn" href="#">
                     <i class="fas fa-bell"></i> Thông báo
                 </a>
             </li>

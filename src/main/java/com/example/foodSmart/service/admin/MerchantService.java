@@ -14,7 +14,7 @@ public class MerchantService implements IMerchantService {
     private static final String LIST_MERCHANTS_QUERY = "select * from stores order by store_id  desc ";
     private static final String MERCHANTS_STORE_ID_QUERY = "select * from stores where store_id = ?";
     private static final String MERCHANTS_MERCHANT_ID_QUERY = "select * from stores where merchant_id = ?";
-    private static final String ADD_MERCHANTS_QUERY = "INSERT INTO stores(store_name,store_address,contact_number,banner_path,avt_path,store_type) VALUES (?,?,?,?,?,?)";
+    private static final String ADD_MERCHANTS_QUERY = "INSERT INTO stores(store_name,store_address,contact_number,banner_path,avt_path,store_type,merchant_id) VALUES (?,?,?,?,?,?,?)";
     private static final String UPDATE_MERCHANTS_QUERY = "UPDATE stores SET store_name = ?,store_address = ?,contact_number = ?,banner_path = ?,avt_path = ?,store_type = ? WHERE store_id = ?";
     private static final String SEARCH_MERCHANTS_QUERY = "SELECT * FROM stores WHERE store_name LIKE ?";
     private static final String Filter_MERCHANTS_QUERY = "SELECT * FROM stores WHERE store_type = ?";
@@ -91,6 +91,21 @@ public class MerchantService implements IMerchantService {
             throw new RuntimeException(e);
         }
     }
+
+    private static final String DELETE_MERCHANT_QUERY = "DELETE FROM stores WHERE store_id = ?";
+
+    @Override
+    public void deleteMerchant(int store_id) {
+        try (Connection conn = ConnectDB.getConnection();
+             PreparedStatement pstm = conn.prepareStatement(DELETE_MERCHANT_QUERY)) {
+            pstm.setInt(1, store_id);
+            pstm.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     @Override
     public boolean updateMerchant(Merchant merchant) {
         try (Connection conn = ConnectDB.getConnection();
@@ -120,6 +135,7 @@ public class MerchantService implements IMerchantService {
             pstm.setString(4, merchant.getBanner_path());
             pstm.setString(5, merchant.getAvt_path());
             pstm.setBoolean(6, merchant.isStore_type());
+            pstm.setInt(7,merchant.getMerchant_id());
             pstm.execute();
             return true;
         } catch (SQLException e) {

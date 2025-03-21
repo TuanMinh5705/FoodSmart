@@ -12,5 +12,5 @@ public interface IMerchantService {
     List<Merchant> searchMerchant(String keyword);
     List<Merchant> getMerchantsByType(boolean storeType);
     Merchant getMerchantByMerchantId(int merchant_id);
-
+    void deleteMerchant(int store_id);
 }

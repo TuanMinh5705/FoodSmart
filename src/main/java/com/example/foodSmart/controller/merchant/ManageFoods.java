@@ -221,7 +221,6 @@ public class ManageFoods extends HttpServlet {
         req.setAttribute("foodList", foodList);
         req.getRequestDispatcher("view/merchant/homeMerchant.jsp?page=manageFoods").forward(req, resp);
     }
-
     private void listFoodAndCategory(HttpServletRequest req, HttpServletResponse resp,int store_id) {
    try{
        List<Food> foodList = foodService.listFoodStore(store_id);

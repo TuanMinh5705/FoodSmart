@@ -150,7 +150,7 @@ public class OrderServlet extends HttpServlet {
 
         if (success) {
             req.getSession().setAttribute("success", "Khiếu nại thành công!");
-            notificationDAO.insertNotification(new Notification("Khiếu nại", "complaint", account1));
+            notificationDAO.insertNotification(new Notification("Khiếu nại mới", "complaint", account1));
         } else {
             req.getSession().setAttribute("error", "Khiếu nại thất bại. Vui lòng thử lại!");
         }
